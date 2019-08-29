@@ -439,7 +439,7 @@
 						            </div>
 						            
 						            <div class="modal-body">
-						            	<iframe src="car_consumable1.do?distance=${cmdto.distance}&khaki_num=${cmdto.khaki_num}" width="770" height="750"></iframe>
+						            	<iframe src="car_consumable1.do?distance=${cmdto.distance}&carnum1=${cmdto.carnum}" width="770" height="750"></iframe>
 						            </div>
 						            
 						            <div class="modal-footer">

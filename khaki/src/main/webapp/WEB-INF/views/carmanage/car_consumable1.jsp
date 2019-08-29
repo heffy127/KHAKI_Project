@@ -29,7 +29,7 @@
 				// 나눗셈 몫 = 교체해야할 시기
 				// 각 소모품 별 교체횟수, 교체 시기 DB작성(교체횟수와 비교하여 교체횟수와 현재 교체되었어야할 횟수가 동일하면 %표기, 그 외에는 교체요망 표기)
 				var change_num = Math.floor(distance / arr[i]);
-				alert(change_num);
+				//alert(change_num); 	test
 				
 				
 				// % 표기를 위한 계산식(총 운행 / 기준)
