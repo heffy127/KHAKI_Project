@@ -25,15 +25,17 @@ public class CarManageController {
 	CarConsumableDAO ccdao;
 	
 	@RequestMapping("car_consumable1.do")
-	public String car_consumable(String distance, int carnum1, Model model){
+	public String car_consumable(String distance, Model model){
 		// distance와 carnum(차량번호)을 넘겨 받음
 		model.addAttribute("distance",distance);
 		
-		ccdao.select(carnum1);
 		// comsumable select 필요
 		// consumable DB에서 넘겨받아옴(소모품 교체 횟수와 등록일시를)
-
 		// model로 보낼 것은 select해온 값들
+		/*System.out.println(carnum1);
+		System.out.println("test1");
+		System.out.println(ccdao.select(carnum1));
+		model.addAttribute("ccdto", ccdao.select(carnum1));*/
 		
 		
 		return "carmanage/car_consumable1";

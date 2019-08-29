@@ -27,7 +27,7 @@ public class CarConsumableDTO {
 	private String etc_tire_time;
 	
 	/*
-khaki_num, belt_timing_num, belt_timing_time, belt_operation_num, belt_operation_time, 
+carnum1, belt_timing_num, belt_timing_time, belt_operation_num, belt_operation_time, 
 oil_engine_num, oil_engine_time, oil_transmission_num, oil_transmission_time,
 oil_break_num, oil_break_time, filter_aircon_num, filter_aircon_time,
 filter_fuel_num, filter_fuel_time, filter_aircleaner_num, filter_aircleaner_time,
