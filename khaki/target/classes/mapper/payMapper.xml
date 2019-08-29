@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pDAO">
+
+   <select id="selectCar" parameterType="String" resultMap="str">
+      SELECT
+      COUNT(*) as cnt FROM
+      reservation where buy_carModel=#{buy_carModel}
+   </select>
+   <!-- 입력된 차종에 해당하는 예약건들 개수를 가져옴 -->
+
+   <select id="selectEndTime" parameterType="pDTO" resultMap="str">
+      SELECT COUNT(*) as cnt FROM
+      reservation WHERE
+      buy_carModel=#{buy_carModel} AND #{buy_endTime}>buy_startTime
+   </select>
+
+   <select id="selectStartTime" parameterType="pDTO"
+      resultMap="str">
+      SELECT COUNT(*) as cnt FROM
+      reservation WHERE
+      buy_carModel=#{buy_carModel} AND buy_endTime>#{buy_startTime}
+   </select>
+
+   <resultMap type="String" id="str">
+      <result property="cnt" column="cnt" />
+   </resultMap>
+
+   <insert id="insert" parameterType="pDTO">
+      INSERT INTO RESERVATION
+      VALUES(pay_seq.nextval,#{buy_id},#{buy_carIns},#{buy_startTime},
+      #{buy_endTime},#{buy_real_endTime},#{buy_driveDistance},#{buy_startLocation},#{buy_returnLocation},#{buy_real_returnLocation},#{buy_carNum},
+      #{buy_carModel},#{buy_expectedPoint},#{buy_amount},#{buy_addAmount},#{buy_totalAmount},#{buy_accident},#{buy_impUid})   <!-- 
+         oracle DB의 순서와 일치 시켜주어야한다! -->
+   </insert>
+
+   <resultMap type="pDTO" id="rsMap">
+      <result property="buy_num" column="buy_num" />
+      <result property="buy_id" column="buy_id" />
+      <result property="buy_carIns" column="buy_carIns" />
+      <result property="buy_startTime" column="buy_startTime" />
+      <result property="buy_endTime" column="buy_endTime" />
+      <result property="buy_real_endTime" column="buy_real_endTime" />
+      <result property="buy_driveDistance" column="buy_driveDistance" />
+      <result property="buy_startLocation" column="buy_startLocation" />
+      <result property="buy_returnLocation" column="buy_returnLocation" />
+      <result property="buy_real_returnLocation" column="buy_real_returnLocation" />
+      <result property="buy_carNum" column="buy_carNum" />
+      <result property="buy_carModel" column="buy_carModel" />
+      <result property="buy_expectedPoint" column="buy_expectedPoint" />
+      <result property="buy_amount" column="buy_amount" />
+      <result property="buy_addAmount" column="buy_addAmount" />
+      <result property="buy_totalAmount" column="buy_accident" />
+      <result property="buy_impUid" column="buy_impUid" />
+   </resultMap>
+
+   <select id="selectAll" resultMap="rsMap">
+      SELECT * FROM RESERVATION ORDER
+      BY buy_num DESC
+   </select>
+
+</mapper>

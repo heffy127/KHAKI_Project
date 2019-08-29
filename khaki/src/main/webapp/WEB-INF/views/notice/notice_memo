@@ -1,0 +1,119 @@
+넣을 기능들
+    	공지
+	    	- 조회수, 추천, 공지기능(공지로 표시하면 맨 윗단에 표시 되도록 설정)
+    		- 이미지 추가하면 표시 되도록
+    		- 답글 기능(다음 카페 참조하여 답글을 달면 내용에서 조금 밀려서 표시 되도록, 즉 구분되도록!)
+    		- 댓글 기능
+    		- 포토업로더, editor 기능 구현
+    		
+    		
+
+	8/4
+	
+	DB작업    		
+	schema 작업
+	
+	게시글 번호 : notice_num(primary key)		- auto increment기능 oracle에 없음.. 자바코드에서 1씩 더하거나 oracle sequence기능 이용
+	제목 : title(not null)					- 
+	글쓴이 : writer(not null)					- 가져온 아이디값 가져와서(단 관리자 일 때만 글 작성 가능토록 / 준영이랑 얘기해봐서 관리자 분리 시킬 방법 모색)
+	내용 : content(not null)					- 
+	이미지 : image								- 포토 업로더 기능 구현시 활용(필요시 더 늘려서)
+	조회수 : hit								- 게시글 클릭시 마다 +1하는 식으로 구현
+	타입 : notice_type						- 공지(P), 일반(G)
+	작성일시 : write_date						- DAO에서 insert시 date && simpledateformat 활용
+	
+	시퀀스 작성 문
+create sequence notice_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
+	
+	
+	
+	DB 테이블 생성
+create table notice_board(
+notice_num number primary key,
+title varchar2(50) not null,
+writer varchar2(50) not null,
+content varchar2(400) not null,
+image varchar2(50),
+hit number,
+notice_type varchar2(5),
+write_date varchar2(30)
+);
+	
+	8/6
+	
+	- 스마트에디터 2.xx버전 적용 시작
+	- 불러오는 것까지만 해놓음(noticeInsert.jsp)
+
+	8/12
+	- 스마트 에디터를 사용할 때는 등록, 수정할 때 사용
+	- 스마트 에디터는 2.8.2.3버전 이후에는 포토업로더 기능 없으니 참조!
+	- 조회 시에는 태그가 들어간 내용을 <div></div>태그 안에 넣으면 그대로 적용됨
+	- 포토 업로더 기능 적용
+	
+	8/13
+	- 해결해야 할 문제
+		게시판 지워져도 photoUpload내의 이미지 파일 삭제 안되는 것(파일 입출력으로 지우는 방법 모색)
+	- 포토 업로더 기능 가완료(글등록시 이미지 업로드하면 엑박뜨는문제)
+	- 공지사항 수정 기능 추가(완료)
+	- 조회수 작업(완료), 페이징
+	
+	8/14
+	- 해결해야 할 문제
+		게시판 지워져도 photoUpload내의 이미지 파일 삭제 안되는 것(파일 입출력으로 지우는 방법 모색)
+	- 포토 업로더 기능 가완료(글등록시 이미지 업로드하면 엑박뜨는문제) (완료)
+	- 게시판 페이징
+	
+	8/16
+	- 해결해야 할 문제
+		게시판 지워져도 photoUpload내의 이미지 파일 삭제 안되는 것(파일 입출력으로 지우는 방법 모색)
+	- 게시판 페이징(언제까지 질질끌래...?)
+	- 차량관리, 카키존 관리, 실시간 CCTV 적용 방법 생각
+	
+	게시판 페이징 처리
+	총게시물수  : 36
+	페이지당 게시물 수 : 10
+	페이지 : 1, 2, 3, 4 -> 총 게시물 수  / 10해서 반올림 해야함
+
+	notice.jsp에서 curPage, listCnt정보를 넘겨오면서 갱신하는 방식
+	
+	curPage 변화 : 1(초기값) --> 사용자가 누른(요청한) 페이지 --> 
+	NoticeController에서 변화 --> notice.jsp로 페이지 정보 갱신하여 넘어옴
+	
+	listCnt는 DB에서 모든 게시물 수를 읽어 옴
+	
+
+	jsp페이지에서 현재 페이지 정보를 con에 넘기면 con에서는 메소드 형식으로 처리해서 다시 jsp페이지(view단)으로 전송
+	
+	실시간CCTV 오픈 API	http://www.its.go.kr/
+	
+	8/19(월)
+	- 공지사항 댓글
+	- 그림 및 답글
+	
+	8/21(수)
+	- 공지사항 댓글
+	- 전체적인 구조
+	- new태그, 이미지올리면 그거 관련해서 글내용에 나오게끔
+	
+	8/22(목)
+	- notice listup을 jstl로 바꾸기
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

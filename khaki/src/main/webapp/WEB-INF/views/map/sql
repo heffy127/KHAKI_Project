@@ -1,0 +1,42 @@
+CREATE TABLE car_board(
+car_Name varchar(20) NOT NULL,
+car_Num varchar(20) primary key,
+driven NUMBER NOT NULL,
+fuel_type varchar(10) NOT NULL,
+fuel_gage number NOT NULL,
+loc_Pre varchar(50) NOT NULL,
+zone_num number not null,
+fee_hour NUMBER NOT NULL,
+fee_km number NOT NULL
+);
+
+// 샘플
+INSERT INTO car_board VALUES('KONA','30가1111',1200,
+'gasoline',70,'37.61361473,126.93490864','37.61361473,126.93490864',
+11000,170)
+
+INSERT INTO car_board VALUES('I30','30나2222',9000,
+'gasoline',90,'37.61361473,126.93490864','37.61361473,126.93490864',
+10000,170)
+
+create table reservation (
+   buy_num number(20),
+   buy_id varchar2(20),
+   buy_carIns varchar2(20),
+   buy_startTime varchar2(20),
+   buy_endTime varchar2(20),
+   buy_driveDistance varchar2(20),
+   buy_startLocation varchar2(100),
+   buy_returnLocation varchar2(100),
+   buy_carNum varchar2(20),
+   buy_carModel varchar2(20),
+   buy_amount varchar2(20),
+   buy_addAmount varchar2(20),
+   buy_totalAmount varchar2(20),
+   buy_accident varchar2(20),
+   buy_impUid varchar2(50)
+)
+
+INSERT INTO RESERVATION VALUES(tmp_seq.NEXTVAL,'mos4657','스페셜','1908241600','1908242100',
+'150','서울시 은평구 불광2동 445-17','서울시 은평구 불광2동 445-17','30호1111',
+'kona','20000','20000','40000',NULL,NULL)

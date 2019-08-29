@@ -1,0 +1,165 @@
+시퀀스
+create sequence tmp_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
+create sequence pay_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
+
+create sequence khakinum_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
+create sequence notice_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
+@ 박준영
+
+create table member(
+id varchar2(20) primary key not null,
+pw clob not null,
+name varchar2(50) not null,
+email_id varchar2(50),
+email_site varchar2(50),
+phone1 varchar2(30),
+phone2 varchar2(30),
+phone3 varchar2(30),
+postcode varchar2(10),
+address1 varchar2(50),
+address2 varchar2(50),
+address3 varchar2(50),
+point number default 0,
+smsPush char(1),
+emailPush char(1)
+);
+
+drop table social;
+
+create table social(
+id varchar2(50),
+social_id varchar2(50),
+social_type varchar2(50),
+constraint FK_id foreign key(id) references member(id) on delete cascade);
+
+@ 민병호
+
+만들어진 시퀀스 조회
+select * from user_sequences;
+시퀀스 삭제
+drop sequence 시퀀스명;
+
+	차량 DB
+create table carManage(
+khaki_num number,
+carnum varchar2(10) primary key,
+distance number,
+fuel varchar2(30),
+brand varchar2(30),
+car_size varchar2(30),
+carname varchar2(30),
+reg_date varchar2(30),
+img varchar2(50) 
+);
+
+	차량소모품 DB
+create table consumable(
+carnum1 varchar2(10),
+belt_timing_num number,
+belt_timing_time varchar2(30),
+belt_operation_num number,
+belt_operation_time varchar2(30),
+oil_engine_num number,
+oil_engine_time varchar2(30),
+oil_transmission_num number,
+oil_transmission_time varchar2(30),
+oil_break_num number,
+oil_break_time varchar2(30),
+filter_aircon_num number,
+filter_aircon_time varchar2(30),
+filter_fuel_num number,
+filter_fuel_time varchar2(30),
+filter_aircleaner_num number,
+filter_aircleaner_time varchar2(30),
+etc_coolant_num number,
+etc_coolant_time varchar2(30),
+etc_battery_num number,
+etc_battery_time varchar2(30),
+etc_tire_num number,
+etc_tire_time varchar2(30),
+constraint FK_num foreign key(carnum1) references carManage(carnum) on delete cascade
+);
+
+
+	DB 테이블 생성
+create table notice_board(
+notice_num number primary key,
+title varchar2(50) not null,
+writer varchar2(50) not null,
+content varchar2(400) not null,
+image varchar2(50),
+hit number,
+notice_type varchar2(5),
+write_date varchar2(30)
+);
+
+
+@ 정기현
+
+create table handler (
+   carNum varchar(20), -- 차 번호
+   vehicleType varchar(20), -- 차량 종류
+   startLocation varchar(100), -- 출발지점
+   returnLocation varchar(100), -- 도착지점
+   handler varchar(20), -- 핸들러(운송자)
+   point number(20), -- 적립 될 포인트
+   customerUsageTime varchar(20) -- 고객 이용시간(운송 완료 해야 하는 시간)
+)
+
+create table reservation (
+   buy_num number(20),
+   buy_id varchar2(20),
+   buy_carIns varchar2(20),
+   buy_startTime varchar2(20),
+   buy_endTime varchar2(20),
+   buy_real_endTime varchar2(20),
+   buy_driveDistance varchar2(20),
+   buy_startLocation varchar2(100),
+   buy_returnLocation varchar2(100),
+   buy_real_returnLocation varchar2(100),
+   buy_carNum varchar2(20),
+   buy_carModel varchar2(20),
+   buy_expectedPoint varchar2(20),
+   buy_amount varchar2(20),
+   buy_addAmount varchar2(20),
+   buy_totalAmount varchar2(20),
+   buy_accident varchar2(20),
+   buy_impUid varchar2(50)
+)
+
+
+
+@ 정경일
+
+CREATE TABLE car_board(
+car_name varchar(20) NOT NULL,
+car_num varchar(20) primary key,
+driven NUMBER NOT NULL,
+fuel_type varchar(10) NOT NULL,
+fuel_gage number NOT NULL,
+loc_pre varchar(50) NOT NULL,
+zone_num NUMBER,
+fee_hour NUMBER NOT NULL,
+fee_km number NOT NULL,
+car_image varchar(100)
+);
+
+// 샘플
+INSERT INTO car_board VALUES('SPARK','30하1512',1200,
+'gasoline',90,'37.61361473,126.93490864',1,
+11000,170, 'resources/assets/img/brand/kona.png')
+
+INSERT INTO car_board VALUES('PALISADE','30하1515',1200,
+'gasoline',90,'37.61361473,126.93490864',3,
+11000,170, 'resources/assets/img/brand/kona.png')
+
+INSERT INTO car_board VALUES('I30','30하1222',9000,
+'gasoline',90,'37.61361473,126.93490864',5,
+10000,170,'resources/assets/img/brand/kona.png')
+
+
+INSERT INTO RESERVATION VALUES(tmp_seq.NEXTVAL,'mos4657','스페셜','1908241600','1908242100',
+'150','서울시 은평구 불광2동 445-17','서울시 은평구 불광2동 445-17','30호1111',
+'kona','20000','20000','40000',NULL,NULL)
+
+정다솔

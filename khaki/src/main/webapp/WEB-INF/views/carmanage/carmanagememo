@@ -1,0 +1,119 @@
+차량관리(관리자 탭)
+
+첫화면
+	총 관리 차량		운행차량	노후차량	중고차량(판매 가능)
+	
+	버튼(modal - 소모품 주기)
+	
+	- 총 운행거리에 따라서 소모성주기의 부품을 교체해야한다고 나오게끔?
+	벨트류
+	타이밍벨트 : 80000~1000000km
+	구동벨트 : 10000~30000km
+
+	오일류
+	엔진오일 : 5000~10000km
+	변속기오일 : 30000km
+	브레이크 오일 : 40000km
+	
+	필터류
+	에어컨필터 : 15000km
+	연료 필터 : 30000km
+	에어클리너 : 20000km
+	
+	기타
+	냉각수 : 1~2년
+	배터리 : 30000~60000km
+	타이어 : 30000km
+	
+	
+	※ 위의 점검사항을 바형태로 만들어서 보이게 만들면 좋을듯(component에 있는 것을 활용하여)
+	- 
+	
+	관리자가 봐야할 것은 무엇????
+	- 관리자 ERP 페이지 만들기
+	
+	
+	차량 DB
+create table carManage(
+khaki_num number,
+carnum varchar2(10) primary key,
+distance number,
+fuel varchar2(30),
+brand varchar2(30),
+car_size varchar2(30),
+carname varchar2(30),
+reg_date varchar2(30),
+img varchar2(50) 
+);
+
+	차량소모품 DB
+create table consumable(
+carnum varchar2(10),
+belt_timing_num number,
+belt_timing_time varchar2(30),
+belt_operation_num number,
+belt_operation_time varchar2(30),
+oil_engine_num number,
+oil_engine_time varchar2(30),
+oil_transmission_num number,
+oil_transmission_time varchar2(30),
+oil_break_num number,
+oil_break_time varchar2(30),
+filter_aircon_num number,
+filter_aircon_time varchar2(30),
+filter_fuel_num number,
+filter_fuel_time varchar2(30),
+filter_aircleaner_num number,
+filter_aircleaner_time varchar2(30),
+etc_coolant_num number,
+etc_coolant_time varchar2(30),
+etc_battery_num number,
+etc_battery_time varchar2(30),
+etc_tire_num number,
+etc_tire_time varchar2(30),
+constraint FK_num foreign key(carnum) references carManage(carnum) on delete cascade
+);
+	
+	시퀀스
+create sequence khakinum_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
+	
+	※ 경일이꺼랑 합쳐서 사용할지 여부 얘기 해보고
+	
+	number 		khaki_num			: 카키차량 고유 번호 부여, PK	/	oracle 시퀀스 대입 등록할 때마다 1씩 증가
+	varchar2	carnum				: 차량 번호					/	차량번호 규칙에 맞춰서  ex) 서울 33 머 6666 / 66무 3333 / 11너 7777 | 차량/용도/차량등록번호
+	number	 	distance			: 총 운행 km				/	경일이 것 
+	varchar2 	fuel				: 가솔린, 디젤, 하이브리드		/	드롭다운
+	varchar2	brand				: 현대, 기아, 삼성 등			/	드롭다운
+	varchar2	car_size			: 중형, 준중형, 소형, 경차	/	드롭다운
+	varchar2	carname				: 아반떼, 소나타 등			/	드롭다운
+	varchar2	reg_date			: 등록일시					/	자동 날짜입력으로 khaki에 차량 등록한 때를 기준으로 입력
+	varchar2	img					: 차량 이미지				/	차량 이미지 삽입하는 란을 만들어서 거기에 들어온 이미지를 저장하도록 설정
+	
+	8/21(수)
+	- 차량 insert 완료(DB작업 시 문제 없을 듯) 완료
+	- list up 페이지(carmanage) 완료
+	- 페이지네이션 붙이기(인덱스 맞춰야함) 완료
+	
+	8/22(목)
+	- 이미지 넣기( 방식을 정해서 : 1 - 사용자가 업로드하는 방식 / 2 - 차량 이미지를 다 때려넣고 고르는 방식(낙찰) )
+	- DAO, Mapper 완성(update, delete, select)
+	- carmanageInsert dropdown 완성
+	- 브랜드 -> 사이즈 -> 모델명 순으로 선택하면 그에 적합한 것들이 나오도록 구현
+	- sk엔카, 쏘카 차량 선택 기준에 맞춰서 자동차 구분 기준 선정 or 차량종류가 세분화 되어있는 문서 등을 구글링해보기
+	
+	8/25(일)
+	- carmanageInsert dropdown 완성
+	- carmanageSelect 소모품 현황 -> modal로 작성
+	- 소모품 현황 modal로 띄우고 각 소모품들 정비 필요한 것들은 빨간색 바가 표시되는 식으로 표시(component progress부분 활용)
+	
+	8/28(수)
+	- 차량 등록시 소모품은 다 교체된 것으로 생각하고 수치를 차량 등록시 들어가도록
+	- 그 이후에 소모품 교체시기가 왔을 때 교체 횟수를 비교해서 원래 교체 횟수보다 작으면 교체해야하는 버튼이 올라오는 식으로 구현
+	- 
+	
+	
+	
+	
+	
+	
+	

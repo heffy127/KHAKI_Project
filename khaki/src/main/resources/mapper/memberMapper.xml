@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberDAO">
+
+	<resultMap type="memberDTO" id="rsMap">
+		<result property="id" column="id" />
+		<result property="pw" column="pw" />
+		<result property="name" column="name" />
+		<result property="email_id" column="email_id" />
+		<result property="email_site" column="email_site" />
+		<result property="emailPush" column="emailPush" />
+		<result property="emailPush" column="emailPush" />
+	</resultMap>
+
+	<select id="selectId" parameterType="String" resultMap="rsMap">
+		SELECT *
+		FROM member
+		WHERE id = #{id}
+	</select>
+
+	<select id="selectEmail" parameterType="memberDTO" resultMap="rsMap">
+		SELECT *
+		FROM member
+		WHERE email_id = #{email_id} and email_site = #{email_site}
+	</select>
+	
+	<select id="emailNameCheck" parameterType="memberDTO" resultType="String">
+		SELECT email_id
+		FROM member
+		WHERE email_id = #{email_id} and email_site = #{email_site} and name = #{name}
+	</select>
+	
+	<select id="emailIdNameCheck" parameterType="memberDTO" resultType="String">
+		SELECT email_id
+		FROM member
+		WHERE email_id = #{email_id} and email_site = #{email_site} and name = #{name} and id = #{id}
+	</select>
+	
+	<select id="selectPhone" parameterType="memberDTO" resultMap="rsMap">
+		SELECT *
+		FROM member
+		WHERE phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3}
+	</select>
+	
+	<select id="phoneNameCheck" parameterType="memberDTO" resultType="String">
+		SELECT phone3
+		FROM member
+		WHERE phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3} and name = #{name}
+	</select>
+	
+	<select id="phoneIdNameCheck" parameterType="memberDTO" resultType="String">
+		SELECT phone3
+		FROM member
+		WHERE phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3} and name = #{name} and id = #{id}
+	</select>
+
+	<select id="selectAll" resultMap="rsMap">
+		SELECT * FROM member
+	</select>
+
+	<!-- 소셜 유무 확인 -->
+	<select id="snsJoinCheck" parameterType="memberDTO" resultType="String">
+		SELECT id 
+		FROM social
+		WHERE social_id = #{social_id} and social_type = #{social_type}
+	</select>
+
+	<!-- 회원가입 정보 주입 -->
+	<insert id="insert" parameterType="memberDTO">
+		INSERT INTO member (id, pw, name, email_id, email_site, phone1, phone2, phone3, postcode, address1, address2, address3, smsPush, emailPush, useCount, handler)
+		VALUES(#{id}, #{pw}, #{name},#{email_id}, #{email_site},#{phone1}, #{phone2}, #{phone3},#{postcode}, #{address1}, #{address2}, #{address3},#{smsPush}, #{emailPush}, #{useCount},#{handler})
+	</insert>
+	
+	<insert id="insertSocial" parameterType="socialDTO">
+		INSERT INTO social 
+		VALUES(#{id}, #{social_id}, #{social_type})
+	</insert>
+
+	<update id="updatePoint" parameterType="insertPointDTO">
+		UPDATE member SET point = point + #{point}
+		WHERE id=#{id}
+	</update>
+	
+	<update id="updatePw" parameterType="memberDTO">
+		UPDATE member SET pw = #{pw}
+		WHERE id=#{id}
+	</update>
+
+<!-- 
+	<delete id="deleteSomething" parameterType="int">
+		DELETE FROM tablename1 WHERE
+		columnname1 = #{param1}
+	</delete>
+ -->
+ </mapper>

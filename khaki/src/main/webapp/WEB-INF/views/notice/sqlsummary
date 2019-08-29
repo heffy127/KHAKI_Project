@@ -1,0 +1,15 @@
+select * from NOTICE_BOARD;
+
+create sequence tmp_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
+
+create table carManage(
+khaki_num number primary key,
+carnum varchar2(10),
+distance number,
+fuel varchar2(30),
+brand varchar2(30),
+car_size varchar2(30),
+carname varchar2(30),
+reg_date varchar2(30),
+img varchar2(50) 
+);

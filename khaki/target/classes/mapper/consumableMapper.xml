@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ccDAO">
+
+	<select id="select" parameterType="ccDTO" resultMap="rsMap">
+		SELECT
+		*
+		FROM consumable
+		WHERE carnum1 = #{carnum1}
+	</select>
+
+	<resultMap type="ccDTO" id="rsMap">
+		<result property="carnum1" column="carnum1" />
+		<result property="belt_timing_num" column="belt_timing_num" />
+		<result property="belt_timing_time" column="belt_timing_time" />
+		<result property="belt_operation_num" column="belt_operation_num" />
+		<result property="belt_operation_time" column="belt_operation_time" />
+		<result property="oil_engine_num" column="oil_engine_num" />
+		<result property="oil_engine_time" column="oil_engine_time" />
+		<result property="oil_transmission_num" column="oil_transmission_num" />
+		<result property="oil_transmission_time" column="oil_transmission_time" />
+		<result property="oil_break_num" column="oil_break_num" />
+		<result property="oil_break_time" column="oil_break_time" />
+		<result property="filter_aircon_num" column="filter_aircon_num" />
+		<result property="filter_aircon_time" column="filter_aircon_time" />
+		<result property="filter_fuel_num" column="filter_fuel_num" />
+		<result property="filter_fuel_time" column="filter_fuel_time" />
+		<result property="filter_aircleaner_num" column="filter_aircleaner_num" />
+		<result property="filter_aircleaner_time" column="filter_aircleaner_time" />
+		<result property="etc_coolant_num" column="etc_coolant_num" />
+		<result property="etc_coolant_time" column="etc_coolant_time" />
+		<result property="etc_battery_num" column="etc_battery_num" />
+		<result property="etc_battery_time" column="etc_battery_time" />
+		<result property="etc_tire_num" column="etc_tire_num" />
+		<result property="etc_tire_time" column="etc_tire_time" />
+	</resultMap>
+
+	<select id="selectAll" resultMap="rsMap">
+		SELECT * FROM consumable
+	</select>
+
+	<insert id="insert" parameterType="ccDTO">
+		INSERT INTO consumable (carnum1, belt_timing_num, belt_timing_time, belt_operation_num, 
+			belt_operation_time, oil_engine_num, oil_engine_time, oil_transmission_num, 
+			oil_transmission_time, oil_break_num, oil_break_time, filter_aircon_num, 
+			filter_aircon_time,	filter_fuel_num, filter_fuel_time, filter_aircleaner_num, 
+			filter_aircleaner_time,	etc_coolant_num, etc_coolant_time, etc_battery_num, 
+			etc_battery_time, etc_tire_num, etc_tire_time)
+		VALUES(#{carnum1}, #{belt_timing_num},#{belt_timing_time},#{belt_operation_num},#{belt_operation_time},
+			#{oil_engine_num},#{oil_engine_time},#{oil_transmission_num},#{oil_transmission_time}, 
+			#{oil_break_num}, #{oil_break_time}, #{filter_aircon_num}, #{filter_aircon_time}, 
+			#{filter_fuel_num}, #{filter_fuel_time}, #{filter_aircleaner_num}, #{filter_aircleaner_time}, 
+			#{etc_coolant_num}, #{etc_coolant_time}, #{etc_battery_num}, #{etc_battery_time}, 
+			#{etc_tire_num}, #{etc_tire_time})
+	</insert>
+
+	<update id="update" parameterType="ccDTO">
+		UPDATE consumable
+		SET
+			belt_timing_num=#{belt_timing_num},
+			belt_timing_time=#{belt_timing_time},
+			belt_operation_num=#{belt_operation_num},
+			belt_operation_time=#{belt_operation_time},
+			oil_engine_num=#{oil_engine_num},
+			oil_engine_time=#{oil_engine_time},
+			oil_transmission_num=#{oil_transmission_num},
+			oil_transmission_time=#{oil_transmission_time},
+			oil_break_num=#{oil_break_num},
+			oil_break_time=#{oil_break_time},
+			filter_aircon_num=#{filter_aircon_num},
+			filter_aircon_time=#{filter_aircon_time},
+			filter_fuel_num=#{filter_fuel_num},
+			filter_fuel_time=#{filter_fuel_time},
+			filter_aircleaner_num=#{filter_aircleaner_num},
+			filter_aircleaner_time=#{filter_aircleaner_time},
+			etc_coolant_num=#{etc_coolant_num},
+			etc_coolant_time=#{etc_coolant_time},
+			etc_battery_num=#{etc_battery_num},
+			etc_battery_time=#{etc_battery_time},
+			etc_tire_num=#{etc_tire_num},
+			etc_tire_time=#{etc_tire_time}
+		WHERE
+			carnum1 = #{carnum1}
+	</update>
+
+	<!-- <delete id="deleteSomething" parameterType="int">
+		DELETE FROM tablename1 WHERE
+		columnname1 = #{param1}
+	</delete> -->
+
+</mapper>

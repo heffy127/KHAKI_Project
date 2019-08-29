@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cmDAO">
+
+	<select id="select" parameterType="cmDTO" resultMap="rsMap">
+		SELECT
+		*
+		FROM carmanage
+		WHERE carnum = #{carnum}
+	</select>
+
+	<resultMap type="cmDTO" id="rsMap">
+		<result property="khaki_num" column="kahki_num" />
+		<result property="carnum" column="carnum" />
+		<result property="distance" column="distance" />
+		<result property="fuel" column="fuel" />
+		<result property="brand" column="brand" />
+		<result property="car_size" column="car_size" />
+		<result property="carname" column="carname" />
+		<result property="reg_date" column="reg_date" />
+		<result property="img" column="img" />
+	</resultMap>
+
+	<select id="selectAll" resultMap="rsMap">
+		SELECT * FROM carmanage order by khaki_num desc
+	</select>
+
+	<insert id="insert" parameterType="cmDTO">
+		INSERT INTO carmanage (khaki_num, carnum, distance, fuel, brand, car_size, carname, reg_date, img)
+		VALUES(khakinum_seq.nextval,#{carnum},#{distance},#{fuel},#{brand},#{car_size},#{carname},#{reg_date},#{img})
+	</insert>
+
+	<!-- <update id="updateSomething" parameterType="#modelname">
+		UPDATE tablename1
+		SET
+		columnname1=#{param1}
+		WHERE
+		columnname2 = #{param2}
+	</update>
+
+	<delete id="deleteSomething" parameterType="int">
+		DELETE FROM tablename1 WHERE
+		columnname1 = #{param1}
+	</delete> -->
+
+</mapper>

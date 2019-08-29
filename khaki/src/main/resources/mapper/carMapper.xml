@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="carDAO">
+
+	<select id="selectCar" parameterType="String" resultMap="rsMap">
+		SELECT car_num, zone_num FROM
+		car_board	WHERE car_name = #{buy_carModel}
+	</select>
+	
+	<select id="carListInfo" parameterType="Integer" resultMap="rsMap">
+		SELECT * FROM
+		car_board	WHERE zone_num = #{zoneNum}
+	</select>
+
+	<resultMap type="cDTO" id="rsMap">
+		<result property="car_name" column="car_name" />
+		<result property="car_num" column="car_num" />
+		<result property="driven" column="driven" />
+		<result property="fuel_type" column="fuel_type" />
+		<result property="fuel_gage" column="fuel_gage" />
+		<result property="loc_pre" column="loc_pre" />
+		<result property="zone_num" column="zone_num" />
+		<result property="fee_hour" column="fee_hour" />
+		<result property="fee_km" column="fee_km" />
+		<result property="car_image" column="car_image" />
+	</resultMap>
+
+	<select id="selectAll" resultMap="rsMap">
+		SELECT * FROM car_board
+	</select>
+
+	<insert id="insert" parameterType="cDTO">
+		INSERT INTO car_board
+		VALUES(#{car_Name},#{car_Num},#{driven},#{fuel_type},#{fuel_gage},#{loc_Pre},#{zone_num},#{time_Pre},#{time_Post},#{fee_hour},#{fee_km},#{car_image});	
+		<!--oracle DB의 순서와 일치 시켜주어야한다! -->
+	</insert>
+
+	<update id="update" parameterType="cDTO">
+		UPDATE car_board
+		SET
+		car_Name=#{car_Name},
+		driven=#{driven},
+		fuel_type=#{fuel_type},
+		fuel_gage=#{fuel_gage},
+		loc_Pre=#{loc_Pre},
+		loc_Zone=#{loc_Zone},
+		time_Pre=#{time_Pre},
+		time_Post=#{time_Post},
+		fee_hour=#{fee_hour},
+		fee_km=#{fee_km}
+		WHERE
+		car_Num = #{car_Num}
+	</update>
+
+	<delete id="delete" parameterType="cDTO">
+		DELETE FROM car_board WHERE
+		car_Num = #{car_Num}
+	</delete>
+
+</mapper>
+
