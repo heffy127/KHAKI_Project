@@ -32,6 +32,35 @@
   <link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  	$(function() {
+  		// handler_btn(핸들러 신청하기) 버튼 클릭 시 신청자의 useCount(카키 이용 횟수)를 확인하여 5회 이상일 경우 신청 가능
+  		$("#handler_btn").click(function(){ // handler_btn(핸들러 신청하기) 버튼 클릭 시
+  			var id = '<%=(String)session.getAttribute("sessionId")%>';  // sessionId를 [id]라는 변수에 담아서
+  			$.ajax({ // ajax 실행
+  		      url:"handlerUseCountCheck.do", // session id의 useCount(이용횟수)를 확인하기 위해 handlerUseCountCheck.do를 실행
+  		      data : {
+  		    	  "id" : id // data는 위에서 변수로 저장한 sessionId
+  		      },
+  		      success:function(data){ // ajax가 성공했을 때
+  		    	  alert(data); // handler/handlerUseCountCheck 확인
+  		    	  if(data == "Y") { // handler/handlerUseCountCheck에 데이터가 Y일 경우 핸들러 신청 가능.
+  		    	  	  $("#exampleModal").modal({}) // data == Y 일 경우 modal 나타남
+  		    	  } else { // handler/handlerIdCheck에 데이터가 N이거나 NULL일 경우 핸들러 신청 불가.
+  		    		  alert("핸들러 신청 조건이 맞지 않아 신청이 불가합니다.\n다시 한 번 확인 후 이용해 주세요.");
+  		    	  }
+  		      },
+  		      error : function(xhr, status) { // ajax가 실패했을 때
+  	              alert(xhr + " : " + status); // 실패 내용 확인
+  	          }
+  		});
+  		})
+  	
+  		
+  	})
+  </script>
 </head>
 
 <body class="">
@@ -360,7 +389,7 @@
 						핸들할 수 있어요.</label>
 				</div>
 				<div class="h_content">
-					<img src="resources/assets/img/brand/h_content2.jpg" style="width: 100%">
+					<img src="resources/assets/img/brand/h_content3.jpg" style="width: 100%">
 					<label class="h_c_label">추가로,<br>원하는 만큼!</label>
 					<label class="h_c_label2">완료일 이후 정해진 기간에 맞춰 입금되는
 						핸들 리워드, 성공적인 투잡을 위해 
@@ -407,7 +436,40 @@
 							2.보험은 KHAKI 보험약관을 준수합니다.</label>
 				</div>
 			</div>
-			<button type="button" class="btn btn-primary btn-lg btn-block" onclick="location.href='handlerBoard.do'" style="margin-top: 5%; margin-bottom: 5%; font-size: 35px; font-family: 'Nanum Gothic Coding', monospace;">핸들러 신청하기</button>
+			<!-- Button trigger modal -->
+			<button type="button" class="btn btn-primary btn-lg btn-block" id="handler_btn" style="margin-top: 5%; margin-bottom: 5%; font-size: 35px; font-family: 'Nanum Gothic Coding', monospace;">핸들러 신청하기</button>
+			
+			<!-- 지역선택 Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">핸들러 신청 완료</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			      	<div class="form-group">
+						<div class="col-sm-3_jkh">
+							<div id="association_out" style="width: 100%; height:auto; text-align: center;">
+								<label id="handler_label1"><img src="https://image.flaticon.com/icons/svg/762/762048.svg" style="width: 9%; margin-right: 3%;">환영합니다!<img src="https://image.flaticon.com/icons/svg/762/762048.svg" style="width: 9%; margin-left: 3%;"></label>
+								<label id="handler_label2"><b id="handler_label3">원하는 </b>시간에! <b id="handler_label3">원하는 </b> 만큼!</label><br>
+								<label id="handler_label2">핸들러 서비스를 통하여 더 많은 <b id="handler_label3">혜택</b>을 누려보세요!</label>
+								<label id="handler_label2"><b style="color: #7ea07c; font-size: 25px; text-shadow: 2px 1px 1px #10450c;">KHAKI</b> HANDLER SERVICE</label>
+							</div>
+						</div>
+					</div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary" id="handlerDetailSearch" data-dismiss="modal">Search</button>
+			      </div>
+			    </div>
+			  </div>
+			</div> <!-- modal End -->
+			
+			
 		  </div>
         </div>
       </div>
@@ -444,7 +506,6 @@
   <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <!--   Optional JS   -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!--   Argon JS   -->
   <script src="resources/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>

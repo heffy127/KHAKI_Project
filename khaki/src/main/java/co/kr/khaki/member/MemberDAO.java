@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import co.kr.khaki.handler.HandlerStatusDTO;
+
 @Repository
 public class MemberDAO {
 
@@ -84,7 +86,10 @@ public class MemberDAO {
 		System.out.println("임시비밀번호 주입 성공");
 	}
 
-
+	public void updateHandler(HandlerStatusDTO hsDTO) {
+		my.update("memberDAO.updateHandler", hsDTO);
+		System.out.println("핸들러 여부 설정");
+	}
 	
 	public List<MemberDTO> selectAll() {
 		List<MemberDTO> list = my.selectList("memberDAO.selectAll");

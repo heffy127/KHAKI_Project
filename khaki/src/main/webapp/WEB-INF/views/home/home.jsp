@@ -38,22 +38,25 @@
   <script type="text/javascript">
   	$(function() {
   		// handler a태그 클릭시 sessionId의 핸들러 여부에 따라 호출 페이지가 달라짐.
-  		$("#handler_a").click(function(){
-  			var id = $("#session_id_check_input").val();
-  			$.ajax({
-			      url:"handlerIdCheck.do",
+  		$("#handler_a").click(function(){ // 핸들러 버튼을 클릭했을때
+  			var id = '<%=(String)session.getAttribute("sessionId")%>'; // sessionId를 [id]라는 변수에 담아서
+  			$.ajax({ // ajax 실행
+			      url:"handlerIdCheck.do", // session id의 핸들러 여부를 파악하기 위해 handlerIdCheck.do 컨트롤러 호출
 			      data : {
-			    	  "id" : id
+			    	  "id" : id // data는 위에서 변수로 저장한 sessionId
 			      },
-			      success:function(data){
-			    	  if(data == "") {
-			    		  location.href="handler.do";
-			    	  } else {
-			    		  location.href="handlerBoard";
+			      success:function(data){ // ajax가 성공했을 때
+			    	  alert(data); // handler/handlerIdCheck 확인
+			    	  if(data == "") { // handler/handlerIdCheck에 데이터가 없다면
+			    		  location.href="handler.do"; // 핸들러 신청할 수 있는 핸들러메인으로 이동
+			    	  } else if(data == "N") { // handler/handlerIdCheck에 데이터가 N일때
+			    		  location.href="handler.do"; // 핸들러 신청건들이 있는 핸들러 게시판으로 이동 
+			    	  } else { // handler/handlerIdCheck에 데이터가 N일때
+			    		  location.href="handlerBoard.do"; // 핸들러 신청건들이 있는 핸들러 게시판으로 이동 
 			    	  }
 			      },
-			      error : function(xhr, status) {
-		              alert(xhr + " : " + status);
+			      error : function(xhr, status) { // ajax가 실패했을 때
+		              alert(xhr + " : " + status); // 실패 내용 확인
 		          }
 			});
   		})
@@ -185,7 +188,6 @@
           <li class="nav-item">
             <a class="nav-link " id="handler_a" style="cursor: pointer;">
               <i class="ni ni-collection text-green"></i> Handler
-              <input type="hidden" name="id" id="session_id_check_input" value="${sessionId }"> <!-- sessionId로 핸들러 여부에 따라 페이지 이동 달라짐. -->
             </a>
           </li>
           <li class="nav-item">

@@ -87,6 +87,11 @@
 		UPDATE member SET pw = #{pw}
 		WHERE id=#{id}
 	</update>
+	
+	<update id="updateHandler" parameterType="hsDTO">
+		UPDATE member SET handler = #{handler}
+		WHERE id=#{id}
+	</update>
 
 <!-- 
 	<delete id="deleteSomething" parameterType="int">

@@ -21266,4 +21266,22 @@ pre>code.highlight {
    float: left;
 }
 
+#handler_label1 {
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 35px;
+	color: #161616;
+	text-shadow: 2px 1px 1px #707070;
+}
+
+#handler_label2 {
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 20px;
+}
+
+#handler_label3 {
+	color: #ff4040;
+	font-size: 25px;
+	text-shadow: 2px 1px 1px #bfacac;
+}
+
 /*# sourceMappingURL=dashboard-free.css.map */
