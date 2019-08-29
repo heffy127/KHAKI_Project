@@ -138,7 +138,6 @@
 							$('#email_id').attr('disabled',false)
 							$('#email_site').attr('disabled',false)
 							$('#email_select').attr('disabled',false)
-							$('#email_select').attr('disabled',false)
 							$('#forAuthBtn').attr('disabled',false)
 							$('#email_span').text("이메일 입력")
 							
@@ -148,7 +147,6 @@
 							$('#email_id').val("")
 							$('#email_id').attr('disabled',true)
 							$('#email_site').attr('disabled',true)
-							$('#email_select').attr('disabled',true)
 							$('#email_select').attr('disabled',true)
 							$('#forAuthBtn').attr('disabled',true)
 							$('#email_span').text("")

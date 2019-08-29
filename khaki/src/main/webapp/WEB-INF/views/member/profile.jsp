@@ -129,8 +129,8 @@
 <!-- 왼쪽 공통 메뉴 -->
         <ul class="navbar-nav">
           <li class="nav-item ">
-          	<a class=" nav-link" href="home.do"> 
-          		<i class="ni ni-tv-2 text-black"></i> Home
+             <a class=" nav-link" href="home.do"> 
+                <i class="ni ni-tv-2 text-black"></i> Home
             </a>
           </li>
           <li class="nav-item">
@@ -199,25 +199,25 @@
           <!-- 우측 상단 프로필 -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
-				<c:choose>
-						<c:when test="${sessionName != null }">
-            		<a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			              <div class="media align-items-center">
-			                <span class="avatar avatar-sm rounded-circle">
-			                  <img alt="Image placeholder" src="resources/assets/img/theme/team-4-800x800.jpg">
-			                </span>
-			                <div class="media-body ml-2 d-none d-lg-block">
-			                  <span class="mb-0 text-sm  font-weight-bold">${sessionName} 님</span>
-			                </div>
-			              </div>
-		            </a>
-		             	 </c:when>
-	              <c:when test="${sessionName == null }">
-					<div>
-						<a href="login.do" style="color: white; font-weight: bold;">&nbsp;&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;</a>
-					</div>
-	              </c:when>
-				</c:choose>
+            <c:choose>
+                  <c:when test="${sessionName != null }">
+                  <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       <div class="media align-items-center">
+                         <span class="avatar avatar-sm rounded-circle">
+                           <img alt="Image placeholder" src="resources/assets/img/theme/team-4-800x800.jpg">
+                         </span>
+                         <div class="media-body ml-2 d-none d-lg-block">
+                           <span class="mb-0 text-sm  font-weight-bold">${sessionName} 님</span>
+                         </div>
+                       </div>
+                  </a>
+                       </c:when>
+                 <c:when test="${sessionName == null }">
+               <div>
+                  <a href="login.do" style="color: white; font-weight: bold;">&nbsp;&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;</a>
+               </div>
+                 </c:when>
+            </c:choose>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
@@ -259,8 +259,8 @@
           <div class="col-lg-12 col-md-12">
             <h1 class="display-2 text-white">반갑습니다. ${sessionName}님</h1>
             <div>
-            	<font color="#e0e0e0">언제, 어디서나, 차가 필요한 모든 순간 KHAKI를 찾아주세요!<br>
-            	함께 달리며 더 나은 미래를 만듭니다. 대한민국 1등 카셰어링, KHAKI</font>
+               <font color="#e0e0e0">언제, 어디서나, 차가 필요한 모든 순간 KHAKI를 찾아주세요!<br>
+               함께 달리며 더 나은 미래를 만듭니다. 대한민국 1등 카셰어링, KHAKI</font>
             </div>
           </div>
         </div>
@@ -330,48 +330,51 @@
             <div class="card-header bg-white border-0">
 
                <div class="nav-wrapper">
-				    <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
-				        <li class="nav-item">
-				            <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-circle-08 mr-2"></i>회원정보 관리</a>
-				        </li>
-				        <li class="nav-item">
-				            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-time-alarm mr-2"></i>예약정보 관리</a>
-				        </li>
-				        <li class="nav-item">
-				            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-credit-card mr-2"></i>결제정보 관리</a>
-				        </li>
-				        <li class="nav-item">
-				            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-book-bookmark mr-2"></i>나의 쿠폰북</a>
-				        </li>
-				        <li class="nav-item">
-				            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-align-center mr-2"></i>내가 쓴 글 확인</a>
-				        </li>
-				        <li class="nav-item">
-				            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-key-25 mr-2"></i>CarKey</a>
-				        </li>
-				    </ul>
-				</div>
+                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-circle-08 mr-2"></i>회원정보 관리</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-time-alarm mr-2"></i>예약정보 관리</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-book-bookmark mr-2"></i>나의 쿠폰북</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-4-tab" data-toggle="tab" href="#tabs-icons-text-4" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-align-center mr-2"></i>내가 쓴 글 확인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-5-tab" data-toggle="tab" href="#tabs-icons-text-5" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-key-25 mr-2"></i>CarKey</a>
+                    </li>
+                </ul>
+            </div>
 
             </div>
             <div class="card-body">
             <!-- 탭 body -->
               <div class="card shadow">
-			    <div class="card-body" style="padding: 4px">
-			        <div class="tab-content" id="myTabContent">
-			            <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab" style="text-align: center">
-			              
-			              <iframe src="mypage_memberInfo.do" width="1120" height="1150" frameborder="0"></iframe>
-			            
-			            </div>
-			            <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-			                <p class="description">Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
-			            </div>
-			            <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
-			                <p class="description">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-			            </div>
-			        </div>
-			    </div>
-			</div>
+             <div class="card-body" style="padding: 4px">
+                 <div class="tab-content" id="myTabContent">
+                     <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab" style="text-align: center">
+                       
+                       <iframe src="mypage_memberInfo.do" width="1100" height="1250" frameborder="0"></iframe>
+                     
+                     </div>
+                     <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                         <p class="description">Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+                     </div>
+                     <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+                         <p class="description">tabs-icons-text-3-tab Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
+                     </div>
+                     <div class="tab-pane fade" id="tabs-icons-text-4" role="tabpanel" aria-labelledby="tabs-icons-text-4-tab">
+                         <p class="description">tabs-icons-text-4-tab Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
+                     </div>
+                     <div class="tab-pane fade" id="tabs-icons-text-5" role="tabpanel" aria-labelledby="tabs-icons-text-5-tab">
+                         <p class="description">tabs-icons-text-5-tab Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
+                     </div>
+                 </div>
+             </div>
+         </div>
             </div>
           </div>
         </div>
