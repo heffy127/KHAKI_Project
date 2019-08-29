@@ -36,4 +36,11 @@ public class CarConsumableDAO {
 		
 	}	// insert End
 	
+	public CarConsumableDTO select(String carnum1) {
+		System.out.println("carnum1 : " + carnum1);
+		System.out.println("ccDAO select!");
+		
+		return my.selectOne("ccDAO.select", carnum1);
+	}
+	
 }

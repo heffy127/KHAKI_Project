@@ -1,3 +1,4 @@
+<%@page import="co.kr.khaki.carmanage.CarConsumableDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,7 +9,10 @@
 	<!-- Jquery CDN -->
  	<script src="https://code.jquery.com/jquery-latest.js"></script>
  	
- 	<% String distance = (String)request.getAttribute("distance"); %>
+ 	<% 
+ 		String distance = (String)request.getAttribute("distance"); 
+ 		/* CarConsumableDTO ccdto = (CarConsumableDTO)request.getAttribute("ccdto"); */
+ 	%>
 	<script type="text/javascript">
 		$(function(){
 			
@@ -18,9 +22,16 @@
 			 
 			//배열 순서대로 타이밍벨트, 구동벨트, 엔진오일, 변속기오일, 브레이크 오일, 에어컨필터, 연료필터, 에어클리너, 냉각수, 배터리, 타이어 순서
 			var arr = new Array(100000, 30000, 10000, 30000, 40000, 15000, 30000, 20000, 50000, 60000, 30000);
+			<%-- var consumableDB = new Array(<%= ccdto.getBelt_timing_num()%>, <%= ccdto.getBelt_operation_num()%>, 
+				<%= ccdto.getOil_engine_num()%>,<%= ccdto.getOil_transmission_num()%>,<%= ccdto.getOil_break_num()%>,
+				<%= ccdto.getFilter_aircon_num()%>,<%= ccdto.getFilter_fuel_num()%>,<%= ccdto.getFilter_aircleaner_num()%>,
+				<%= ccdto.getEtc_coolant_num()%>,<%= ccdto.getEtc_battery_num()%>,<%= ccdto.getEtc_tire_num()%>); --%>
 			var num = 0;
 			var percentage = 0;
 			
+			/* for (var j = 0; j < consumableDB.length; j++) {
+				alert(consumableDB[j]);
+			} */
 			
 			// remainder 변수를 통해서 각 소모품주기 기준수로 나눠줌
 			for(var i=0; i<arr.length;i++){
@@ -29,7 +40,7 @@
 				// 나눗셈 몫 = 교체해야할 시기
 				// 각 소모품 별 교체횟수, 교체 시기 DB작성(교체횟수와 비교하여 교체횟수와 현재 교체되었어야할 횟수가 동일하면 %표기, 그 외에는 교체요망 표기)
 				var change_num = Math.floor(distance / arr[i]);
-				alert(change_num);
+				//alert(change_num); 	test
 				
 				
 				// % 표기를 위한 계산식(총 운행 / 기준)

@@ -4,7 +4,7 @@
 
 <mapper namespace="ccDAO">
 
-	<select id="select" parameterType="ccDTO" resultMap="rsMap">
+	<select id="select" parameterType="String" resultMap="rsMap">
 		SELECT
 		*
 		FROM consumable

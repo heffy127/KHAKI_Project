@@ -432,14 +432,14 @@
 						    <div class="modal-dialog modal-lg modal- modal-dialog-centered modal-" role="document">
 						        <div class="modal-content">						        	
 						            <div class="modal-header">
-						                <h6 class="modal-title" id="modal-title-default">카키넘버 : ${cmdto.khaki_num} / 차량번호 : ${cmdto.carnum} / ${cmdto.carname}</h6>
+						                <h6 class="modal-title" id="modal-title-default">차량번호 : ${cmdto.carnum} / ${cmdto.carname}</h6>
 						                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						                    <span aria-hidden="true">×</span>
 						                </button>
 						            </div>
 						            
 						            <div class="modal-body">
-						            	<iframe src="car_consumable1.do?distance=${cmdto.distance}&khaki_num=${cmdto.khaki_num}" width="770" height="750"></iframe>
+						            	<iframe src="car_consumable1.do?distance=${cmdto.distance }" width="770" height="750"></iframe>
 						            </div>
 						            
 						            <div class="modal-footer">
