@@ -69,10 +69,10 @@
 				// 100% 됐을 때와 넘었을 때 분기 처리
 				
 				num = percentage;
-				// 배열 index는 0부터
+				// 배열 index는 0부터이기때문에 +1해줌
 				// 하위 CSS변경 작업
 				$(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+expire_item + " / " + change_num+" | "+num+'%');
-				
+				$(".btn_value"+(i+1)).val(change_num);	//버튼에 value값을 주고 보내는 것을 기획한다!
 				if(num<=50 && num >= 0){
 					$(".pctest2_"+(i+1)).attr({
 						'class': 'progress-bar bg-success',
@@ -91,9 +91,9 @@
 						'aria-valuenow': num,
 						'style':'width:'+num+'%;',
 					});
-					$("#btn_div"+(i+1)).css("display", "inline");
+					$("#btn_div"+(i+1)).css("display", "inline");	//display:none인 값을 inline으로 바꾸어 보이게 해줌
 				}else{
-					//alert((i+1)+"번째 : not range!!" + arr[i]);
+					alert((i+1)+"번째 : not range!!" + arr[i]);
 				}
 				
 			};	//for문 End
@@ -109,8 +109,10 @@
 			// progress-bar bg-danger 빨간색
 			
 			$(".btn_change").click(function(){
-				//(this).
-			
+				// this일 때는 눌린 버튼을 의미함
+				alert("나를 눌렀군요?");
+				var data11 = $(this).next(".btn_value").val();
+				alert(data11);
 				//location.href = "car_consumable2.do?distance"+distance;
 			});	//교체 버튼 end
 			
@@ -172,7 +174,8 @@
 					  </div>
 					</div>
 					<div id="btn_div1" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+					  	<input type="hidden" class="btn_value1 btn_value" value="0">
 					</div>
 				</div>	<!-- col-sm-6 50%  -->
 				
@@ -191,7 +194,8 @@
 					  </div>
 					</div>
 					<div id="btn_div2" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+					  	<input type="hidden" class="btn_value2 btn_value" value="0">
 					</div>
 				</div>
 			</div>	<!-- row -->
@@ -213,7 +217,8 @@
 					  </div>
 					</div>
 					<div id="btn_div3" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+					  	<input type="hidden" class="btn_value3 btn_value" value="0">
 					</div>
 				</div>	<!-- col-sm-4 33%  -->
 				
@@ -232,7 +237,8 @@
 					  </div>
 					</div>
 					<div id="btn_div4" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+					  	<input type="hidden" class="btn_value4 btn_value" value="0">
 					</div>
 				</div>
 				
@@ -251,7 +257,8 @@
 					  </div>
 					</div>
 					<div id="btn_div5" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+					  	<input type="hidden" class="btn_value5 btn_value" value="0">
 					</div>
 				</div>
 			</div>	<!-- row -->
@@ -273,7 +280,8 @@
 					  </div>
 					</div>
 					<div id="btn_div6" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+					  	<input type="hidden" class="btn_value6 btn_value" value="0">
 					</div>
 				</div>	<!-- col-sm-4  -->
 				
@@ -293,6 +301,7 @@
 					</div>
 					<div id="btn_div7" style="display: none;">
 					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+					  	<input type="hidden" class="btn_value7 btn_value" value="0">
 					</div>
 				</div>
 				
@@ -312,6 +321,7 @@
 					</div>
 					<div id="btn_div8" style="display: none;">
 					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+					  	<input type="hidden" class="btn_value8 btn_value" value="0">
 					</div>
 				</div>
 			</div>	<!-- row -->
@@ -333,7 +343,8 @@
 					  </div>
 					</div>
 					<div id="btn_div9" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+					  	<input type="hidden" class="btn_value9 btn_value" value="0">
 					</div>
 				</div>	<!-- col-sm-6  -->
 				
@@ -352,7 +363,8 @@
 					  </div>
 					</div>
 					<div id="btn_div10" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+					  	<input type="hidden" class="btn_value10 btn_value" value="0">
 					</div>
 				</div>
 				
@@ -371,7 +383,8 @@
 					  </div>
 					</div>
 					<div id="btn_div11" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+					  	<input type="hidden" class="btn_value11 btn_value" value="0">
 					</div>
 				</div>
 			</div>	<!-- row -->
