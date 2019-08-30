@@ -36,6 +36,26 @@ $(document).ready(
 			var email_idType = /^(?=.*[A-Za-z0-9])[A-Za-z0-9+]*$/; // 영어, 숫자 필터링해줌 (무조건 1개 이상 입력)
 			var email_siteType = /^[a-zA-Z0-9.]+\.[a-zA-Z]{2,5}$/; 
 			//                        영어 숫자 .   .이후 영어 2~5자리로 끝내야함
+
+			// 소셜 로그인 여부에 맞춰 토글 체크
+			if('${socialDTO_naver.id}' != null){
+				$('#naver_chk').attr('checked',true)
+			}
+			if('${socialDTO_kakao.id}' != ''){
+				$('#kakao_chk').attr('checked',true)
+			}
+			
+			// 비밀번호 변경 버튼 클릭
+			$('#pwCheckBtn').click(
+					function() {
+						if($('#pw').val() != ''){
+							alert("여기서 ajax로 비밀번호 체크할 예정")
+							$('#pwModal').click()
+						}else{
+							alert('비밀번호 정보를 입력해주세요.')
+						}
+						
+			})
 			
 			// 이메일 변경버튼 클릭
 			$('#emailChangeBtn').click(
@@ -103,6 +123,16 @@ $(document).ready(
 							$('#phone3').attr('readonly',true)
 							$('#phoneCancelDiv').hide()
 					})
+			
+					
+			// 문자, 이메일 수신 버튼
+			$("#smsBtn").click(function() {
+				$("#smsPush_chk").click()
+			})
+			$("#emailBtn").click(function() {
+				$("#emailPush_chk").click()
+			})
+
 					
 		})
 		
@@ -144,7 +174,7 @@ $(document).ready(
 					} else {
 						document.getElementById("extraAddress").value = '';
 					}
-
+					
 					// 우편번호와 주소 정보를 해당 필드에 넣는다.
 					document.getElementById('postcode').value = data.zonecode;
 					document.getElementById("address").value = addr;
@@ -166,14 +196,16 @@ $(document).ready(
                      <div class="form-group">
                         <label class="form-control-label" for="name">이름</label>
                         <input type="text" id="name"
-                           class="form-control form-control-alternative" readonly="readonly">
+                           class="form-control form-control-alternative" readonly="readonly"
+                           value="${memberDTO.name}">
                      </div>
                   </div>
                   <div class="col-lg-6">
                      <div class="form-group">
                         <label class="form-control-label" for="id">아이디</label>
                         <input type="text" id="id"
-                           class="form-control form-control-alternative" readonly="readonly">
+                           class="form-control form-control-alternative" readonly="readonly"
+                           value="${memberDTO.id}">
                      </div>
                   </div>
                </div>
@@ -192,8 +224,12 @@ $(document).ready(
                         <input type="button" class="btn btn-outline-warning"
                            value="비밀번호 인증" id="pwCheckBtn">
                      </div>
+                     
+                     
+                     
                   </div>
                </div>
+               
             </form>
             </div>
             <hr class="my-4" />
@@ -211,12 +247,14 @@ $(document).ready(
                               <td><input type="text"
                                  class="form-control form-control-alternative" id="email_id"
                                  name="email_id" style="text-align: center; font-size: 18px; width: 192px"
-                                 placeholder="등록된 이메일이" readonly="readonly"></td>
+                                 placeholder="이메일 주소 입력" readonly="readonly"
+                                 value="${memberDTO.email_id}"></td>
                               <td>&nbsp;@&nbsp;</td>
                               <td><input type="text"
                                  class="form-control form-control-alternative" id="email_site"
                                  name="email_site" style="text-align: center; font-size: 18px; width: 192px"
-                                 placeholder="없습니다." readonly="readonly"></td>
+                                 readonly="readonly"
+                                 value="${memberDTO.email_site}"></td>
                               <td>&nbsp;</td>
                               <td><select id="email_select" size="1"
                                  style="height: 45px; border: 1 solid gray;" disabled="disabled">
@@ -249,17 +287,17 @@ $(document).ready(
                               <td><input type="text"
                                  class="form-control form-control-alternative" maxlength="3"
                                  style="text-align: center; font-size: 18px; width: 165px" id="phone1"
-                                 name="phone1" readonly="readonly"></td>
+                                 name="phone1" readonly="readonly" value="${memberDTO.phone1}"></td>
                               <td>&nbsp;-&nbsp;</td>
                               <td><input type="text"
                                  class="form-control form-control-alternative" maxlength="4"
                                  style="text-align: center; font-size: 18px; width: 165px" id="phone2"
-                                 name="phone2" readonly="readonly"></td>
+                                 name="phone2" readonly="readonly" value="${memberDTO.phone2}"></td>
                               <td>&nbsp;-&nbsp;</td>
                               <td><input type="text"
                                  class="form-control form-control-alternative" maxlength="4"
                                  style="text-align: center; font-size: 18px; width: 165px" id="phone3"
-                                 name="phone3" readonly="readonly"></td>
+                                 name="phone3" readonly="readonly" value="${memberDTO.phone3}"></td>
                               <td>&nbsp;&nbsp;</td>
                               <td>
                                  <button type="button" class="btn btn-outline-primary" id="phoneChangeBtn">변경</button>
@@ -282,7 +320,7 @@ $(document).ready(
                                  <td>
                                     <input type="text" class="form-control form-control-alternative" 
                                     id="postcode" placeholder="우편번호" readonly="readonly" name="postcode"
-                                    style="width: 400px;">
+                                    style="width: 400px;" value="${memberDTO.postcode}">
                                  </td>
                                  <td>
                                     &nbsp;
@@ -302,21 +340,24 @@ $(document).ready(
             
                         
                            <input type="text" class="form-control form-control-alternative" 
-                                    id="address" placeholder="주소" readonly="readonly" name="address1">
+                                    id="address" placeholder="주소" readonly="readonly" name="address1"
+                                    value="${memberDTO.address1}">
                               
 
                            <table>
                               <tr height='65px'>
                                  <td width="60%">
                                     <input type="text" class="form-control form-control-alternative" 
-                                    id="detailAddress" placeholder="상세주소" name="address2" readonly="readonly">
+                                    id="detailAddress" placeholder="상세주소" name="address2" readonly="readonly"
+                                    value="${memberDTO.address2}">
                                  </td>
                                  <td>
                                     &nbsp;
                                  </td>
                                  <td width="40%">
                                     <input type="text" class="form-control form-control-alternative" 
-                                    id="extraAddress" placeholder="참고항목" readonly="readonly" name="address3">
+                                    id="extraAddress" placeholder="참고항목" readonly="readonly" name="address3"
+                                    value="${memberDTO.address3}">
                                  </td>
                               </tr>
                            </table>
@@ -335,7 +376,7 @@ $(document).ready(
                   <tr>
                      <td width="300px">
                         <input type="text" class="form-control form-control-alternative" 
-                        id="license" placeholder="등록된 운전면허 정보가 없습니다." readonly="readonly" name="address1">
+                        id="license" placeholder="등록된 운전면허 정보가 없습니다." readonly="readonly" name="">
                      </td>
                      <td>
                         &nbsp;&nbsp;
@@ -363,8 +404,8 @@ $(document).ready(
                            &nbsp;&nbsp;
                         </td>
                         <td>
-                           <label class="custom-toggle">
-                                <input type="checkbox" checked>
+                           <label class="custom-toggle" style="padding: 0px; margin: 0px;">
+                                <input type="checkbox" id="naver_chk">
                                <span class="custom-toggle-slider rounded-circle"></span>
                            </label>
                         </td>
@@ -378,8 +419,8 @@ $(document).ready(
                            &nbsp;&nbsp;
                         </td>
                         <td>
-                           <label class="custom-toggle">
-                                <input type="checkbox" checked>
+                           <label class="custom-toggle" style="padding: 0px; margin: 0px;">
+                                <input type="checkbox" id="kakao_chk">
                                <span class="custom-toggle-slider rounded-circle"></span>
                            </label>
                         </td>
@@ -403,7 +444,7 @@ $(document).ready(
                            <form id="pushF" name="pushF" action="" method="post">   
                               <input type="checkbox" name="chk" id="smsPush_chk" value=""> <a href="#none" id="smsBtn">문자수신</a> &nbsp;&nbsp;&nbsp;&nbsp;
                               <input type="checkbox" name="chk" id="emailPush_chk" value=""> <a href="#none" id="emailBtn">이메일수신</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                              <button type="button" class="btn btn-outline-primary" style="font-size: 7px; height: 35px;">확인</button>
+                              <button type="button" class="btn btn-outline-primary" style="font-size: 7px; height: 35px;" id="pushBtn">확인</button>
                            </form>
                         </td>
                      </tr>
@@ -412,5 +453,39 @@ $(document).ready(
             </div>
       </div>
    </div>
+   
+   <!-- 비밀번호 찾기 modal -->
+  	<div style="display: none !important;">
+     <button type="button" class="btn btn-block btn-primary mb-3" 
+     data-toggle="modal" data-target="#modal-default" id="pwModal">Default</button>
+    </div>  
+		<div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true"
+		style="top: -300px;">
+		   <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+		        <div class="modal-content">
+		        	
+		            <div class="modal-header">
+		                <h6 class="modal-title" id="modal-title-default">Type your modal title</h6>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                    <span aria-hidden="true">×</span>
+		                </button>
+		            </div>
+		            
+		            <div class="modal-body">
+		            	
+		                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+		                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+		                
+		            </div>
+		            
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-primary">Save changes</button>
+		                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button> 
+		            </div>
+		            
+		        </div>
+		      </div>
+        </div>
+        
 </body>
 </html>

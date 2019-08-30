@@ -17,6 +17,7 @@ public class MemberDTO {
 	private String emailPush;
 	private String useCount;
 	private String handler;
+	private String photo;
 	
 	public MemberDTO() {
 		super();
@@ -151,6 +152,15 @@ public class MemberDTO {
 		this.handler = handler;
 	}
 
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	
 	
 	
 	
