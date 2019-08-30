@@ -39,27 +39,33 @@
   		// handler_btn(핸들러 신청하기) 버튼 클릭 시 신청자의 useCount(카키 이용 횟수)를 확인하여 5회 이상일 경우 신청 가능
   		$("#handler_btn").click(function(){ // handler_btn(핸들러 신청하기) 버튼 클릭 시
   			var id = '<%=(String)session.getAttribute("sessionId")%>';  // sessionId를 [id]라는 변수에 담아서
-  			$.ajax({ // ajax 실행
-  		      url:"handlerUseCountCheck.do", // session id의 useCount(이용횟수)를 확인하기 위해 handlerUseCountCheck.do를 실행
-  		      data : {
-  		    	  "id" : id // data는 위에서 변수로 저장한 sessionId
-  		      },
-  		      success:function(data){ // ajax가 성공했을 때
-  		    	  alert(data); // handler/handlerUseCountCheck 확인
-  		    	  if(data == "Y") { // handler/handlerUseCountCheck에 데이터가 Y일 경우 핸들러 신청 가능.
-  		    	  	  $("#exampleModal").modal({}) // data == Y 일 경우 modal 나타남
-  		    	  } else { // handler/handlerIdCheck에 데이터가 N이거나 NULL일 경우 핸들러 신청 불가.
-  		    		  alert("핸들러 신청 조건이 맞지 않아 신청이 불가합니다.\n다시 한 번 확인 후 이용해 주세요.");
-  		    	  }
-  		      },
-  		      error : function(xhr, status) { // ajax가 실패했을 때
-  	              alert(xhr + " : " + status); // 실패 내용 확인
-  	          }
-  		});
-  		})
+  			if(id == "null") {
+  				alert("로그인이 필요한 서비스 입니다.\n 로그인 후 이용 해주세요.");
+  				location.href="login.do";
+  			} else {
+  				$.ajax({ // ajax 실행
+  	  		      url:"handlerUseCountCheck.do", // session id의 useCount(이용횟수)를 확인하기 위해 handlerUseCountCheck.do를 실행
+  	  		      data : {
+  	  		    	  "id" : id // data는 위에서 변수로 저장한 sessionId
+  	  		      },
+  	  		      success:function(data){ // ajax가 성공했을 때
+  	  		    	  if(data == "Y") { // handler/handlerUseCountCheck에 데이터가 Y일 경우 핸들러 신청 가능.
+  	  		    	  	  $("#exampleModal").modal({}) // data == Y 일 경우 modal 나타남
+  	  		    	  } else { // handler/handlerIdCheck에 데이터가 N이거나 NULL일 경우 핸들러 신청 불가.
+  	  		    		  alert("핸들러 신청 조건이 맞지 않아 신청이 불가합니다.\n다시 한 번 확인 후 이용해 주세요.");
+  	  		    	  }
+  	  		      },
+  	  		      error : function(xhr, status) { // ajax가 실패했을 때
+  	  	              alert(xhr + " : " + status); // 실패 내용 확인
+  	  	          }
+  				}) // ajax end
+  			
+  			} // session else end
+  		}) // handler_btn click function end
+  		
   	
   		
-  	})
+  	}) // ajax function end
   </script>
 </head>
 
@@ -72,7 +78,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="home.do">
-        <img src="resources/assets/img/brand/khaki_logo.png" class="navbar-brand-img" alt="...">
+        <img src="resources/assets/img/brand/khaki2.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -462,8 +468,8 @@
 					</div>
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary" id="handlerDetailSearch" data-dismiss="modal">Search</button>
+			        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+			        <button type="button" class="btn btn-outline-default" style="width: 100%; font-size: 20px;" id="hanlderToMoveBtn" onclick="location.href='handlerBoard.do'" data-dismiss="modal">이용하러 가기<img src="https://image.flaticon.com/icons/svg/1879/1879039.svg" style="width: 10%; margin-top: 5%; margin-left: 2%;"></button>
 			      </div>
 			    </div>
 			  </div>

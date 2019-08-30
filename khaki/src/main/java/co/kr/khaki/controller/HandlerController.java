@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import co.kr.khaki.handler.HandlerDAO;
 import co.kr.khaki.handler.HandlerDTO;
 import co.kr.khaki.handler.HandlerStatusDTO;
+import co.kr.khaki.handler.HandlerUseDAO;
+import co.kr.khaki.handler.HandlerUseDTO;
 import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.member.MemberDTO;
 
@@ -18,6 +20,9 @@ public class HandlerController {
 	
 	@Autowired
 	HandlerDAO hdao;
+	
+	@Autowired
+	HandlerUseDAO hudao;
 	
 	@Autowired
 	MemberDAO memberDAO;
@@ -96,6 +101,23 @@ public class HandlerController {
 		model.addAttribute("useCountCheck", handler); // 핸들러 여부 결과 Y/N 중 하나를 다음 페이지로 전송
 		
 		return "handler/handlerUseCountCheck";
+	}
+	
+	
+	@RequestMapping("handlerUse.do")
+	public String handlerUse(HandlerUseDTO handlerUseDTO) {
+		System.out.println("hudao Insert~");
+        hudao.insert(handlerUseDTO);
+		
+		return "handler/handlerUse";
+	}
+	
+	@RequestMapping("handlerDelete.do")
+	public String handlerDelete(HandlerDTO handlerDTO) {
+		System.out.println(handlerDTO.getHb_num() + " 번호!!!");
+        hdao.delete(handlerDTO);
+		
+		return "handler/handlerDelete";
 	}
 	
 }

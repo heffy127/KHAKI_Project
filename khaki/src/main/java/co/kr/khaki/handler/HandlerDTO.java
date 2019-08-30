@@ -1,25 +1,32 @@
 package co.kr.khaki.handler;
 
 public class HandlerDTO {
-
+	private int hb_num;
 	private String carNum;
-	private String vehicleType;
+	private String carModel;
 	private String startLocation;
 	private String returnLocation;
 	private String handler;
 	private int point;
-	private String customerUsageTime;
+	private String complete;
+	
+	public int getHb_num() {
+		return hb_num;
+	}
+	public void setHb_num(int hb_num) {
+		this.hb_num = hb_num;
+	}
 	public String getCarNum() {
 		return carNum;
 	}
 	public void setCarNum(String carNum) {
 		this.carNum = carNum;
 	}
-	public String getVehicleType() {
-		return vehicleType;
+	public String getCarModel() {
+		return carModel;
 	}
-	public void setVehicleType(String vehicleType) {
-		this.vehicleType = vehicleType;
+	public void setCarModel(String carModel) {
+		this.carModel = carModel;
 	}
 	public String getStartLocation() {
 		return startLocation;
@@ -45,12 +52,14 @@ public class HandlerDTO {
 	public void setPoint(int point) {
 		this.point = point;
 	}
-	public String getCustomerUsageTime() {
-		return customerUsageTime;
+	public String getComplete() {
+		return complete;
 	}
-	public void setCustomerUsageTime(String customerUsageTime) {
-		this.customerUsageTime = customerUsageTime;
+	public void setComplete(String complete) {
+		this.complete = complete;
 	}
+
+	
 	
 	
 	

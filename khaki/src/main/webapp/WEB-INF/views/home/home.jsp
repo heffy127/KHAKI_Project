@@ -46,7 +46,6 @@
 			    	  "id" : id // data는 위에서 변수로 저장한 sessionId
 			      },
 			      success:function(data){ // ajax가 성공했을 때
-			    	  alert(data); // handler/handlerIdCheck 확인
 			    	  if(data == "") { // handler/handlerIdCheck에 데이터가 없다면
 			    		  location.href="handler.do"; // 핸들러 신청할 수 있는 핸들러메인으로 이동
 			    	  } else if(data == "N") { // handler/handlerIdCheck에 데이터가 N일때

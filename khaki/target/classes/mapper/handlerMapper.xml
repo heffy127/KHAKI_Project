@@ -17,18 +17,25 @@
 	</select>
 
 	<resultMap type="hDTO" id="rsMap">
+		<result property="hb_num" column="hb_num" />
 		<result property="carNum" column="carNum" />
-		<result property="vehicleType" column="vehicleType" />
+		<result property="carModel" column="carModel" />
 		<result property="startLocation" column="startLocation" />
 		<result property="returnLocation" column="returnLocation" />
 		<result property="handler" column="handler" />
 		<result property="point" column="point" />
-		<result property="customerUsageTime" column="customerUsageTime" />
+		<result property="complete" column="complete" />
 	</resultMap>
 
 	<select id="selectAll" resultMap="rsMap">
 		SELECT * FROM handler
 	</select>
+	
+	<delete id="delete" parameterType="hDTO">
+		DELETE FROM handler WHERE
+		hb_num = #{hb_num}
+	</delete>
+	
 
 </mapper>
 

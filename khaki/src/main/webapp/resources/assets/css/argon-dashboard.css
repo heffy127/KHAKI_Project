@@ -20925,7 +20925,7 @@ pre>code.highlight {
    background-color: #f3fff2;
 }
 
-.hb_table_head_transportCompletionTime {
+.hb_table_head_complete {
    width: 10%;
    font-family: 'Do Hyeon', sans-serif;
    font-size: 18px;
@@ -20935,7 +20935,7 @@ pre>code.highlight {
    background-color: #f3fff2;
 }
 
-.hb_table_head_requestingCustomer {
+.hb_table_head_handler {
    width: 15%;
    font-family: 'Do Hyeon', sans-serif;
    font-size: 18px;
@@ -20957,7 +20957,7 @@ pre>code.highlight {
    background-color: #f3fff2;
 }
 
-.hb_table_head_expectedPoint {
+.hb_table_head_point {
    width: 10%;
    font-family: 'Do Hyeon', sans-serif;
    font-size: 18px;
@@ -21005,7 +21005,7 @@ pre>code.highlight {
    padding-bottom: 1%;
 }
 
-.hb_table_content_transportCompletionTime {
+.hb_table_content_complete {
    width: 10%;
    font-family: 'Do Hyeon', sans-serif;
    font-size: 18px;
@@ -21014,7 +21014,7 @@ pre>code.highlight {
    padding-bottom: 1%;
 }
 
-.hb_table_content_requestingCustomer {
+.hb_table_content_handler {
    width: 15%;
    font-family: 'Do Hyeon', sans-serif;
    font-size: 18px;
@@ -21032,7 +21032,7 @@ pre>code.highlight {
    padding-bottom: 1%;
 }
 
-.hb_table_content_expectedPoint {
+.hb_table_content_point {
    width: 10%;
    font-family: 'Do Hyeon', sans-serif;
    font-size: 18px;
@@ -21139,7 +21139,7 @@ pre>code.highlight {
    margin-bottom: 5%;
 }
 
-.h_detail_transportCompletionTime {
+.h_detail_complete {
    width: 100%;
    font-family: 'Do Hyeon', sans-serif;
    font-size: 20px;
@@ -21147,7 +21147,7 @@ pre>code.highlight {
    text-align: center;
 }
 
-.h_detail_expectedPoint {
+.h_detail_point {
    width: 100%;
    font-family: 'Do Hyeon', sans-serif;
    font-size: 30px;
@@ -21169,14 +21169,14 @@ pre>code.highlight {
    color: black;
 }
 
-.h_detail_transportCompletionTime_title {
+.h_detail_complete_title {
    width: 100%;
    font-family: 'Do Hyeon', sans-serif;
    font-size: 15px;
    color: black;
 }
 
-.h_detail_expectedPoint_title {
+.h_detail_point_title {
    width: 100%;
    font-family: 'Do Hyeon', sans-serif;
    font-size: 15px;

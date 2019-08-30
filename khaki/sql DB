@@ -1,6 +1,7 @@
 시퀀스
 create sequence tmp_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
 create sequence pay_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
+create sequence hb_seq start with 1 increment by 1 maxvalue 10000 cycle nocache; -- 핸들러 게시판글 번호 시퀀스
 
 create sequence khakinum_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
 create sequence notice_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
@@ -96,17 +97,18 @@ write_date varchar2(30)
 
 @ 정기현
 
-create table handler (
-   carNum varchar(20), -- 차 번호
-   vehicleType varchar(20), -- 차량 종류
-   startLocation varchar(100), -- 출발지점
-   returnLocation varchar(100), -- 도착지점
-   handler varchar(20), -- 핸들러(운송자)
+create table handler ( -- 핸들러 게시판
+   hb_num number(20), -- 핸들러 게시판글번호
+   carNum varchar2(20), -- 차 번호
+   carModel varchar2(20), -- 차량 종류
+   startLocation varchar2(100), -- 출발지점
+   returnLocation varchar2(100), -- 도착지점
+   handler varchar2(20), -- 핸들러(운송자)
    point number(20), -- 적립 될 포인트
-   customerUsageTime varchar(20) -- 고객 이용시간(운송 완료 해야 하는 시간)
+   complete varchar2(20) -- 고객 이용시간(운송 완료 해야 하는 시간)
 )
 
-create table reservation (
+create table reservation ( -- 모든 예약정보
    buy_num number(20),
    buy_id varchar2(20),
    buy_carIns varchar2(20),
@@ -125,6 +127,17 @@ create table reservation (
    buy_totalAmount varchar2(20),
    buy_accident varchar2(20),
    buy_impUid varchar2(50)
+)
+
+create table handlerUse ( -- 핸들러 이용 테이블
+	h_id varchar2(20), -- 핸들러 운송자 id
+	h_carNum varchar2(20), -- 차번호
+	h_carModel varchar2(20), -- 차종
+	h_startLocation varchar2(100), -- 출발장소
+	h_returnLocation varchar2(100), -- 도착장소
+	h_complete varchar2(20), -- 운송완료시간
+	h_point varchar2(20), -- 예상적립포인트
+	h_using char(1) -- 핸들러 이용중 여부
 )
 
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="huDAO">
+
+	<insert id="insert" parameterType="huDTO">
+      INSERT INTO HANDLERUSE
+      VALUES(#{h_id},#{h_carNum},#{h_carModel},#{h_startLocation},#{h_returnLocation},#{h_complete},#{h_point},#{h_using})   <!-- 
+         oracle DB의 순서와 일치 시켜주어야한다! -->
+   </insert>
+   
+	
+</mapper>
+

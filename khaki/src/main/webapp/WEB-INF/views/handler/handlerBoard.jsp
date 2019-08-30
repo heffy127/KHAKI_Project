@@ -37,6 +37,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script type="text/javascript">
   	$(function() {
+  		var sessionId = '<%=(String)session.getAttribute("sessionId")%>';
   		var seoul = ["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구"
 			,"마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
 		var busan = ["강서구", "금정구", "기장군", "남구", "동구", "동래구", "부산진구", "북구", "사상구", "사하구", 
@@ -301,7 +302,7 @@
 			location_choice = "2";
 		})
 		
-		$("#handlerDetailSearch").click(function(){
+		$("#handlerDetailSearch1").click(function(){
 			switch(location_choice){
 				case "1" :
 					var startLocation = $("#region_1_n option:selected").val();
@@ -371,26 +372,66 @@
 		
 		$(".hb_table_content_tr").click(function(){
 			$(".handler_detail").children().remove();
-			// 차량번호를 통해 예약된 차량의 이미지 db에서 ajax로 가져와야함
+			
+			var carImg = ""; // 차량번호를 통해 예약된 차량의 이미지 db에서 ajax로 가져와야함
 			var carNum = $(this).children(".hb_table_content_carNum").text(); // 차량번호
 			var carModel = $(this).children(".hb_table_content_carModel").text(); // 차량종류
 			var startLocation = $(this).children(".hb_table_content_startLocation").text(); // 출발장소(현재차량위치)
 			var arrivalLocation = $(this).children(".hb_table_content_arrivalLocation").text(); // 도착장소(차량도착위치)
-			var transportCompletionTime = $(this).children(".hb_table_content_transportCompletionTime").text(); // 운송완료시간
-			var expectedPoint = $(this).children(".hb_table_content_expectedPoint").text(); // 예상적립포인트
+			var complete = $(this).children(".hb_table_content_complete").text(); // 운송완료시간
+			var point = $(this).children(".hb_table_content_point").text(); // 예상적립포인트
+			var hb_num = $(this).children(".hb_table_content_num").children(".hb_num").val();
 			
-			var h_detail_img = "<div class=\"h_detail_img\">"; // 이미지 div태그
+			var h_detail_img = "<form action=\"handlerUse.do\" id=\"handlerUseFrm\"><div class=\"h_detail_img\">"; // 이미지 div태그
 			var h_detail_image = "<img class=\"h_detail_image\" src=\"https://img.hankyung.com/photo/201903/AA.19251102.1.jpg\"></img>"; // 차량번호로 db에 연결하여 가져온 차량의 이미지 태그(예시로 src에 임시 이미지 삽입함)
 			var h_detail_carNum = "</div><div class=\"h_detail_carNum_title\">차량번호</div><div class=\"h_detail_carModel_title\">차종</div><div class=\"h_detail_carNum\">"; // 차량번호 div태그
 			var h_detail_carModel = "</div><div class=\"h_detail_carModel\">"; // 차종 div태그
 			var h_detail_startLocation = "</div><div class=\"h_detail_startLocation_title\">출발장소</div><div class=\"h_detail_startLocation\">"; // 출발장소(현재차량위치) div 태그
 			var h_detail_arrivallocation = "</div><div class=\"h_detail_arrivallocation_title\">도착장소</div><div class=\"h_detail_arrivallocation\">"; // 도착장소(차량도착위치) div 태그
-			var h_detail_transportCompletionTime = "</div><div class=\"h_detail_transportCompletionTime_title\">운송완료시간</div><div class=\"h_detail_transportCompletionTime\">"; // 운송 완료 시간 div 태그
-			var h_detail_expectedPoint = "</div><div class=\"h_detail_expectedPoint_title\">예상적립포인트</div><div class=\"h_detail_expectedPoint\">";
+			var h_detail_complete = "</div><div class=\"h_detail_complete_title\">운송완료시간</div><div class=\"h_detail_complete\">"; // 운송 완료 시간 div 태그
+			var h_detail_point = "</div><div class=\"h_detail_point_title\">예상적립포인트</div><div class=\"h_detail_point\">";
+			var h_carNum = "</div><input type=\"hidden\" name=\"h_carNum\" value=\"" + carNum + "\">";
+			var h_carModel = "<input type=\"hidden\" name=\"h_carModel\" value=\"" + carModel + "\">";
+			var h_startLocation = "<input type=\"hidden\" name=\"h_startLocation\" value=\"" + startLocation + "\">";
+			var h_returnLocation = "<input type=\"hidden\" name=\"h_returnLocation\" value=\"" + arrivalLocation + "\">";
+			var h_complete = "<input type=\"hidden\" name=\"h_complete\" value=\"" + complete + "\">";
+			var h_point = "<input type=\"hidden\" name=\"h_point\" value=\"" + point + "\">";
+			var h_id = "<input type=\"hidden\" name=\"h_id\" value=\""+sessionId+"\">";
+			var h_using = "<input type=\"hidden\" name=\"h_using\" value=\"N\"></form>";
+			var h_id = "<input type=\"hidden\" name=\"h_id\" value=\""+sessionId+"\">";
+			var h_using = "<input type=\"hidden\" name=\"h_using\" value=\"N\"></form>";
+			var h_num = "<form action=\"handlerDelete.do\" id=\"handlerDeleteFrm\"><input type=\"hidden\" name=\"hb_num\" value=\"" + hb_num + "\"></form>";
 			
-			$(".handler_detail").append(h_detail_img + h_detail_image + h_detail_carNum + carNum + h_detail_carModel + carModel + h_detail_startLocation + startLocation + h_detail_arrivallocation + arrivalLocation + h_detail_transportCompletionTime + transportCompletionTime + h_detail_expectedPoint + expectedPoint + "</div>");
+			$(".handler_detail").append(h_detail_img + h_detail_image + h_detail_carNum + carNum + h_detail_carModel + carModel + h_detail_startLocation + startLocation + h_detail_arrivallocation + arrivalLocation + h_detail_complete + complete + h_detail_point + point + h_carNum + h_carModel + h_startLocation + h_returnLocation + h_complete + h_point + h_id + h_using + h_num);
+			
 			/* $(".hb_table_content_tr").attr("data-toggle", "modal");
 			$(".hb_table_content_tr").attr("data-target", "#exampleModal2"); */
+		})
+		
+		$("#handlerDetailSearch2").click(function(){
+			var handlerUseFrm = $("#handlerUseFrm").serialize();
+			var handlerDeleteFrm = $("#handlerDeleteFrm").serialize();
+			$.ajax({
+			      url:"handlerUse.do",
+			      data : handlerUseFrm,
+			      success:function(data){
+			    	  alert("핸들러 신청이 완료 되었습니다");
+			    	  $.ajax({
+					      url:"handlerDelete.do",
+					      data : handlerDeleteFrm,
+					      success:function(data){
+					    	  
+					    	  location.href="handlerBoard.do";
+					      },
+					      error : function(xhr, status) {
+				                alert(xhr + " : " + status);
+				          }
+					});
+			      },
+			      error : function(xhr, status) {
+		                alert(xhr + " : " + status);
+		          }
+			});
 		})
   	})
   </script>
@@ -405,7 +446,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="home.do">
-        <img src="resources/assets/img/brand/khaki_logo.png" class="navbar-brand-img" alt="...">
+        <img src="resources/assets/img/brand/khaki2.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -757,7 +798,7 @@
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary" id="handlerDetailSearch" data-dismiss="modal">Search</button>
+			        <button type="button" class="btn btn-primary" id="handlerDetailSearch1" data-dismiss="modal">Search</button>
 			      </div>
 			    </div>
 			  </div>
@@ -778,16 +819,16 @@
 	          			<td class="hb_table_head_carNum">
 	          				차량번호
 	          			</td>
-	          			<td class="hb_table_head_transportCompletionTime">
+	          			<td class="hb_table_head_complete">
 	          				운송완료시간
 	          			</td>
-	          			<td class="hb_table_head_requestingCustomer">
+	          			<td class="hb_table_head_handler">
 	          				신청자
 	          			</td>
 	          			<td class="hb_table_head_carModel">
 	          				차종
 	          			</td>
-	          			<td class="hb_table_head_expectedPoint">
+	          			<td class="hb_table_head_point">
 	          				예상적립포인트
 	          			</td>
 	          		</tr>
@@ -795,14 +836,14 @@
           		<table class="hb_table_content">
           			<c:forEach var="hdto" varStatus="status" items="${hlist}">
           			<tr class="hb_table_content_tr" data-toggle="modal" data-target="#exampleModal2">
-	          			<td class="hb_table_content_num">${status.count}</td>
+	          			<td class="hb_table_content_num">${status.count}<input type="hidden" class="hb_num" name="hb_num" value="${hdto.hb_num }"></td>
 	          			<td class="hb_table_content_startLocation">${hdto.startLocation }</td>
 	          			<td class="hb_table_content_arrivalLocation">${hdto.returnLocation }</td>
 	          			<td class="hb_table_content_carNum">${hdto.carNum }</td>
-	          			<td class="hb_table_content_transportCompletionTime">${hdto.customerUsageTime }</td>
-	          			<td class="hb_table_content_requestingCustomer">${hdto.handler }</td>
-	          			<td class="hb_table_content_carModel">${hdto.vehicleType }</td>
-	          			<td class="hb_table_content_expectedPoint">${hdto.point }p</td>
+	          			<td class="hb_table_content_complete">${hdto.complete }</td>
+	          			<td class="hb_table_content_handler">${hdto.handler }</td>
+	          			<td class="hb_table_content_carModel">${hdto.carModel }</td>
+	          			<td class="hb_table_content_point">${hdto.point }p</td>
           			</tr>
           			</c:forEach>
           		</table>
@@ -837,8 +878,8 @@
 					</div>
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary" id="handlerDetailSearch" data-dismiss="modal">Search</button>
+			        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+			        <button type="button" class="btn btn-primary" id="handlerDetailSearch2" style="width: 100%; font-size: 25px;">신청하기</button>
 			      </div>
 			    </div>
 			  </div>
