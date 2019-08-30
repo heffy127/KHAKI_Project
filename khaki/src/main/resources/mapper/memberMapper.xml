@@ -10,14 +10,59 @@
 		<result property="name" column="name" />
 		<result property="email_id" column="email_id" />
 		<result property="email_site" column="email_site" />
+		<result property="phone1" column="phone1" />
+		<result property="phone2" column="phone2" />
+		<result property="phone3" column="phone3" />
+		<result property="postcode" column="postcode" />
+		<result property="address1" column="address1" />
+		<result property="address2" column="address2" />
+		<result property="address3" column="address3" />
+		<result property="smsPush" column="smsPush" />
 		<result property="emailPush" column="emailPush" />
-		<result property="emailPush" column="emailPush" />
+		<result property="useCount" column="useCount" />
+		<result property="handler" column="handler" />
+		<result property="photo" column="photo" />
+	</resultMap>
+	
+	<resultMap type="licenseDTO" id="rsMap_license">
+		<result property="id" column="id" />
+		<result property="licenseType" column="licenseType" />
+		<result property="area" column="area" />
+		<result property="num1" column="num1" />
+		<result property="num2" column="num2" />
+		<result property="num3" column="num3" />
+		<result property="expireDate" column="expireDate" />
+		<result property="issueDate" column="issueDate" />
+	</resultMap>
+	
+	<resultMap type="socialDTO" id="rsMap_social">
+		<result property="id" column="id" />
+		<result property="social_id" column="social_id" />
+		<result property="social_type" column="social_type" />
 	</resultMap>
 
 	<select id="selectId" parameterType="String" resultMap="rsMap">
 		SELECT *
 		FROM member
 		WHERE id = #{id}
+	</select>
+	
+	<select id="selectId_license" parameterType="String" resultMap="rsMap_license">
+		SELECT *
+		FROM license
+		WHERE id = #{id}
+	</select>
+	
+	<select id="selectId_naver" parameterType="String" resultMap="rsMap_social">
+		SELECT *
+		FROM social
+		WHERE id = #{id} and social_type = 'naver'
+	</select>
+	
+	<select id="selectId_kakao" parameterType="String" resultMap="rsMap_social">
+		SELECT *
+		FROM social
+		WHERE id = #{id} and social_type = 'kakao'
 	</select>
 
 	<select id="selectEmail" parameterType="memberDTO" resultMap="rsMap">
