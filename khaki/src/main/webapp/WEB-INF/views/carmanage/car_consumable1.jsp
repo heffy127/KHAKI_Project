@@ -19,7 +19,6 @@
 			var distance = <%=distance%>;
 			//var distance1 = parseInt(distance);
 			
-			 
 			//배열 순서대로 타이밍벨트, 구동벨트, 엔진오일, 변속기오일, 브레이크 오일, 에어컨필터, 연료필터, 에어클리너, 냉각수, 배터리, 타이어 순서
 			var arr = new Array(100000, 30000, 10000, 30000, 40000, 15000, 30000, 20000, 50000, 60000, 30000);
 			// DB에서 교체횟수를 꺼내오는 작업
@@ -33,6 +32,9 @@
 			var percentage = 0;
 			var expire_item = 0;
 			
+			var test1 ="";
+			var test2 ="";
+			
 			// remainder 변수를 통해서 각 소모품주기 기준수로 나눠줌
 			for(var i=0; i<arr.length;i++){
 				var remainder = distance % arr[i];	//나머지 값이 들어 있음
@@ -40,7 +42,8 @@
 				// 나눗셈 몫 = 교체해야할 시기
 				// 각 소모품 별 교체횟수, 교체 시기 DB작성(교체횟수와 비교하여 교체횟수와 현재 교체되었어야할 횟수가 동일하면 %표기, 그 외에는 교체요망 표기)
 				var change_num = Math.floor(distance / arr[i]);
-				
+				test1 += consumableDB[i];
+				test2 += change_num;
 				// consumableDB의 값은 DB에 저장된 값, change_num은 총 운행km로 계산하여 현재 교체 시기를 계산한 값
 				// consumableDB >= change_num : 교체 하지 않아도 됨
 				// consumableDB < change_num : 교체가 필요함(예 : oil_engine기준 DB에 저장된 수 3, change_num 4이면 교체를 했어야했는데 아직 안한 것으로 생각하면 됨)
@@ -55,7 +58,7 @@
 					else{};
 					
 				}else{	// 교체 해야하는 경우
-					expire_item = cconsumableDB[i];	//expire_item은 만료된 시기로
+					expire_item = consumableDB[i];	//expire_item은 만료된 시기로
 					// % 표기를 위한 계산식(총 운행 / 기준)
 					remainder = arr[i];	//100%를 만들어 주기 위해서
 				}
@@ -88,15 +91,29 @@
 						'aria-valuenow': num,
 						'style':'width:'+num+'%;',
 					});
+					$("#btn_div"+(i+1)).css("display", "inline");
 				}else{
 					//alert((i+1)+"번째 : not range!!" + arr[i]);
 				}
 				
 			};	//for문 End
 			
+			// 소모품 교체횟수 alert(test용)
+				/* 
+				alert(test1);
+				alert(test2); 
+				*/
+			
 			// progress-bar bg-success 초록색
 			// progress-bar bg-warning 주황색
 			// progress-bar bg-danger 빨간색
+			
+			$(".btn_change").click(function(){
+				//(this).
+			
+				//location.href = "car_consumable2.do?distance"+distance;
+			});	//교체 버튼 end
+			
 			
 		});	//Jquery End
 	</script>
@@ -154,6 +171,9 @@
 					    <div class="progress-bar bg-success pctest2_1" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
 					  </div>
 					</div>
+					<div id="btn_div1" style="display: none;">
+					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					</div>
 				</div>	<!-- col-sm-6 50%  -->
 				
 				<div class="col col-sm-6">
@@ -169,6 +189,9 @@
 					  <div class="progress">
 					    <div class="progress-bar bg-danger pctest2_2" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;"></div>
 					  </div>
+					</div>
+					<div id="btn_div2" style="display: none;">
+					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
 					</div>
 				</div>
 			</div>	<!-- row -->
@@ -189,6 +212,9 @@
 					    <div class="progress-bar bg-success pctest2_3" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
 					  </div>
 					</div>
+					<div id="btn_div3" style="display: none;">
+					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					</div>
 				</div>	<!-- col-sm-4 33%  -->
 				
 				<div class="col col-sm-4">
@@ -205,6 +231,9 @@
 					    <div class="progress-bar bg-danger pctest2_4" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
 					  </div>
 					</div>
+					<div id="btn_div4" style="display: none;">
+					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					</div>
 				</div>
 				
 				<div class="col col-sm-4">
@@ -220,6 +249,9 @@
 					  <div class="progress">
 					    <div class="progress-bar bg-danger pctest2_5" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
 					  </div>
+					</div>
+					<div id="btn_div5" style="display: none;">
+					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
 					</div>
 				</div>
 			</div>	<!-- row -->
@@ -240,6 +272,9 @@
 					    <div class="progress-bar bg-success pctest2_6" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
 					  </div>
 					</div>
+					<div id="btn_div6" style="display: none;">
+					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					</div>
 				</div>	<!-- col-sm-4  -->
 				
 				<div class="col col-sm-4">
@@ -256,6 +291,9 @@
 					    <div class="progress-bar bg-danger pctest2_7" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
 					  </div>
 					</div>
+					<div id="btn_div7" style="display: none;">
+					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+					</div>
 				</div>
 				
 				<div class="col col-sm-4">
@@ -271,6 +309,9 @@
 					  <div class="progress">
 					    <div class="progress-bar bg-danger pctest2_8" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
 					  </div>
+					</div>
+					<div id="btn_div8" style="display: none;">
+					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
 					</div>
 				</div>
 			</div>	<!-- row -->
@@ -291,6 +332,9 @@
 					    <div class="progress-bar bg-warning pctest2_9" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
 					  </div>
 					</div>
+					<div id="btn_div9" style="display: none;">
+					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					</div>
 				</div>	<!-- col-sm-6  -->
 				
 				<div class="col col-sm-4">
@@ -306,6 +350,9 @@
 					  <div class="progress">
 					    <div class="progress-bar bg-danger pctest2_10" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
 					  </div>
+					</div>
+					<div id="btn_div10" style="display: none;">
+					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
 					</div>
 				</div>
 				
@@ -323,8 +370,14 @@
 					    <div class="progress-bar bg-danger pctest2_11" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
 					  </div>
 					</div>
+					<div id="btn_div11" style="display: none;">
+					  	<button type="button" class="btn btn-outline-danger btn_change" >교체</button>
+					</div>
 				</div>
 			</div>	<!-- row -->
+			<!-- <div class="row">
+				<button type="button" class="btn btn-primary" id="change_consumable">교체</button>
+			</div> -->
 		</div>	<!-- container-fluid end -->
 	</div>	<!-- main-content end -->
 	

@@ -439,11 +439,11 @@
 						            </div>
 						            
 						            <div class="modal-body">
-						            	<iframe src="car_consumable1.do?distance=${cmdto.distance }&carnum1=${cmdto.carnum}" width="870" height="750"></iframe>
+						            	<iframe src="car_consumable1.do?distance=${cmdto.distance }&carnum1=${cmdto.carnum}" width="900" height="750"></iframe>
 						            </div>
 						            
 						            <div class="modal-footer">
-						                <button type="button" class="btn btn-primary">Save changes</button>
+						                
 						                <button type="button" class="btn btn-link ml-auto" data-dismiss="modal">Close</button> 
 						            </div>
 						            
