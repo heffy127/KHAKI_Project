@@ -357,7 +357,7 @@
                  <div class="tab-content" id="myTabContent">
                      <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab" style="text-align: center">
                        
-                       <iframe src="mypage_memberInfo.do" width="1100" height="1250" frameborder="0"></iframe>
+                       <iframe src="mypage_memberInfo.do" width="1100" height="1260" frameborder="0"></iframe>
                      
                      </div>
                      <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">

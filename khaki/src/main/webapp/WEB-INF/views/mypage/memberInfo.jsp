@@ -36,6 +36,26 @@ $(document).ready(
 			var email_idType = /^(?=.*[A-Za-z0-9])[A-Za-z0-9+]*$/; // 영어, 숫자 필터링해줌 (무조건 1개 이상 입력)
 			var email_siteType = /^[a-zA-Z0-9.]+\.[a-zA-Z]{2,5}$/; 
 			//                        영어 숫자 .   .이후 영어 2~5자리로 끝내야함
+
+			// 소셜 로그인 여부에 맞춰 토글 체크
+			if('${socialDTO_naver.id}' != null){
+				$('#naver_chk').attr('checked',true)
+			}
+			if('${socialDTO_kakao.id}' != ''){
+				$('#kakao_chk').attr('checked',true)
+			}
+			
+			// 비밀번호 변경 버튼 클릭
+			$('#pwCheckBtn').click(
+					function() {
+						if($('#pw').val() != ''){
+							alert("여기서 ajax로 비밀번호 체크할 예정")
+							$('#pwModal').click()
+						}else{
+							alert('비밀번호 정보를 입력해주세요.')
+						}
+						
+			})
 			
 			// 이메일 변경버튼 클릭
 			$('#emailChangeBtn').click(
@@ -103,6 +123,16 @@ $(document).ready(
 							$('#phone3').attr('readonly',true)
 							$('#phoneCancelDiv').hide()
 					})
+			
+					
+			// 문자, 이메일 수신 버튼
+			$("#smsBtn").click(function() {
+				$("#smsPush_chk").click()
+			})
+			$("#emailBtn").click(function() {
+				$("#emailPush_chk").click()
+			})
+
 					
 		})
 		
@@ -194,8 +224,12 @@ $(document).ready(
                         <input type="button" class="btn btn-outline-warning"
                            value="비밀번호 인증" id="pwCheckBtn">
                      </div>
+                     
+                     
+                     
                   </div>
                </div>
+               
             </form>
             </div>
             <hr class="my-4" />
@@ -213,13 +247,13 @@ $(document).ready(
                               <td><input type="text"
                                  class="form-control form-control-alternative" id="email_id"
                                  name="email_id" style="text-align: center; font-size: 18px; width: 192px"
-                                 placeholder="등록된 이메일이" readonly="readonly"
+                                 placeholder="이메일 주소 입력" readonly="readonly"
                                  value="${memberDTO.email_id}"></td>
                               <td>&nbsp;@&nbsp;</td>
                               <td><input type="text"
                                  class="form-control form-control-alternative" id="email_site"
                                  name="email_site" style="text-align: center; font-size: 18px; width: 192px"
-                                 placeholder="없습니다." readonly="readonly"
+                                 readonly="readonly"
                                  value="${memberDTO.email_site}"></td>
                               <td>&nbsp;</td>
                               <td><select id="email_select" size="1"
@@ -370,8 +404,8 @@ $(document).ready(
                            &nbsp;&nbsp;
                         </td>
                         <td>
-                           <label class="custom-toggle">
-                                <input type="checkbox" checked="" id="naver_chk">
+                           <label class="custom-toggle" style="padding: 0px; margin: 0px;">
+                                <input type="checkbox" id="naver_chk">
                                <span class="custom-toggle-slider rounded-circle"></span>
                            </label>
                         </td>
@@ -385,8 +419,8 @@ $(document).ready(
                            &nbsp;&nbsp;
                         </td>
                         <td>
-                           <label class="custom-toggle">
-                                <input type="checkbox" checked="" id="kakao_chk">
+                           <label class="custom-toggle" style="padding: 0px; margin: 0px;">
+                                <input type="checkbox" id="kakao_chk">
                                <span class="custom-toggle-slider rounded-circle"></span>
                            </label>
                         </td>
@@ -419,5 +453,39 @@ $(document).ready(
             </div>
       </div>
    </div>
+   
+   <!-- 비밀번호 찾기 modal -->
+  	<div style="display: none !important;">
+     <button type="button" class="btn btn-block btn-primary mb-3" 
+     data-toggle="modal" data-target="#modal-default" id="pwModal">Default</button>
+    </div>  
+		<div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true"
+		style="top: -300px;">
+		   <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+		        <div class="modal-content">
+		        	
+		            <div class="modal-header">
+		                <h6 class="modal-title" id="modal-title-default">Type your modal title</h6>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                    <span aria-hidden="true">×</span>
+		                </button>
+		            </div>
+		            
+		            <div class="modal-body">
+		            	
+		                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+		                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+		                
+		            </div>
+		            
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-primary">Save changes</button>
+		                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button> 
+		            </div>
+		            
+		        </div>
+		      </div>
+        </div>
+        
 </body>
 </html>

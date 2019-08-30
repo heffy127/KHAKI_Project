@@ -190,15 +190,16 @@ public class MemberController {
 	
 	// 마이페이지 탭 회원정보 수정 iframe
 	@RequestMapping("mypage_memberInfo.do")
-	public String memberInfo(MemberDTO memberDTO, LicenseDTO licenseDTO, SocialDTO socialDTO, Model model, HttpSession session) {
+	public String memberInfo(MemberDTO memberDTO, LicenseDTO licenseDTO, SocialDTO socialDTO_naver, SocialDTO socialDTO_kakao, Model model, HttpSession session) {
 		String id = (String)session.getAttribute("sessionId");
-		System.out.println(id);
 		memberDTO = memberDAO.selectId(id);
 		licenseDTO = memberDAO.selectId_license(id);
-		socialDTO = memberDAO.selectId_social(id);
+		socialDTO_naver = memberDAO.selectId_naver(id);
+		socialDTO_kakao = memberDAO.selectId_kakao(id);
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("licenseDTO", licenseDTO);
-		model.addAttribute("socialDTO", socialDTO);
+		model.addAttribute("socialDTO_naver", socialDTO_naver);
+		model.addAttribute("socialDTO_kakao", socialDTO_kakao);
 		return "mypage/memberInfo"; 
 		}	
 

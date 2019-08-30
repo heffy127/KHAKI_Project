@@ -22,13 +22,19 @@ public class MemberDAO {
 	
 	public LicenseDTO selectId_license(String id) {
 		LicenseDTO licenseDTO = my.selectOne("memberDAO.selectId_license", id);
-		System.out.println("selectId_license 성공");
+		System.out.println("selectId 성공");
 		return licenseDTO;
 	}
 	
-	public SocialDTO selectId_social(String id) {
-		SocialDTO socialDTO = my.selectOne("memberDAO.selectId_social", id);
-		System.out.println("selectId_social 성공");
+	public SocialDTO selectId_naver(String id) {
+		SocialDTO socialDTO = my.selectOne("memberDAO.selectId_naver", id);
+		System.out.println("selectId 성공");
+		return socialDTO;
+	}
+	
+	public SocialDTO selectId_kakao(String id) {
+		SocialDTO socialDTO = my.selectOne("memberDAO.selectId_kakao", id);
+		System.out.println("selectId 성공");
 		return socialDTO;
 	}
 	

@@ -53,10 +53,16 @@
 		WHERE id = #{id}
 	</select>
 	
-	<select id="selectId_social" parameterType="String" resultMap="rsMap_social">
+	<select id="selectId_naver" parameterType="String" resultMap="rsMap_social">
 		SELECT *
 		FROM social
-		WHERE id = #{id}
+		WHERE id = #{id} and social_type = 'naver'
+	</select>
+	
+	<select id="selectId_kakao" parameterType="String" resultMap="rsMap_social">
+		SELECT *
+		FROM social
+		WHERE id = #{id} and social_type = 'kakao'
 	</select>
 
 	<select id="selectEmail" parameterType="memberDTO" resultMap="rsMap">
