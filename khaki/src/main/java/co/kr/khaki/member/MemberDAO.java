@@ -20,6 +20,18 @@ public class MemberDAO {
 		return memberDTO;
 	}
 	
+	public LicenseDTO selectId_license(String id) {
+		LicenseDTO licenseDTO = my.selectOne("memberDAO.selectId_license", id);
+		System.out.println("selectId_license 성공");
+		return licenseDTO;
+	}
+	
+	public SocialDTO selectId_social(String id) {
+		SocialDTO socialDTO = my.selectOne("memberDAO.selectId_social", id);
+		System.out.println("selectId_social 성공");
+		return socialDTO;
+	}
+	
 	public MemberDTO selectEmail(MemberDTO memberDTO) {
 		MemberDTO result = my.selectOne("memberDAO.selectEmail", memberDTO);
 		return result;

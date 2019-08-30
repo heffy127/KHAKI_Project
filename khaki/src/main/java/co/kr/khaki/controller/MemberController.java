@@ -12,10 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.kr.khaki.member.HashingPw;
+import co.kr.khaki.member.LicenseDTO;
 import co.kr.khaki.member.Mail_findId;
 import co.kr.khaki.member.Mail_findPw;
 import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.member.MemberDTO;
+import co.kr.khaki.member.SocialDTO;
 import co.kr.khaki.member.TempPw;
 
 @Controller
@@ -186,10 +188,17 @@ public class MemberController {
 		return "sms/smsFindPw"; 
 		}	
 	
-	// 마이페이지 탭 iframe
+	// 마이페이지 탭 회원정보 수정 iframe
 	@RequestMapping("mypage_memberInfo.do")
-	public String memberInfo() {
-		
+	public String memberInfo(MemberDTO memberDTO, LicenseDTO licenseDTO, SocialDTO socialDTO, Model model, HttpSession session) {
+		String id = (String)session.getAttribute("sessionId");
+		System.out.println(id);
+		memberDTO = memberDAO.selectId(id);
+		licenseDTO = memberDAO.selectId_license(id);
+		socialDTO = memberDAO.selectId_social(id);
+		model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("licenseDTO", licenseDTO);
+		model.addAttribute("socialDTO", socialDTO);
 		return "mypage/memberInfo"; 
 		}	
 

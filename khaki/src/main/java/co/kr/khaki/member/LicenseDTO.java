@@ -2,14 +2,14 @@ package co.kr.khaki.member;
 
 public class LicenseDTO {
 	private String id;
-	private String type;
+	private String licenseType;
 	private String area;
 	private String num1;
 	private String num2;
 	private String num3;
 	private String expireDate;
 	private String issueDate;
-	
+
 	public LicenseDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -23,12 +23,12 @@ public class LicenseDTO {
 		this.id = id;
 	}
 
-	public String getType() {
-		return type;
+	public String getLicenseType() {
+		return licenseType;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setLicenseType(String licenseType) {
+		this.licenseType = licenseType;
 	}
 
 	public String getArea() {
@@ -78,7 +78,5 @@ public class LicenseDTO {
 	public void setIssueDate(String issueDate) {
 		this.issueDate = issueDate;
 	}
-	
-	
-	
+
 }

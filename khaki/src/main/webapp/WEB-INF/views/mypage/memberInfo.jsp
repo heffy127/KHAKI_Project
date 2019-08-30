@@ -166,14 +166,16 @@ $(document).ready(
                      <div class="form-group">
                         <label class="form-control-label" for="name">이름</label>
                         <input type="text" id="name"
-                           class="form-control form-control-alternative" readonly="readonly">
+                           class="form-control form-control-alternative" readonly="readonly"
+                           value="${memberDTO.name}">
                      </div>
                   </div>
                   <div class="col-lg-6">
                      <div class="form-group">
                         <label class="form-control-label" for="id">아이디</label>
                         <input type="text" id="id"
-                           class="form-control form-control-alternative" readonly="readonly">
+                           class="form-control form-control-alternative" readonly="readonly"
+                           value="${memberDTO.id}">
                      </div>
                   </div>
                </div>
@@ -211,12 +213,14 @@ $(document).ready(
                               <td><input type="text"
                                  class="form-control form-control-alternative" id="email_id"
                                  name="email_id" style="text-align: center; font-size: 18px; width: 192px"
-                                 placeholder="등록된 이메일이" readonly="readonly"></td>
+                                 placeholder="등록된 이메일이" readonly="readonly"
+                                 value="${memberDTO.email_id}"></td>
                               <td>&nbsp;@&nbsp;</td>
                               <td><input type="text"
                                  class="form-control form-control-alternative" id="email_site"
                                  name="email_site" style="text-align: center; font-size: 18px; width: 192px"
-                                 placeholder="없습니다." readonly="readonly"></td>
+                                 placeholder="없습니다." readonly="readonly"
+                                 value="${memberDTO.email_site}"></td>
                               <td>&nbsp;</td>
                               <td><select id="email_select" size="1"
                                  style="height: 45px; border: 1 solid gray;" disabled="disabled">
@@ -249,17 +253,17 @@ $(document).ready(
                               <td><input type="text"
                                  class="form-control form-control-alternative" maxlength="3"
                                  style="text-align: center; font-size: 18px; width: 165px" id="phone1"
-                                 name="phone1" readonly="readonly"></td>
+                                 name="phone1" readonly="readonly" value="${memberDTO.phone1}"></td>
                               <td>&nbsp;-&nbsp;</td>
                               <td><input type="text"
                                  class="form-control form-control-alternative" maxlength="4"
                                  style="text-align: center; font-size: 18px; width: 165px" id="phone2"
-                                 name="phone2" readonly="readonly"></td>
+                                 name="phone2" readonly="readonly" value="${memberDTO.phone2}"></td>
                               <td>&nbsp;-&nbsp;</td>
                               <td><input type="text"
                                  class="form-control form-control-alternative" maxlength="4"
                                  style="text-align: center; font-size: 18px; width: 165px" id="phone3"
-                                 name="phone3" readonly="readonly"></td>
+                                 name="phone3" readonly="readonly" value="${memberDTO.phone3}"></td>
                               <td>&nbsp;&nbsp;</td>
                               <td>
                                  <button type="button" class="btn btn-outline-primary" id="phoneChangeBtn">변경</button>
@@ -282,7 +286,7 @@ $(document).ready(
                                  <td>
                                     <input type="text" class="form-control form-control-alternative" 
                                     id="postcode" placeholder="우편번호" readonly="readonly" name="postcode"
-                                    style="width: 400px;">
+                                    style="width: 400px;" value="${memberDTO.postcode}">
                                  </td>
                                  <td>
                                     &nbsp;
@@ -302,21 +306,24 @@ $(document).ready(
             
                         
                            <input type="text" class="form-control form-control-alternative" 
-                                    id="address" placeholder="주소" readonly="readonly" name="address1">
+                                    id="address" placeholder="주소" readonly="readonly" name="address1"
+                                    value="${memberDTO.address1}">
                               
 
                            <table>
                               <tr height='65px'>
                                  <td width="60%">
                                     <input type="text" class="form-control form-control-alternative" 
-                                    id="detailAddress" placeholder="상세주소" name="address2" readonly="readonly">
+                                    id="detailAddress" placeholder="상세주소" name="address2" readonly="readonly"
+                                    value="${memberDTO.address2}">
                                  </td>
                                  <td>
                                     &nbsp;
                                  </td>
                                  <td width="40%">
                                     <input type="text" class="form-control form-control-alternative" 
-                                    id="extraAddress" placeholder="참고항목" readonly="readonly" name="address3">
+                                    id="extraAddress" placeholder="참고항목" readonly="readonly" name="address3"
+                                    value="${memberDTO.address3}">
                                  </td>
                               </tr>
                            </table>
@@ -335,7 +342,7 @@ $(document).ready(
                   <tr>
                      <td width="300px">
                         <input type="text" class="form-control form-control-alternative" 
-                        id="license" placeholder="등록된 운전면허 정보가 없습니다." readonly="readonly" name="address1">
+                        id="license" placeholder="등록된 운전면허 정보가 없습니다." readonly="readonly" name="">
                      </td>
                      <td>
                         &nbsp;&nbsp;
