@@ -21284,4 +21284,10 @@ pre>code.highlight {
 	text-shadow: 2px 1px 1px #bfacac;
 }
 
+@media (min-width: 992px) {
+  .modal-lg-min {
+    max-width: 900px;
+  }
+}
+
 /*# sourceMappingURL=dashboard-free.css.map */

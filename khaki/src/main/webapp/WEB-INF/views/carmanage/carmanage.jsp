@@ -413,10 +413,10 @@
             			<!-- 현재는 전체 리스트를 다 뽑아오게끔 되어 있음 -->
             			<% pagination pg = (pagination)request.getAttribute("pagination"); %>
             			<c:forEach var="cmdto" items="${cmlist}" varStatus="status" begin="<%= pg.getStartIndex() %>" end="<%= pg.getEndIndex() %>">
-            			<div class="row row_carlist" style="border: thin;">
+            			<div class="row row_carlist" style="border: 1; border-style: inset; vertical-align: middle;">
             				<%-- ${status.count }
             				${status.index } --%>
-            				<div class="col" align="center">
+            				<div class="col" style="text-align: center;">
             					${cmdto.khaki_num }
             				</div>
             				<div class="col car_num" align="center">
