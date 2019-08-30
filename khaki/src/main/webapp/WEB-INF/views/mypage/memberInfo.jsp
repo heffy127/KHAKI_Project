@@ -144,7 +144,7 @@ $(document).ready(
 					} else {
 						document.getElementById("extraAddress").value = '';
 					}
-
+					
 					// 우편번호와 주소 정보를 해당 필드에 넣는다.
 					document.getElementById('postcode').value = data.zonecode;
 					document.getElementById("address").value = addr;
@@ -364,7 +364,7 @@ $(document).ready(
                         </td>
                         <td>
                            <label class="custom-toggle">
-                                <input type="checkbox" checked>
+                                <input type="checkbox" checked="" id="naver_chk">
                                <span class="custom-toggle-slider rounded-circle"></span>
                            </label>
                         </td>
@@ -379,7 +379,7 @@ $(document).ready(
                         </td>
                         <td>
                            <label class="custom-toggle">
-                                <input type="checkbox" checked>
+                                <input type="checkbox" checked="" id="kakao_chk">
                                <span class="custom-toggle-slider rounded-circle"></span>
                            </label>
                         </td>
@@ -403,7 +403,7 @@ $(document).ready(
                            <form id="pushF" name="pushF" action="" method="post">   
                               <input type="checkbox" name="chk" id="smsPush_chk" value=""> <a href="#none" id="smsBtn">문자수신</a> &nbsp;&nbsp;&nbsp;&nbsp;
                               <input type="checkbox" name="chk" id="emailPush_chk" value=""> <a href="#none" id="emailBtn">이메일수신</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                              <button type="button" class="btn btn-outline-primary" style="font-size: 7px; height: 35px;">확인</button>
+                              <button type="button" class="btn btn-outline-primary" style="font-size: 7px; height: 35px;" id="pushBtn">확인</button>
                            </form>
                         </td>
                      </tr>
