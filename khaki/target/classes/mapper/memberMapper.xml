@@ -133,6 +133,11 @@
 		WHERE id=#{id}
 	</update>
 	
+	<update id="updateEmail" parameterType="memberDTO">
+		UPDATE member SET email_id = #{email_id}, email_site = #{email_site}
+		WHERE id=#{id}
+	</update>
+	
 	<update id="updateHandler" parameterType="hsDTO">
 		UPDATE member SET handler = #{handler}
 		WHERE id=#{id}

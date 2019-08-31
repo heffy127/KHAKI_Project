@@ -37,7 +37,7 @@ $(document).ready(
 			//                        영어 숫자 .   .이후 영어 2~5자리로 끝내야함
 
 			// 소셜 로그인 여부에 맞춰 토글 체크
-			if('${socialDTO_naver.id}' != null){
+			if('${socialDTO_naver.id}' != ''){
 				$('#naver_chk').attr('checked',true)
 			}
 			if('${socialDTO_kakao.id}' != ''){
@@ -48,7 +48,7 @@ $(document).ready(
 			$('#pwCheckBtn').click(
 					function() {
 						if($('#pw').val() != ''){
-						var d = $('#pwF').serialize()
+						var d = $('#mypageF').serialize()
 							$.ajax({
 								url: "mypage_pwCheck.do",
 								data: d,
@@ -74,6 +74,9 @@ $(document).ready(
 						
 			})
 
+			var khakiAuth // KHAKI가 생성하는 인증번호
+			var userAuth // 사용자로부터 받는 인증번호
+			
 			// 이메일 변경버튼 클릭
 			$('#emailChangeBtn').click(
 					function() {
@@ -84,24 +87,100 @@ $(document).ready(
 							$('#email_site').attr('readonly',false)
 							$('#email_select').attr('disabled',false)
 							$('#emailCancelDiv').show()
-						} else { // 인증메일 버튼일때 클릭
+						} else if($('#emailChangeBtn').text() == '인증메일'){ // 인증메일 버튼일때 클릭
 							if(email_idType.test($('#email_id').val()) && email_siteType.test($('#email_site').val())){
-								// 이메일 양식에 맞게 입력한 경우
-								alert("인증메일 ㄱㄱ")
+								// 이메일 형식에 맞게 입력한 경우
+							
+								$.ajax({ // 이메일 중복 체크
+									url: "emailCheck.do?email_id="+$('#email_id').val() + "&" + "email_site=" + $('#email_site').val(),
+									success: function(result){
+										var check = result
+										if(check.trim() != 'null'){
+											alert('중복된 이메일입니다.')
+										}else{
+											// 중복 안된경우 메일 보내기
+												$('#emailChangeBtn').attr('class', 'btn btn-warning')
+												$('#emailChangeBtn').text('발송중')
+												$('#emailChangeBtn').attr('disabled',true)
+												$('#emailCancelDiv').hide()
+												var d = $('#mypageF').serialize()
+												$.ajax({
+													url: "mypage_emailAuth.do",
+													data: d,
+													success: function(result){
+														khakiAuth = result.trim() 
+														// 메일로 보낸 인증번호를 가져온 후
+														// 인증완료 버튼 눌렀을때 사용자가 세션을 통해 보내온 인증번호와 비교하게 됨
+														alert("입력하신 이메일 계정으로 인증메일를 발송했습니다.\n해당 이메일로 인증 후 인증완료 버튼을 눌러주세요")
+														$('#emailChangeBtn').attr('class', 'btn btn-info')
+														$('#emailChangeBtn').text('인증완료')
+														$('#emailChangeBtn').attr('disabled',false)
+														$('#emailCancelDiv').show()
+														$('#email_id').attr('readonly', true)
+														$('#email_site').attr('readonly', true)
+														$('#email_site').attr('readonly', true)
+														$('#email_select').attr('disabled', true)
+													}
+												})
+												
+										}
+									}
+								})
+
+								
 							}else{
-								alert("이메일 양식에 맞게  작성해주세요.")
+								alert("이메일 형식에 맞게  작성해주세요.")
 							}
+						} else { // 인증완료일때 클릭
+							$.ajax({  // 세션을 통해 보내온 인증번호를 ajax를 통해 다른 jsp에서 받아옴
+								url: "mypage_emailAuth_endBtn.do",
+								success: function(result){
+									userAuth = result.trim()
+									alert(khakiAuth)
+									alert(userAuth)
+									// khaki 인증번호와 사용자가 세션을 통해 보내온 인증번호 비교
+									if(khakiAuth != userAuth || khakiAuth == null){
+										alert('이메일 인증 정보를 다시 확인해주세요.')
+										return false
+									}else{
+										var d = $('#mypageF').serialize()
+										$.ajax({  // 이메일 업데이트
+											url: "mypage_emailAuth_fin.do",
+											data: d,
+											success: function(result){
+												alert("이메일 변경이 완료되었습니다.")
+												sessionStorage.removeItem("sessionMypageAuthNum");
+												location.reload(true);
+											}
+										})
+										
+									}
+								}
+							})
+							
+							
 						}
 					})
 					
 			// 이메일 변경 취소버튼 클릭	
 			$('#emailCancelBtn').click(
 					function() {// 변경 버튼일때 클릭
+
+							$.ajax({
+								url: "mypage_emailAuthDelete.do",
+								success: function(result){
+									// 인증번호 session 삭제
+								}
+							})
+							
 							$('#emailChangeBtn').attr('class','btn btn-outline-primary')
 							$('#emailChangeBtn').text('변경')
+							$('#email_id').val('${memberDTO.email_id}') // 기존 값 삽입
 							$('#email_id').attr('readonly',true)
+							$('#email_site').val('${memberDTO.email_site}') // 기존 값 삽입
 							$('#email_site').attr('readonly',true)
-							$('#email_select').attr('disabled',false)
+							$("#email_select").val('').prop("selected", true); // '직접입력' option 선택
+							$('#email_select').attr('disabled',true)
 							$('#emailCancelDiv').hide()
 					})
 					
@@ -220,10 +299,10 @@ $(document).ready(
 </head>
 <body>
    <div class="card-body">
+     <form id="mypageF" name="mypageF" action="" method="post">   
       <div class="col-9" style="margin: 0 auto;">
             <h6 class="heading-small text-muted mb-4">USER INFORMATION</h6>
             <div class="pl-lg-4" style="padding-left: 14px; padding-right: 14px;">
-            <form id="pwF" name="pwF" action="" method="post">   
                <div class="row">
                   <div class="col-lg-6">
                      <div class="form-group">
@@ -262,7 +341,6 @@ $(document).ready(
                   </div>
                </div>
                
-            </form>
             </div>
             <hr class="my-4" />
             <!-- Address -->
@@ -273,7 +351,6 @@ $(document).ready(
                      <div class="form-group">
                         <label class="form-control-label" for="input-address">이메일</label>
 
-            <form id="emailF" name="emailF" action="" method="post">   
                         <table>
                            <tr>
                               <td><input type="text"
@@ -294,7 +371,7 @@ $(document).ready(
                                     <option value="naver.com">naver.com</option>
                                     <option value="daum.net">daum.net</option>
                                     <option value="hanmail.net">hanmail.net</option>
-                                    <option value="gmail.com   ">gmail.com</option>
+                                    <option value="gmail.com">gmail.com</option>
                                     <option value="outlook.com">outlook.com</option>
                               </select></td>
                               <td>&nbsp;&nbsp;</td>
@@ -309,11 +386,9 @@ $(document).ready(
                               </td>
                            </tr>
                         </table>
-            </form>
                      </div>
                      <div class="form-group">
                         <label class="form-control-label" for="input-address">휴대폰 번호</label>
-            <form id=phoneF" name="phoneF" action="" method="post">   
                         <table>
                            <tr>
                               <td><input type="text"
@@ -342,11 +417,9 @@ $(document).ready(
                               </td>
                            </tr>
                         </table>
-            </form>
                      </div>
                      <div class="form-group">
                         <label class="form-control-label" for="input-address">주소</label>
-            <form id="addressF" name="addressF" action="" method="post">   
                         <table>
                               <tr height='65px'>
                                  <td>
@@ -393,7 +466,6 @@ $(document).ready(
                                  </td>
                               </tr>
                            </table>
-            </form>
                      </div>
                   </div>
                </div>
@@ -473,17 +545,16 @@ $(document).ready(
                      </tr>
                      <tr>
                         <td colspan="5">
-                           <form id="pushF" name="pushF" action="" method="post">   
                               <input type="checkbox" name="chk" id="smsPush_chk" value=""> <a href="#none" id="smsBtn">문자수신</a> &nbsp;&nbsp;&nbsp;&nbsp;
                               <input type="checkbox" name="chk" id="emailPush_chk" value=""> <a href="#none" id="emailBtn">이메일수신</a>&nbsp;&nbsp;&nbsp;&nbsp;
                               <button type="button" class="btn btn-outline-primary" style="font-size: 7px; height: 35px;" id="pushBtn">확인</button>
-                           </form>
                         </td>
                      </tr>
                   </table>
                </div>
             </div>
       </div>
+     </form>
    </div>
    
    <!-- 비밀번호 변경 modal -->

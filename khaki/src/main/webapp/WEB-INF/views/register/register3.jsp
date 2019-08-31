@@ -267,8 +267,8 @@
 						}
 				})
 				
-				var khakiAuth
-				var userAuth
+				var khakiAuth // KHAKI가 생성하는 인증번호
+				var userAuth // 사용자로부터 받는 인증번호
 				
 				// 이메일 인증
 				$('#forAuthBtn').click(
@@ -276,23 +276,27 @@
 						if($('#email_span').text().trim() == "이메일 인증을 진행해주세요.")
 						{
 							$('#email_span').text("이메일 인증 후 다음 버튼을 눌러주세요.")
+							$('#forAuthBtn').attr('class', 'btn btn-warning')
+							$('#forAuthBtn').text('발송중')
+							$('#forAuthBtn').attr('disabled', true)
 							var d = $('#regi3').serialize()
 							$.ajax({
 								url: "emailAuth.do",
 								data: d,
 								success: function(result){
-									khakiAuth = result.trim()
+									khakiAuth = result.trim() 
+									// 메일로 보낸 인증번호를 가져온 후
+									// next버튼 눌렀을때 사용자가 세션을 통해 보내온 인증번호와 비교하게 됨
+									alert("입력하신 이메일 계정으로 인증메일를 발송했습니다.")
+									$('#forAuthBtn').attr('class', 'btn btn-success')
+									$('#forAuthBtn').text('발송완료')
+									$('#forAuthBtn').attr('disabled', true)
+									$('#email_id').attr('readonly', true)
+									$('#email_site').attr('readonly', true)
+									$('#email_site').attr('readonly', true)
+									$('#email_select').attr('disabled', true)
 								}
 							})
-							alert("입력하신 이메일 계정으로 인증메일를 발송했습니다.")
-								
-								$('#forAuthBtn').attr('class', 'btn btn-warning')
-								$('#forAuthBtn').text('발송완료')
-								$('#forAuthBtn').attr('disabled', true)
-								$('#email_id').attr('readonly', true)
-								$('#email_site').attr('readonly', true)
-								$('#email_site').attr('readonly', true)
-								$('#email_select').attr('disabled', true)
 
 
 							}else{
@@ -333,11 +337,12 @@
 							if($('#email_span').text() == '이메일 인증 후 다음 버튼을 눌러주세요.'){
 								// 사용자가 가입 인증을 제대로 했는지 파악
 								var d = 1
-								$.ajax({
+								$.ajax({  // 세션을 통해 보내온 인증번호를 ajax를 통해 다른 jsp에서 받아옴
 									url: "emailAuth_next.do",
 									data: d,
 									success: function(result){
 										userAuth = result.trim()
+										// khaki 인증번호와 사용자가 세션을 통해 보내온 인증번호 비교
 										if(khakiAuth != userAuth || khakiAuth == null){
 											alert('이메일 인증 정보를 다시 확인해주세요.')
 											return false
@@ -505,7 +510,7 @@
 													<option value="naver.com">naver.com</option>
 													<option value="daum.net">daum.net</option>
 													<option value="hanmail.net">hanmail.net</option>
-													<option value="gmail.com	">gmail.com</option>
+													<option value="gmail.com">gmail.com</option>
 													<option value="outlook.com">outlook.com</option>
 											</select></td>
 										</tr>

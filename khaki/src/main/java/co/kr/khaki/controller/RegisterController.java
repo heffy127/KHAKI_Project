@@ -68,7 +68,7 @@ public class RegisterController {
 		return "register/register3";
 	}
 	
-	// 이메일 인증코드
+	// 이메일 인증코드 전송
 	@RequestMapping("emailAuth.do")
 	public String emailAuth(MemberDTO memberDTO, Model model) {
 		AuthNumber ean = new AuthNumber();
@@ -77,7 +77,7 @@ public class RegisterController {
 		mail.mailSender(memberDTO, authNum);
 		
 		model.addAttribute("authNum", authNum);
-		return "register/emailAuthNum"; // 이메일 인증번호를 register4로 가져오는 jsp
+		return "register/emailAuthNum"; // 이메일 인증번호를 register3로 가져오는 jsp
 	}
 	
 	// 사용자가 이메일 인증 링크를 눌렀을 때

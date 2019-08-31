@@ -101,7 +101,12 @@ public class MemberDAO {
 	
 	public void updatePw(MemberDTO memberDTO) {
 		my.update("memberDAO.updatePw", memberDTO);
-		System.out.println("임시비밀번호 주입 성공");
+		System.out.println("비밀번호 변경 성공");
+	}
+	
+	public void updateEmail(MemberDTO memberDTO) {
+		my.update("memberDAO.updateEmail", memberDTO);
+		System.out.println("이메일 변경 성공");
 	}
 
 	public void updateHandler(HandlerStatusDTO hsDTO) {

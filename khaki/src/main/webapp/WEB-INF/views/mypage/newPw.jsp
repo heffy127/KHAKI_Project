@@ -100,7 +100,7 @@
 							
 							var d = $('#f').serialize()
 							$.ajax({
-								url: "mypage_newPw_ok.do",
+								url: "mypage_newPw_fin.do",
 								data: d,
 								type: 'POST',
 								success: function(result){

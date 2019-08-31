@@ -11,10 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import co.kr.khaki.member.AuthNumber;
 import co.kr.khaki.member.HashingPw;
 import co.kr.khaki.member.LicenseDTO;
+import co.kr.khaki.member.Mail_auth;
 import co.kr.khaki.member.Mail_findId;
 import co.kr.khaki.member.Mail_findPw;
+import co.kr.khaki.member.Mail_mypageAuth;
 import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.member.MemberDTO;
 import co.kr.khaki.member.SocialDTO;
@@ -211,11 +214,11 @@ public class MemberController {
 			System.out.println(pw);
 			memberDTO = memberDAO.selectId(memberDTO.getId());
 			if(hp.pwCheck(pw, memberDTO.getPw()).equals("yes")) { // 아이디와 비밀번호 일치
-				model.addAttribute("loginCheck", "yes");
+				model.addAttribute("check", "yes");
 			}else { // 아이디는 있지만 비밀번호와 불일치
-				model.addAttribute("loginCheck", "no");
+				model.addAttribute("check", "no");
 			}
-			return "member/loginCheck";
+			return "mypage/allCheck";
 	}
 	
 	// 마이페이지 비밀번호 변경 창
@@ -232,20 +235,65 @@ public class MemberController {
 		System.out.println(pw);
 		memberDTO = memberDAO.selectId(memberDTO.getId());
 		if(hp.pwCheck(pw, memberDTO.getPw()).equals("yes")) { // 아이디와 비밀번호 일치
-			model.addAttribute("loginCheck", "yes");
+			model.addAttribute("check", "yes");
 		}else { // 아이디는 있지만 비밀번호와 불일치
-			model.addAttribute("loginCheck", "no");
+			model.addAttribute("check", "no");
 		}
-		return "member/loginCheck";
+		return "mypage/allCheck";
 	}
 	
 	// 마이페이지 비밀번호 변경 완료
-	@RequestMapping("mypage_newPw_ok.do")
-	public String newPw_ok(MemberDTO memberDTO, HashingPw hp) {
+	@RequestMapping("mypage_newPw_fin.do")
+	public String newPw_fin(MemberDTO memberDTO, HashingPw hp) {
 		System.out.println("바뀔 아이디" + memberDTO.getId());
 		System.out.println("바뀔 비번" + memberDTO.getPw());
 		memberDAO.updatePw(hp.hash(memberDTO)); // 비밀번호 암호화 후 변경
-		return "member/loginCheck"; // ajax용
+		return "mypage/allCheck"; // ajax용
+	}
+	
+	// 이메일 인증코드 전송
+	@RequestMapping("mypage_emailAuth.do")
+	public String mypage_emailAuth(MemberDTO memberDTO, Model model) {
+		AuthNumber ean = new AuthNumber();
+		Mail_mypageAuth mail = new Mail_mypageAuth();
+		String authNum = ean.makeAuthNum();
+		mail.mailSender(memberDTO, authNum);
+		
+		model.addAttribute("authNum", authNum);
+		return "mypage/emailAuthNum"; // 이메일 인증번호를 memberInfo로 가져오는 jsp
+	}
+	
+	// 사용자가 마이페이지 이메일 인증 링크를 눌렀을 때
+	@RequestMapping("mypage_emailAuth_ok.do")
+	public String mypage_emailAuth_ok(MemberDTO memberDTO, String emailAuthNum, Model model,  HttpSession session) {
+		
+		model.addAttribute("emailAuthNum", emailAuthNum);
+		return "mypage/emailAuthMypage";
+	}
+	
+	// 마이페이지 이메일 인증완료 버튼 클릭
+	@RequestMapping("mypage_emailAuth_endBtn.do")
+	public String emailAuthMypage_endBtn() {
+		
+		return "mypage/emailAuth_end";
+	}
+	
+	// 이메일 인증완료 후 업데이트
+	@RequestMapping("mypage_emailAuth_fin.do")
+	public String emailAuthMypage_fin(MemberDTO memberDTO) {
+		memberDAO.updateEmail(memberDTO);
+		
+		return "mypage/allCheck"; // ajax용
+	}
+	
+	// 사용자가 마이페이지 이메일 인증 취소 버튼을 눌렀을 때
+	@RequestMapping("mypage_emailAuthDelete.do")
+	public String mypage_emailAuthDelete(HttpSession session) {
+		session.removeAttribute("sessionMypageAuthNum");
+		//세션을 삭제함으로써 인증번호 정보를 지움
+		
+		return "mypage/allCheck"; // ajax용
+
 	}
 
 }
