@@ -143,6 +143,11 @@
 		WHERE id=#{id}
 	</update>
 	
+	<update id="updateAddress" parameterType="memberDTO">
+		UPDATE member SET postcode = #{postcode}, address1 = #{address1}, address2 = #{address2}, address3 = #{address3}
+		WHERE id=#{id}
+	</update>
+	
 	<update id="updateHandler" parameterType="hsDTO">
 		UPDATE member SET handler = #{handler}
 		WHERE id=#{id}

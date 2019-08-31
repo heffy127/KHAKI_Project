@@ -108,6 +108,7 @@ $(document).ready(
 												$.ajax({
 													url: "mypage_emailAuth.do",
 													data: d,
+													type: 'POST',
 													success: function(result){
 														khakiAuth = result.trim() 
 														// 메일로 보낸 인증번호를 가져온 후
@@ -148,6 +149,7 @@ $(document).ready(
 										$.ajax({  // 이메일 업데이트
 											url: "mypage_emailAuth_fin.do",
 											data: d,
+											type: 'POST',
 											success: function(result){
 												alert("이메일 변경이 완료되었습니다.")
 												sessionStorage.removeItem("sessionMypageAuthNum");
@@ -235,9 +237,10 @@ $(document).ready(
 							}
 						} else { //인증완료 버튼일때 클릭
 							var d = $('#mypageF').serialize()
-							$.ajax({  // 이메일 업데이트
+							$.ajax({  // 휴대폰 번호 업데이트
 								url: "mypage_phoneAuth_fin.do",
 								data: d,
+								type: 'POST',
 								success: function(result){
 									alert("휴대폰 번호 변경이 완료되었습니다.")
 									location.reload(true);
@@ -299,7 +302,39 @@ $(document).ready(
 				<%session.removeAttribute("sessionPhoneAuth");%>
 			}
 			
+			// 주소 변경버튼 클릭
+			$('#addressChangeBtn').click(
+				function() {
+					if($('#addressChangeBtn').val() == '변경'){
+						execDaumPostcode()
+					} else { // 완료 버튼일때 클릭
+						var d = $('#mypageF').serialize()
+						$.ajax({  // 이메일 업데이트
+							url: "mypage_address_fin.do",
+							data: d,
+							type: 'POST',
+							success: function(result){
+								alert("주소 변경이 완료되었습니다.")
+								location.reload(true);
+							}
+						})
+					}
 					
+			})
+			
+			// 주소 변경 취소버튼 클릭	
+			$('#addressCancelBtn').click(
+					function() { // 변경 버튼일때 클릭
+							$('#addressChangeBtn').attr('class','btn btn-outline-primary')
+							$('#addressChangeBtn').val('변경')
+							$('#postcode').val('${memberDTO.postcode}')
+							$('#address').val('${memberDTO.address1}')
+							$('#detailAddress').val('${memberDTO.address2}')
+							$('#detailAddress').attr('readonly',true)
+							$('#extraAddress').val('${memberDTO.address3}')
+							$('#addressCancelDiv').hide()
+					})
+			
 		})
 		
 		function execDaumPostcode() {
@@ -344,6 +379,14 @@ $(document).ready(
 					// 우편번호와 주소 정보를 해당 필드에 넣는다.
 					document.getElementById('postcode').value = data.zonecode;
 					document.getElementById("address").value = addr;
+					
+					// 상세주소 입력칸 개방
+					$('#detailAddress').val('')
+					$('#detailAddress').attr('readonly',false)
+					$('#addressChangeBtn').val('완료')
+					$('#addressChangeBtn').attr('class','btn btn-info')
+					$('#addressCancelDiv').show()
+					
 					// 커서를 상세주소 필드로 이동한다.
 					document.getElementById("detailAddress").focus();
 				}
@@ -486,8 +529,7 @@ $(document).ready(
                                     &nbsp;
                                  </td>
                                  <td>
-                                    <input type="button" class="btn btn-outline-primary" value="변경" onclick="execDaumPostcode()"
-                                    id="addressChangeBtn"><br>
+                                    <input type="button" class="btn btn-outline-primary" value="변경"  id="addressChangeBtn"><br>
                                  </td>
                                  <td>&nbsp;</td>
                                  <td>
