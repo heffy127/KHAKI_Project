@@ -112,17 +112,6 @@ write_date varchar2(30)
 
 @ 정기현
 
-create table handler ( -- 핸들러 게시판
-   hb_num number(20), -- 핸들러 게시판글번호
-   carNum varchar2(20), -- 차 번호
-   carModel varchar2(20), -- 차량 종류
-   startLocation varchar2(100), -- 출발지점
-   returnLocation varchar2(100), -- 도착지점
-   handler varchar2(20), -- 핸들러(운송자)
-   point number(20), -- 적립 될 포인트
-   complete varchar2(20) -- 고객 이용시간(운송 완료 해야 하는 시간)
-)
-
 create table reservation ( -- 모든 예약정보
    buy_num number(20),
    buy_id varchar2(20),
@@ -136,13 +125,55 @@ create table reservation ( -- 모든 예약정보
    buy_real_returnLocation varchar2(100),
    buy_carNum varchar2(20),
    buy_carModel varchar2(20),
-   buy_expectedPoint varchar2(20),
+   buy_point varchar2(20),
    buy_amount varchar2(20),
    buy_addAmount varchar2(20),
    buy_totalAmount varchar2(20),
    buy_accident varchar2(20),
+   buy_coupon varchar2(50),
+   buy_discount varchar2(20),
    buy_impUid varchar2(50)
 )
+
+drop table reservation
+
+create table handler ( -- 핸들러 게시판
+   hb_num number(20), -- 핸들러 게시판글번호
+   carNum varchar2(20), -- 차 번호
+   carModel varchar2(20), -- 차량 종류
+   startLocation varchar2(100), -- 출발지점
+   returnLocation varchar2(100), -- 도착지점
+   handler varchar2(20), -- 핸들러(운송자)
+   point number(20), -- 적립 될 포인트
+   complete varchar2(20) -- 고객 이용시간(운송 완료 해야 하는 시간)
+)
+
+drop table handler
+
+-- 샘플데이터
+insert into handler values (1, '91부 2547', '마세라티', '서울특별시 강동구', '서울특별시 관악구', 'rlgus1231', 2001, '19.08.30 19:30');
+insert into handler values (2, '53이 2477', '벤츠', '서울특별시 강북구', '서울특별시 광진구', 'rlgus1232', 2002, '19.08.30 20:50');
+insert into handler values (3, '26인 8245', '포르세', '서울특별시 강서구', '서울특별시 구로구', 'rlgus1233', 2003, '19.08.31 16:20');
+insert into handler values (4, '37하 2357', '펠리세이드', '서울특별시 관악구', '서울특별시 강북구', 'rlgus1234', 2004, '19.08.30 19:20');
+insert into handler values (5, '52다 6313', 'BMW', '서울특별시 광진구', '서울특별시 강동구', 'rlgus1235', 2005, '19.08.31 6:10');
+insert into handler values (6, '24정 2572', '아우디', '서울특별시 구로구', '서울특별시 강서구', 'rlgus1236', 2006, '19.08.30 21:30');
+insert into handler values (7, '74증 1094', '펠리세이드', '서울특별시 강북구', '서울특별시 관악구', 'rlgus1237', 2007, '19.09.2 11:30');
+insert into handler values (8, '14으 6389', '소나타', '서울특별시 강동구', '서울특별시 광진구', 'rlgus1238', 2008, '19.09.16 15:30');
+insert into handler values (9, '25노 1690', '아반떼', '서울특별시 강서구', '서울특별시 구로구', 'rlgus1239', 2009, '19.09.12 17:40');
+insert into handler values (10, '16정 2590', '레이', '서울특별시 관악구', '서울특별시 강북구', 'rlgus12310', 2010, '19.09.05 12:50');
+insert into handler values (11, '28품 2508', '테슬라', '서울특별시 광진구', '서울특별시 강동구', 'rlgus12311', 2011, '19.09.11 16:20');
+insert into handler values (12, '93인 2408', '코란도', '서울특별시 구로구', '서울특별시 강서구', 'rlgus12312', 2012, '19.09.02 19:15');
+insert into handler values (13, '47간 0633', '스포티지', '서울특별시 강북구', '서울특별시 관악구', 'rlgus12313', 2013, '19.09.01 15:52');
+insert into handler values (14, '15선 2394', 'K5', '서울특별시 강동구', '서울특별시 광진구', 'rlgus12314', 2014, '19.09.08 16:42');
+insert into handler values (15, '37배 1359', 'K7', '서울특별시 강서구', '서울특별시 구로구', 'rlgus12315', 2015, '19.09.08 15:41');
+insert into handler values (16, '48수 1570', 'K3', '서울특별시 관악구', '서울특별시 강북구', 'rlgus12316', 2016, '19.09.08 13:56');
+insert into handler values (17, '59주 6089', 'SM3', '서울특별시 광진구', '서울특별시 강동구', 'rlgus12317', 2017, '19.09.09 5:07');
+insert into handler values (18, '64군 4071', 'SM5', '서울특별시 구로구', '서울특별시 강서구', 'rlgus12318', 2018, '19.09.09 2:41');
+insert into handler values (19, '75재 5833', 'SM6', '서울특별시 강동구', '서울특별시 관악구', 'rlgus12319', 2019, '19.09.09 17:12');
+insert into handler values (20, '36초 1840', '모닝', '서울특별시 강북구', '서울특별시 광진구', 'rlgus12320', 2020, '19.09.12 9:05');
+
+
+drop table handlerUse
 
 create table handlerUse ( -- 핸들러 이용 테이블
 	h_id varchar2(20), -- 핸들러 운송자 id
@@ -191,3 +222,23 @@ INSERT INTO RESERVATION VALUES(tmp_seq.NEXTVAL,'mos4657','스페셜','1908241600
 'kona','20000','20000','40000',NULL,NULL)
 
 정다솔
+
+create table couponUse (
+	cp_id varchar2(20), -- 쿠폰 다운받은 사용자 sessionId
+	cp_title varchar2(20), -- 쿠폰 이름
+	cp_type char(1), -- 쿠폰종류(퍼센트 할인, 금액할인 구분. P일경우 퍼센트 M일 경우 금액할인)
+	cp_per number(20), -- 퍼센트할인 쿠폰(몇퍼센트인지)
+	cp_mon number(20), --금액할인 쿠폰(몇원인지)
+	cp_end varchar2(20) -- 쿠폰 유효기간 마감날짜(해당 DTO 호출할 때 유효기간 마감날짜가 이미 지났을 경우 해당 쿠폰 삭제)
+)
+
+insert into couponUse values('rlgus1232','1원 할인쿠폰!!','M',,1,'19.09.20');
+insert into couponUse values('rlgus1232','2원 할인쿠폰!!','M',,2,'19.09.15');
+insert into couponUse values('rlgus1232','3원 할인쿠폰!!','M',,3,'19.08.30');
+insert into couponUse values('rlgus1232','4원 할인쿠폰!!','M',,4,'19.08.28');
+insert into couponUse values('rlgus1232','5원 할인쿠폰!!','M',,5,'19.08.25');
+insert into couponUse values('rlgus1232','6원 할인쿠폰!!','M',,6,'19.08.24');
+insert into couponUse values('rlgus1232','7원 할인쿠폰!!','M',,7,'19.09.22');
+insert into couponUse values('rlgus1232','8원 할인쿠폰!!','M',,8,'19.09.04');
+insert into couponUse values('rlgus1232','9원 할인쿠폰!!','M',,9,'19.09.11');
+insert into couponUse values('rlgus1232','10원 할인쿠폰!!','M',,10,'19.09.11');

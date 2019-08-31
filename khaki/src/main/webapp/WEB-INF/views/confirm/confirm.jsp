@@ -1,5 +1,7 @@
+<%@page import="org.springframework.ui.Model"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--
 
 =========================================================
@@ -34,6 +36,45 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
   <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+  <script>
+  	$(function(){
+  		var initial_amount = $("#confirm_amount").text();
+  		$(".coupon_method").change(function(){
+  			$("#confirm_amount").text(initial_amount);
+	  		var couponVal = $('select[name=coupon_method]').val();
+			var amount = $("#confirm_amount").text();
+			var result = amount - couponVal;
+			$("#confirm_amount").text(result);
+			$("#discount_label").remove();
+			$("#amount_div").append("  <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
+  			
+  		})
+  		$("#select_couponMethod").click(function(){
+			var cp_id = $("#cp_id").val();
+  			$.ajax({
+			      url:"couponConfirm.do",
+			      data : {
+			    	  "cp_id" : cp_id
+			      },
+			      success:function(data){
+					  // $("#cp_method").children().remove();
+			    	  // console.log(data);
+					  // $("#cp_method").append("<option value=\"\" class=\"cpu_choice\" id=\"cpu_choice\">- 쿠폰 선택  -</option>");
+			    	  // $("#cp_method").append(data);//aaaabbzzzz
+			    	  
+			    	  $("#cp_method").children().remove();
+			    	  console.log(data);
+			    	  $("#cp_method").append(data);//aaaabbzzzz
+			      },
+			      error : function(xhr, status) {
+		              alert(xhr + " : " + status);
+		          }
+			});
+  		})
+		
+  		
+  	})
+  </script>
 </head>
 
 <body class="">
@@ -45,7 +86,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="home.do">
-        <img src="resources/assets/img/brand/khaki_logo.png" class="navbar-brand-img" alt="...">
+        <img src="resources/assets/img/brand/khaki2.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -262,33 +303,33 @@
           	  			<tr>
           	  				<td rowspan="6" style="width: 30%;"><img style="width: 100%;" src="http://www.top-rider.com/news/photo/201803/26912_85506_4812.jpg"></td>
           	  				<td class="c_content_1">차량번호 : </td>
-          	  				<td class="c_content_2" style="width: 15%;" id="confirm_carNum">91부 9589</td>
+          	  				<td class="c_content_2" style="width: 15%;" id="confirm_carNum">55저 4215</td>
           	  				<td class="c_content_1">차종 : </td>
-          	  				<td class="c_content_2" id="confirm_carModel">마세라티</td>
+          	  				<td class="c_content_2" id="confirm_carModel">벤츠</td>
           	  			</tr>
           	  			<tr>
           	  				<td class="c_content_1">대여시간 : </td>
-          	  				<td class="c_content_2" id="confirm_startTime">몇시</td>
+          	  				<td class="c_content_2" id="confirm_startTime">1908312350</td>
           	  				<td class="c_content_1">반납시간 : </td>
-          	  				<td class="c_content_2" id="confirm_endTime">몇시</td>
+          	  				<td class="c_content_2" id="confirm_endTime">1909022000</td>
           	  			</tr>
           	  			<tr>
           	  				<td class="c_content_1">보험종류 : </td>
-          	  				<td class="c_content_2" id="confirm_carIns">머머머</td>
+          	  				<td class="c_content_2" id="confirm_carIns">좋은보험</td>
           	  				<td class="c_content_1">예상적립포인트 : </td>
-          	  				<td class="c_content_2" id="confirm_expectedPoint">몇p</td>
+          	  				<td class="c_content_2"><span id="confirm_point">4000</span>p</td>
           	  			</tr>
           	  			<tr>
           	  				<td class="c_content_1">대여주소 : </td>
-          	  				<td colspan="3" class="c_content_2" id="confirm_startLocation">어디이ㅣㅇㅇddsㄴdddsdd</td>
+          	  				<td colspan="3" class="c_content_2" id="confirm_startLocation">서울특별시 강북구 무슨동 몇번지</td>
           	  			</tr>
           	  			<tr>
           	  				<td class="c_content_1">반납주소 : </td>
-          	  				<td colspan="3" class="c_content_2" id="confirm_returnLocation">어디이dsddddd이dddddddzzzddffsffzzddddzzdd</td>
+          	  				<td colspan="3" class="c_content_2" id="confirm_returnLocation">서울특별시 강북구 무슨동 몇번지</td>
           	  			</tr>
           	  			<tr>
           	  				<td class="c_content_1">결제금액 : </td>
-          	  				<td class="c_content_2"><img style="width: 15%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_amount">10</div>원</td>
+          	  				<td class="c_content_2" id="amount_div"><img style="width: 15%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_amount">10</div>원</td>
           	  				<td class="c_content_1">결제수단 선택 : </td>
           	  				<td class="c_content_2">
 								<div class="fl_left" id="select_payMentMethod">
@@ -303,43 +344,111 @@
 							</td>
           	  			</tr>
           	  			<tr>
-          	  				<td colspan="3"></td>
+          	  				<td colspan="3">
+          	  					<div class="fl_left" id="select_couponMethod" style="padding-right: 2%;">
+									<select name="coupon_method" id="cp_method" class="form-control_jkh input-sm coupon_method" style="margin-top: 1.3%; height: 60px;">
+										<option value="" class="cpu_choice" id="cpu_choice">- 쿠폰 선택 -</option>
+										
+					  				</select>
+								</div>
+          	  				</td>
           	  				<td colspan="2">
           	  					<button type="button" class="btn btn-outline-danger c_content_payBtn" id="check_module">결제하기</button>
           	  				</td>
           	  			</tr>
           	  		</table>
           	  	</div>
+          	  	<form action="couponConfirm.do" id="couponFrm" name="couponFrm">
+	          	  	<input type="hidden" id="cp_id" name="cp_id" value="${sessionId }">
+	          	  	<input type="hidden" id="cp_title" name="cp_title" value=" ">
+	          	  	<input type="hidden" id="cp_type" name="cp_type" value=" ">
+	          	  	<input type="hidden" id="cp_per" name="cp_per" value=" ">
+	          	  	<input type="hidden" id="cp_mon" name="cp_mon" value=" ">
+	          	  	<input type="hidden" id="cp_end" name="cp_end" value=" ">
+          	  	</form>
           	  	<form action="payResult.do" id="payInsert" name="payInsert">
           	  		<input type="hidden" id="buy_num" name="buy_num" value="1">
-          	  		<input type="hidden" id="buy_id" name="buy_id" value="rlgus"> <!-- session에서 가져온 id -->
-          	  		<input type="hidden" id="buy_carIns" name="buy_carIns" value="완전자차"> <!-- table과 동일한 데이터 -->
-          	  		<input type="hidden" id="buy_startTime" name="buy_startTime" value="1908251900"> <!-- table과 동일한 데이터 -->
-          	  		<input type="hidden" id="buy_endTime" name="buy_endTime" value="1908251900"> <!-- table과 동일한 데이터 -->
+          	  		<input type="hidden" id="buy_id" name="buy_id" value=""> <!-- session에서 가져온 id -->
+          	  		<input type="hidden" id="buy_carIns" name="buy_carIns" value=""> <!-- table과 동일한 데이터 -->
+          	  		<input type="hidden" id="buy_startTime" name="buy_startTime" value=""> <!-- table과 동일한 데이터 -->
+          	  		<input type="hidden" id="buy_endTime" name="buy_endTime" value=""> <!-- table과 동일한 데이터 -->
+          	  		
           	  		<input type="hidden" id="buy_real_endTime" name="buy_real_endTime" value=""> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_driveDistance" name="buy_driveDistance" value=""> <!-- 주행거리(나중에 추가 됨) -->
-          	  		<input type="hidden" id="buy_startLocation" name="buy_startLocation" value="대여주소"> <!-- table과 동일한 데이터 -->
-          	  		<input type="hidden" id="buy_returnLocation" name="buy_returnLocation" value="반납주소"> <!-- table과 동일한 데이터 -->
+          	  		<input type="hidden" id="buy_startLocation" name="buy_startLocation" value=""> <!-- table과 동일한 데이터 -->
+          	  		<input type="hidden" id="buy_returnLocation" name="buy_returnLocation" value=""> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_real_returnLocation" name="buy_real_returnLocation" value=""> <!-- table과 동일한 데이터 -->
-          	  		<input type="hidden" id="buy_carNum" name="buy_carNum" value="91부 8589"> <!-- table과 동일한 데이터 -->
-          	  		<input type="hidden" id="buy_carModel" name="buy_carModel" value="마세라티3"> <!-- table과 동일한 데이터 -->
-          	  		<input type="hidden" id="buy_expectedPoint" name="buy_expectedPoint" value="500"> <!-- table과 동일한 데이터 -->
-          	  		<input type="hidden" id="buy_amount" name="buy_amount" value="10"> <!-- table과 동일한 데이터 -->
+          	  		
+          	  		<input type="hidden" id="buy_carNum" name="buy_carNum" value=""> <!-- table과 동일한 데이터 -->
+          	  		<input type="hidden" id="buy_carModel" name="buy_carModel" value=""> <!-- table과 동일한 데이터 -->
+          	  		<input type="hidden" id="buy_point" name="buy_point" value=""> <!-- table과 동일한 데이터 -->
+          	  		<input type="hidden" id="buy_amount" name="buy_amount" value=""> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_addAmount" name="buy_addAmount" value=""> <!-- 추가금액(나중에 추가 됨) -->
+          	  		
           	  		<input type="hidden" id="buy_totalAmount" name="buy_totalAmount" value=""> <!-- 총 금액(나중에 추가 됨) -->
           	  		<input type="hidden" id="buy_accident" name="buy_accident" value=""> <!-- 사고정보(나중에 추가 됨) -->
+          	  		<input type="hidden" id="buy_coupon" name="buy_coupon" value=""> <!-- table과 동일한 데이터 -->
+          	  		<input type="hidden" id="buy_discount" name="buy_discount" value=""> <!-- 할인받은 금액 -->
           	  		<input type="hidden" id="buy_impUid" name="buy_impUid" value=""> <!-- 주문번호(script에서 결제할때 추가 됨) -->
           	  	</form>
           	  	<script>
 				$("#check_module").click(function () {
+					var sessionId = '<%=(String)session.getAttribute("sessionId")%>';
+					
+					
+					
+					// db전송할 때 대여시간과 반납시간을 년.월.일 시:분 형태로 바꿈
+					var startTime_sp = String($("#confirm_startTime").text()).split("");
+					var endTime_sp = String($("#confirm_endTime").text()).split("");
+					var startTime = "";
+					var endTime = "";
+			  		for (var i = 0; i < startTime_sp.length; i++) {
+			  			startTime += startTime_sp[i];
+			  			if(i == 1 || i == 3) {
+			  				startTime += ".";
+			  			} else if(i == 5){
+			  				startTime += " ";
+			  			} else if(i == 7) {
+			  				startTime += ":";
+			  			}
+			  		}
+			  		for (var i = 0; i < endTime_sp.length; i++) {
+			  			endTime += endTime_sp[i];
+			  			if(i == 1 || i == 3) {
+			  				endTime += ".";
+			  			} else if(i == 5){
+			  				endTime += " ";
+			  			} else if(i == 7) {
+			  				endTime += ":";
+			  			}
+			  		}
+					var coupon_v = $('select[name=coupon_method]').val();
+					var coupon_t = $('#cp_method option:checked').text();
+					alert(coupon_v);
+					alert(coupon_t);
+					$("#buy_id").val(sessionId);
+			  		$("#buy_carIns").val($("#confirm_carIns").text());
+			  		$("#buy_startTime").val(startTime);
+					$("#buy_endTime").val(endTime); 		
+					$("#buy_startLocation").val($("#confirm_startLocation").text()); 		
+					$("#buy_returnLocation").val($("#confirm_returnLocation").text()); 		
+					$("#buy_carNum").val($("#confirm_carNum").text()); 		
+					$("#buy_carModel").val($("#confirm_carModel").text()); 		
+					$("#buy_point").val($("#confirm_point").text()); 		
+					$("#buy_amount").val($("#confirm_amount").text()); 
+					$("#buy_coupon").val(coupon_t);
+					$("#buy_discount").val(coupon_v);
+					
+					
+					// 결제 필수파라미터 부분
 					var radioVal = $('select[name=pay_method]').val();
-					var buy_id_data = "rlgus1231"; // session id
+					var buy_id_data = sessionId; // session id
 					var buy_name_data = "정기현"; // session id로 db조회했을 때 회원 이름
 					var buy_email = "jeongkyoni@gmail.com"; // session id로 db조회했을 때 회원 이메일
 					var buy_phone = "010-5048-7705"; // session id로 db조회했을 때 회원 휴대폰번호
 					var buy_addr = "서울특별시 중랑구 면목동 547-15번지 옥탑"; // session id로 db조회했을 때 회원 주소
-					var buy_carModel_data = $("#confirm_carModel").text()+"";
-					var buy_amount_data = $("#confirm_amount").text()+"";
+					var buy_carModel_data = $("#confirm_carModel").text();
+					var buy_amount_data = $("#confirm_amount").text();
 					
 					var IMP = window.IMP; // 생략가능
 					IMP.init('imp74838776');
@@ -410,7 +519,7 @@
 							      data : params,
 							      success:function(data){
 							    	  alert("결제가 완료 되었습니다.\n예약페이지로 이동합니다.");
-							    	  location.href="";
+							    	  location.href="map.do";
 							      },
 							      error : function(xhr, status) {
 						              alert(xhr + " : " + status);

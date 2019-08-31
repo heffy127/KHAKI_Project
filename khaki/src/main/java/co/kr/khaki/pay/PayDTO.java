@@ -13,14 +13,18 @@ public class PayDTO {
 	private String buy_startLocation; // 대여장소
 	private String buy_returnLocation; // 반납장소
 	private String buy_real_returnLocation; // 반납장소
+	
 	private String buy_carNum; // 구매차량번호
 	private String buy_carModel; // 구매차량모델
-	private String buy_expectedPoint; // 최초 구매금액(최초 결제시 부름서비스 신청, 존이 아닌곳에서 반납하는 등에 대한
+	private String buy_point; // 최초 구매금액(최초 결제시 부름서비스 신청, 존이 아닌곳에서 반납하는 등에 대한
 	private String buy_amount; // 최초 구매금액(최초 결제시 부름서비스 신청, 존이 아닌곳에서 반납하는 등에 대한
 								// 추가금액이 포함되는 총 금액)
 	private String buy_addAmount; // 추가금액(이용시간 연장, 반납장소 변경 등으로 인한 추가금액 발생시 추가금액)
+	
 	private String buy_totalAmount; // 총 이용금액(최초금액과 추가금액의 합산금액)
 	private String buy_accident; // 고객 이용 중 사고 접수내용
+	private String buy_coupon; // 고객이 사용한 쿠폰
+	private String buy_discount; // 쿠폰으로 할인 받은 금액
 	private String buy_impUid; // 아임포트 거래고유번호(주문번호)
 	
 	
@@ -96,11 +100,11 @@ public class PayDTO {
 	public void setBuy_carModel(String buy_carModel) {
 		this.buy_carModel = buy_carModel;
 	}
-	public String getBuy_expectedPoint() {
-		return buy_expectedPoint;
+	public String getBuy_point() {
+		return buy_point;
 	}
-	public void setBuy_expectedPoint(String buy_expectedPoint) {
-		this.buy_expectedPoint = buy_expectedPoint;
+	public void setBuy_point(String buy_point) {
+		this.buy_point = buy_point;
 	}
 	public String getBuy_amount() {
 		return buy_amount;
@@ -131,6 +135,18 @@ public class PayDTO {
 	}
 	public void setBuy_impUid(String buy_impUid) {
 		this.buy_impUid = buy_impUid;
+	}
+	public String getBuy_coupon() {
+		return buy_coupon;
+	}
+	public void setBuy_coupon(String buy_coupon) {
+		this.buy_coupon = buy_coupon;
+	}
+	public String getBuy_discount() {
+		return buy_discount;
+	}
+	public void setBuy_discount(String buy_discount) {
+		this.buy_discount = buy_discount;
 	}
 
 	

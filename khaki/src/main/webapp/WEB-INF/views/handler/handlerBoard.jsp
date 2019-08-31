@@ -415,12 +415,11 @@
 			      url:"handlerUse.do",
 			      data : handlerUseFrm,
 			      success:function(data){
-			    	  alert("핸들러 신청이 완료 되었습니다");
 			    	  $.ajax({
 					      url:"handlerDelete.do",
 					      data : handlerDeleteFrm,
 					      success:function(data){
-					    	  
+					    	  alert("핸들러 신청이 완료 되었습니다");
 					    	  location.href="handlerBoard.do";
 					      },
 					      error : function(xhr, status) {

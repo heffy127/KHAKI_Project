@@ -39,6 +39,8 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
   <script>
 	$(function() {
+		// 현재날짜와 반납한날짜를 비교하여 5일 이상 지나지 않은 주문건만 환불 가능.
+		// 5일이 지난 주문건은 환불 불가하며 고객센터로 문의해야 관리자(상담사)가 확인 후 처리 가능.
 		var date = new Date();
 		var year= String(date.getFullYear());
 	    var mon = (date.getMonth()+1)>9 ? ''+(date.getMonth()+1) : '0'+(date.getMonth()+1);
@@ -50,12 +52,29 @@
 	    index *= 1;
 	    for (var i = 0; i < index; i++) {
 	    	var confirm_endTime = $("#confirm_endTime"+i).text();
-	    	endTime = confirm_endTime.substring(0,6);
-	    	endTime *= 1;
-	    	if((now - endTime) > 4) {
-	    	    $("#refund_btn"+i).attr("disabled", "disabled");
-	    	    $("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
-		    }
+	    	confirm_endTime = confirm_endTime.split(".");
+	    	confirm_endTime[2] = confirm_endTime[2].split(" ");
+	    	end = confirm_endTime[0] + confirm_endTime[1] + confirm_endTime[2];
+	    	end = end.substring(0,6);
+	    	end *= 1;
+	    	confirm_endTime = Number(end);
+	    	if(String(now).substring(2,4) == String(confirm_endTime).substring(2,4)) { // 현재 월과 결제한 월이 같을 경우 (ex. 현재=9월 결제=9월)
+	    		if((now - confirm_endTime) > 4) {
+		    	    $("#refund_btn"+i).attr("disabled", "disabled");
+		    	    $("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
+			    }
+	    	} else if (Number(String(now).substring(2,4)) == 1) { // 현재 월이 1월일 경우
+	    		if(Number(String(now).substring(4,6)) > 4) { // 5일 이전 결제건은 환불 불가
+	    			$("#refund_btn"+i).attr("disabled", "disabled");
+		    	    $("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
+	    		}
+	    	} else if (Number(String(now).substring(2,4)) > Number(String(confirm_endTime).substring(2,4))) { // 현재 월이 결제한 월보다 클 경우(ex. 현재=10월 결제=9월)
+	    		if(Number(String(now).substring(4,6)) > 3) { // 5일 이전 결제건은 환불 불가
+	    			$("#refund_btn"+i).attr("disabled", "disabled");
+		    	    $("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
+	    		}
+	    	}
+	    	
         }
 	    
 		for (var i = 0; i < parseInt(index); i++) {
@@ -64,14 +83,7 @@
 	    			alert("환불 신청 db처리");
 	    		}
 	    	})
-	    	var st_sub = $("#confirm_startTime"+i).text();
-	    	var st_sub = st_sub[0] + st_sub[1] + "." + st_sub[2] + st_sub[3] + "." + st_sub[4] + st_sub[5] + " " + st_sub[6] + st_sub[7] + ":" + st_sub[8]  + st_sub[9];
-	    	$("#confirm_startTime"+i).text(st_sub);
-	    	var st_sub2 = $("#confirm_endTime"+i).text();
-	    	var st_sub2 = st_sub2[0] + st_sub2[1] + "." + st_sub2[2] + st_sub2[3] + "." + st_sub2[4] + st_sub2[5] + " " + st_sub2[6] + st_sub2[7] + ":" + st_sub2[8]  + st_sub2[9];
-	    	$("#confirm_endTime"+i).text(st_sub2);
 	    }
-		//bssssssssddssㅇㅇㅇㅇㅇㅇ
 	    
 	})
 	    	
@@ -87,7 +99,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="home.do">
-        <img src="resources/assets/img/brand/khaki_logo.png" class="navbar-brand-img" alt="...">
+        <img src="resources/assets/img/brand/khaki2.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -289,7 +301,7 @@
         </div>
       </div>
     </div>
-    <!-- adddddddddd -->
+    <!-- adddddddddddsddd -->
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
@@ -302,7 +314,7 @@
             	int i = 0;
            	%>
           	<c:forEach var="pdto" items="${plist}">
-            	<c:if test="${pdto.buy_id eq \"rlgus1231\"}">
+            	<c:if test="${pdto.buy_id eq sessionId}">
           			<div class="confirm_area">
           	  			<div class="confirm_content">
           					<table class="c_content">
@@ -324,7 +336,7 @@
           	  						<td class="c_content_1">보험종류 : </td>
           	  						<td class="c_content_2" id="confirm_carIns">${pdto.buy_carIns }</td>
           	  						<td class="c_content_1">예상적립포인트 : </td>
-          	  						<td class="c_content_2" id="confirm_expectedPoint">${pdto.buy_expectedPoint }</td>
+          	  						<td class="c_content_2" id="confirm_point">${pdto.buy_point }</td>
           	  					</tr>
           	  					<tr>
           	  						<td class="c_content_1">대여주소 : </td>

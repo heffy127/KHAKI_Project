@@ -11,4 +11,11 @@ public class CouponController {
 		
 		return "coupon/coupon";
 	}
+	
+	@RequestMapping("couponUseAll.do")
+	public String couponUseAll() {
+		
+		return "coupon/couponUseAll";
+	}
+	
 }
