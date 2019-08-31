@@ -72,6 +72,7 @@
 				$('#forCookie').attr('value','yes')
 				}
 				
+				// 로그인 버튼 클릭 시
 				$('#loginBtn').click(
 						function(){
 							
@@ -110,8 +111,23 @@
 								})					
 						})
 						
+				//엔터키 눌렀을때 로그인 버튼 실행
+				$('#id').keyup(
+						function(event) {
+							if(event.keyCode == 13){
+								$('#loginBtn').click()
+							}
+				})
+				$('#pw').keyup(
+						function(event) {
+							if(event.keyCode == 13){
+								$('#loginBtn').click()
+							}
+				})
+				
+				// 아이디 저장
 				$('#id_save').click(
-						function() { // 아이디 저장
+						function() { 
 							if($('#id_save').is(':checked')){
 								alert("개인 정보 보호를 위해 공용 PC에서는 사용에 유의해 주십시오.")
 								$('#forCookie').attr('value','yes')
