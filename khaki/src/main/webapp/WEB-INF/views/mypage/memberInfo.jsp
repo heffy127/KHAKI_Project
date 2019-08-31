@@ -27,7 +27,6 @@
 <script src="resources/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
 <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(
 		function() {
@@ -49,14 +48,32 @@ $(document).ready(
 			$('#pwCheckBtn').click(
 					function() {
 						if($('#pw').val() != ''){
-							alert("여기서 ajax로 비밀번호 체크할 예정")
-							$('#pwModal').click()
+						var d = $('#pwF').serialize()
+							$.ajax({
+								url: "mypage_pwCheck.do",
+								data: d,
+								type: 'POST',
+								success: function(result) {
+									var check = result.trim()
+									var id = $('#id').val()
+									if(check == 'yes'){ // DB에 저장된 비밀번호와 일치
+										$('#modal-body-changePw').append('<iframe src="mypage_newPw.do?id=' + id + '" width="455px" height="275px" frameborder="0" '
+												+ 'style="box-shadow: 0 15px 35px rgba(50, 50, 93, 0.2), 0 5px 15px rgba(0, 0, 0, 0.17);'
+												+ 'border-top-left-radius: 0.4375rem; border-top-right-radius: 0.4375rem;'
+												+ 'border-bottom-left-radius: 0.4375rem; border-bottom-right-radius: 0.4375rem;"></iframe>')
+										$('#modal-changePw').modal({backdrop: 'static'}) // 모달 닫힘 방지 
+									} else { // DB에 저장된 비밀번호와 불일치
+										alert("입력하신 비밀번호를 다시 확인해주세요.")
+									}
+								}
+							})
 						}else{
-							alert('비밀번호 정보를 입력해주세요.')
+							alert('비밀번호를 입력해주세요.')
 						}
+						$('#pw').val('')
 						
 			})
-			
+
 			// 이메일 변경버튼 클릭
 			$('#emailChangeBtn').click(
 					function() {
@@ -132,7 +149,22 @@ $(document).ready(
 			$("#emailBtn").click(function() {
 				$("#emailPush_chk").click()
 			})
+			
+			// 모달 닫기 펑션
+			window.closeModal = function(changed){ //변화된것이 있을경우 changed변수로 값 넘어옴
+				$('.modal').modal('hide')
+				$('.modal-body').empty() // iframe 제거
+				if(changed == 'changed'){
+					setTimeout(function() {
+						location.reload(true);
+						}, 600); // 0.6초뒤 페이지 새로고침
+				}
+			}
 
+			$('.close').click(
+				function () {
+					window.closeModal();
+			})
 					
 		})
 		
@@ -191,11 +223,12 @@ $(document).ready(
       <div class="col-9" style="margin: 0 auto;">
             <h6 class="heading-small text-muted mb-4">USER INFORMATION</h6>
             <div class="pl-lg-4" style="padding-left: 14px; padding-right: 14px;">
+            <form id="pwF" name="pwF" action="" method="post">   
                <div class="row">
                   <div class="col-lg-6">
                      <div class="form-group">
                         <label class="form-control-label" for="name">이름</label>
-                        <input type="text" id="name"
+                        <input type="text" id="name" name="name"
                            class="form-control form-control-alternative" readonly="readonly"
                            value="${memberDTO.name}">
                      </div>
@@ -203,18 +236,17 @@ $(document).ready(
                   <div class="col-lg-6">
                      <div class="form-group">
                         <label class="form-control-label" for="id">아이디</label>
-                        <input type="text" id="id"
+                        <input type="text" id="id" name="id"
                            class="form-control form-control-alternative" readonly="readonly"
                            value="${memberDTO.id}">
                      </div>
                   </div>
                </div>
-            <form id="pwF" name="pwF" action="" method="post">   
                <div class="row">
                   <div class="col-lg-6">
                      <div class="form-group">
                         <label class="form-control-label" for="pw">비밀번호  변경</label> 
-                        <input type="password" id="pw"
+                        <input type="password" id="pw" name="pw"
                            class="form-control form-control-alternative"
                            placeholder="현재 비밀번호를 입력 후 인증">
                      </div>
@@ -454,38 +486,34 @@ $(document).ready(
       </div>
    </div>
    
-   <!-- 비밀번호 찾기 modal -->
-  	<div style="display: none !important;">
-     <button type="button" class="btn btn-block btn-primary mb-3" 
-     data-toggle="modal" data-target="#modal-default" id="pwModal">Default</button>
-    </div>  
-		<div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true"
-		style="top: -300px;">
+   <!-- 비밀번호 변경 modal -->
+  	 
+		<div class="modal fade" id="modal-changePw" tabindex="-1" role="dialog" aria-labelledby="modal-changePw" aria-hidden="true" style="top: -500px;">
 		   <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
-		        <div class="modal-content">
+		        <div class="modal-content" style="background: #ffe099;">
 		        	
 		            <div class="modal-header">
-		                <h6 class="modal-title" id="modal-title-default">Type your modal title</h6>
-		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		                    <span aria-hidden="true">×</span>
+		                <h3 class="modal-title" id="modal-title-default" style="color: #5c5c5c;">새로운 비밀번호 설정</h3>
+		                <button type="button" class="close" id="modal-close">
+		                    <span>×</span>
 		                </button>
 		            </div>
 		            
-		            <div class="modal-body">
-		            	
-		                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-		                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+		            <div class="modal-body" id="modal-body-changePw">
+		                
 		                
 		            </div>
 		            
-		            <div class="modal-footer">
-		                <button type="button" class="btn btn-primary">Save changes</button>
-		                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button> 
-		            </div>
 		            
 		        </div>
 		      </div>
         </div>
-        
+   <script>
+    window.TrackJS &&
+      TrackJS.install({
+        token: "ee6fab19c5a04ac1a32a645abde4613a",
+        application: "argon-dashboard-free"
+      });
+  </script>
 </body>
 </html>

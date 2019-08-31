@@ -202,5 +202,52 @@ public class MemberController {
 		model.addAttribute("socialDTO_kakao", socialDTO_kakao);
 		return "mypage/memberInfo"; 
 		}	
+	
+	// 마이페이지 비밀번호 변경 버튼 클릭 시 현재 비밀번호 확인 위해 이쪽으로 넘어옴
+	@RequestMapping("mypage_pwCheck.do")
+	public String pwCheck(HttpServletResponse response, HttpServletRequest request, 
+			MemberDTO memberDTO, HashingPw hp ,String pw,Model model) {
+			System.out.println(memberDTO.getId());
+			System.out.println(pw);
+			memberDTO = memberDAO.selectId(memberDTO.getId());
+			if(hp.pwCheck(pw, memberDTO.getPw()).equals("yes")) { // 아이디와 비밀번호 일치
+				model.addAttribute("loginCheck", "yes");
+			}else { // 아이디는 있지만 비밀번호와 불일치
+				model.addAttribute("loginCheck", "no");
+			}
+			return "member/loginCheck";
+	}
+	
+	// 마이페이지 비밀번호 변경 창
+	@RequestMapping("mypage_newPw.do")
+	public String newPw(String id, Model model) { // 비밀번호를 변경할 id값을 챙겨옴 (쿼리 스트링)
+		System.out.println(id);
+		model.addAttribute("id",id);
+		return "mypage/newPw";
+	}
+	
+	// 비밀번호 DB와 새로운 비밀번호 입력 체크
+	@RequestMapping("mypage_newPw_check.do")
+	public String newPw_check(MemberDTO memberDTO, String pw, HashingPw hp ,Model model) {
+		System.out.println(pw);
+		memberDTO = memberDAO.selectId(memberDTO.getId());
+		if(hp.pwCheck(pw, memberDTO.getPw()).equals("yes")) { // 아이디와 비밀번호 일치
+			model.addAttribute("loginCheck", "yes");
+		}else { // 아이디는 있지만 비밀번호와 불일치
+			model.addAttribute("loginCheck", "no");
+		}
+		return "member/loginCheck";
+	}
+	
+	
+	
+	// 마이페이지 비밀번호 변경 완료
+	@RequestMapping("mypage_newPw_ok.do")
+	public String newPw_ok(MemberDTO memberDTO, HashingPw hp) {
+		System.out.println("바뀔 아이디" + memberDTO.getId());
+		System.out.println("바뀔 비번" + memberDTO.getPw());
+		memberDAO.updatePw(hp.hash(memberDTO)); // 비밀번호 암호화 후 변경
+		return "member/loginCheck"; // ajax용
+	}
 
 }
