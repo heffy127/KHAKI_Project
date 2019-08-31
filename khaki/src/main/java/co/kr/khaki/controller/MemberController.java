@@ -286,6 +286,14 @@ public class MemberController {
 		return "mypage/allCheck"; // ajax용
 	}
 	
+	// 휴대폰 번호 인증완료 후 업데이트
+	@RequestMapping("mypage_phoneAuth_fin.do")
+	public String mypage_phoneAuth_fin(MemberDTO memberDTO) {
+		memberDAO.updatePhone(memberDTO);
+		
+		return "mypage/allCheck"; // ajax용
+	}
+	
 	// 사용자가 마이페이지 이메일 인증 취소 버튼을 눌렀을 때
 	@RequestMapping("mypage_emailAuthDelete.do")
 	public String mypage_emailAuthDelete(HttpSession session) {

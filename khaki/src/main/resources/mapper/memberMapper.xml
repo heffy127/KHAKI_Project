@@ -138,6 +138,11 @@
 		WHERE id=#{id}
 	</update>
 	
+	<update id="updatePhone" parameterType="memberDTO">
+		UPDATE member SET phone1 = #{phone1}, phone2 = #{phone2}, phone3 = #{phone3}
+		WHERE id=#{id}
+	</update>
+	
 	<update id="updateHandler" parameterType="hsDTO">
 		UPDATE member SET handler = #{handler}
 		WHERE id=#{id}

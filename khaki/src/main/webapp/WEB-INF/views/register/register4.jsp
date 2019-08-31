@@ -78,7 +78,7 @@
 						if(phoneType.test($(this).val())){
 							$(this).attr('class',"form-control is-valid")
 							if(phoneType.test($('#phone1').val()) && phoneType.test($('#phone3').val())){
-								$.ajax({
+								$.ajax({ // 휴대폰 중복 체크
 									url: "phoneCheck.do?phone1="+$('#phone1').val()+"&phone2="+$('#phone2').val()+"&phone3="+$('#phone3').val(),
 									success: function(result) {
 									var check = result

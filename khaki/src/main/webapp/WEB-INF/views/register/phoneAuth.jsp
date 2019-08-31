@@ -37,8 +37,8 @@
 						var userAuth = $('#authNum').val()
 						if( sessionAuth == userAuth ) {
 							$('#authTitle').text("인증이 완료되었습니다.")
-							alert("휴대폰 인증이 완료되었습니다.\n회원가입을 계속 진행해주세요.")
-							window.parent.closeModal() // 부모창에서 모달 자동으로 닫기
+							alert("휴대폰 인증이 완료되었습니다.\n절차를 계속 진행해주세요.")
+							window.parent.closeModal('changed') // 부모창에서 모달 자동으로 닫기
 						} else {
 							alert("인증번호를 다시 확인해주세요.")
 						}

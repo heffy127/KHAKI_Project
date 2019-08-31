@@ -35,6 +35,7 @@ $(document).ready(
 			var email_idType = /^(?=.*[A-Za-z0-9])[A-Za-z0-9+]*$/; // 영어, 숫자 필터링해줌 (무조건 1개 이상 입력)
 			var email_siteType = /^[a-zA-Z0-9.]+\.[a-zA-Z]{2,5}$/; 
 			//                        영어 숫자 .   .이후 영어 2~5자리로 끝내야함
+			var phoneType = /^(?=.*[0-9])[0-9+]*$/; // 숫자만 필터링
 
 			// 소셜 로그인 여부에 맞춰 토글 체크
 			if('${socialDTO_naver.id}' != ''){
@@ -206,6 +207,42 @@ $(document).ready(
 							$('#phone2').attr('readonly',false)
 							$('#phone3').attr('readonly',false)
 							$('#phoneCancelDiv').show()
+						} else if($('#phoneChangeBtn').text() == '인증문자'){ // 인중문자 버튼일때 클릭
+							if(phoneType.test($('#phone1').val()) && phoneType.test($('#phone2').val()) && phoneType.test($('#phone3').val())){
+								
+								$.ajax({ // 휴대폰 중복 체크
+									url: "phoneCheck.do?phone1="+$('#phone1').val()+"&phone2="+$('#phone2').val()+"&phone3="+$('#phone3').val(),
+									success: function(result) {
+									var check = result
+									if(check.trim() != 'null'){
+										alert('휴대폰 번호가 중복됩니다.')
+									} else { // 중복체크 통과
+										
+										var phone = $('#phone1').val() + "-" + $('#phone2').val() + "-" + $('#phone3').val()
+										$('#modal-body-changePhone').append('<iframe src="#"  width="340" height="120" frameborder="0" id="iframe"'  
+												+ 'style="box-shadow: 0 15px 35px rgba(50, 50, 93, 0.2), 0 5px 15px rgba(0, 0, 0, 0.17);'
+												+ 'border-top-left-radius: 0.4375rem; border-top-right-radius: 0.4375rem;'
+												+ 'border-bottom-left-radius: 0.4375rem; border-bottom-right-radius: 0.4375rem;"></iframe>') // 휴대폰 번호 인증 iframe 생성
+										$('#iframe').attr("src", "smsPhoneAuth.do?phone=" + phone)
+										$('#modal-changePhone').modal({backdrop: 'static'}); // 모달 닫힘 방지 
+										
+									}
+								}		
+							  })
+								
+							} else { // 정규식 만족 못할 때
+								alert('휴대폰 번호 정보를 정확히 입력해주세요.')
+							}
+						} else { //인증완료 버튼일때 클릭
+							var d = $('#mypageF').serialize()
+							$.ajax({  // 이메일 업데이트
+								url: "mypage_phoneAuth_fin.do",
+								data: d,
+								success: function(result){
+									alert("휴대폰 번호 변경이 완료되었습니다.")
+									location.reload(true);
+								}
+							})
 						}
 					})
 		
@@ -214,8 +251,11 @@ $(document).ready(
 					function() { // 변경 버튼일때 클릭
 							$('#phoneChangeBtn').attr('class','btn btn-outline-primary')
 							$('#phoneChangeBtn').text('변경')
+							$('#phone1').val('${memberDTO.phone1}')
 							$('#phone1').attr('readonly',true)
+							$('#phone2').val('${memberDTO.phone2}')
 							$('#phone2').attr('readonly',true)
+							$('#phone3').val('${memberDTO.phone3}')
 							$('#phone3').attr('readonly',true)
 							$('#phoneCancelDiv').hide()
 					})
@@ -229,8 +269,13 @@ $(document).ready(
 				$("#emailPush_chk").click()
 			})
 			
+			$('.close').click(
+				function () {
+					window.closeModal_normal()
+			})
+
 			// 모달 닫기 펑션
-			window.closeModal = function(changed){ //변화된것이 있을경우 changed변수로 값 넘어옴
+			window.closeModal_normal = function(changed){ //변화된것이 있을경우 changed변수로 값 넘어옴
 				$('.modal').modal('hide')
 				$('.modal-body').empty() // iframe 제거
 				if(changed == 'changed'){
@@ -238,12 +283,22 @@ $(document).ready(
 						location.reload(true);
 						}, 600); // 0.6초뒤 페이지 새로고침
 				}
+				<%session.removeAttribute("sessionPhoneAuth");%> // 휴대폰 인증 세션 삭제
 			}
-
-			$('.close').click(
-				function () {
-					window.closeModal();
-			})
+			
+			// 휴대폰 번호 인증 후 모달이 자동으로 닫힐 때 실행
+			window.closeModal = function(changed){ 
+				$('.modal').modal('hide')
+				$('.modal-body').empty() // iframe 제거
+				$('#phone1').attr('readonly',true)
+				$('#phone2').attr('readonly',true)
+				$('#phone3').attr('readonly',true)
+				$('#phoneChangeBtn').attr('class', 'btn btn-info')
+				$('#phoneChangeBtn').text('인증완료')
+				$('#phoneChangeBtn').attr('disabled',false)
+				<%session.removeAttribute("sessionPhoneAuth");%>
+			}
+			
 					
 		})
 		
@@ -579,6 +634,30 @@ $(document).ready(
 		        </div>
 		      </div>
         </div>
+        
+    <!-- 휴대폰 번호 변경 modal -->
+        
+         <div class="modal fade" id="modal-changePhone" tabindex="-1" role="dialog" aria-labelledby="modal-changePhone" aria-hidden="true" style="top: -500px;">
+		    <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+		        <div class="modal-content bg-gradient-success">
+		        	
+		             <div class="modal-header">
+		                <h5 class="modal-title" id="modal-title-default" style="color: #f5f5f5;">휴대폰 번호 인증</h5>
+		             </div>
+		            
+		            <div class="modal-body" align="center" id="modal-body-changePhone" style="padding: 0.5rem;">
+		            	
+		            	
+		                
+		            </div>
+		            
+		            <div class="modal-footer" style="padding: 0.5rem;">
+		                <button type="button" class="close btn btn-link  ml-auto" id="modal-close" style="color: #f5f5f5; font-size: 20px">닫기</button> 
+		            </div>
+		            
+		        </div>
+		    </div>	
+	    </div>
    <script>
     window.TrackJS &&
       TrackJS.install({
