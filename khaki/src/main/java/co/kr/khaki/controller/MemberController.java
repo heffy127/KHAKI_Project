@@ -239,8 +239,6 @@ public class MemberController {
 		return "member/loginCheck";
 	}
 	
-	
-	
 	// 마이페이지 비밀번호 변경 완료
 	@RequestMapping("mypage_newPw_ok.do")
 	public String newPw_ok(MemberDTO memberDTO, HashingPw hp) {

@@ -37,8 +37,17 @@
 				// 비밀번호 유효성 검사
 				$('#pw').keyup(
 						function(event) {
-							if (pwType.test($(this).val())) {
-								
+							
+							// 입력할때마다 비밀번호 확인과 비교
+							if ($('#pw').val() == $('#pwChk').val()) {
+								$('#pwChk').attr('class',"form-control is-valid")
+								$('#pwChk_span').attr('style',"color: green; font-size: '1';").text("비밀번호와 일치합니다.")
+							} else {
+								$('#pwChk').attr('class',"form-control is-invalid")
+								$('#pwChk_span').attr('style',"color: red; font-size: '1';").text("비밀번호와 불일치합니다.")
+							}
+							
+							if (pwType.test($('#pw').val())) { // 정규식 조건 통과
 								// 기존 비밀번호와 같을 경우 변경 불가
 								var d = $('#f').serialize()
 								$.ajax({
@@ -56,17 +65,8 @@
 										}
 									}
 								})
-								
-								if ($(this).val() == $('#pwChk').val()) {
-									// 비밀번호 확인까지 검사 후 다시 비밀번호 바꿀때 대비
-									$('#pwChk').attr('class',"form-control is-valid")
-									$('#pwChk_span').attr('style',"color: green; font-size: '1';").text("비밀번호와 일치합니다.")
-								} else {
-									$('#pwChk').attr('class',"form-control is-invalid")
-									$('#pwChk_span').attr('style',"color: red; font-size: '1';").text("비밀번호와 불일치합니다.")
-								}
 							} else {
-								$(this).attr('class',"form-control is-invalid")
+								$('#pw').attr('class',"form-control is-invalid")
 								$('#pw_span').attr('style',"color: red; font-size: '1';").text("영문, 숫자, 특수문자 혼합 8~18글자")
 							}
 						})
@@ -74,11 +74,11 @@
 				// 비밀번호 확인 검사
 				$('#pwChk').keyup(
 						function(event) {
-							if ($('#pw').val() == $(this).val()) {
-								$(this).attr('class',"form-control is-valid")
+							if ($('#pw').val() == $('#pwChk').val()) {
+								$('#pwChk').attr('class',"form-control is-valid")
 								$('#pwChk_span').attr('style',"color: green; font-size: '1';").text("비밀번호와 일치합니다.")
 							} else {
-								$(this).attr('class',"form-control is-invalid")
+								$('#pwChk').attr('class',"form-control is-invalid")
 								$('#pwChk_span').attr('style',"color: red; font-size: '1';").text("비밀번호와 불일치합니다.")
 							}
 						})
