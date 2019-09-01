@@ -48,7 +48,7 @@
 				// 5회 시도까지 접속 못하면 매크로로 의심하여 자동입력방지 기능 동작
 				if(sessionStorage.getItem('loginCnt') == null){
 				sessionStorage.setItem('loginCnt', '0')
-				} else if((sessionStorage.getItem('loginCnt').length > 4)){
+				} else if((sessionStorage.getItem('loginCnt').length > 5)){
 					$("#reCaptcha").show()
 				}
 				
@@ -77,7 +77,7 @@
 						function(){
 							
 							// 리캡차가 동작하는 경우 절차를 거쳐야만 로그인
-							if(sessionStorage.getItem('loginCnt').length > 4){
+							if(sessionStorage.getItem('loginCnt').length > 5){
 								var v = grecaptcha.getResponse()
 								if(v.length == 0){ // 0일 경우 체크가 안된것
 									alert("자동입력방지 버튼을 클릭해주세요.")
@@ -94,7 +94,7 @@
 										if(check.trim() != 'yes'){
 											// 아이디 비밀번호가 안맞을 경우
 											alert("로그인 계정을 다시 확인해주세요.")
-											if(sessionStorage.getItem('loginCnt').length < 5){
+											if(sessionStorage.getItem('loginCnt').length < 6){
 												sessionStorage.setItem('loginCnt', sessionStorage.getItem('loginCnt').concat('0'))
 											} else {
 												$("#reCaptcha").show()

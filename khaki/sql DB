@@ -50,8 +50,9 @@ constraint FK_licenseId foreign key(id) references member(id) on delete cascade
 
 create table social(
 id varchar2(50),
-social_id varchar2(50),
 social_type varchar2(50),
+social_id varchar2(50) not null,
+constraint PK_social primary key(id, social_type),
 constraint FK_socialId foreign key(id) references member(id) on delete cascade);
 
 @ 민병호

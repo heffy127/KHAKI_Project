@@ -19,10 +19,13 @@
 <!-- CSS Files -->
 <link href="resources/assets/css/argon-dashboard.css?v=1.1.0"
    rel="stylesheet" />
+<!-- 네이버 아이디 로그인 -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<!-- 카카오 아이디 로그인  -->
+ <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <!--   Core   -->
 <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
-<script
-   src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <!--   Optional JS   -->
 <!--   Argon JS   -->
 <script src="resources/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
@@ -269,7 +272,7 @@ $(document).ready(
 							$('#phone3').attr('readonly',true)
 							$('#phoneCancelDiv').hide()
 					})
-			
+					
 					
 			// 문자, 이메일 수신 버튼
 			$("#smsBtn").click(function() {
@@ -357,6 +360,54 @@ $(document).ready(
 						
 						$('#modal-license').modal({backdrop: 'static'}); // 모달 닫힘 방지 
 					})
+			
+			// 소셜로그인 연동
+			$('#naver_chk').click( // 눌렀을때
+					function() {
+						if($('#naver_chk').is(':checked')){  // 체크가 될 상황인경우
+							if(confirm('네이버 소셜 계정과 연동하시겠습니까?')){
+								$('#naver_id_login_anchor').click() // 네이버 연동
+							}else{
+								location.reload(true);
+							}
+				        }else{ // 체크 해제될 상황인경우
+				        	if(confirm('네이버 소셜 계정 연동을 해제하시겠습니까?')){
+				        		$.ajax({
+									url: "mypage_socialDelete.do?id=" + $('#id').val() + "&social_type=naver",
+									success: function(result){
+										alert("네이버 소셜 연동이 해제되었습니다.")
+										location.reload(true);
+									}
+								})
+				        	}else{
+				        		location.reload(true);
+				        	}
+				        	
+				        }
+			})
+			
+			$('#kakao_chk').change( // 눌렀을때
+					function() {
+						if($('#kakao_chk').is(':checked')){ // 체크가 될 상황인경우
+							if(confirm('네이버 소셜 계정과 연동하시겠습니까?')){
+								$('#kakao-login-btn').click() // 카카오 연동
+							}else{
+								location.reload(true);
+							}
+				        }else{  // 체크 해제될 상황인경우
+				        	if(confirm('카카오 소셜 계정 연동을 해제하시겠습니까?')){
+				        		$.ajax({
+									url: "mypage_socialDelete.do?id=" + $('#id').val() + "&social_type=kakao",
+									success: function(result){
+										alert("카카오 소셜 연동이 해제되었습니다.")
+										location.reload(true);
+									}
+								})
+				        	}else{
+				        		location.reload(true);
+				        	}
+				        }
+			})
 			
 		})
 		
@@ -641,6 +692,15 @@ input[type="text"]
             <div class="pl-lg-4" style="padding-left: 14px; padding-right: 14px;">
                <div class="form-group">
                   <label class="form-control-label" for="input-address"  style="margin: 0px; padding-bottom: 10px;">소셜 로그인</label>
+
+		              	<!-- 네이버 아이디 버튼 (숨김처리) -->
+		                <div id="naver_id_login" style="display: none !important;">
+		                </div>
+		                
+		                <!-- 카카오 아이디 버튼 (숨김처리) -->
+		                <a id="kakao-login-btn" style="display: none !important;">
+		                </a>
+		     
                   <table>
                      <tr>
                         <td>
@@ -784,5 +844,54 @@ input[type="text"]
         application: "argon-dashboard-free"
       });
   </script>
+  <script type="text/javascript">
+    /* 네이버 아이디 로그인 */
+  	var naver_id_login = new naver_id_login("FeRQ2NAEFDfGZe9uWQc8", "http://localhost:9999/khaki/callback_mypage.do");
+  	var state = naver_id_login.getUniqState();
+  	naver_id_login.setButton("white", 2,49);
+  	naver_id_login.setDomain("http://localhost:9999/");
+  	naver_id_login.setState(state);
+  	naver_id_login.setPopup();
+  	naver_id_login.init_naver_id_login();
+  </script>
+    <script type='text/javascript'>
+  /* 카카오 아이디 로그인 */
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('3193e740ee4757b5fed476c12b4b677e');
+    // 카카오 로그인 버튼을 생성합니다.
+    Kakao.Auth.createLoginButton({
+    container: '#kakao-login-btn',
+  	success: function(authObj) {
+   	 Kakao.API.request({
+     url: '/v1/user/me',
+     success: function(res) {
+        var kakao_id = res.id //<---- 콘솔 로그에 id 정보 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
+        $.ajax({ // 소셜 로그인에 id가 저장되어 있는지 조회
+		url: "checkSocialMypage.do?social_id=" + kakao_id + "&social_type=kakao",
+		success: function(result){
+			var check = result // already가 아닌경우 sessionId값을 가져옴
+			if(check.trim() == 'already'){ // 해당 카카오 계정으로 다른 아이디 소셜 계정 연결
+				alert("이미 다른 KHAKI 계정에서 사용중입니다.")
+				location.reload(true);
+				
+			}else{
+				$.ajax({
+					url: "mypage_socialInsert.do?id=" + check + "&social_id=" + kakao_id + "&social_type=kakao",
+					success: function(result){
+						alert("카카오 소셜 연동이 완료되었습니다.")
+						location.reload(true);
+					}
+				})
+			}
+		}
+	})
+        }
+       })
+      },
+    fail: function(err) {
+         alert(JSON.stringify(err));
+        }
+      });
+</script>
 </body>
 </html>

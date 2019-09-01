@@ -134,6 +134,11 @@ public class MemberDAO {
 		System.out.println("면허정보 삭제");
 	}
 	
+	public void deleteSocial(SocialDTO socialDTO) {
+		my.delete("memberDAO.deleteSocial", socialDTO);
+		System.out.println("소셜정보 삭제");
+	}
+	
 	public List<MemberDTO> selectAll() {
 		List<MemberDTO> list = my.selectList("memberDAO.selectAll");
 		System.out.println("selectAll 성공");

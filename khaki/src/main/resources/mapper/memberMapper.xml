@@ -126,7 +126,7 @@
 	<!-- 소셜 정보 주입 -->
 	<insert id="insertSocial" parameterType="socialDTO">
 		INSERT INTO social 
-		VALUES(#{id}, #{social_id}, #{social_type})
+		VALUES(#{id}, #{social_type}, #{social_id})
 	</insert>
 	
 	<!-- 운전면허 정보 주입 -->
@@ -168,6 +168,11 @@
 	<delete id="deleteLicense" parameterType="String">
 		DELETE FROM license WHERE
 		id = #{id}
+	</delete>
+	
+	<delete id="deleteSocial" parameterType="socialDTO">
+		DELETE FROM social WHERE
+		id = #{id} and social_type = #{social_type}
 	</delete>
 
  </mapper>

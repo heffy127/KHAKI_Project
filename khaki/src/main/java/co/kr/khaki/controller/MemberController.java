@@ -315,7 +315,7 @@ public class MemberController {
 	
 	// 마이페이지 운전면허정보 등록 창
 		@RequestMapping("mypage_license.do")
-		public String license(MemberDTO memberDTO, LicenseDTO licenseDTO, Model model) { // 비밀번호를 변경할 id값을 챙겨옴 (쿼리 스트링)
+		public String license(MemberDTO memberDTO, LicenseDTO licenseDTO, Model model) {
 			licenseDTO = memberDAO.selectId_license(memberDTO.getId());
 			model.addAttribute("licenseDTO", licenseDTO);
 			model.addAttribute("memberDTO",memberDTO);
