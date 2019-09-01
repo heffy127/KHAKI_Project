@@ -16,25 +16,25 @@ public class MemberDAO {
 	
 	public MemberDTO selectId(String id) {
 		MemberDTO memberDTO = my.selectOne("memberDAO.selectId", id);
-		System.out.println("selectId 성공");
+		System.out.println("selectId member 성공");
 		return memberDTO;
 	}
 	
 	public LicenseDTO selectId_license(String id) {
 		LicenseDTO licenseDTO = my.selectOne("memberDAO.selectId_license", id);
-		System.out.println("selectId 성공");
+		System.out.println("selectId license 성공");
 		return licenseDTO;
 	}
 	
 	public SocialDTO selectId_naver(String id) {
 		SocialDTO socialDTO = my.selectOne("memberDAO.selectId_naver", id);
-		System.out.println("selectId 성공");
+		System.out.println("selectId naver 성공");
 		return socialDTO;
 	}
 	
 	public SocialDTO selectId_kakao(String id) {
 		SocialDTO socialDTO = my.selectOne("memberDAO.selectId_kakao", id);
-		System.out.println("selectId 성공");
+		System.out.println("selectId kakao 성공");
 		return socialDTO;
 	}
 	
@@ -94,6 +94,11 @@ public class MemberDAO {
 		System.out.println("insertSocial 성공");
 	}
 	
+	public void insertLicense(LicenseDTO licenseDTO) {
+		my.insert("memberDAO.insertLicense", licenseDTO);
+		System.out.println("insertLicense 성공");
+	}
+	
 	public void updatePoint(InsertPointDTO insertPointDTO) {
 		my.update("memberDAO.updatePoint", insertPointDTO);
 		System.out.println("point증가 성공");
@@ -122,6 +127,11 @@ public class MemberDAO {
 	public void updateHandler(HandlerStatusDTO hsDTO) {
 		my.update("memberDAO.updateHandler", hsDTO);
 		System.out.println("핸들러 여부 설정");
+	}
+	
+	public void deleteLicense(String id) {
+		my.delete("memberDAO.deleteLicense", id);
+		System.out.println("면허정보 삭제");
 	}
 	
 	public List<MemberDTO> selectAll() {

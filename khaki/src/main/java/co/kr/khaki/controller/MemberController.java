@@ -312,4 +312,21 @@ public class MemberController {
 		
 		return "mypage/allCheck"; // ajax용
 	}
+	
+	// 마이페이지 운전면허정보 등록 창
+		@RequestMapping("mypage_license.do")
+		public String license(MemberDTO memberDTO, LicenseDTO licenseDTO, Model model) { // 비밀번호를 변경할 id값을 챙겨옴 (쿼리 스트링)
+			licenseDTO = memberDAO.selectId_license(memberDTO.getId());
+			model.addAttribute("licenseDTO", licenseDTO);
+			model.addAttribute("memberDTO",memberDTO);
+			return "mypage/license";
+		}
+		
+	// 운전면허 정보 등록 완료
+	@RequestMapping("mypage_license_fin.do")
+	public String license_fin(LicenseDTO licenseDTO) {
+		memberDAO.deleteLicense(licenseDTO.getId());
+		memberDAO.insertLicense(licenseDTO);
+		return "mypage/allCheck"; // ajax용
+	}
 }

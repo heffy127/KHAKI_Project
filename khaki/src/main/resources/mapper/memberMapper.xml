@@ -26,13 +26,18 @@
 	
 	<resultMap type="licenseDTO" id="rsMap_license">
 		<result property="id" column="id" />
+		<result property="name" column="name" />
 		<result property="licenseType" column="licenseType" />
 		<result property="area" column="area" />
 		<result property="num1" column="num1" />
 		<result property="num2" column="num2" />
 		<result property="num3" column="num3" />
-		<result property="expireDate" column="expireDate" />
-		<result property="issueDate" column="issueDate" />
+		<result property="issueYear" column="issueYear" />
+		<result property="issueMonth" column="issueMonth" />
+		<result property="issueDay" column="issueDay" />
+		<result property="expireYear" column="expireYear" />
+		<result property="expireMonth" column="expireMonth" />
+		<result property="expireDay" column="expireDay" />
 	</resultMap>
 	
 	<resultMap type="socialDTO" id="rsMap_social">
@@ -118,9 +123,16 @@
 		VALUES(#{id}, #{pw}, #{name},#{email_id}, #{email_site},#{phone1}, #{phone2}, #{phone3},#{postcode}, #{address1}, #{address2}, #{address3},#{smsPush}, #{emailPush}, #{useCount},#{handler})
 	</insert>
 	
+	<!-- 소셜 정보 주입 -->
 	<insert id="insertSocial" parameterType="socialDTO">
 		INSERT INTO social 
 		VALUES(#{id}, #{social_id}, #{social_type})
+	</insert>
+	
+	<!-- 운전면허 정보 주입 -->
+	<insert id="insertLicense" parameterType="licenseDTO">
+		INSERT INTO license (id, name, licenseType, area, num1, num2, num3, issueYear, issueMonth, issueDay, expireYear, expireMonth, expireDay)
+		VALUES(#{id}, #{name}, #{licenseType}, #{area}, #{num1}, #{num2}, #{num3}, #{issueYear}, #{issueMonth}, #{issueDay}, #{expireYear}, #{expireMonth}, #{expireDay})
 	</insert>
 
 	<update id="updatePoint" parameterType="insertPointDTO">
@@ -153,10 +165,9 @@
 		WHERE id=#{id}
 	</update>
 
-<!-- 
-	<delete id="deleteSomething" parameterType="int">
-		DELETE FROM tablename1 WHERE
-		columnname1 = #{param1}
+	<delete id="deleteLicense" parameterType="String">
+		DELETE FROM license WHERE
+		id = #{id}
 	</delete>
- -->
+
  </mapper>

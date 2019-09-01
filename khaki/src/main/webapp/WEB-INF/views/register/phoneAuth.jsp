@@ -12,7 +12,8 @@
 <script>
 	$(document).ready(
 			function() {
-						
+				$('#authNum').focus()
+				
 				var timer = 180;
 				var minutes, seconds;
 				var interval = setInterval(function () { // 인증시간 타이머
@@ -45,7 +46,12 @@
 					}		
 				)
 				
-
+				// 엔터키 입력 시 실행
+				$('#authNum').keyup(
+						function(event) {
+							if(event.keyCode == 13){
+								$('#loginBtn').click()
+							}
 			})
 	</script>
 </head>

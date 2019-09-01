@@ -32,13 +32,19 @@ photo clob
 
 create table license(
 id varchar2(50) primary key,
-licenseType varchar2(50),
-area varchar2(10),
-num1 varchar2(10),
-num2 varchar2(10),
-num3 varchar2(10),
-expireDate varchar2(50),
-issueDate varchar2(50),
+name varchar2(50) not null,
+licenseType varchar2(50) not null,
+area varchar2(20) not null,
+num1 varchar2(10) not null,
+num2 varchar2(10) not null,
+num3 varchar2(10) not null,
+issueYear varchar2(50) not null,
+issueMonth varchar2(50) not null,
+issueDay varchar2(50) not null,
+expireYear varchar2(50) not null,
+expireMonth varchar2(50) not null,
+expireDay varchar2(50) not null,
+permission char(1) default 'x',
 constraint FK_licenseId foreign key(id) references member(id) on delete cascade
 );
 

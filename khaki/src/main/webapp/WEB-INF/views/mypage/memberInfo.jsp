@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -36,7 +37,12 @@ $(document).ready(
 			var email_siteType = /^[a-zA-Z0-9.]+\.[a-zA-Z]{2,5}$/; 
 			//                        영어 숫자 .   .이후 영어 2~5자리로 끝내야함
 			var phoneType = /^(?=.*[0-9])[0-9+]*$/; // 숫자만 필터링
-
+			
+			//
+			if('${licenseDTO.num1}' != ''){
+				$('#license').val('${licenseDTO.num1}'+'-'+'${licenseDTO.num2}'+'-'+'${licenseDTO.num3}')
+			}
+			
 			// 소셜 로그인 여부에 맞춰 토글 체크
 			if('${socialDTO_naver.id}' != ''){
 				$('#naver_chk').attr('checked',true)
@@ -122,6 +128,7 @@ $(document).ready(
 														$('#email_site').attr('readonly', true)
 														$('#email_site').attr('readonly', true)
 														$('#email_select').attr('disabled', true)
+														$('#emailPop').popover('toggle')
 													}
 												})
 												
@@ -134,12 +141,11 @@ $(document).ready(
 								alert("이메일 형식에 맞게  작성해주세요.")
 							}
 						} else { // 인증완료일때 클릭
+							$('#emailPop').popover('hide')
 							$.ajax({  // 세션을 통해 보내온 인증번호를 ajax를 통해 다른 jsp에서 받아옴
 								url: "mypage_emailAuth_endBtn.do",
 								success: function(result){
 									userAuth = result.trim()
-									alert(khakiAuth)
-									alert(userAuth)
 									// khaki 인증번호와 사용자가 세션을 통해 보내온 인증번호 비교
 									if(khakiAuth != userAuth || khakiAuth == null){
 										alert('이메일 인증 정보를 다시 확인해주세요.')
@@ -236,6 +242,7 @@ $(document).ready(
 								alert('휴대폰 번호 정보를 정확히 입력해주세요.')
 							}
 						} else { //인증완료 버튼일때 클릭
+							$('#phonePop').popover('hide')
 							var d = $('#mypageF').serialize()
 							$.ajax({  // 휴대폰 번호 업데이트
 								url: "mypage_phoneAuth_fin.do",
@@ -299,6 +306,7 @@ $(document).ready(
 				$('#phoneChangeBtn').attr('class', 'btn btn-info')
 				$('#phoneChangeBtn').text('인증완료')
 				$('#phoneChangeBtn').attr('disabled',false)
+				$('#phonePop').popover('toggle')
 				<%session.removeAttribute("sessionPhoneAuth");%>
 			}
 			
@@ -308,6 +316,7 @@ $(document).ready(
 					if($('#addressChangeBtn').val() == '변경'){
 						execDaumPostcode()
 					} else { // 완료 버튼일때 클릭
+						$('#addressPop').popover('hide')
 						var d = $('#mypageF').serialize()
 						$.ajax({  // 이메일 업데이트
 							url: "mypage_address_fin.do",
@@ -333,6 +342,20 @@ $(document).ready(
 							$('#detailAddress').attr('readonly',true)
 							$('#extraAddress').val('${memberDTO.address3}')
 							$('#addressCancelDiv').hide()
+					})
+			
+			// 운전면허 버튼 클릭
+			$('#licenseBtn').click(
+					function() {
+						var id = $('#id').val()
+						var name = $('#name').val()
+						$('#modal-body-license').append(
+								'<iframe src="mypage_license.do?id=' + id + '&name=' + name +'" width="730px" height="670px" frameborder="0" '
+								+ 'style="box-shadow: 0 15px 35px rgba(50, 50, 93, 0.2), 0 5px 15px rgba(0, 0, 0, 0.17);'
+								+ 'border-top-left-radius: 0.4375rem; border-top-right-radius: 0.4375rem;'
+								+ 'border-bottom-left-radius: 0.4375rem; border-bottom-right-radius: 0.4375rem;"></iframe>')
+						
+						$('#modal-license').modal({backdrop: 'static'}); // 모달 닫힘 방지 
 					})
 			
 		})
@@ -386,6 +409,7 @@ $(document).ready(
 					$('#addressChangeBtn').val('완료')
 					$('#addressChangeBtn').attr('class','btn btn-info')
 					$('#addressCancelDiv').show()
+					$('#addressPop').popover('toggle')
 					
 					// 커서를 상세주소 필드로 이동한다.
 					document.getElementById("detailAddress").focus();
@@ -394,6 +418,12 @@ $(document).ready(
 					
 		}
 </script>
+<style type="text/css">
+input[type="text"] 
+{
+	font-size: 18px;
+}
+</style>
 </head>
 <body>
    <div class="card-body">
@@ -453,13 +483,13 @@ $(document).ready(
                            <tr>
                               <td><input type="text"
                                  class="form-control form-control-alternative" id="email_id"
-                                 name="email_id" style="text-align: center; font-size: 18px; width: 192px"
+                                 name="email_id" style="text-align: center; width: 192px"
                                  placeholder="이메일 주소 입력" readonly="readonly"
                                  value="${memberDTO.email_id}"></td>
                               <td>&nbsp;@&nbsp;</td>
                               <td><input type="text"
                                  class="form-control form-control-alternative" id="email_site"
-                                 name="email_site" style="text-align: center; font-size: 18px; width: 192px"
+                                 name="email_site" style="text-align: center;width: 192px"
                                  readonly="readonly"
                                  value="${memberDTO.email_site}"></td>
                               <td>&nbsp;</td>
@@ -474,6 +504,7 @@ $(document).ready(
                               </select></td>
                               <td>&nbsp;&nbsp;</td>
                               <td>
+                              	<div id="emailPop" data-toggle="popover" data-color="secondary" data-placement="top" data-content="이메일 인증 완료 시 클릭!"></div>
                                  <button type="button" class="btn btn-outline-primary" id="emailChangeBtn">변경</button>
                               </td>
                               <td>&nbsp;&nbsp;</td>
@@ -505,6 +536,7 @@ $(document).ready(
                                  name="phone3" readonly="readonly" value="${memberDTO.phone3}"></td>
                               <td>&nbsp;&nbsp;</td>
                               <td>
+                              	<div id="phonePop" data-toggle="popover" data-color="secondary" data-placement="top" data-content="휴대폰 번호 인증 완료 시 클릭!"></div>
                                  <button type="button" class="btn btn-outline-primary" id="phoneChangeBtn">변경</button>
                               </td>
                               <td>&nbsp;&nbsp;</td>
@@ -529,6 +561,7 @@ $(document).ready(
                                     &nbsp;
                                  </td>
                                  <td>
+                                 	<div id="addressPop" data-toggle="popover" data-color="secondary" data-placement="top" data-content="주소 변경 완료 시 클릭!"></div>
                                     <input type="button" class="btn btn-outline-primary" value="변경"  id="addressChangeBtn"><br>
                                  </td>
                                  <td>&nbsp;</td>
@@ -575,15 +608,27 @@ $(document).ready(
                <div class="form-group">
                <table>
                   <tr>
-                     <td width="300px">
+                     <td width="280px">
                         <input type="text" class="form-control form-control-alternative" 
-                        id="license" placeholder="등록된 운전면허 정보가 없습니다." readonly="readonly" name="">
+                        id="license" placeholder="운전면허 정보가 없습니다." readonly="readonly" name="license"
+                        style="text-align: center;">
                      </td>
                      <td>
                         &nbsp;&nbsp;
                      </td>
                      <td>
-                        <input type="button" class="btn btn-outline-warning" value="운전면허 정보  등록">
+                        <input type="button" class="btn btn-outline-warning" value="운전면허 정보  등록" id="licenseBtn">
+                     </td>
+                     <td>
+                       <c:set var = "permission" value="${licenseDTO.permission}"/>
+                       <c:choose>
+                       		<c:when test="${permission == 'x'}">
+                       			 &nbsp;&nbsp;<span class="badge badge-warning"><font size="4">심사중</font></span>
+                       		</c:when>
+                       		<c:when test="${permission == 'o'}">
+                       			 &nbsp;&nbsp;<span class="badge badge-success"><font size="4">심사완료</font></span>
+                       		</c:when>
+                       </c:choose>
                      </td>
                   </tr>
                </table>   
@@ -661,7 +706,7 @@ $(document).ready(
 		        <div class="modal-content" style="background: #ffe099;">
 		        	
 		            <div class="modal-header">
-		                <h3 class="modal-title" id="modal-title-default" style="color: #5c5c5c;">새로운 비밀번호 설정</h3>
+		                <h2 class="modal-title" id="modal-title-default" style="color: #5c5c5c;">새로운 비밀번호 설정</h2>
 		                <button type="button" class="close" id="modal-close">
 		                    <span>×</span>
 		                </button>
@@ -700,7 +745,39 @@ $(document).ready(
 		        </div>
 		    </div>	
 	    </div>
-   <script>
+	    
+    <!-- 운전면허 정보 modal -->
+        
+         <div class="modal fade" id="modal-license" tabindex="-1" role="dialog" aria-labelledby="modal-license" aria-hidden="true">
+		    <div class="modal-dialog modal-lg modal-dialog-centered modal-" role="document" style="width: 1000;">
+		        <div class="modal-content bg-gradient-primary">
+		        	
+		             <div class="modal-header">
+		                <h2 class="modal-title" id="modal-title-default" style="color: #f5f5f5;">운전면허등록</h2>
+		                <button type="button" class="close" id="modal-close">
+		                    <span><font color="white">x</font></span>
+		                </button>
+		             </div>
+		            
+		            <div class="modal-body" align="center" id="modal-body-license" style="padding: 0.5rem;">
+		            	
+		            	
+		                
+		            </div>
+		           <div class="modal-footer" style="padding: 0.5rem;">
+		                &nbsp;
+		            </div>
+		            
+		        </div>
+		    </div>	
+	    </div>
+ <!--   Core   -->
+  <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+  <script src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	 <!--   Argon JS   -->
+  <script src="resources/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
     window.TrackJS &&
       TrackJS.install({
         token: "ee6fab19c5a04ac1a32a645abde4613a",
