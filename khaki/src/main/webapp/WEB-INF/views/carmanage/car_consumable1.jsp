@@ -108,12 +108,17 @@
 			// progress-bar bg-warning 주황색
 			// progress-bar bg-danger 빨간색
 			
+			
+			
 			$(".btn_change").click(function(){
 				// this일 때는 눌린 버튼을 의미함
 				alert("나를 눌렀군요?");
 				var data11 = $(this).next(".btn_value").val();
-				alert(data11);
+				var index_data = $(".btn_change").index(this);
+				alert(data11+"/"+index_data);
+				// test끝 바뀔 값과 index 값을 넘겨서 해당 index의 값을 수정하는 update문 ajax를 통해서 새로고침 되도록 구현
 				//location.href = "car_consumable2.do?distance"+distance;
+				
 			});	//교체 버튼 end
 			
 			
