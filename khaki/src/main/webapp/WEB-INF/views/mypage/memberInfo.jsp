@@ -41,7 +41,7 @@ $(document).ready(
 			//                        영어 숫자 .   .이후 영어 2~5자리로 끝내야함
 			var phoneType = /^(?=.*[0-9])[0-9+]*$/; // 숫자만 필터링
 			
-			//
+			// 면허정보
 			if('${licenseDTO.num1}' != ''){
 				$('#license').val('${licenseDTO.num1}'+'-'+'${licenseDTO.num2}'+'-'+'${licenseDTO.num3}')
 			}
@@ -52,6 +52,16 @@ $(document).ready(
 			}
 			if('${socialDTO_kakao.id}' != ''){
 				$('#kakao_chk').attr('checked',true)
+			}
+			
+			// push 여부에 맞춰 체크박스 체크
+			if('${memberDTO.smsPush}' == '1'){
+				$('#smsPush_chk').attr('checked',true)
+				$('#smsPush_chk').attr('value','1')
+			}
+			if('${memberDTO.emailPush}' == '1'){
+				$('#emailPush_chk').attr('checked',true)
+				$('#emailPush_chk').attr('value','1')
 			}
 			
 			// 비밀번호 변경 버튼 클릭
@@ -274,14 +284,6 @@ $(document).ready(
 					})
 					
 					
-			// 문자, 이메일 수신 버튼
-			$("#smsBtn").click(function() {
-				$("#smsPush_chk").click()
-			})
-			$("#emailBtn").click(function() {
-				$("#emailPush_chk").click()
-			})
-			
 			$('.close').click(
 				function () {
 					window.closeModal_normal()
@@ -321,7 +323,7 @@ $(document).ready(
 					} else { // 완료 버튼일때 클릭
 						$('#addressPop').popover('hide')
 						var d = $('#mypageF').serialize()
-						$.ajax({  // 이메일 업데이트
+						$.ajax({  // 주소 업데이트
 							url: "mypage_address_fin.do",
 							data: d,
 							type: 'POST',
@@ -408,6 +410,55 @@ $(document).ready(
 				        	}
 				        }
 			})
+			
+			// 문자, 이메일 수신 버튼
+			$("#smsBtn").click(function() {
+				$("#smsPush_chk").click()
+			})
+			$("#emailBtn").click(function() {
+				$("#emailPush_chk").click()
+			})
+			
+			// 마케팅 푸시 눌렀을때
+			$('#smsPush_chk').click(
+					function() {
+						if($("#smsPush_chk").is(":checked")){
+							$("#smsPush_chk").attr("value","1")
+						}else{
+							$("#smsPush_chk").attr("value","0")
+						}
+			})
+			
+			$('#emailPush_chk').click(
+					function() {
+						if($("#emailPush_chk").is(":checked")){
+							$("#emailPush_chk").attr("value","1")
+						}else{
+							$("#emailPush_chk").attr("value","0")
+						}
+			})
+			
+			// 마케팅 푸시 확인버튼 눌렀을떄
+			$('#pushBtn').click(
+					function() {
+						if(confirm('마케팅 정보 수신을 변경하시겠습니까?')){ // 변경할게요
+							var d = $('#mypageF').serialize()
+							$.ajax({  // 주소 업데이트
+								url: "mypage_push_fin.do",
+								data: d,
+								type: 'POST',
+								success: function(result){
+									alert("마케팅 정보 수신 변경이 완료되었습니다.")
+									location.reload(true);
+								}
+							
+							
+							})
+						}else{ // 안할래요
+							location.reload(true);
+						}
+						
+					})
 			
 		})
 		
@@ -747,8 +798,8 @@ input[type="text"]
                      </tr>
                      <tr>
                         <td colspan="5">
-                              <input type="checkbox" name="chk" id="smsPush_chk" value=""> <a href="#none" id="smsBtn">문자수신</a> &nbsp;&nbsp;&nbsp;&nbsp;
-                              <input type="checkbox" name="chk" id="emailPush_chk" value=""> <a href="#none" id="emailBtn">이메일수신</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                              <input type="checkbox" name="smsPush" id="smsPush_chk" value="0"> <a href="#none" id="smsBtn">문자수신</a> &nbsp;&nbsp;&nbsp;&nbsp;
+                              <input type="checkbox" name="emailPush" id="emailPush_chk" value="0"> <a href="#none" id="emailBtn">이메일수신</a>&nbsp;&nbsp;&nbsp;&nbsp;
                               <button type="button" class="btn btn-outline-primary" style="font-size: 7px; height: 35px;" id="pushBtn">확인</button>
                         </td>
                      </tr>

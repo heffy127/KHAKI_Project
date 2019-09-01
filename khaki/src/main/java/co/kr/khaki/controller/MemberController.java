@@ -329,4 +329,12 @@ public class MemberController {
 		memberDAO.insertLicense(licenseDTO);
 		return "mypage/allCheck"; // ajax용
 	}
+	
+	// 마케팅 정보 수신 변경 완료
+	@RequestMapping("mypage_push_fin.do")
+	public String push_fin(MemberDTO memberDTO) {
+		memberDAO.updatePush(memberDTO);
+		
+		return "mypage/allCheck"; // ajax용
+	}
 }

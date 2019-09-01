@@ -160,6 +160,11 @@
 		WHERE id=#{id}
 	</update>
 	
+	<update id="updatePush" parameterType="memberDTO">
+		UPDATE member SET smsPush = #{smsPush}, emailPush = #{emailPush}
+		WHERE id=#{id}
+	</update>
+	
 	<update id="updateHandler" parameterType="hsDTO">
 		UPDATE member SET handler = #{handler}
 		WHERE id=#{id}

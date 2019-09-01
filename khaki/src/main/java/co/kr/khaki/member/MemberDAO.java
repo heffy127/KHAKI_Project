@@ -123,6 +123,11 @@ public class MemberDAO {
 		my.update("memberDAO.updateAddress", memberDTO);
 		System.out.println("주소 변경 성공");
 	}
+	
+	public void updatePush(MemberDTO memberDTO) {
+		my.update("memberDAO.updatePush", memberDTO);
+		System.out.println("마케팅 변경 성공");
+	}
 
 	public void updateHandler(HandlerStatusDTO hsDTO) {
 		my.update("memberDAO.updateHandler", hsDTO);
