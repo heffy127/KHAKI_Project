@@ -21265,6 +21265,12 @@ pre>code.highlight {
 #confirm_amount {
    float: left;
 }
+#confirm_addAmount {
+   float: left;
+}
+#confirm_totalAmount {
+   float: left;
+}
 
 #handler_label1 {
 	font-family: 'Do Hyeon', sans-serif;
@@ -21288,6 +21294,13 @@ pre>code.highlight {
   .modal-lg-min {
     max-width: 950px;
   }
+}
+
+#couponCheckBox {
+  /* Double-sized Checkboxes */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  padding: 10px;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=dashboard-free.css.map */

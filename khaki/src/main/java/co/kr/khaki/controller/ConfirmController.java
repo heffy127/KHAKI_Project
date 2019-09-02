@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
+import co.kr.khaki.pay.PayDTO;
 
 @Controller
 public class ConfirmController {
@@ -17,10 +18,11 @@ public class ConfirmController {
 	CouponUseDAO cpuDAO;
 	
 	@RequestMapping("confirm.do")
-	public String confirm() {
-		
-		return "confirm/confirm";
-	}
+	   public String confirm(Model model, PayDTO payDTO, String buy_carImage) {
+	      model.addAttribute("payDTO", payDTO);
+	      model.addAttribute("buy_carImage", buy_carImage);
+	      return "confirm/confirm";
+	   }
 	
 	@RequestMapping("couponConfirm.do")
 	public String CouponConfirm(CouponUseDTO cpuDTO, Model model) {

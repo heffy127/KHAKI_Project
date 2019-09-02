@@ -21,6 +21,16 @@ public class CheckReservationController {
 
 		List<PayDTO> pay_list = pdao.selectAll();
 		System.out.println(pay_list);
+		for (int i = 0; i < pay_list.size(); i++) {
+			PayDTO dto = pay_list.get(i);
+			dto.setBuy_totalAmount(dto.getBuy_amount());
+			if(dto.getBuy_addAmount() == null) {
+				dto.setBuy_addAmount("0");
+				dto.setBuy_totalAmount((Integer.parseInt(dto.getBuy_amount()) + Integer.parseInt(dto.getBuy_addAmount())) + "");
+			} else {
+				dto.setBuy_totalAmount((Integer.parseInt(dto.getBuy_amount()) + Integer.parseInt(dto.getBuy_addAmount())) + "");
+			}
+		}
 		model.addAttribute("plist", pay_list);
 		return "checkReservation/checkReservation";
 	}

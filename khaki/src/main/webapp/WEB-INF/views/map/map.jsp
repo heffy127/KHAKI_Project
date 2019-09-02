@@ -6,8 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1148d6f91cf7fd9a3c17408122e52f57"></script>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3010ba59fe5cb4ef476a120272fd67f0"></script>
 <style>
 .wrap {
 	position: absolute;
@@ -119,10 +118,17 @@
 </style>
 <title>1등 카셰어링, khaki</title>
 <%
-String xsxs = (String)session.getAttribute("selectZoneNum");
+String sessionId = (String)session.getAttribute("sessionId");
 %>
-<input id="selectZoneNum" type ="hidden" value=<%=xsxs%>>
-<input id="zoneNumber" type="hidden">
+<input id="selectZoneNum" type ="hidden" value='${selectZoneNum}'>
+<input id="sessionId" type ="hidden" value=<%=sessionId%>>
+<input id="selectCarNum" type ="hidden" value='${selectCarNum}'>
+<input id="car_num" type ="hidden">
+<input id="buy_ins" type ="hidden" value="스페셜">
+<input id="buy_carModel" type ="hidden">
+<input id="buy_startTime" type ="hidden" value='${buy_startTime}'>
+<input id="buy_endTime" type ="hidden" value='${buy_endTime}'>
+
 <!-- ajax  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- 데이트피커 -->
@@ -172,16 +178,13 @@ String xsxs = (String)session.getAttribute("selectZoneNum");
 	}
 </script>
 <!-- modal 닫기, 시간/차량/보험 정보 변수 -->
-<script type="text/javascript">
-	function carSelect(car) {
-	}
-	function timeSelect(time) {
-	}
-	function burum() { // 부름예약시 이동거리/비용 크롤링
+<script type="text/javascript"> 
+
+	function burumClose1() { // 부름 장소설정 , 다음 눌렀을 때 부름 금액 크롤링하여 다음 모달에 보여줌
 		$('#burum1').modal("hide"); //닫기 
-		var zone_loc = $().val();
 		var number = parseInt($('#zoneNumber').val());
-		var home_loc = zone_addr[number];
+		var zone_loc = zone_addr[number];
+		var home_loc = $('#sample5_address').val();
 		$.ajax({
 			type : "GET",
 			url : "burumReservation.do",
@@ -193,12 +196,12 @@ String xsxs = (String)session.getAttribute("selectZoneNum");
 				alert("오류발생" + error);
 			},
 			success : function(data) {
-				
+				$('#burumFee').val(data);
 			}
 		})
 	}
-	function burumClose1() {
-		$('#burum1').modal("hide"); //닫기 
+	function burumClose3() {
+		$('#insurance').modal("hide");
 	}
 	function burumClose2() {
 		$('#burum2').modal("hide"); //닫기 
@@ -206,137 +209,124 @@ String xsxs = (String)session.getAttribute("selectZoneNum");
 	function modalClose() {
 		$('#reservation').modal("hide"); //닫기 
 	}
+	function modalClose_1() {
+		$('#reservation').modal("hide"); //닫기
+		$('#sample5_address').val(null);
+	}
+	
 	function modalClose1() {
 		var startTime = $('#startTime').val();
 		var endTime = $('#endTime').val();
-		$('#reservation1').modal("hide"); //닫기 
-		$('#con1').val(startTime + endTime);
+		$('#reservation1').modal("hide"); //닫기
+		$('#buy_startTime').val(startTime);
+		$('#buy_endTime').val(endTime);
 	}
 	function modalClose2() {
 		$('#reservation2').modal("hide"); //닫기 
 	}
 	function modalClose2_1(car) {
 		$('#reservation2_1').modal("hide"); //닫기 
-		$('#con2').val(car);
+		$('#buy_carModel').val(car);
 	}
 	function modalClose2_2(car) {
 		$('#reservation2_2').modal("hide"); //닫기 
-		$('#con2').val(car);
+		$('#buy_carModel').val(car);
 	}
 	function modalClose2_3(car) {
 		$('#reservation2_3').modal("hide"); //닫기 
-		$('#con2').val(car);
+		$('#buy_carModel').val(car);
 	}
 	function modalClose3() {
 		$('#reservation3').modal("hide"); //닫기 
 	}
-	function insSelect(grade) {
-		$('#con3').val(grade);
+	function insSelect(arg1) {
+		$('#buy_ins').val(arg1);
 	}
+	
 </script>
 <!-- 조건 입력 후 ajax  -->
 <script type="text/javascript">
 	var selectZoneNum1 = $('#selectZoneNum').val();
+	// 세션에 들어있는 존 번호 나열(string)을 가져옴
 	var selectZoneNum2 = selectZoneNum1.split(",");
 	var selectZoneNum = [];
+	var carNums="";
+	var zones="";
 	for (var i = 0; i < selectZoneNum2.length-1; i++) {
 		selectZoneNum[i] = parseInt(selectZoneNum2[i]);
 	}
-	
+	// 선택된 존 번호 배열로 맵에 마커를 나타냄
+	// 맨 처음에는 모든 마커 나타내도록 되어있음
+	function reset() {
+		var zones = "0,1,2,3,4,5,6,7,8,9,";
+		var buy_startTime = null;
+		var buy_endTime = null;
+		var carNums = null;
+		location.href="mapReset.do?selectZoneNum=" + zones + "&startTime="+buy_startTime+"&endTime="+buy_endTime+"&carNums="+carNums;
+	}
 	function searchCar() { //reservation table에서 선택한 차량에 해당하는 건을 모두 가져옴
 		$('#reservation3').modal("hide"); //닫기 
-		var buy_carModel = $('#con2').val();
-		var buy_endTime = $('#endTime').val()
-		var buy_startTime = $('#startTime').val()
-		var searchSum = null;
-		var searchEnd = null;
-		var searchStart = null;
-		var temp = [];
-		var temp2 = [];
-		var carNums = [];
-		var zones="";
-	
+		var buy_carModel = $('#buy_carModel').val(); //선택된 차종
+		var buy_startTime = $('#startTime').val(); //입력된 시작시간
+		var buy_endTime = $('#endTime').val(); //입력된 반납시간
+		
 		$.ajax({
 			type : "GET",
-			url : "searchCar.do",
-			data : {
-				'buy_carModel' : buy_carModel
-			},
+			url : "search1.do",
+			data : {'buy_carModel' : buy_carModel},
 			error : function(error) {
 				alert("오류발생" + error);
 			},
-			success : function(data) {
-
-				//--------------startTime ajax
-				$.ajax({
-					type : "GET",
-					url : "searchStartTime.do",
-					data : {
-						'buy_startTime' : buy_startTime,
-						'buy_carModel' : buy_carModel
-					},
-					error : function(error) {
-						alert("오류발생" + error);
-					},
-					success : function(data) {
-						searchStart = parseInt(data.trim());
-						//--------------endTime ajax
-						$.ajax({
-							type : "GET",
-							url : "searchEndTime.do",
-							data : {
-								'buy_endTime' : buy_endTime,
-								'buy_carModel' : buy_carModel
-							},
-							error : function(error) {
-								alert("End오류발생" + error);
-							},
-							success : function(data) {
-								searchEnd = parseInt(data.trim());
-								//해당하는 차량 예약정보를 모두 가져왔으니 시작시간과 도착시간을 계산하여 예약가능여부 결정
-								// DB도착시간 < 입력한 시작시간 , DB시작시간 > 입력한 도착시간 
-								// 각 조건으로 나온 데이터 개수의 합이 해당 차량에 대한 모든 데이터 개수와 동일할 경우 예약가능
-
-								if (searchSum = searchEnd + searchStart) {
-									alert("예약가능");
-
-									$.ajax({
-										type : "GET",
-										url : "selectCar.do",
-										data : {
-											'buy_carModel' : buy_carModel,
-										},
-										error : function(error) {
-											alert("오류발생" + error);
-										},
-										success : function(data) {
-											temp = (data.trim()).split("★");
-											for (var i = 0; i < temp.length-1; i++) {
-												temp2 = temp[i].split(",");
-												carNums[i] = temp2[0];
-												zones = zones + temp2[1] + ",";
-											}
-											alert("mapReset 실행 : " + zones);
-											location.href="mapReset.do?selectZoneNum=" + zones;
-											// 조건에 부합하는 차량갯수, 존 번호 추출해냄
-										}
-									})
-								} else {
-									alert("해당시간 " + buy_carModel + "차종 예약불가");
-									
-								}
+			success : function(data) { //data : 30허1111,3★30허1111,3★
+				var temp2 = data.split("★");	// 배열 temp2
+				var carNums = "";
+				var zones ="";
+				var ee = 0;
+				temp2.forEach(function(element) { //해당하는 차종 모두 실행
+					var temp1 = element.split(",");
+					/* 시작시간으로 비교한 값 */
+					/* 반납시간으로 비교한 값 */
+					/* 두 값 비교하여 예약가능여부 도출 */
+					// DB에서 가져온 자료들 temp1
+					temp1[0]=temp1[0].trim(); // 30호1111
+					temp1[1]=temp1[1].trim(); // 3
+					$.ajax({ //-----------------------------------------------------
+						type:"GET",
+						url : "search2.do",
+						data : {
+							'buy_endTime':buy_endTime,
+							'buy_startTime':buy_startTime,
+							'buy_carNum':temp1[0]
+						},
+						error : function(error) {
+							alert("오류발생" + error);
+						},
+						success : function(data) {
+							ee = ee+1;
+							if(data.trim()=="y"){
+								carNums = carNums + temp1[0] + ",";
+								$('#car_num').val(carNums);
+								zones = zones + temp1[1] + ",";
+								$('#selectZoneNum').val(zones);
 							}
-						})
-					}
+							
+							if (ee == temp2.length-1){
+								location.href="mapReset.do?selectZoneNum=" + zones + "&startTime="+buy_startTime+"&endTime="+buy_endTime+"&carNums="+carNums;
+							}
+						}
+					}) //-----------------------------------------------------
 				})
+				
 			}
 		})
+		// alert($('#car_num').val());
+		// 조건에 만족하는 차량들로 마커 재구성
 	}
 </script>
 <!-- 조건에 맞는 차량번호, 존번호 ajax -->
 <script type="text/javascript">
-function carListInfo(i) { //존 번호로 해당 존 차량들을 모두 가져옴
-	// 존에 아무것도 없을 떄 오류남
+function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모두 가져옴
+								  // 존에 아무것도 없을 떄 오류남
 	$("#carList").empty(); //기존에 있던 내용 지움
 	$.ajax({
 		type : "GET",
@@ -351,31 +341,123 @@ function carListInfo(i) { //존 번호로 해당 존 차량들을 모두 가져�
 			var xx = data.trim();
 			var x1 = (xx).split("★"); // 해당 존에 있는 차량 갯수보다 1개 많은 배열로 생성됨
 			var x2 = [];
-			var carNum = [];
-			var carName = [];
-			var carImage = [];
+			var car_num = null;
+			var fee_hour = null;
 			
 			for (var i = 0; i < x1.length-1; i++) { // x1 배열갯수 -1 하여 for문
 				x2 = x1[i].split(",");
-				$("#carList").append(
-						'<tr><td width="30%"><img alt="" src="'+x2[2]+'" width="80%"></td>'
-						+'<td width="30%"><strong>'+x2[0]+'</strong></td>'
-						+'<td width="30%">'+x2[1]+'% </td>'
-						+'<td width="30%"><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#reservation">선택</button></td></tr>'
-				);
-			}
+			//x2[0] = 주행거리
+			//x2[1] = 연료충전량
+			//x2[2] = 차량이미지 (~~png)
+			//x2[3] = 차량번호(30호1111)
+			//x2[4] = 연료타입
+			//x2[5] = 시간당 대여비용
+			//x2[6] = 차량타입
+			var x3 = x2[3] + "," + x2[6];
+			var x4 =$('#selectCarNum').val();
+			
+			$("#carList").append( // 마커클릭 후 오른쪽에 추가되는 내용들
+				'<tr><td width="30%"><img alt="" src="'+x2[2]+'" width="80%"></td>'
+				+'<td width="30%"><strong>'+x2[0]+'</strong></td>'
+				+'<td width="30%">'+x2[4]+" / "+x2[1]+'% </td>'
+				+'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#reservation" value="'+x3+'">'+x2[3]+'</button></td></tr>'
+			);
+		
+			} 
 		}
 	})
 }
+$(document).on('click','#res_start', function () {
+	var xxxx = $(this).attr("value");
+	var xxxx2 = xxxx.split(",");
+	$('#selectCarNum').val(xxxx2[0]);
+	$('#buy_carModel').val(xxxx2[1]);
+})
+
 </script>
 <!-- 부름예약시 거리 및 비용계산 -->
 <script type="text/javascript">
-function burum() {
-	var zone_addr = ['연신내역','연신내역','연신내역','연신내역','연신내역','갈현e편한세상1단지아파트','갈현e편한세상1단지아파트','갈현e편한세상1단지아파트','갈현e편한세상1단지아파트','갈현e편한세상1단지아파트'];
+	var zone_addr = ['역말로10길','불광삼협하이츠빌라','큰사랑나눔복지센터','예일여자중학교','장수보건진료소','구산경향파크아파트','인천남동시범공단','청요2리마을회관','도일초등학교','kakao스페이스닷원'];
+	function burum() { //부름예약시 실행 > 시작점과 도착점의 거리, 비용을 계산 (크롤링)
+		$('#insurance').modal("hide"); //닫기 
+		var number = parseInt($('#zoneNumber').val());
+		var zone_loc = zone_addr[number];
+		var home_loc = $('#sample5_address').val();
+		alert(number + " - " + home_loc + " - " + zone_loc);
+		$.ajax({
+			type : "GET",
+			url : "burumReservation.do",
+			data : {
+				'zone_loc' : zone_loc,
+				'home_loc' : home_loc
+			},
+			error : function(error) {
+				alert("오류발생" + error);
+			},
+			success : function(data) {
+				alert("크롤링 성공했다 치고 : "+data)
+			}
+		})
+	}
+</script>
+<!-- 최종예약하기 -->
+<script type="text/javascript">
+function reservation() {
+	$('#insurance').modal("hide"); //닫기 
+	var buy_id = $('#sessionId').val(); 
+	$('input[name=buy_id]').val(buy_id);
+	var buy_carModel = $('#buy_carModel').val();
+	$('input[name=buy_carModel]').val(buy_carModel);
+	var buy_carNum = $('#selectCarNum').val();
+	$('input[name=buy_carNum]').val(buy_carNum);
+	var buy_startTime = $('#buy_startTime').val();
+	$('input[name=buy_startTime]').val(buy_startTime);
+	var buy_endTime = $('#buy_endTime').val();
+	$('input[name=buy_endTime]').val(buy_endTime);
+	var buy_startLocation=$('#sample5_address').val(); 
+	$('input[name=buy_startLocation]').val(buy_startLocation);
+	var buy_amount=null; // 대여시 최종금액
+	$('input[name=buy_amount]').val(buy_amount);
+	var buy_ins = $('#buy_ins').val();
+	$('input[name=buy_carIns]').val(buy_ins);
+	//---------------------- 해당차량 초기지불금액 계산 (대여비 + 보험료)
+	var insFee = null;
+	if(buy_ins=='스페셜'){
+		insFee = 0.2;
+	} else if(buy_ins=='스텐다드'){
+		insFee = 0.15;
+	} else {
+		insFee = 0.1;
+	}
 	
+	
+	var use_time = buy_endTime - buy_startTime; // 대여시간
+	var use_day = parseInt(use_time/10000); // 日 시간금액*24
+	var use_hour = parseInt((use_time % 10000) - (use_time % 100))/100 ;// 詩
+	var use_min = use_time % 100; // 分 시간금액 * (1/60)
+	$.ajax({
+			type : "GET",
+			url : "carNumSearch.do",
+			data : {
+				'car_num' : buy_carNum
+			},
+			error : function(error) {
+				alert("오류발생" + error);
+			},
+			success : function(data) {
+				var ww = data.split(",");
+				var timeFee = parseInt(ww[0].trim());
+				var carImage = ww[1].trim();
+				buy_amount = (timeFee*24*use_day)+(use_hour*timeFee)+(use_min*timeFee*(1/60)); 
+				buy_amount = parseInt(buy_amount + (buy_amount*insFee));	
+				$('input[name=buy_amount]').val(buy_amount);
+				$('input[name=buy_carImage]').val(carImage);
+				$('#confirm').submit();
+			}
+		})
+	//-------------------------------------------------------------------------------
 }
 </script>
-
 <div class="d-flex align-items-center">
 	<img alt="" src="" width="10"> <span class="mr-2">100%</span>
 	<div>
@@ -385,6 +467,20 @@ function burum() {
 	</div>
 </div>
 </head>
+<body>
+
+<form action="confirm.do" id="confirm">
+	<input name="buy_id" type="hidden">
+	<input name="buy_carIns" type="hidden">
+	<input name="buy_carModel" type="hidden">
+	<input name="buy_carNum" type="hidden">
+	<input name="buy_startTime" type="hidden">
+	<input name="buy_endTime" type="hidden">
+	<input name="buy_startLocation" type="hidden">
+	<input name="buy_amount" type="hidden">
+	<input name="buy_carImage" type="hidden">
+</form>
+
 <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
 	<div class="container-fluid">
 		<!-- Toggler -->
@@ -539,6 +635,7 @@ function burum() {
 										<label style="font-size: 20px; font-weight: bold;">최소 30분<br> 10분 단위로 예약가능
 										</label>
 									</div>
+									
 									<div>
 										<button type="button" class="btn btn-outline-primary" style="height: 30%">자세히</button>
 									</div>
@@ -583,8 +680,8 @@ function burum() {
 							<div class="card-body" style="height: 100%">
 								<div class="row" style="height: 100%">
 									<!-- Button trigger modal -->
-									<button type="button" class="btn btn-outline-default" style="font-weight: bold; font-size: 20px" data-toggle="modal" data-target="#reservation1">차량검색</button>
-									<button type="button" class="btn btn-outline-default" style="font-weight: bold; font-size: 20px" onclick="location='searchCar.do'">테스트버튼</button>
+									<button type="button" class="btn btn-outline-default" style="font-weight: bold; font-size: 20px" data-toggle="modal" data-target="#reservation1">시간&차종 검색</button>
+									<button type="button" class="btn btn-outline-default" style="font-weight: bold; font-size: 20px" onclick="reset()">설정초기화</button>
 									<!-------------------------------------------------->
 									<!-- 예약시간 선택 -->
 									<div class="modal fade" id="reservation1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
@@ -597,8 +694,8 @@ function burum() {
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
-												<div class="modal-body">
-													<table>
+												<div class="modal-body" style="width: 100%">
+													<table style="width: 100%">
 														<tr>
 															<td>
 																시작시간 : <input class="form-control" type="text" id="startTime" placeholder="ex) 1907081930" />
@@ -649,7 +746,7 @@ function burum() {
 														<table>
 															<tr>
 																<td style="width: 30%">
-																	<img alt="" src="http://rentacarshop.com/data/file/car_k/236995330_noFWsxVk_bacc1f2dee0e8c1ff188bdf8bc974bdd39fe8961.png" width="100%">
+																	<img alt="" src="resources/assets/img/car/spark.png" width="100%">
 																</td>
 																<td>
 																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_1('SPARK')">SPARK</button>
@@ -657,28 +754,14 @@ function burum() {
 															</tr>
 															<tr>
 																<td style="width: 30%">
-																	<img alt="" src="http://rentacarshop.com/data/file/car_k/236995330_noFWsxVk_bacc1f2dee0e8c1ff188bdf8bc974bdd39fe8961.png" width="100%">
+																	<img alt="" src="resources/assets/img/car/morning.png" width="100%">
 																</td>
 																<td>
-																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_1('SPARK')">SPARK</button>
+																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_1('MORNING')">MORNING</button>
 																</td>
 															</tr>
-															<tr>
-																<td style="width: 30%">
-																	<img alt="" src="http://rentacarshop.com/data/file/car_k/236995330_noFWsxVk_bacc1f2dee0e8c1ff188bdf8bc974bdd39fe8961.png" width="100%">
-																</td>
-																<td>
-																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_1('SPARK')">SPARK</button>
-																</td>
-															</tr>
-															<tr>
-																<td style="width: 30%">
-																	<img alt="" src="http://rentacarshop.com/data/file/car_k/236995330_noFWsxVk_bacc1f2dee0e8c1ff188bdf8bc974bdd39fe8961.png" width="100%">
-																</td>
-																<td>
-																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_1('SPARK')">SPARK</button>
-																</td>
-															</tr>
+															
+															
 														</table>
 													</div>
 													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -701,7 +784,39 @@ function burum() {
 														<table>
 															<tr>
 																<td style="width: 30%">
-																	<img alt="" src="http://sincha114.com/files/attach/images/469/897/581/afc8781970559604bf94d3516f2de63a.png" width="100%">
+																	<img alt="" src="resources/assets/img/car/k3.png" width="100%">
+																</td>
+																<td>
+																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('K3')">K3</button>
+																</td>
+															</tr>
+															<tr>
+																<td style="width: 30%">
+																	<img alt="" src="resources/assets/img/car/i30.png" width="100%">
+																</td>
+																<td>
+																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('I30')">I30</button>
+																</td>
+															</tr>
+															<tr>
+																<td style="width: 30%">
+																	<img alt="" src="resources/assets/img/car/clio.png" width="100%">
+																</td>
+																<td>
+																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('CLIO')">CLIO</button>
+																</td>
+															</tr>
+															<tr>
+																<td style="width: 30%">
+																	<img alt="" src="resources/assets/img/car/ioniq.png" width="100%">
+																</td>
+																<td>
+																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('IONIQ')">IONIQ</button>
+																</td>
+															</tr>
+															<tr>
+																<td style="width: 30%">
+																	<img alt="" src="resources/assets/img/car/avante.png" width="100%">
 																</td>
 																<td>
 																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('AVANTE')">AVANTE</button>
@@ -709,34 +824,26 @@ function burum() {
 															</tr>
 															<tr>
 																<td style="width: 30%">
-																	<img alt="" src="http://sincha114.com/files/attach/images/469/897/581/afc8781970559604bf94d3516f2de63a.png" width="100%">
+																	<img alt="" src="resources/assets/img/car/stinger.png" width="100%">
 																</td>
 																<td>
-																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('AVANTE')">AVANTE</button>
+																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('STINGER')">STINGER</button>
 																</td>
 															</tr>
 															<tr>
 																<td style="width: 30%">
-																	<img alt="" src="http://sincha114.com/files/attach/images/469/897/581/afc8781970559604bf94d3516f2de63a.png" width="100%">
+																	<img alt="" src="resources/assets/img/car/sm6.png" width="100%">
 																</td>
 																<td>
-																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('AVANTE')">AVANTE</button>
+																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('SM6')">SM6</button>
 																</td>
 															</tr>
 															<tr>
 																<td style="width: 30%">
-																	<img alt="" src="http://sincha114.com/files/attach/images/469/897/581/afc8781970559604bf94d3516f2de63a.png" width="100%">
+																	<img alt="" src="resources/assets/img/car/g80.png" width="100%">
 																</td>
 																<td>
-																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('AVANTE')">AVANTE</button>
-																</td>
-															</tr>
-															<tr>
-																<td style="width: 30%">
-																	<img alt="" src="http://sincha114.com/files/attach/images/469/897/581/afc8781970559604bf94d3516f2de63a.png" width="100%">
-																</td>
-																<td>
-																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('AVANTE')">AVANTE</button>
+																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('G80')">G80</button>
 																</td>
 															</tr>
 														</table>
@@ -761,7 +868,7 @@ function burum() {
 														<table>
 															<tr>
 																<td style="width: 30%">
-																	<img alt="" src="resources/assets/img/car/avante.png" width="100%">
+																	<img alt="" src="resources/assets/img/car/kona.png" width="100%">
 																</td>
 																<td>
 																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('KONA')">KONA</button>
@@ -769,39 +876,15 @@ function burum() {
 															</tr>
 															<tr>
 																<td style="width: 30%">
-																	<img alt="" src="http://file.carisyou.com/upload/2018/11/30/FILE_201811301136252880.png" width="100%">
+																	<img alt="" src="resources/assets/img/car/stonic.png" width="100%">
 																</td>
 																<td>
-																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('PALISADE')">PALISADE</button>
+																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('STONIC')">STONIC</button>
 																</td>
 															</tr>
 															<tr>
 																<td style="width: 30%">
-																	<img alt="" src="http://file.carisyou.com/upload/2018/11/30/FILE_201811301136252880.png" width="100%">
-																</td>
-																<td>
-																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('PALISADE')">PALISADE</button>
-																</td>
-															</tr>
-															<tr>
-																<td style="width: 30%">
-																	<img alt="" src="http://file.carisyou.com/upload/2018/11/30/FILE_201811301136252880.png" width="100%">
-																</td>
-																<td>
-																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('PALISADE')">PALISADE</button>
-																</td>
-															</tr>
-															<tr>
-																<td style="width: 30%">
-																	<img alt="" src="http://file.carisyou.com/upload/2018/11/30/FILE_201811301136252880.png" width="100%">
-																</td>
-																<td>
-																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('PALISADE')">PALISADE</button>
-																</td>
-															</tr>
-															<tr>
-																<td style="width: 30%">
-																	<img alt="" src="http://file.carisyou.com/upload/2018/11/30/FILE_201811301136252880.png" width="100%">
+																	<img alt="" src="resources/assets/img/car/palisade.png" width="100%">
 																</td>
 																<td>
 																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('PALISADE')">PALISADE</button>
@@ -878,7 +961,7 @@ function burum() {
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#reservation" onclick="burumClose1()">이전</button>
-													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#burum2" onclick="burum()">다음</button>
+													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#burum2" onclick="burumClose1()">다음</button>
 												</div>
 											</div>
 										</div>
@@ -899,11 +982,12 @@ function burum() {
 														<h4>
 															부름 지점에 도착하면 문자가 전송됩니다. <i class="ni ni-send"></i>
 														</h4>
-														<h4>부름 추가요금은 ***원 입니다.</h4>
+														<h4>부름 추가요금(왕복)은 <input id="burumFee" style="width: 25%" class="alert alert-secondary">원 입니다. </h4>
 														<i class="send"></i>
 													</div>
 												</div>
 												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#burum1" onclick="burumClose2()">이전</button>
 													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insurance" onclick="burumClose2()">다음</button>
 												</div>
 											</div>
@@ -949,26 +1033,8 @@ function burum() {
 													</div>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#final">결제하기</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- final > 보여주기용도 -->
-									<div class="modal fade" id="final" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<!-------------------------------------->
-
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#reservation" onclick="burumClose3()">처음으로</button>
+													<button type="button" class="btn btn-primary" onclick="reservation()">결제하기</button>
 												</div>
 											</div>
 										</div>
@@ -1008,13 +1074,10 @@ function burum() {
 											</thead>
 										</table>
 										<!------------------------------------------------------------->
-										<div style="width: 100%; height: 630px; overflow: scroll;">
+										<div style="width: 106%; height: 630px; overflow: scroll;">
 										<div class="alert alert-secondary" role="alert"><table id="carList">
-										
 										</table></div>
-				
-
-											<!---------------------------------------------------------------------------->
+										<!---------------------------------------------------------------------------->
 										</div>
 									</div>
 								</div>
@@ -1031,7 +1094,6 @@ function burum() {
 
 
 					<script>
-						var selectZoneNum = [0,1,2,3,4,5,6,7,8,9];
 						var MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
 						MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
 						OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
@@ -1040,7 +1102,7 @@ function burum() {
 						OVER_MARKER_HEIGHT = 42, // 오버 마커의 높이
 						OVER_OFFSET_X = 13, // 오버 마커의 기준 X좌표
 						OVER_OFFSET_Y = OVER_MARKER_HEIGHT, // 오버 마커의 기준 Y좌표
-						SPRITE_MARKER_URL = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markers_sprites2.png', // 스프라이트 마커 이미지 URL
+						SPRITE_MARKER_URL = 'resources/assets/img/brand/markers.png', // 스프라이트 마커 이미지 URL
 						SPRITE_WIDTH = 126, // 스프라이트 이미지 너비
 						SPRITE_HEIGHT = 146, // 스프라이트 이미지 높이
 						SPRITE_GAP = 10; // 스프라이트 이미지에서 마커간 간격
@@ -1056,11 +1118,11 @@ function burum() {
 								SPRITE_HEIGHT); // 스프라이트 이미지의 크기
 						//----------------------------------------------------------------------------------------------------------------------
 						var positionsAll = [ // 마커의 위치
-						new kakao.maps.LatLng(37.61094, 126.92267),
+								new kakao.maps.LatLng(37.61094, 126.92267),
 								new kakao.maps.LatLng(37.61361, 126.93490),
 								new kakao.maps.LatLng(37.62247, 126.92701),
 								new kakao.maps.LatLng(37.61071, 126.91606),
-								new kakao.maps.LatLng(36.91071, 126.89606),
+								new kakao.maps.LatLng(36.93971, 126.89636),
 								new kakao.maps.LatLng(37.61071, 126.90606),
 								new kakao.maps.LatLng(37.41071, 126.70606),
 								new kakao.maps.LatLng(37.20071, 126.89606),
@@ -1078,12 +1140,15 @@ function burum() {
 						mapOption = {
 							center : new kakao.maps.LatLng(37.619156535986576,
 									126.9213114357428), // 지도의 중심좌표 > 회원정보에 입력된 주소를 좌표로 변환하여 입력됨
-							level : 6
+							level : 7
 						// 지도의 확대 레벨
 						};
 
 						var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
+						// 지도에 교통정보를 표시하도록 지도타입을 추가합니다
+						map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);   
+						
 						// 지도 위에 마커를 표시합니다
 						for (var i = 0, len = positions.length; i < len; i++) {
 							var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
@@ -1200,9 +1265,9 @@ function burum() {
 
 													if (markers[0] == selected[0]
 															&& markers[1] == selected[1]) { // 선택된 좌표와 입력되어있던 좌표가 같을 경우
-														selectNum = i;
-														$('#zoneNumber').val(i);
-														carListInfo(i); // 몇번째 마커인지 번호와 함께 전송
+														selectNum = selectZoneNum[i]; // 선택된것 중 순번 > 절대순번을 찾아서 보냄
+														$('#zoneNumber').val(selectNum);
+														carListInfo(selectNum); // 몇번째 마커인지 번호와 함께 전송
 													}
 												} //for문종료 : 마커를 클릭하면 몇번째 마커인지 표시
 											});
@@ -1223,6 +1288,7 @@ function burum() {
 							return markerImage;
 						}
 					</script>
+					<input id="zoneNumber" type="hidden">
 				</div>
 			</div>
 		</div>
@@ -1247,9 +1313,11 @@ function burum() {
 		</footer>
 	</div>
 </div>
+
 <!--   Core   -->
 <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
 <script src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!--   Optional JS   -->
 <!--   Argon JS   -->
 <script src="resources/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
 <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
@@ -1259,6 +1327,7 @@ function burum() {
 		application : "argon-dashboard-free"
 	});
 </script>
+
 </body>
 
 </html>
