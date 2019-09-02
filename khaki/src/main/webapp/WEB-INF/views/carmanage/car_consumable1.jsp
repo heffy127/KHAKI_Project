@@ -47,7 +47,7 @@
 				
 				// 나눗셈 몫 = 교체해야할 시기
 				// 각 소모품 별 교체횟수, 교체 시기 DB작성(교체횟수와 비교하여 교체횟수와 현재 교체되었어야할 횟수가 동일하면 %표기, 그 외에는 교체요망 표기)
-				var change_num = Math.floor(distance / arr[i]);
+				var change_num = Math.floor(distance / arr[i]) + 1;
 				test1 += consumableDB[i];
 				test2 += change_num;
 				// consumableDB의 값은 DB에 저장된 값, change_num은 총 운행km로 계산하여 현재 교체 시기를 계산한 값
@@ -81,19 +81,19 @@
 				$(".btn_value"+(i+1)).val(change_num);	//버튼에 value값을 주고 보내는 것을 기획한다!
 				if(num<=50 && num >= 0){
 					$(".pctest2_"+(i+1)).attr({
-						'class': 'progress-bar bg-success',
+						'class': 'progress-bar bg-success pctest2_'+(i+1),
 						'aria-valuenow': num,
 						'style':'width:'+num+'%;',
 					});
 				}else if(num <=75){
 					$(".pctest2_"+(i+1)).attr({
-						'class': 'progress-bar bg-warning',
+						'class': 'progress-bar bg-warning pctest2_'+(i+1),
 						'aria-valuenow': num,
 						'style':'width:'+num+'%;',
 					});
 				}else if(num <= 100){
 					$(".pctest2_"+(i+1)).attr({
-						'class': 'progress-bar bg-danger',
+						'class': 'progress-bar bg-danger pctest2_'+(i+1),
 						'aria-valuenow': num,
 						'style':'width:'+num+'%;',
 					});
@@ -139,30 +139,32 @@
 						alert("ajax 동작 완료!")
 						// %부분
 						var percentage1 = Math.round((distance % arr[index_data]) / arr[index_data] * 100);
-						alert(percentage1)
+						alert("percentage1 : " + percentage1)
+						alert("index_data : " + index_data)
 						if(percentage1<=50 && percentage1 >= 0){
-							$(".pctest2_"+(i+1)).attr({
+							$(".pctest2_"+(index_data+1)).attr({
 								'class': 'progress-bar bg-success',
 								'aria-valuenow': percentage1,
 								'style':'width:'+percentage1+'%;',
 							});
 						}else if(percentage1 <=75){
-							$(".pctest2_"+(i+1)).attr({
+							$(".pctest2_"+(index_data+1)).attr({
 								'class': 'progress-bar bg-warning',
 								'aria-valuenow': percentage1,
 								'style':'width:'+percentage1+'%;',
 							});
 						}else if(percentage1 <= 100){
-							$(".pctest2_"+(i+1)).attr({
+							$(".pctest2_"+(index_data+1)).attr({
 								'class': 'progress-bar bg-danger',
 								'aria-valuenow': percentage1,
 								'style':'width:'+percentage1+'%;',
 							});
-							$("#btn_div"+(i+1)).css("display", "inline");	//display:none인 값을 inline으로 바꾸어 보이게 해줌
+							$("#btn_div"+(index_data+1)).css("display", "inline");	//display:none인 값을 inline으로 바꾸어 보이게 해줌
 						}else{
-							alert((i+1)+"번째 : not range!!" + arr[i]);
+							alert((index_data+1)+"번째 : not range!!" + arr[index_data]);
 						}
 						
+						// 바뀌는 것은 보임
 						var span_index_data = $(".pctest1_"+(index_data+1)).children("span").text();
 						alert(span_index_data);
 						var change_num1 = span_index_data.split("/")[1].split("|")[0];
@@ -257,7 +259,8 @@
 							<div class="progress">
 								<div class="progress-bar bg-danger pctest2_2" role="progressbar"
 									aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-									style="width: 40%;"></div>
+									style="width: 40%;">
+								</div>
 							</div>
 						</div>
 						<div id="btn_div2" style="display: none;">
@@ -304,8 +307,7 @@
 							</div>
 							<div class="progress">
 								<div class="progress-bar bg-danger pctest2_4" role="progressbar"
-									aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"
-									style="width: 90%;"></div>
+									aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
 							</div>
 						</div>
 						<div id="btn_div4" style="display: none;">
