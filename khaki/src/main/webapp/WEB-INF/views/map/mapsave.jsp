@@ -117,6 +117,21 @@
 }
 </style>
 <title>1등 카셰어링, khaki</title>
+<%
+String xsxs = (String)session.getAttribute("selectZoneNum");
+String idid = (String)session.getAttribute("sessionId");
+String numnum = (String)session.getAttribute("selectCarNum");
+%>
+<input id="selectZoneNum" type ="hidden" value=<%=xsxs%>>
+<input id="sessionId" type ="hidden" value=<%=idid%>>
+<input id="selectCarNum" type ="hidden" value=<%=numnum%>>
+<input id="car_num" type ="hidden">
+<input id="buy_ins" type ="hidden" value="스페셜">
+<input id="buy_carModel" type ="hidden">
+<input id="buy_startTime" type ="hidden" value='${buy_startTime}'>
+<input id="buy_endTime" type ="hidden" value='${buy_endTime}'>
+<input id="carNums" type ="hidden" value='${carNums}'> <!-- 예약가능한 차량들의 번호 -->
+
 <!-- ajax  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- 데이트피커 -->
@@ -133,8 +148,7 @@
 <!-- CSS Files -->
 <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
 <!-- 지도 api -->
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3010ba59fe5cb4ef476a120272fd67f0&libraries=services"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1148d6f91cf7fd9a3c17408122e52f57&libraries=services"></script>
 <!-- 주소 api -->
 <script>
 	function sample5_execDaumPostcode() {
@@ -167,13 +181,30 @@
 	}
 </script>
 <!-- modal 닫기, 시간/차량/보험 정보 변수 -->
-<script type="text/javascript">
-	function carSelect(car) {
-	}
-	function timeSelect(time) {
-	}
-	function burumClose1() {
+<script type="text/javascript"> 
+
+	function burumClose1() { // 부름 장소설정 , 다음 눌렀을 때 부름 금액 크롤링하여 다음 모달에 보여줌
 		$('#burum1').modal("hide"); //닫기 
+		var number = parseInt($('#zoneNumber').val());
+		var zone_loc = zone_addr[number];
+		var home_loc = $('#sample5_address').val();
+		$.ajax({
+			type : "GET",
+			url : "burumReservation.do",
+			data : {
+				'zone_loc' : zone_loc,
+				'home_loc' : home_loc
+			},
+			error : function(error) {
+				alert("오류발생" + error);
+			},
+			success : function(data) {
+				$('#burumFee').val(data);
+			}
+		})
+	}
+	function burumClose3() {
+		$('#insurance').modal("hide");
 	}
 	function burumClose2() {
 		$('#burum2').modal("hide"); //닫기 
@@ -181,131 +212,198 @@
 	function modalClose() {
 		$('#reservation').modal("hide"); //닫기 
 	}
+	function modalClose_1() {
+		$('#reservation').modal("hide"); //닫기
+		$('#sample5_address').val(null);
+	}
+	
 	function modalClose1() {
 		var startTime = $('#startTime').val();
 		var endTime = $('#endTime').val();
-		$('#reservation1').modal("hide"); //닫기 
-		$('#con1').val(startTime + endTime);
+		$('#reservation1').modal("hide"); //닫기
+		$('#buy_startTime').val(startTime);
+		$('#buy_endTime').val(endTime);
 	}
 	function modalClose2() {
 		$('#reservation2').modal("hide"); //닫기 
 	}
 	function modalClose2_1(car) {
 		$('#reservation2_1').modal("hide"); //닫기 
-		$('#con2').val(car);
+		$('#buy_carModel').val(car);
 	}
 	function modalClose2_2(car) {
 		$('#reservation2_2').modal("hide"); //닫기 
-		$('#con2').val(car);
+		$('#buy_carModel').val(car);
 	}
 	function modalClose2_3(car) {
 		$('#reservation2_3').modal("hide"); //닫기 
-		$('#con2').val(car);
+		$('#buy_carModel').val(car);
 	}
 	function modalClose3() {
 		$('#reservation3').modal("hide"); //닫기 
 	}
-	function insSelect(grade) {
-		$('#con3').val(grade);
+	function insSelect(arg1) {
+		$('#buy_ins').val(arg1);
 	}
-</script>
-<!-- ajax  -->
-<script type="text/javascript">
-	var selectZoneNum = [ 0 ];
 	
+</script>
+<!-- 조건 입력 후 ajax  -->
+<script type="text/javascript">
+	var selectZoneNum1 = $('#selectZoneNum').val();
+	var selectZoneNum2 = selectZoneNum1.split(",");
+	var selectZoneNum = [];
+	for (var i = 0; i < selectZoneNum2.length-1; i++) {
+		selectZoneNum[i] = parseInt(selectZoneNum2[i]);
+	}
 	function searchCar() { //reservation table에서 선택한 차량에 해당하는 건을 모두 가져옴
 		$('#reservation3').modal("hide"); //닫기 
-		var buy_carModel = $('#con2').val();
+		var buy_carModel = $('#buy_carModel').val();
+		var buy_startTime = $('#startTime').val(); //입력된 시작시간
+		var buy_endTime = $('#endTime').val(); //입력된 반납시간
+		var searchSum = null;
+		var searchEnd = null;
+		var searchStart = null;
+		var temp = [];
+		var temp2 = [];
+		var cars = "";
+		var zones="";
+	
+		$.ajax({ // 선택된 차종의 모든 차량번호를 가져옴 (car_board)
+			type : "GET",
+			url : "search1.do",
+			data : {'buy_carModel' : buy_carModel},
+			error : function(error) {
+				alert("오류발생" + error);
+			},
+			success : function(data) {
+				// data ex)30호1234,40하1234,....
+			var temp1 = data.split("★")
+		
+		for (var i = 0; i < temp1.length-1; i++) {
+			var data1=temp1[i]split(",");
+			//data1[0] = 차량번호
+			//data1[1] = 존번호
+			// 추출된 차량들에 대한 각각의 예약건들로 예약가능여부 계산
+				$.ajax({ 
+					type : "GET",
+					url : "search2.do",
+					data : {
+						'buy_startTime' : buy_startTime,
+						'buy_endTime' : buy_endTime,
+						'buy_carNum' : data1[0]
+					},
+					error : function(error) {
+						alert("오류발생" + error);
+					},
+					success : function(data) { // 예약가능하면 y
+						if(data.trim()=y){
+							cars = cars + data1[0] + ",";
+							if(zones. indexOf(data1[1])){ // 이미 해당 존 번호가 있을 경우
+							}else{ // 없을경우 (추가)
+								zones = zones + data1[1] + ","; 
+							}
+						}
+					}
+			})
+		}
+			}
+		})
+		
+		location.href="mapReset.do?selectZoneNum=" + zones + "&carNums="+cars+"&startTime="+buy_startTime+"&endTime="+buy_endTime;
+		
+		// zones에 해당하는 존 번호 나열해야 함 ex) 1,3,4,5
+		// cars에 해당하는 차량 번호 나열 ex) 30허1234,12호1234....
+	}
+</script>
+<!-- 조건에 맞는 차량번호, 존번호 ajax -->
+<script type="text/javascript">
+function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모두 가져옴
+								  // 존에 아무것도 없을 떄 오류남
+	$("#carList").empty(); //기존에 있던 내용 지움
+	$.ajax({
+		type : "GET",
+		url : "carListInfo.do",
+		data : {
+			'zoneNum' : i
+		},
+		error : function(error) {
+			alert("오류발생" + error);
+		},
+		success : function(data) {
+			var xx = data.trim();
+			var x1 = (xx).split("★"); // 해당 존에 있는 차량 갯수보다 1개 많은 배열로 생성됨
+			var x2 = [];
+			var car_num = null;
+			var fee_hour = null;
+			for (var i = 0; i < x1.length-1; i++) { // x1 배열갯수 -1 하여 for문
+				x2 = x1[i].split(",");
+			//x2[0] = 주행거리
+			//x2[1] = 연료충전량
+			//x2[2] = 차량이미지 (~~png)
+			//x2[3] = 차량번호(30호1111)
+			//x2[4] = 연료타입
+			//x2[5] = 시간당 대여비용
+			//x2[6] = 차량타입
+			var x3 = x2[3] + "," + x2[6];
+				$("#carList").append( // 마커클릭 후 오른쪽에 추가되는 내용들
+						'<tr><td width="30%"><img alt="" src="'+x2[2]+'" width="80%"></td>'
+						+'<td width="30%"><strong>'+x2[0]+'</strong></td>'
+						+'<td width="30%">'+x2[4]+" / "+x2[1]+'% </td>'
+						+'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#reservation" value="'+x3+'">'+x2[3]+'</button></td></tr>'
+				);
+			}
+		}
+	})
+}
+$(document).on('click','#res_start', function () {
+	var xxxx = $(this).attr("value");
+	var xxxx2 = xxxx.split(",");
+	$('#selectCarNum').val(xxxx2[0]);
+	$('#buy_carModel').val(xxxx2[1]);
+})
+
+</script>
+<!-- 부름예약시 거리 및 비용계산 -->
+<script type="text/javascript">
+	var zone_addr = ['연신내역','연신내역','연신내역','연신내역','연신내역','갈현e편한세상1단지아파트','갈현e편한세상1단지아파트','갈현e편한세상1단지아파트','갈현e편한세상1단지아파트','갈현e편한세상1단지아파트'];
+	function burum() { //부름예약시 실행 > 시작점과 도착점의 거리, 비용을 계산 (크롤링)
+		$('#insurance').modal("hide"); //닫기 
+		var number = parseInt($('#zoneNumber').val());
+		var zone_loc = zone_addr[number];
+		var home_loc = $('#sample5_address').val();
+		alert(number + " - " + home_loc + " - " + zone_loc);
 		$.ajax({
 			type : "GET",
-			url : "searchCar.do",
+			url : "burumReservation.do",
 			data : {
-				'buy_carModel' : buy_carModel
+				'zone_loc' : zone_loc,
+				'home_loc' : home_loc
 			},
 			error : function(error) {
 				alert("오류발생" + error);
 			},
 			success : function(data) {
-				alert(data); // 오류는 발생안하는데 값이 아무내용도 안뜸 
-
-				//해당하는 차량 예약정보를 모두 가져왔으니 시작시간과 도착시간을 계산하여 예약가능여부 결정
-				// DB도착시간 < 입력한 시작시간 , DB시작시간 > 입력한 도착시간 
-				// 각 조건으로 나온 데이터 개수의 합이 해당 차량에 대한 모든 데이터 개수와 동일할 경우 예약가능
-
-				$.ajax({
-					type : "GET",
-					url : "searchEndTime.do",
-					data : {
-						'buy_carModel' : buy_carModel
-					},
-					error : function(error) {
-						alert("오류발생" + error);
-					},
-					success : function(data) {
-						alert(data); // 오류는 발생안하는데 값이 아무내용도 안뜸 
-
-
-					}
-				})
+				alert("크롤링 성공했다 치고 : "+data)
 			}
 		})
 	}
 </script>
-<!-- 차량정보 div append -->
+<!-- 최종예약하기 -->
 <script type="text/javascript">
-	var selectNum = null;
-	var carSelect = null;
-	var insSelect = null;
-	var selectCar1 = [ "30가2123", "25나2351", "12호1242" ]; //DB에서 받아왔다 가정
-	var xx = [ 1, 3, 5 ];
-
-	function selectTime() { //년:월:일:시간:분 선택 후 저장
-		$('#selectContent').empty();
-		$('#selectContent')
-				.append(
-						'<div style="width: 100%"><div class="form-group has-success" style="width: 100%">'
-								+ '<input type="text" placeholder="예약시간'
-								+ $('#startTime').val()
-								+ " : "
-								+ $('#endTime').val()
-								+ '" class="form-control form-control-alternative is-valid" />'
-								+ '</div></div><br>');
-	}
-
-	function selectCar(carSelect) { //차량선택 후 저장
-		$('#selectContent')
-				.append(
-						'<div style="width: 100%"><div class="form-group has-success" style="width: 100%">'
-								+ '<input type="text" placeholder="선택차량'
-						+ carSelect
-						+ '" class="form-control form-control-alternative is-valid" />'
-								+ '</div></div><br>');
-	}
-
-	function carListInfo(i) { // 선택된 마커(존)의 차량 정보를 나타내는 함수
-		$("#carList").empty();
-		for (var j = 0; j < selectCar1.length + 2; j++) {
-			if (j < 2) { // 나중에 고칠 내용 > 존에 있는 차량 중 조건에 만족, 사용가능할 경우
-				$("#carList")
-						.append(
-								'<div class="alert alert-secondary" role="alert"><strong>'
-										+ i
-										+ '번 카키존</strong> '
-										+ selectCar1[j]
-										+ ' KONA<img alt="" src="resources/assets/img/brand/kona.png" width="30%">'
-										+ '<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#reservation">선택</button>'
-										+ '</div>');
-			} else { // > 존에 있는 차량 중 조건에 만족, 사용불가할 경우
-				$("#carList")
-						.append(
-								'<div class="alert alert-secondary" role="alert"><strong>'
-										+ i
-										+ '번 카키존</strong> '
-										+ selectCar1[j]
-										+ ' KONA<img alt="" src="resources/assets/img/brand/kona.png" width="30%"><button type="submit" class="btn btn-outline-danger" disabled="disabled">예약불가</button></div>');
-			}
-		}
-	}
+function reservation() {
+	$('#insurance').modal("hide"); //닫기 
+	var buy_id = $('#sessionId').val();
+	var buy_ins = $('#buy_ins').val();
+	var buy_carModel = $('#buy_carModel').val();
+	var buy_carNum = $('#selectCarNum').val();
+	var buy_startTime = $('#buy_startTime').val();
+	var buy_endTime = $('#buy_endTime').val();
+	var buy_startLocation=$('#sample5_address').val();
+	var use_time = buy_endTime - buy_startTime // 1908082100 - 1908081700 = 400
+	var use_day = use_time/10000; 
+	var use_hour = use_time/100;
+	var use_min = use_time % 100;
+}
 </script>
 <div class="d-flex align-items-center">
 	<img alt="" src="" width="10"> <span class="mr-2">100%</span>
@@ -528,8 +626,8 @@
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
-												<div class="modal-body">
-													<table>
+												<div class="modal-body" style="width: 100%">
+													<table style="width: 100%">
 														<tr>
 															<td>
 																시작시간 : <input class="form-control" type="text" id="startTime" placeholder="ex) 1907081930" />
@@ -692,7 +790,7 @@
 														<table>
 															<tr>
 																<td style="width: 30%">
-																	<img alt="" src="resources/assets/img/brand/kona.png" width="100%">
+																	<img alt="" src="resources/assets/img/car/kona.png" width="100%">
 																</td>
 																<td>
 																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('KONA')">KONA</button>
@@ -700,15 +798,15 @@
 															</tr>
 															<tr>
 																<td style="width: 30%">
-																	<img alt="" src="http://file.carisyou.com/upload/2018/11/30/FILE_201811301136252880.png" width="100%">
+																	<img alt="" src="resources/assets/img/car/stonic.png" width="100%">
 																</td>
 																<td>
-																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('PALISADE')">PALISADE</button>
+																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('STONIC')">STONIC</button>
 																</td>
 															</tr>
 															<tr>
 																<td style="width: 30%">
-																	<img alt="" src="http://file.carisyou.com/upload/2018/11/30/FILE_201811301136252880.png" width="100%">
+																	<img alt="" src="resources/assets/img/car/palisade.png" width="100%">
 																</td>
 																<td>
 																	<button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('PALISADE')">PALISADE</button>
@@ -830,11 +928,12 @@
 														<h4>
 															부름 지점에 도착하면 문자가 전송됩니다. <i class="ni ni-send"></i>
 														</h4>
-														<h4>부름 추가요금은 ***원 입니다.</h4>
+														<h4>부름 추가요금(왕복)은 <input id="burumFee" style="width: 25%" class="alert alert-secondary">원 입니다. </h4>
 														<i class="send"></i>
 													</div>
 												</div>
 												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#burum1" onclick="burumClose2()">이전</button>
 													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insurance" onclick="burumClose2()">다음</button>
 												</div>
 											</div>
@@ -880,26 +979,8 @@
 													</div>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#final">결제하기</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- final > 보여주기용도 -->
-									<div class="modal fade" id="final" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-										<div class="modal-dialog modal-dialog-centered" role="document">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<!-------------------------------------->
-
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#reservation" onclick="burumClose3()">처음으로</button>
+													<button type="button" class="btn btn-primary" onclick="reservation()">결제하기</button>
 												</div>
 											</div>
 										</div>
@@ -931,18 +1012,18 @@
 										<table class="table align-items-center table-flush" style="width: 100%;">
 											<thead class="thead-light">
 												<tr>
-													<th scope="col">차종</th>
-													<th scope="col">주행거리</th>
-													<th scope="col">연료량</th>
-													<th scope="col">예약</th>
-
+													<td>차종</td>
+													<td>주행거리</td>
+													<td>연료량</td>
+													<td>예약</td>
 												</tr>
 											</thead>
 										</table>
 										<!------------------------------------------------------------->
-										<div id="carList" style="width: 100%; height: 630px; overflow: scroll;">
-
-											<!---------------------------------------------------------------------------->
+										<div style="width: 106%; height: 630px; overflow: scroll;">
+										<div class="alert alert-secondary" role="alert"><table id="carList">
+										</table></div>
+										<!---------------------------------------------------------------------------->
 										</div>
 									</div>
 								</div>
@@ -992,7 +1073,7 @@
 								new kakao.maps.LatLng(37.41071, 126.70606),
 								new kakao.maps.LatLng(37.20071, 126.89606),
 								new kakao.maps.LatLng(37.35071, 126.77606),
-								new kakao.maps.LatLng(37.51071, 126.91406), ], selectedMarker = null;// 클릭한 마커를 담을 변수
+								new kakao.maps.LatLng(33.45022, 126.57384), ], selectedMarker = null;// 클릭한 마커를 담을 변수
 						//----------------------------------------------------------------------------------------------------------------------
 						var positions = [];
 						selectZoneNum.forEach(function(item) {
@@ -1060,8 +1141,7 @@
 									});
 
 							// 마커에 mouseout 이벤트를 등록합니다
-							kakao.maps.event.addListener(marker, 'mouseout',
-									function() {
+							kakao.maps.event.addListener(marker, 'mouseout',function() {
 
 										// 클릭된 마커가 없고, mouseout된 마커가 클릭된 마커가 아니면
 										// 마커의 이미지를 기본 이미지로 변경합니다
@@ -1072,11 +1152,7 @@
 									});
 
 							// 마커에 click 이벤트를 등록합니다
-							kakao.maps.event
-									.addListener(
-											marker,
-											'click',
-											function() {
+							kakao.maps.event.addListener(marker,'click',function() {
 
 												// 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
 												// 마커의 이미지를 클릭 이미지로 변경합니다
@@ -1133,15 +1209,15 @@
 													if (markers[0] == selected[0]
 															&& markers[1] == selected[1]) { // 선택된 좌표와 입력되어있던 좌표가 같을 경우
 														selectNum = i;
-														carListInfo(i);
+														$('#zoneNumber').val(selectNum);
+														carListInfo(i); // 몇번째 마커인지 번호와 함께 전송
 													}
 												} //for문종료 : 마커를 클릭하면 몇번째 마커인지 표시
 											});
 						}
 
 						// MakrerImage 객체를 생성하여 반환하는 함수입니다
-						function createMarkerImage(markerSize, offset,
-								spriteOrigin) {
+						function createMarkerImage(markerSize, offset,spriteOrigin) {
 							var markerImage = new kakao.maps.MarkerImage(
 									SPRITE_MARKER_URL, // 스프라이트 마커 이미지 URL
 									markerSize, // 마커의 크기
@@ -1155,6 +1231,7 @@
 							return markerImage;
 						}
 					</script>
+					<input id="zoneNumber" type="hidden">
 				</div>
 			</div>
 		</div>

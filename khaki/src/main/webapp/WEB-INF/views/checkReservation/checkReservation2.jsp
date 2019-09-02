@@ -1,6 +1,8 @@
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--
 
 =========================================================
@@ -17,8 +19,7 @@
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -34,6 +35,67 @@
   <link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+  <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+  <script>
+	$(function() {
+		// 현재날짜와 반납한날짜를 비교하여 5일 이상 지나지 않은 주문건만 환불 가능.
+		// 5일이 지난 주문건은 환불 불가하며 고객센터로 문의해야 관리자(상담사)가 확인 후 처리 가능.
+		var date = new Date();
+		var year= String(date.getFullYear());
+	    var mon = (date.getMonth()+1)>9 ? ''+(date.getMonth()+1) : '0'+(date.getMonth()+1);
+	    var day = date.getDate()>9 ? ''+date.getDate() : '0'+date.getDate();
+	    var yr = year.substring(2,4);
+	    var now = yr+mon+day;
+	    now *= 1;
+	    var index = $("#i_storage").val();
+	    index *= 1;
+	    for (var i = 0; i < index; i++) {
+	    	var confirm_endTime = $("#confirm_endTime"+i).text();
+	    	confirm_endTime = confirm_endTime.split(".");
+	    	confirm_endTime[2] = confirm_endTime[2].split(" ");
+	    	end = confirm_endTime[0] + confirm_endTime[1] + confirm_endTime[2];
+	    	end = end.substring(0,6);
+	    	end *= 1;
+	    	confirm_endTime = Number(end);
+	    	if(String(now).substring(2,4) == String(confirm_endTime).substring(2,4)) { // 현재 월과 결제한 월이 같을 경우 (ex. 현재=9월 결제=9월)
+	    		if((now - confirm_endTime) > 4) {
+		    	    $("#refund_btn"+i).attr("disabled", "disabled");
+		    	    $("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
+			    }
+	    	} else if (Number(String(now).substring(2,4)) == 1) { // 현재 월이 1월일 경우
+	    		if(Number(String(now).substring(4,6)) > 4) { // 5일 이전 결제건은 환불 불가
+	    			$("#refund_btn"+i).attr("disabled", "disabled");
+		    	    $("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
+	    		}
+	    	} else if (Number(String(now).substring(2,4)) > Number(String(confirm_endTime).substring(2,4))) { // 현재 월이 결제한 월보다 클 경우(ex. 현재=10월 결제=9월)
+	    		if(Number(String(now).substring(4,6)) > 3) { // 5일 이전 결제건은 환불 불가
+	    			$("#refund_btn"+i).attr("disabled", "disabled");
+		    	    $("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
+	    		}
+	    	}
+	    	
+        }
+	    
+		for (var i = 0; i < parseInt(index); i++) {
+	    	$("#refund_btn"+i).click(function(){
+	    		if(!$(this).hasClass("disabled")) {
+	    			alert("환불 신청 db처리");
+	    		}
+	    	})
+	    	
+	    	if($("#db_discount"+i).val() == ""){
+				
+			} else {
+				$("#amount_div"+i).append("  <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
+			}
+	    }
+		
+		
+	    
+	})
+	    	
+  </script>
 </head>
 
 <body class="">
@@ -64,8 +126,7 @@
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="resources/assets/img/theme/team-1-800x800.jpg
-">
+                <img alt="Image placeholder" src="resources/assets/img/theme/team-1-800x800.jpg">
               </span>
             </div>
           </a>
@@ -104,7 +165,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <a href="../index.html">
-                <img src="resources/assets/img/brand/khaki_logo.png">
+                <img src="resources/assets/img/brand/blue.png">
               </a>
             </div>
             <div class="col-6 collapse-close">
@@ -126,15 +187,15 @@
             </div>
           </div>
         </form>
-<!-- 왼쪽 공통 메뉴 -->
+       <!-- 왼쪽 공통 메뉴 -->
         <ul class="navbar-nav">
           <li class="nav-item ">
-             <a class=" nav-link" href="home.do"> 
-                <i class="ni ni-tv-2 text-black"></i> Home
+          	<a class=" nav-link" href="home.do"> 
+          		<i class="ni ni-tv-2 text-black"></i> Home
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="map.do">
+            <a class="nav-link active" href="map.do">
               <i class="ni ni-square-pin text-orange"></i> Map
             </a>
           </li>
@@ -184,7 +245,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">User Profile</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Map</a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -196,28 +257,19 @@
             </div>
           </div>
         </form>
-          <!-- 우측 상단 프로필 -->
+        <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
-            <c:choose>
-                  <c:when test="${sessionName != null }">
-                  <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                       <div class="media align-items-center">
-                         <span class="avatar avatar-sm rounded-circle">
-                           <img alt="Image placeholder" src="resources/assets/img/theme/team-4-800x800.jpg">
-                         </span>
-                         <div class="media-body ml-2 d-none d-lg-block">
-                           <span class="mb-0 text-sm  font-weight-bold">${sessionName} 님</span>
-                         </div>
-                       </div>
-                  </a>
-                       </c:when>
-                 <c:when test="${sessionName == null }">
-               <div>
-                  <a href="login.do" style="color: white; font-weight: bold;">&nbsp;&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;</a>
-               </div>
-                 </c:when>
-            </c:choose>
+            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="media align-items-center">
+                <span class="avatar avatar-sm rounded-circle">
+                  <img alt="Image placeholder" src="resources/assets/img/theme/team-4-800x800.jpg">
+                </span>
+                <div class="media-body ml-2 d-none d-lg-block">
+                  <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
+                </div>
+              </div>
+            </a>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
@@ -226,20 +278,20 @@
                 <i class="ni ni-single-02"></i>
                 <span>My profile</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
+              <a href="profile.do" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
                 <span>Settings</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
+              <a href="profile.do" class="dropdown-item">
                 <i class="ni ni-calendar-grid-58"></i>
                 <span>Activity</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
+              <a href="profile.do" class="dropdown-item">
                 <i class="ni ni-support-16"></i>
                 <span>Support</span>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="sessionLogout.do" class="dropdown-item">
+              <a href="#!" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
                 <span>Logout</span>
               </a>
@@ -249,152 +301,87 @@
       </div>
     </nav>
     <!-- End Navbar -->
-    <!-- Header -->
-    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(resources/assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
-      <!-- Mask -->
-      <span class="mask bg-gradient-default opacity-8"></span>
-      <!-- Header container -->
-      <div class="container-fluid d-flex align-items-center">
-        <div class="row">
-          <div class="col-lg-12 col-md-12">
-            <h1 class="display-2 text-white">반갑습니다. ${sessionName}님</h1>
-            <div>
-               <font color="#e0e0e0">언제, 어디서나, 차가 필요한 모든 순간 KHAKI를 찾아주세요!<br>
-               함께 달리며 더 나은 미래를 만듭니다. 대한민국 1등 카셰어링, KHAKI</font>
-            </div>
-          </div>
+   <!-- Header -->
+    <div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+      <div class="container-fluid">
+        <div class="header-body">
+        
         </div>
       </div>
     </div>
-    <!-- Page content -->
+    <!-- adddddddddddsddd -->
     <div class="container-fluid mt--7">
       <div class="row">
-        <div class="col-xl-3 order-xl-2 mb-5 mb-xl-0">
-          <div class="card card-profile shadow">
-            <div class="row justify-content-center">
-              <div class="col-lg-3 order-lg-2">
-                <div class="card-profile-image">
-                  <a href="#">
-                    <img src="resources/assets/img/theme/team-4-800x800.jpg" class="rounded-circle">
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-              <div class="d-flex justify-content-between">
-                <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
-                <a href="#" class="btn btn-sm btn-default float-right">Message</a>
-              </div>
-            </div>
-            <div class="card-body pt-0 pt-md-4">
-              <div class="row">
-                <div class="col">
-                  <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-                    <div>
-                      <span class="heading">22</span>
-                      <span class="description">Friends</span>
-                    </div>
-                    <div>
-                      <span class="heading">10</span>
-                      <span class="description">Photos</span>
-                    </div>
-                    <div>
-                      <span class="heading">89</span>
-                      <span class="description">Comments</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="text-center">
-                <h3>
-                  Jessica Jones<span class="font-weight-light">, 27</span>
-                </h3>
-                <div class="h5 font-weight-300">
-                  <i class="ni location_pin mr-2"></i>Bucharest, Romania
-                </div>
-                <div class="h5 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
-                </div>
-                <div>
-                  <i class="ni education_hat mr-2"></i>University of Computer Science
-                </div>
-                <hr class="my-4" />
-                <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
-                <a href="#">Show more</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-9 order-xl-1">
-          <div class="card bg-secondary shadow">
-            <div class="card-header bg-white border-0">
-
-               <div class="nav-wrapper">
-                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-circle-08 mr-2"></i>회원정보 관리</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-time-alarm mr-2"></i>예약정보 관리</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-user-run mr-2"></i>핸들러 관리</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-4-tab" data-toggle="tab" href="#tabs-icons-text-4" role="tab" aria-controls="tabs-icons-text-4" aria-selected="false"><i class="ni ni-book-bookmark mr-2"></i>나의 쿠폰북</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-5-tab" data-toggle="tab" href="#tabs-icons-text-5" role="tab" aria-controls="tabs-icons-text-5" aria-selected="false"><i class="ni ni-align-center mr-2"></i>내가 쓴 글 확인</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-6-tab" data-toggle="tab" href="#tabs-icons-text-6" role="tab" aria-controls="tabs-icons-text-6" aria-selected="false"><i class="ni ni-key-25 mr-2"></i>CarKey</a>
-                    </li>
-                </ul>
-            </div>
-
-            </div>
-            <div class="card-body">
-            <!-- 탭 body -->
-              <div class="card shadow">
-             <div class="card-body" style="padding: 4px">
-                 <div class="tab-content" id="myTabContent">
-                     <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab" style="text-align: center">
-                       
-                       <iframe src="mypage_memberInfo.do" width="1100" height="1260" frameborder="0"></iframe>
-                     
-                     </div>
-                     <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                     
-                         <iframe src="checkReservation.do" style="width: 100%; height: 1000px;" frameborder="0"></iframe>
-                     </div>
-                     
-                     <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
-                     
-                         <p class="description">tabs-icons-text-3-tab Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-                     </div>
-                     
-                     <div class="tab-pane fade" id="tabs-icons-text-4" role="tabpanel" aria-labelledby="tabs-icons-text-4-tab">
-                     
-                         <p class="description">tabs-icons-text-4-tab Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-                    
-                     </div>
-                     <div class="tab-pane fade" id="tabs-icons-text-5" role="tabpanel" aria-labelledby="tabs-icons-text-5-tab">
-                     
-                         <p class="description">tabs-icons-text-5-tab Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-                   
-                     </div>
-                     <div class="tab-pane fade" id="tabs-icons-text-6" role="tabpanel" aria-labelledby="tabs-icons-text-6-tab">
-                     
-                         <p class="description">tabs-icons-text-6-tab Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-                  
-                     </div>
-                 </div>
-             </div>
-         </div>
-            </div>
+        <div class="col">
+          <div class="card shadow border-0">
+          	<!-- checkReservation -->
+          	<div class="c_content_title" style="margin-top: 3%; margin-left: 3%;">
+          		<img src="https://image.flaticon.com/icons/svg/179/179372.svg" style="width: 2.777%; margin-left: 1%; margin-right: 1%;">나의 결제 내역 확인
+          	</div>
+          	<%
+            	int i = 0;
+           	%>
+          	<c:forEach var="pdto" items="${plist}">
+            	<c:if test="${pdto.buy_id eq sessionId}">
+          			<div class="confirm_area">
+          	  			<div class="confirm_content">
+          					<table class="c_content">
+                  				<tr><!-- ddddd -->
+          	  						<td rowspan="6" style="width: 30%;"><img style="width: 100%;" src="http://www.top-rider.com/news/photo/201803/26912_85506_4812.jpg"></td>
+          	  						<td class="c_content_1">차량번호 : </td>
+          	  						<td class="c_content_2" style="width: 15%;" id="confirm_carNum">${pdto.buy_carNum }</td>
+          	  						<td class="c_content_1">차종 : </td>
+          	  						<td class="c_content_2" id="confirm_carModel">${pdto.buy_carIns }</td>
+          	  					</tr>
+          	  					<tr>
+          	  						<td class="c_content_1">대여시간 : </td>
+          	  						<td class="c_content_2" id="confirm_startTime<%=i%>">${pdto.buy_startTime }</td>
+          	  						<td class="c_content_1">반납시간 : </td>
+          	  						<td class="c_content_2" class="confirm_endTime" id="confirm_endTime<%= i %>">${pdto.buy_endTime }</td>
+          	  						
+          	  					</tr>
+          	  					<tr>
+          	  						<td class="c_content_1">보험종류 : </td>
+          	  						<td class="c_content_2" id="confirm_carIns">${pdto.buy_carIns }</td>
+          	  						<td class="c_content_1">예상적립포인트 : </td>
+          	  						<td class="c_content_2" id="confirm_point">${pdto.buy_point }</td>
+          	  					</tr>
+          	  					<tr>
+          	  						<td class="c_content_1">대여주소 : </td>
+          	  						<td colspan="3" class="c_content_2" id="confirm_startLocation">${pdto.buy_startLocation }</td>
+          	  					</tr>
+          	  					<tr>
+          	  						<td class="c_content_1">반납주소 : </td>
+          	  						<td colspan="3" class="c_content_2" id="confirm_returnLocation">${pdto.buy_returnLocation }</td>
+          	  					</tr>
+          	  					<tr>
+          	  						<td class="c_content_1">결제금액 : </td>
+          	  						<td class="c_content_2" id="amount_div<%= i %>"><img style="width: 15%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_amount">${pdto.buy_amount }</div>원</td>
+          	  						<td class="c_content_1">추가금액 : </td>
+          	  						<td class="c_content_2"><img style="width: 9.3%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_addAmount">${pdto.buy_addAmount }</div>원</td>
+          	  					</tr>
+          	  					<tr>
+          	  						<td></td>
+          	  						<td class="c_content_1" style="font-size: 28px;">총 금액 : </td>
+          	  						<td class="c_content_2"><img style="width: 15%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_totalAmount">${pdto.buy_totalAmount }</div>원</td>
+          	  						<td colspan="2">
+          	  							<button type="button" class="btn btn-outline-danger c_content_payBtn" id="refund_btn<%= i %>">환불신청하기</button>
+          	  						</td>
+          	  					</tr>
+              				 </table>
+              				 <%
+          	  					i += 1;
+          	  				 %>
+          				</div>
+          			</div>
+          			<input type="hidden" id="db_discount<%= i %>" value="${pdto.buy_discount }">
+				</c:if>
+			</c:forEach>
+			<input type="hidden" id="i_storage" value="<%= i %>">
           </div>
         </div>
       </div>
+      <!-- Footer -->
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
@@ -427,6 +414,7 @@
   <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <!--   Optional JS   -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!--   Argon JS   -->
   <script src="resources/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>

@@ -47,9 +47,49 @@
 			$("#confirm_amount").text(result);
 			$("#discount_label").remove();
 			$("#amount_div").append("  <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
+			var amount = parseInt($("#confirm_amount").text());
+	  		amount = parseInt(amount * 0.03);
+	  		$("#confirm_point").text(amount);
   			
   		})
-  		$("#select_couponMethod").click(function(){
+  		
+  		$("#select_couponMethod").hide();
+  		$("#cpCheckLabel").click(function() {
+  			$("#couponCheckBox").click();
+  		})
+  		$("#couponCheckBox").change(function(){
+  			if ($("input:checkbox[id='couponCheckBox']").is(":checked") == true){
+  				var cp_id = $("#cp_id").val();
+  				$.ajax({
+	  			      url:"couponConfirm.do",
+	  			      data : {
+	  			    	  "cp_id" : cp_id
+	  			      },
+	  			      success:function(data){
+	  			    	  
+	  			    	  $("#cp_method").children().remove();
+	  			    	  console.log(data);
+	  			    	  $("#cp_method").append(data);
+	  			      },
+	  			      error : function(xhr, status) {
+	  		              alert(xhr + " : " + status);
+	  		          }
+	  			});
+  				$("#select_couponMethod").show();
+  			} else {
+  				$("#discount_label").remove();
+  				$("#confirm_amount").text($("#firsr_amount").val());
+  				$("#select_couponMethod").hide();
+  			}
+  		})
+  		
+  		var amount = parseInt($("#confirm_amount").text());
+  		amount = parseInt(amount * 0.03);
+  		$("#confirm_point").text(amount);
+  		
+  		
+  		
+  		/* $("#select_couponMethod").click(function(){
 			var cp_id = $("#cp_id").val();
   			$.ajax({
 			      url:"couponConfirm.do",
@@ -70,7 +110,7 @@
 		              alert(xhr + " : " + status);
 		          }
 			});
-  		})
+  		}) */
 		
   		
   	})
@@ -289,6 +329,7 @@
       </div>
     </div>
     
+    
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
@@ -303,33 +344,33 @@
           	  			<tr>
           	  				<td rowspan="6" style="width: 30%;"><img style="width: 100%;" src="http://www.top-rider.com/news/photo/201803/26912_85506_4812.jpg"></td>
           	  				<td class="c_content_1">차량번호 : </td>
-          	  				<td class="c_content_2" style="width: 15%;" id="confirm_carNum">55저 4215</td>
+          	  				<td class="c_content_2" style="width: 15%;" id="confirm_carNum">${payDTO.buy_carNum }</td>
           	  				<td class="c_content_1">차종 : </td>
-          	  				<td class="c_content_2" id="confirm_carModel">벤츠</td>
+          	  				<td class="c_content_2" id="confirm_carModel">${payDTO.buy_carModel }</td>
           	  			</tr>
           	  			<tr>
           	  				<td class="c_content_1">대여시간 : </td>
-          	  				<td class="c_content_2" id="confirm_startTime">1908312350</td>
+          	  				<td class="c_content_2" id="confirm_startTime">${payDTO.buy_startTime }</td>
           	  				<td class="c_content_1">반납시간 : </td>
-          	  				<td class="c_content_2" id="confirm_endTime">1909022000</td>
+          	  				<td class="c_content_2" id="confirm_endTime">${payDTO.buy_endTime }</td>
           	  			</tr>
           	  			<tr>
           	  				<td class="c_content_1">보험종류 : </td>
-          	  				<td class="c_content_2" id="confirm_carIns">좋은보험</td>
+          	  				<td class="c_content_2" id="confirm_carIns">${payDTO.buy_carIns }</td>
           	  				<td class="c_content_1">예상적립포인트 : </td>
-          	  				<td class="c_content_2"><span id="confirm_point">4000</span>p</td>
+          	  				<td class="c_content_2"><span id="confirm_point">${payDTO.buy_point }</span>p</td>
           	  			</tr>
           	  			<tr>
           	  				<td class="c_content_1">대여주소 : </td>
-          	  				<td colspan="3" class="c_content_2" id="confirm_startLocation">서울특별시 강북구 무슨동 몇번지</td>
+          	  				<td colspan="3" class="c_content_2" id="confirm_startLocation">${payDTO.buy_startLocation }</td>
           	  			</tr>
           	  			<tr>
           	  				<td class="c_content_1">반납주소 : </td>
-          	  				<td colspan="3" class="c_content_2" id="confirm_returnLocation">서울특별시 강북구 무슨동 몇번지</td>
+          	  				<td colspan="3" class="c_content_2" id="confirm_returnLocation">${payDTO.buy_startLocation }</td>
           	  			</tr>
           	  			<tr>
           	  				<td class="c_content_1">결제금액 : </td>
-          	  				<td class="c_content_2" id="amount_div"><img style="width: 15%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_amount">10</div>원</td>
+          	  				<td class="c_content_2" id="amount_div"><img style="width: 15%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_amount">${payDTO.buy_amount }</div>원</td>
           	  				<td class="c_content_1">결제수단 선택 : </td>
           	  				<td class="c_content_2">
 								<div class="fl_left" id="select_payMentMethod">
@@ -344,10 +385,12 @@
 							</td>
           	  			</tr>
           	  			<tr>
-          	  				<td colspan="3">
+          	  				<td class="c_content_1" id="couponCheckTd" style="text-align: center;">
+          	  					<input type="checkbox" id="couponCheckBox" name="coupon" value="coupon" /><label id="cpCheckLabel" style="cursor: pointer; padding-left: 5%;">쿠폰 적용하기</label>
+          	  				</td>
+          	  				<td colspan="2">
           	  					<div class="fl_left" id="select_couponMethod" style="padding-right: 2%;">
 									<select name="coupon_method" id="cp_method" class="form-control_jkh input-sm coupon_method" style="margin-top: 1.3%; height: 60px;">
-										<option value="" class="cpu_choice" id="cpu_choice">- 쿠폰 선택 -</option>
 										
 					  				</select>
 								</div>
@@ -358,6 +401,7 @@
           	  			</tr>
           	  		</table>
           	  	</div>
+          	  	<input type="hidden" id="firsr_amount" value="10"> <!-- confirm페이지에서 처음들어온 금액 -->
           	  	<form action="couponConfirm.do" id="couponFrm" name="couponFrm">
 	          	  	<input type="hidden" id="cp_id" name="cp_id" value="${sessionId }">
 	          	  	<input type="hidden" id="cp_title" name="cp_title" value=" ">
