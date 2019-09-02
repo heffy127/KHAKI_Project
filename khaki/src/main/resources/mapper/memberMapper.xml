@@ -46,7 +46,7 @@
 		<result property="social_type" column="social_type" />
 	</resultMap>
 
-	<select id="selectId_member" parameterType="String" resultMap="rsMap">
+	<select id="selectId_member" parameterType="String" resultMap="rsMap_member">
 		SELECT *
 		FROM member
 		WHERE id = #{id}
@@ -70,7 +70,7 @@
 		WHERE id = #{id} and social_type = 'kakao'
 	</select>
 
-	<select id="selectEmail" parameterType="memberDTO" resultMap="rsMap">
+	<select id="selectEmail" parameterType="memberDTO" resultMap="rsMap_member">
 		SELECT *
 		FROM member
 		WHERE email_id = #{email_id} and email_site = #{email_site}
@@ -88,7 +88,7 @@
 		WHERE email_id = #{email_id} and email_site = #{email_site} and name = #{name} and id = #{id}
 	</select>
 	
-	<select id="selectPhone" parameterType="memberDTO" resultMap="rsMap">
+	<select id="selectPhone" parameterType="memberDTO" resultMap="rsMap_member">
 		SELECT *
 		FROM member
 		WHERE phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3}
@@ -106,7 +106,7 @@
 		WHERE phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3} and name = #{name} and id = #{id}
 	</select>
 
-	<select id="selectAll" resultMap="rsMap">
+	<select id="selectAll" resultMap="rsMap_member">
 		SELECT * FROM member
 	</select>
 
