@@ -43,4 +43,10 @@ public class CarConsumableDAO {
 		return my.selectOne("ccDAO.select", carnum1);
 	}
 	
+	public void updata(CarConsumableDTO carConsumableDTO) {
+		System.out.println("CarConsumableDAO Updata!");
+		
+		my.update("ccDAO.update", carConsumableDTO);
+	}
+	
 }

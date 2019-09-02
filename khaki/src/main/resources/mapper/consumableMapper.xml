@@ -85,6 +85,33 @@
 			carnum1 = #{carnum1}
 	</update>
 
+	<!-- <update id="update_belt_timing" parameterType="ccDTO">
+		UPDATE consumable
+		SET
+			belt_timing_num=#{belt_timing_num},
+			belt_timing_time=#{belt_timing_time}
+		WHERE
+			carnum1 = #{carnum1}
+	</update>
+	
+	<update id="update_belt_operation" parameterType="ccDTO">
+		UPDATE consumable
+		SET
+			belt_operation_num=#{belt_operation_num},
+			belt_operation_time=#{belt_operation_time}
+		WHERE
+			carnum1 = #{carnum1}
+	</update>
+	
+	<update id="update_oil_engine" parameterType="ccDTO">
+		UPDATE consumable
+		SET
+			oil_engine_num=#{oil_engine_num},
+			oil_engine_time=#{oil_engine_time}
+		WHERE
+			carnum1 = #{carnum1}
+	</update> -->
+	
 	<!-- <delete id="deleteSomething" parameterType="int">
 		DELETE FROM tablename1 WHERE
 		columnname1 = #{param1}

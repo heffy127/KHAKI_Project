@@ -1,19 +1,25 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="co.kr.khaki.carmanage.CarConsumableDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-	<!-- Jquery CDN -->
- 	<script src="https://code.jquery.com/jquery-latest.js"></script>
- 	
- 	<% 
- 		String distance = (String)request.getAttribute("distance"); 
- 		CarConsumableDTO ccdto = (CarConsumableDTO)request.getAttribute("ccdto");
- 	%>
-	<script type="text/javascript">
+<!-- Jquery CDN -->
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+
+<%
+	String distance = (String) request.getAttribute("distance");
+	CarConsumableDTO ccdto = (CarConsumableDTO) request.getAttribute("ccdto");
+	
+	Date today = new Date();
+	SimpleDateFormat sp = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss a");
+	String today1 = sp.format(today);
+%>
+<script type="text/javascript">
 		$(function(){
 			
 			var distance = <%=distance%>;
@@ -23,10 +29,10 @@
 			var arr = new Array(100000, 30000, 10000, 30000, 40000, 15000, 30000, 20000, 50000, 60000, 30000);
 			// DB에서 교체횟수를 꺼내오는 작업
 			var consumableDB = new Array(
-				<%= ccdto.getBelt_timing_num()%>, <%= ccdto.getBelt_operation_num()%>, 
-				<%= ccdto.getOil_engine_num()%>,<%= ccdto.getOil_transmission_num()%>,<%= ccdto.getOil_break_num()%>,
-				<%= ccdto.getFilter_aircon_num()%>,<%= ccdto.getFilter_fuel_num()%>,<%= ccdto.getFilter_aircleaner_num()%>,
-				<%= ccdto.getEtc_coolant_num()%>,<%= ccdto.getEtc_battery_num()%>,<%= ccdto.getEtc_tire_num()%>
+				<%=ccdto.getBelt_timing_num()%>, <%=ccdto.getBelt_operation_num()%>, 
+				<%=ccdto.getOil_engine_num()%>,<%=ccdto.getOil_transmission_num()%>,<%=ccdto.getOil_break_num()%>,
+				<%=ccdto.getFilter_aircon_num()%>,<%=ccdto.getFilter_fuel_num()%>,<%=ccdto.getFilter_aircleaner_num()%>,
+				<%=ccdto.getEtc_coolant_num()%>,<%=ccdto.getEtc_battery_num()%>,<%=ccdto.getEtc_tire_num()%>
 				);
 			var num = 0;
 			var percentage = 0;
@@ -107,315 +113,412 @@
 			// progress-bar bg-success 초록색
 			// progress-bar bg-warning 주황색
 			// progress-bar bg-danger 빨간색
-			
-			
+				
+			var today2 = "<%= today1 %>";
+			alert(today2);
 			
 			$(".btn_change").click(function(){
 				// this일 때는 눌린 버튼을 의미함
 				alert("나를 눌렀군요?");
 				var data11 = $(this).next(".btn_value").val();
 				var index_data = $(".btn_change").index(this);
-				alert(data11+"/"+index_data);
-				// test끝 바뀔 값과 index 값을 넘겨서 해당 index의 값을 수정하는 update문 ajax를 통해서 새로고침 되도록 구현
-				//location.href = "car_consumable2.do?distance"+distance;
+				var index_time = index_data+12;
+				alert(data11+"/"+index_data + "/" + index_time);
+				
+				// 해당 index를 맞추기 위해서 +11하여 값을 넣어줌 
+				$("input:eq("+index_time+")").val(today2);
+				
+				var form_data = $("#form").serialize();
+				$.ajax({
+				    url: "car_consumable2.do",
+				    type: "get",
+				    //cache: ,
+				    //dataType: "",
+				    data: form_data,
+				    success: function(){
+						alert("ajax 동작 완료!")
+						// %부분
+						var percentage1 = Math.round((distance % arr[index_data]) / arr[index_data] * 100);
+						alert(percentage1)
+						if(percentage1<=50 && percentage1 >= 0){
+							$(".pctest2_"+(i+1)).attr({
+								'class': 'progress-bar bg-success',
+								'aria-valuenow': percentage1,
+								'style':'width:'+percentage1+'%;',
+							});
+						}else if(percentage1 <=75){
+							$(".pctest2_"+(i+1)).attr({
+								'class': 'progress-bar bg-warning',
+								'aria-valuenow': percentage1,
+								'style':'width:'+percentage1+'%;',
+							});
+						}else if(percentage1 <= 100){
+							$(".pctest2_"+(i+1)).attr({
+								'class': 'progress-bar bg-danger',
+								'aria-valuenow': percentage1,
+								'style':'width:'+percentage1+'%;',
+							});
+							$("#btn_div"+(i+1)).css("display", "inline");	//display:none인 값을 inline으로 바꾸어 보이게 해줌
+						}else{
+							alert((i+1)+"번째 : not range!!" + arr[i]);
+						}
+						
+						var span_index_data = $(".pctest1_"+(index_data+1)).children("span").text();
+						alert(span_index_data);
+						var change_num1 = span_index_data.split("/")[1].split("|")[0];
+						alert(change_num1);
+						
+						$(".pctest1_"+(index_data+1)).children("span").text("교체 횟수 : "+change_num1 + " / " + change_num1+" | "+percentage1+'%');
+						$("#btn_div"+(index_data+1)).css("display", "none");
+						// progress-bar progress-percentage
+						// $(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+expire_item + " / " + change_num+" | "+num+'%');
+						// $(".btn_value"+(i+1)).val(change_num);	//버튼에 value값을 주고 보내는 것을 기획한다!
+				    },
+				
+				    error: function (){        
+						alert("에러!에러!")
+				    }
+			
+			 	});
 				
 			});	//교체 버튼 end
 			
 			
 		});	//Jquery End
 	</script>
-	<!-- aaaa -->
 
-	<!-- Favicon -->
-  	<link href="resources/assets/img/brand/favicon.png" rel="icon" type="image/png">
-  	<!-- Fonts -->
-  	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-	<!-- Icons -->
-  	<link href="resources/assets/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
- 	<link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
-	<!-- CSS Files -->
- 	<link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+<!-- Favicon -->
+<link href="resources/assets/img/brand/favicon.png" rel="icon"
+	type="image/png">
+<!-- Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+	rel="stylesheet">
+<!-- Icons -->
+<link href="resources/assets/js/plugins/nucleo/css/nucleo.css"
+	rel="stylesheet" />
+<link
+	href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css"
+	rel="stylesheet" />
+<!-- CSS Files -->
+<link href="resources/assets/css/argon-dashboard.css?v=1.1.0"
+	rel="stylesheet" />
 
 </head>
 <body>
 	<div class="main-content">
 		<div class="container-fluid">
-			<div id="test">총 운행km : <%=distance %></div>
+			<div id="test">
+				총 운행km : <%=distance%></div>
 			<div>
-			벨트류<br>
-			타이밍벨트 : 80000~1000000km
-			구동벨트 : 10000~30000km
-			
-			<br>오일류<br>
-			엔진오일 : 5000~10000km
-			변속기오일 : 30000km
-			브레이크 오일 : 40000km
-			
-			<br>필터류<br>
-			에어컨필터 : 15000km
-			연료 필터 : 30000km
-			에어클리너 : 20000km
-			
-			<br>기타<br>
-			냉각수 : 1~2년
-			배터리 : 30000~60000km
-			타이어 : 30000km
+				벨트류<br> 타이밍벨트 : 80000~1000000km 구동벨트 : 10000~30000km <br>오일류<br>
+				엔진오일 : 5000~10000km 변속기오일 : 30000km 브레이크 오일 : 40000km <br>필터류<br>
+				에어컨필터 : 15000km 연료 필터 : 30000km 에어클리너 : 20000km <br>기타<br>
+				냉각수 : 1~2년 배터리 : 30000~60000km 타이어 : 30000km
 			</div>
-			
+
 			벨트류
-			<div class="row">
-				<div class="col col-sm-6">
-					<div class="progress-wrapper">
-					  <div class="progress-info">
-					    <div class="progress-label">
-					      <span>타이밍 벨트</span>
-					    </div>
-					    <div class="progress-percentage pctest1 pctest1_1">
-					      <span>30%</span>
-					    </div>
-					  </div>
-					  <div class="progress">
-					    <div class="progress-bar bg-success pctest2_1" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-					  </div>
-					</div>
-					<div id="btn_div1" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
-					  	<input type="hidden" class="btn_value1 btn_value" value="0">
-					</div>
-				</div>	<!-- col-sm-6 50%  -->
+			<form action="car_consumable2.do" id="form">
 				
-				<div class="col col-sm-6">
-					<div class="progress-wrapper">
-					  <div class="progress-info">
-					    <div class="progress-label">
-					      <span>구동벨트</span>
-					    </div>
-					    <div class="progress-percentage pctest1_2">
-					      <span>40%</span>
-					    </div>
-					  </div>
-					  <div class="progress">
-					    <div class="progress-bar bg-danger pctest2_2" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;"></div>
-					  </div>
+				<div class="row">
+					<div class="col col-sm-6">
+						<div class="progress-wrapper">
+							<div class="progress-info">
+								<div class="progress-label">
+									<span>타이밍 벨트</span>
+								</div>
+								<div class="progress-percentage pctest1 pctest1_1">
+									<span>30%</span>
+								</div>
+							</div>
+							<div class="progress">
+								<div class="progress-bar bg-success pctest2_1" role="progressbar"
+									aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+									style="width: 30%;"></div>
+							</div>
+						</div>
+						<div id="btn_div1" style="display: none;">
+							<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+							<input type="hidden" name="belt_timing_num" class="btn_value1 btn_value" value="0">
+						</div>
 					</div>
-					<div id="btn_div2" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
-					  	<input type="hidden" class="btn_value2 btn_value" value="0">
+					<!-- col-sm-6 50%  -->
+	
+					<div class="col col-sm-6">
+						<div class="progress-wrapper">
+							<div class="progress-info">
+								<div class="progress-label">
+									<span>구동벨트</span>
+								</div>
+								<div class="progress-percentage pctest1_2">
+									<span>40%</span>
+								</div>
+							</div>
+							<div class="progress">
+								<div class="progress-bar bg-danger pctest2_2" role="progressbar"
+									aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+									style="width: 40%;"></div>
+							</div>
+						</div>
+						<div id="btn_div2" style="display: none;">
+							<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+							<input type="hidden" name="belt_operation_num" class="btn_value2 btn_value" value="0">
+						</div>
 					</div>
 				</div>
-			</div>	<!-- row -->
-			<br>
-			오일류
-			<div class="row">
-				<div class="col col-sm-4">
-					<div class="progress-wrapper">
-					  <div class="progress-info">
-					    <div class="progress-label">
-					      <span>엔진 오일</span>
-					    </div>
-					    <div class="progress-percentage pctest1_3">
-					      <span>60%</span>
-					    </div>
-					  </div>
-					  <div class="progress">
-					    <div class="progress-bar bg-success pctest2_3" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-					  </div>
+				<!-- row -->
+				<br> 오일류
+				<div class="row">
+					<div class="col col-sm-4">
+						<div class="progress-wrapper">
+							<div class="progress-info">
+								<div class="progress-label">
+									<span>엔진 오일</span>
+								</div>
+								<div class="progress-percentage pctest1_3">
+									<span>60%</span>
+								</div>
+							</div>
+							<div class="progress">
+								<div class="progress-bar bg-success pctest2_3" role="progressbar"
+									aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+									style="width: 60%;"></div>
+							</div>
+						</div>
+						<div id="btn_div3" style="display: none;">
+							<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+							<input type="hidden" name="oil_engine_num" class="btn_value3 btn_value" value="0">
+						</div>
 					</div>
-					<div id="btn_div3" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
-					  	<input type="hidden" class="btn_value3 btn_value" value="0">
+					<!-- col-sm-4 33%  -->
+	
+					<div class="col col-sm-4">
+						<div class="progress-wrapper">
+							<div class="progress-info">
+								<div class="progress-label">
+									<span>변속기 오일</span>
+								</div>
+								<div class="progress-percentage pctest1_4">
+									<span>90%</span>
+								</div>
+							</div>
+							<div class="progress">
+								<div class="progress-bar bg-danger pctest2_4" role="progressbar"
+									aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"
+									style="width: 90%;"></div>
+							</div>
+						</div>
+						<div id="btn_div4" style="display: none;">
+							<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+							<input type="hidden" name="oil_transmission_num" class="btn_value4 btn_value" value="0">
+						</div>
 					</div>
-				</div>	<!-- col-sm-4 33%  -->
-				
-				<div class="col col-sm-4">
-					<div class="progress-wrapper">
-					  <div class="progress-info">
-					    <div class="progress-label">
-					      <span>변속기 오일</span>
-					    </div>
-					    <div class="progress-percentage pctest1_4">
-					      <span>90%</span>
-					    </div>
-					  </div>
-					  <div class="progress">
-					    <div class="progress-bar bg-danger pctest2_4" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
-					  </div>
-					</div>
-					<div id="btn_div4" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
-					  	<input type="hidden" class="btn_value4 btn_value" value="0">
-					</div>
-				</div>
-				
-				<div class="col col-sm-4">
-					<div class="progress-wrapper">
-					  <div class="progress-info">
-					    <div class="progress-label">
-					      <span>브레이크 오일</span>
-					    </div>
-					    <div class="progress-percentage pctest1_5">
-					      <span>60%</span>
-					    </div>
-					  </div>
-					  <div class="progress">
-					    <div class="progress-bar bg-danger pctest2_5" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-					  </div>
-					</div>
-					<div id="btn_div5" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
-					  	<input type="hidden" class="btn_value5 btn_value" value="0">
-					</div>
-				</div>
-			</div>	<!-- row -->
-			<br>
-			필터류
-			<div class="row">
-				<div class="col col-sm-4">
-					<div class="progress-wrapper">
-					  <div class="progress-info">
-					    <div class="progress-label">
-					      <span>에어컨 필터</span>
-					    </div>
-					    <div class="progress-percentage pctest1_6">
-					      <span>60%</span>
-					    </div>
-					  </div>
-					  <div class="progress">
-					    <div class="progress-bar bg-success pctest2_6" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-					  </div>
-					</div>
-					<div id="btn_div6" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
-					  	<input type="hidden" class="btn_value6 btn_value" value="0">
-					</div>
-				</div>	<!-- col-sm-4  -->
-				
-				<div class="col col-sm-4">
-					<div class="progress-wrapper">
-					  <div class="progress-info">
-					    <div class="progress-label">
-					      <span>연료 필터</span>
-					    </div>
-					    <div class="progress-percentage pctest1_7">
-					      <span>60%</span>
-					    </div>
-					  </div>
-					  <div class="progress">
-					    <div class="progress-bar bg-danger pctest2_7" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-					  </div>
-					</div>
-					<div id="btn_div7" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
-					  	<input type="hidden" class="btn_value7 btn_value" value="0">
+	
+					<div class="col col-sm-4">
+						<div class="progress-wrapper">
+							<div class="progress-info">
+								<div class="progress-label">
+									<span>브레이크 오일</span>
+								</div>
+								<div class="progress-percentage pctest1_5">
+									<span>60%</span>
+								</div>
+							</div>
+							<div class="progress">
+								<div class="progress-bar bg-danger pctest2_5" role="progressbar"
+									aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+									style="width: 60%;"></div>
+							</div>
+						</div>
+						<div id="btn_div5" style="display: none;">
+							<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+							<input type="hidden" name="oil_break_num" class="btn_value5 btn_value" value="0">
+						</div>
 					</div>
 				</div>
-				
-				<div class="col col-sm-4">
-					<div class="progress-wrapper">
-					  <div class="progress-info">
-					    <div class="progress-label">
-					      <span>에어클리너</span>
-					    </div>
-					    <div class="progress-percentage pctest1_8">
-					      <span>60%</span>
-					    </div>
-					  </div>
-					  <div class="progress">
-					    <div class="progress-bar bg-danger pctest2_8" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-					  </div>
+				<!-- row -->
+				<br> 필터류
+				<div class="row">
+					<div class="col col-sm-4">
+						<div class="progress-wrapper">
+							<div class="progress-info">
+								<div class="progress-label">
+									<span>에어컨 필터</span>
+								</div>
+								<div class="progress-percentage pctest1_6">
+									<span>60%</span>
+								</div>
+							</div>
+							<div class="progress">
+								<div class="progress-bar bg-success pctest2_6" role="progressbar"
+									aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+									style="width: 60%;"></div>
+							</div>
+						</div>
+						<div id="btn_div6" style="display: none;">
+							<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+							<input type="hidden" name="filter_aircon_num" class="btn_value6 btn_value" value="0">
+						</div>
 					</div>
-					<div id="btn_div8" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
-					  	<input type="hidden" class="btn_value8 btn_value" value="0">
+					<!-- col-sm-4  -->
+	
+					<div class="col col-sm-4">
+						<div class="progress-wrapper">
+							<div class="progress-info">
+								<div class="progress-label">
+									<span>연료 필터</span>
+								</div>
+								<div class="progress-percentage pctest1_7">
+									<span>60%</span>
+								</div>
+							</div>
+							<div class="progress">
+								<div class="progress-bar bg-danger pctest2_7" role="progressbar"
+									aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+									style="width: 60%;"></div>
+							</div>
+						</div>
+						<div id="btn_div7" style="display: none;">
+							<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+							<input type="hidden" name="filter_fuel_num" class="btn_value7 btn_value" value="0">
+						</div>
 					</div>
-				</div>
-			</div>	<!-- row -->
-			<br>
-			기타
-			<div class="row">
-				<div class="col col-sm-4">
-					<div class="progress-wrapper">
-					  <div class="progress-info">
-					    <div class="progress-label">
-					      <span>냉각수</span>
-					    </div>
-					    <div class="progress-percentage pctest1_9">
-					      <span>60%</span>
-					    </div>
-					  </div>
-					  <div class="progress">
-					    <div class="progress-bar bg-warning pctest2_9" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-					  </div>
-					</div>
-					<div id="btn_div9" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
-					  	<input type="hidden" class="btn_value9 btn_value" value="0">
-					</div>
-				</div>	<!-- col-sm-6  -->
-				
-				<div class="col col-sm-4">
-					<div class="progress-wrapper">
-					  <div class="progress-info">
-					    <div class="progress-label">
-					      <span>배터리</span>
-					    </div>
-					    <div class="progress-percentage pctest1_10">
-					      <span>60%</span>
-					    </div>
-					  </div>
-					  <div class="progress">
-					    <div class="progress-bar bg-danger pctest2_10" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-					  </div>
-					</div>
-					<div id="btn_div10" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
-					  	<input type="hidden" class="btn_value10 btn_value" value="0">
-					</div>
-				</div>
-				
-				<div class="col col-sm-4">
-					<div class="progress-wrapper">
-					  <div class="progress-info">
-					    <div class="progress-label">
-					      <span>타이어</span>
-					    </div>
-					    <div class="progress-percentage pctest1_11">
-					      <span>60%</span>
-					    </div>
-					  </div>
-					  <div class="progress">
-					    <div class="progress-bar bg-danger pctest2_11" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-					  </div>
-					</div>
-					<div id="btn_div11" style="display: none;">
-					  	<button type="button" class="btn btn-outline-danger btn_change">교체</button>
-					  	<input type="hidden" class="btn_value11 btn_value" value="0">
+	
+					<div class="col col-sm-4">
+						<div class="progress-wrapper">
+							<div class="progress-info">
+								<div class="progress-label">
+									<span>에어클리너</span>
+								</div>
+								<div class="progress-percentage pctest1_8">
+									<span>60%</span>
+								</div>
+							</div>
+							<div class="progress">
+								<div class="progress-bar bg-danger pctest2_8" role="progressbar"
+									aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+									style="width: 60%;"></div>
+							</div>
+						</div>
+						<div id="btn_div8" style="display: none;">
+							<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+							<input type="hidden" name="filter_aircleaner_num" class="btn_value8 btn_value" value="0">
+						</div>
 					</div>
 				</div>
-			</div>	<!-- row -->
+				<!-- row -->
+				<br> 기타
+				<div class="row">
+					<div class="col col-sm-4">
+						<div class="progress-wrapper">
+							<div class="progress-info">
+								<div class="progress-label">
+									<span>냉각수</span>
+								</div>
+								<div class="progress-percentage pctest1_9">
+									<span>60%</span>
+								</div>
+							</div>
+							<div class="progress">
+								<div class="progress-bar bg-warning pctest2_9" role="progressbar"
+									aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+									style="width: 60%;"></div>
+							</div>
+						</div>
+						<div id="btn_div9" style="display: none;">
+							<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+							<input type="hidden" name="etc_coolant_num" class="btn_value9 btn_value" value="0">
+						</div>
+					</div>
+					<!-- col-sm-6  -->
+	
+					<div class="col col-sm-4">
+						<div class="progress-wrapper">
+							<div class="progress-info">
+								<div class="progress-label">
+									<span>배터리</span>
+								</div>
+								<div class="progress-percentage pctest1_10">
+									<span>60%</span>
+								</div>
+							</div>
+							<div class="progress">
+								<div class="progress-bar bg-danger pctest2_10" role="progressbar"
+									aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+									style="width: 60%;"></div>
+							</div>
+						</div>
+						<div id="btn_div10" style="display: none;">
+							<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+							<input type="hidden" name="etc_battery_num" class="btn_value10 btn_value" value="0">
+						</div>
+					</div>
+	
+					<div class="col col-sm-4">
+						<div class="progress-wrapper">
+							<div class="progress-info">
+								<div class="progress-label">
+									<span>타이어</span>
+								</div>
+								<div class="progress-percentage pctest1_11">
+									<span>60%</span>
+								</div>
+							</div>
+							<div class="progress">
+								<div class="progress-bar bg-danger pctest2_11" role="progressbar"
+									aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+									style="width: 60%;"></div>
+							</div>
+						</div>
+						<div id="btn_div11" style="display: none;">
+							<button type="button" class="btn btn-outline-danger btn_change">교체</button>
+							<input type="hidden" name="etc_tire_num" class="btn_value11 btn_value" value="0">
+						</div>
+					</div>
+				</div>
+				<!-- form에 보내는 양식(현재의  -->
+				<input type="hidden" name="carnum1" value="${carnum1 }">
+				<input type="hidden" name="belt_timing_time" value="<%= ccdto.getBelt_timing_time() %>">
+				<input type="hidden" name="belt_operation_time" value="<%= ccdto.getBelt_timing_time() %>">
+				<input type="hidden" name="oil_engine_time" value="<%= ccdto.getBelt_timing_time() %>">
+				<input type="hidden" name="oil_transmission_time" value="<%= ccdto.getBelt_timing_time() %>">
+				<input type="hidden" name="oil_break_time" value="<%= ccdto.getBelt_timing_time() %>">
+				<input type="hidden" name="filter_aircon_time" value="<%= ccdto.getBelt_timing_time() %>">
+				<input type="hidden" name="filter_fuel_time" value="<%= ccdto.getBelt_timing_time() %>">
+				<input type="hidden" name="filter_aircleaner_time" value="<%= ccdto.getBelt_timing_time() %>">
+				<input type="hidden" name="etc_coolant_time" value="<%= ccdto.getBelt_timing_time() %>">
+				<input type="hidden" name="etc_battery_time" value="<%= ccdto.getBelt_timing_time() %>">
+				<input type="hidden" name="etc_tire_time" value="<%= ccdto.getBelt_timing_time() %>">
+				
+				
+			</form>
+			<!-- row -->
 			<!-- <div class="row">
 				<button type="button" class="btn btn-primary" id="change_consumable">교체</button>
 			</div> -->
-		</div>	<!-- container-fluid end -->
-	</div>	<!-- main-content end -->
-	
-	
-	
+		</div>
+		<!-- container-fluid end -->
+	</div>
+	<!-- main-content end -->
+
+
+
 	<!--   Core   -->
-  <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
-  <script src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <!--   Optional JS   -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!--   Argon JS   -->
-  <script src="resources/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
-  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  <script>
+	<script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+	<script
+		src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<!--   Optional JS   -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+	<!--   Argon JS   -->
+	<script src="resources/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
+	<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+	<script>
     window.TrackJS &&
       TrackJS.install({
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "argon-dashboard-free"
       });
   </script>
-	
+
 </body>
 </html>
