@@ -38,22 +38,69 @@
 			var percentage = 0;
 			var expire_item = 0;
 			
-			var test1 ="";
-			var test2 ="";
-			
+			alert("test1")
 			// remainder 변수를 통해서 각 소모품주기 기준수로 나눠줌
 			for(var i=0; i<arr.length;i++){
 				var remainder = distance % arr[i];	//나머지 값이 들어 있음
 				
 				// 나눗셈 몫 = 교체해야할 시기
 				// 각 소모품 별 교체횟수, 교체 시기 DB작성(교체횟수와 비교하여 교체횟수와 현재 교체되었어야할 횟수가 동일하면 %표기, 그 외에는 교체요망 표기)
-				var change_num = Math.floor(distance / arr[i]) + 1;
-				test1 += consumableDB[i];
-				test2 += change_num;
+				// Math.round() 함수는 반올림
+				// Math.floor() 함수는 버림
+				var change_num = Math.round(distance / arr[i]);	//총 운행수 대비해서 교체 했어야했을 횟수
+				
+				percentage = Math.round(remainder / arr[i] * 100);
+				alert("consumableDB"+i+" : "+consumableDB[i]+"/ change_num"+i+" : "+change_num);
+				num = percentage;
+				// percentage를 기준으로 80%~100%이면 버튼을 생성하고, 교체 횟수를 1개 늘림
+				if(num <=50 && num >=0){
+					$(".pctest2_"+(i+1)).attr({
+						'class': 'progress-bar bg-success pctest2_'+(i+1),
+						'aria-valuenow': num,
+						'style':'width:'+num+'%;',
+					});
+					$(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+consumableDB[i] + " / " + consumableDB[i]+" | "+num+'%');
+				}else if(num < 80){
+					$(".pctest2_"+(i+1)).attr({
+						'class': 'progress-bar bg-warning pctest2_'+(i+1),
+						'aria-valuenow': num,
+						'style':'width:'+num+'%;',
+					});
+					$(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+consumableDB[i] + " / " + consumableDB[i]+" | "+num+'%');
+				}else{	//교체시기가 된 것들은 +1해서 줌
+					// 교체를 했을 때와 안했을 때를 분기해줌(원래 교체했어야할 시기(change_num과 DB의 값을 비교 같으면 교체한 것))
+					// consumableDB[i] < change_num : 교체를 안한 것
+					// consumableDB[i] >= change_num : 교체를 (완전)한 것
+					if(consumableDB[i] < change_num){
+						$(".pctest2_"+(i+1)).attr({
+							'class': 'progress-bar bg-danger pctest2_'+(i+1),
+							'aria-valuenow': num,
+							'style':'width:'+num+'%;',
+						});
+						
+						$(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+consumableDB[i] + " / " + (consumableDB[i]+1)+ " | "+num+'%');
+						$("#btn_div"+(i+1)).css("display", "inline");	//display:none인 값을 inline으로 바꾸어 보이게 해줌
+					}else{	//교체가 된 것은 녹색으로 표시되도록
+						$(".pctest2_"+(i+1)).attr({
+							'class': 'progress-bar bg-success pctest2_'+(i+1),
+							'aria-valuenow': num,
+							'style':'width:'+num+'%;',
+						});
+						
+						$(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+consumableDB[i] + " / " + consumableDB[i]+ " | "+num+'%');
+						$("#btn_div"+(i+1)).css("display", "none");	//교체를 한 것으로 퍼센트는 그대로 표시하지만 
+					}
+				}
+				// aaaabbccdddddeee
+				
+				// 예) 총운행 : 45000 / 기준 : 30000 change_num = 2, consumableDB[i] = 1(초기 insert되었을 때)
+				
 				// consumableDB의 값은 DB에 저장된 값, change_num은 총 운행km로 계산하여 현재 교체 시기를 계산한 값
 				// consumableDB >= change_num : 교체 하지 않아도 됨
 				// consumableDB < change_num : 교체가 필요함(예 : oil_engine기준 DB에 저장된 수 3, change_num 4이면 교체를 했어야했는데 아직 안한 것으로 생각하면 됨)
-				if(consumableDB[i] >= change_num){	// 교체 안해도 되는 경우
+				
+				
+				/* if(consumableDB[i] > change_num){	// 교체 시기를 안 지난 경우
 					expire_item = change_num;
 					// % 표기를 위한 계산식(총 운행 / 기준)
 					if(remainder == 0){
@@ -63,44 +110,87 @@
 					}
 					else{};
 					
-				}else{	// 교체 해야하는 경우
+					// Math.round() 함수는 반올림
+					percentage = Math.round(remainder / arr[i] * 100);
+					// alert((i+1)+"번째 : 총운행 "+distance+" / 나머지 " +remainder+" / 기준 "+ arr[i] + " / 퍼센트 "+percentage);
+					// 100% 됐을 때와 넘었을 때 분기 처리
+					
+					num = percentage;
+					// 배열 index는 0부터이기때문에 +1해줌
+					// 하위 CSS변경 작업
+					
+					$(".btn_value"+(i+1)).val(change_num);	// 버튼에 value값을 주고 보내는 것을 기획한다!
+					if(num<=50 && num >= 0){
+						$(".pctest2_"+(i+1)).attr({
+							'class': 'progress-bar bg-success pctest2_'+(i+1),
+							'aria-valuenow': num,
+							'style':'width:'+num+'%;',
+						});
+						$(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+expire_item + " / " + change_num+" | "+num+'%');
+					}else if(num <=75){
+						$(".pctest2_"+(i+1)).attr({
+							'class': 'progress-bar bg-warning pctest2_'+(i+1),
+							'aria-valuenow': num,
+							'style':'width:'+num+'%;',
+						});
+						$(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+expire_item + " / " + change_num+" | "+num+'%');
+					}else if(num <= 100){
+						$(".pctest2_"+(i+1)).attr({
+							'class': 'progress-bar bg-danger pctest2_'+(i+1),
+							'aria-valuenow': num,
+							'style':'width:'+num+'%;',
+						});
+						$(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+expire_item + " / " + change_num+" | "+num+'%');
+						$("#btn_div"+(i+1)).css("display", "none");	//display:none인 값을 inline으로 바꾸어 보이게 해줌
+					}else{
+						alert((i+1)+"번째 : not range!!" + arr[i]);
+					}
+					
+					
+				}else{	// 교체 시기를 지난 경우
 					expire_item = consumableDB[i];	//expire_item은 만료된 시기로
 					// % 표기를 위한 계산식(총 운행 / 기준)
 					remainder = arr[i];	//100%를 만들어 주기 위해서
-				}
+					
+					// Math.round() 함수는 반올림
+					percentage = Math.round(remainder / arr[i] * 100);
+					// alert((i+1)+"번째 : 총운행 "+distance+" / 나머지 " +remainder+" / 기준 "+ arr[i] + " / 퍼센트 "+percentage);
+					// 100% 됐을 때와 넘었을 때 분기 처리
+					
+					num = percentage;
+					// 배열 index는 0부터이기때문에 +1해줌
+					// 하위 CSS변경 작업
+					
+					$(".btn_value"+(i+1)).val(consumableDB[i]);	// 버튼에 value값을 주고 보내는 것을 기획한다!
+					if(num<=50 && num >= 0){
+						$(".pctest2_"+(i+1)).attr({
+							'class': 'progress-bar bg-success pctest2_'+(i+1),
+							'aria-valuenow': num,
+							'style':'width:'+num+'%;',
+						});
+						$(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+expire_item + " / " + change_num+" | "+num+'%');
+					}else if(num <=75){
+						$(".pctest2_"+(i+1)).attr({
+							'class': 'progress-bar bg-warning pctest2_'+(i+1),
+							'aria-valuenow': num,
+							'style':'width:'+num+'%;',
+						});
+						$(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+expire_item + " / " + change_num+" | "+num+'%');
+					}else if(num <= 100){
+						$(".pctest2_"+(i+1)).attr({
+							'class': 'progress-bar bg-danger pctest2_'+(i+1),
+							'aria-valuenow': num,
+							'style':'width:'+num+'%;',
+						});
+						$(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+expire_item + " / " + change_num+" | "+num+'%');
+						$("#btn_div"+(i+1)).css("display", "inline");	//display:none인 값을 inline으로 바꾸어 보이게 해줌
+					}else{
+						alert((i+1)+"번째 : not range!!" + arr[i]);
+					}
+					
+				}	//교체 시기 else end */
 				
-				// Math.round() 함수는 반올림
-				percentage = Math.round(remainder / arr[i] * 100);
-				// alert((i+1)+"번째 : 총운행 "+distance+" / 나머지 " +remainder+" / 기준 "+ arr[i] + " / 퍼센트 "+percentage);
-				// 100% 됐을 때와 넘었을 때 분기 처리
 				
-				num = percentage;
-				// 배열 index는 0부터이기때문에 +1해줌
-				// 하위 CSS변경 작업
-				$(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+expire_item + " / " + change_num+" | "+num+'%');
-				$(".btn_value"+(i+1)).val(change_num);	//버튼에 value값을 주고 보내는 것을 기획한다!
-				if(num<=50 && num >= 0){
-					$(".pctest2_"+(i+1)).attr({
-						'class': 'progress-bar bg-success pctest2_'+(i+1),
-						'aria-valuenow': num,
-						'style':'width:'+num+'%;',
-					});
-				}else if(num <=75){
-					$(".pctest2_"+(i+1)).attr({
-						'class': 'progress-bar bg-warning pctest2_'+(i+1),
-						'aria-valuenow': num,
-						'style':'width:'+num+'%;',
-					});
-				}else if(num <= 100){
-					$(".pctest2_"+(i+1)).attr({
-						'class': 'progress-bar bg-danger pctest2_'+(i+1),
-						'aria-valuenow': num,
-						'style':'width:'+num+'%;',
-					});
-					$("#btn_div"+(i+1)).css("display", "inline");	//display:none인 값을 inline으로 바꾸어 보이게 해줌
-				}else{
-					alert((i+1)+"번째 : not range!!" + arr[i]);
-				}
 				
 			};	//for문 End
 			
@@ -121,14 +211,32 @@
 				// this일 때는 눌린 버튼을 의미함
 				alert("나를 눌렀군요?");
 				var data11 = $(this).next(".btn_value").val();
-				var index_data = $(".btn_change").index(this);
+				var index_data = $(".btn_change").index(this);	// 교체 버튼 눌리면 index를 가져옴
 				var index_time = index_data+12;
 				alert(data11+"/"+index_data + "/" + index_time);
 				
-				// 해당 index를 맞추기 위해서 +11하여 값을 넣어줌 
-				$("input:eq("+index_time+")").val(today2);
+				var span_index_data = $(".pctest1_"+(index_data+1)).children("span").text();
+				var change_num1 = span_index_data.split("/")[1].split("|")[0];
+				var change_num2 = span_index_data.split(":")[1].split("/")[0];
+				/* 
+					
+				alert(typeof change_num1);	//typeof 함수는 변수의 타입을 알려줌, 현재 string
+				alert("***"+change_num1+"***");
+				alert(typeof parseInt(change_num1.trim()));
+					parseInt 메소드 사용시 trim 여부는 상관없는듯?
+				alert("trim : " + parseInt(change_num1.trim()));
+				alert("no tirm : " + parseInt(change_num1)); 
+				*/
 				
-				var form_data = $("#form").serialize();
+				// 바뀔 값들만 셋팅해주는 식으로 구현
+				// 바뀔 값들 셋팅
+				// value값을 변경해주어 DB에 바뀔 값만 변경해서 넘어가도록
+				$("input:eq("+index_data+")").val(parseInt(change_num1.trim()));
+				
+				
+				// 해당 time값이 들어있는 input태그의 index를 맞추기 위해서 +11하여 값을 넣어줌 
+				$("input:eq("+index_time+")").val(today2);
+				var form_data = $("#form").serialize();	//form data를 serialize()로 전체 받아옴
 				$.ajax({
 				    url: "car_consumable2.do",
 				    type: "get",
@@ -141,13 +249,14 @@
 						var percentage1 = Math.round((distance % arr[index_data]) / arr[index_data] * 100);
 						alert("percentage1 : " + percentage1)
 						alert("index_data : " + index_data)
+						
 						if(percentage1<=50 && percentage1 >= 0){
 							$(".pctest2_"+(index_data+1)).attr({
 								'class': 'progress-bar bg-success',
 								'aria-valuenow': percentage1,
 								'style':'width:'+percentage1+'%;',
 							});
-						}else if(percentage1 <=75){
+						}else if(percentage1 < 80){
 							$(".pctest2_"+(index_data+1)).attr({
 								'class': 'progress-bar bg-warning',
 								'aria-valuenow': percentage1,
@@ -155,20 +264,19 @@
 							});
 						}else if(percentage1 <= 100){
 							$(".pctest2_"+(index_data+1)).attr({
-								'class': 'progress-bar bg-danger',
+								'class': 'progress-bar bg-success',
 								'aria-valuenow': percentage1,
 								'style':'width:'+percentage1+'%;',
 							});
-							$("#btn_div"+(index_data+1)).css("display", "inline");	//display:none인 값을 inline으로 바꾸어 보이게 해줌
 						}else{
 							alert((index_data+1)+"번째 : not range!!" + arr[index_data]);
 						}
 						
 						// 바뀌는 것은 보임
-						var span_index_data = $(".pctest1_"+(index_data+1)).children("span").text();
-						alert(span_index_data);
-						var change_num1 = span_index_data.split("/")[1].split("|")[0];
-						alert(change_num1);
+						var span_index_data1 = $(".pctest1_"+(index_data+1)).children("span").text();
+						alert(span_index_data1);
+						var change_num2 = span_index_data1.split("/")[1].split("|")[0];
+						alert(change_num2);
 						
 						$(".pctest1_"+(index_data+1)).children("span").text("교체 횟수 : "+change_num1 + " / " + change_num1+" | "+percentage1+'%');
 						$("#btn_div"+(index_data+1)).css("display", "none");
