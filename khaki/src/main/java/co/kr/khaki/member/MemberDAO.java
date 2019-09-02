@@ -14,8 +14,8 @@ public class MemberDAO {
 	@Autowired
 	SqlSessionTemplate my;
 	
-	public MemberDTO selectId(String id) {
-		MemberDTO memberDTO = my.selectOne("memberDAO.selectId", id);
+	public MemberDTO selectId_Member(String id) {
+		MemberDTO memberDTO = my.selectOne("memberDAO.selectId_Member", id);
 		System.out.println("selectId member 성공");
 		return memberDTO;
 	}
@@ -84,8 +84,8 @@ public class MemberDAO {
 		return result;
 	}
 	
-	public void insert(MemberDTO memberDTO) {
-		my.insert("memberDAO.insert", memberDTO);
+	public void insertMember(MemberDTO memberDTO) {
+		my.insert("memberDAO.insertMember", memberDTO);
 		System.out.println("insert 성공");
 	}
 	
@@ -134,6 +134,11 @@ public class MemberDAO {
 		System.out.println("핸들러 여부 설정");
 	}
 	
+	public void deleteMember(String id) {
+		my.delete("memberDAO.deleteMember", id);
+		System.out.println("회원정보 삭제");
+	}
+
 	public void deleteLicense(String id) {
 		my.delete("memberDAO.deleteLicense", id);
 		System.out.println("면허정보 삭제");

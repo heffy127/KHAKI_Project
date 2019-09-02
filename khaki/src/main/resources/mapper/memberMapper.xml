@@ -4,7 +4,7 @@
 
 <mapper namespace="memberDAO">
 
-	<resultMap type="memberDTO" id="rsMap">
+	<resultMap type="memberDTO" id="rsMap_member">
 		<result property="id" column="id" />
 		<result property="pw" column="pw" />
 		<result property="name" column="name" />
@@ -46,7 +46,7 @@
 		<result property="social_type" column="social_type" />
 	</resultMap>
 
-	<select id="selectId" parameterType="String" resultMap="rsMap">
+	<select id="selectId_member" parameterType="String" resultMap="rsMap">
 		SELECT *
 		FROM member
 		WHERE id = #{id}
@@ -118,7 +118,7 @@
 	</select>
 
 	<!-- 회원가입 정보 주입 -->
-	<insert id="insert" parameterType="memberDTO">
+	<insert id="insertMember" parameterType="memberDTO">
 		INSERT INTO member (id, pw, name, email_id, email_site, phone1, phone2, phone3, postcode, address1, address2, address3, smsPush, emailPush, useCount, handler)
 		VALUES(#{id}, #{pw}, #{name},#{email_id}, #{email_site},#{phone1}, #{phone2}, #{phone3},#{postcode}, #{address1}, #{address2}, #{address3},#{smsPush}, #{emailPush}, #{useCount},#{handler})
 	</insert>
@@ -169,6 +169,11 @@
 		UPDATE member SET handler = #{handler}
 		WHERE id=#{id}
 	</update>
+
+	<delete id="deleteMember" parameterType="String">
+		DELETE FROM member WHERE
+		id = #{id}
+	</delete>
 
 	<delete id="deleteLicense" parameterType="String">
 		DELETE FROM license WHERE

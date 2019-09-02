@@ -465,6 +465,15 @@ $(document).ready(
 						
 					})
 			
+			// 회원탈퇴버튼 눌렀을때
+			$('#deleteMemberBtn').click(
+				function() {
+					if(confirm("정말 탈퇴하시겠습니까?")){
+						$('#mypageF').attr("action","mypage_deleteMember.do")
+						$('#mypageF').submit()
+					}
+			})		
+					
 		})
 		
 		function execDaumPostcode() {
@@ -811,12 +820,17 @@ input[type="text"]
                   </table>
                </div>
             </div>
+             <div class="pl-lg-4" style="padding-left: 14px; padding-right: 14px;">
+             	<div align="right">
+             		<a href="#none" id="deleteMemberBtn"><font color="red"><u>회원탈퇴하기</u></font></a>
+             	</div>
+             </div>
       </div>
      </form>
    </div>
    
    <!-- 비밀번호 변경 modal -->
-  	 
+   
 		<div class="modal fade" id="modal-changePw" tabindex="-1" role="dialog" aria-labelledby="modal-changePw" aria-hidden="true" style="top: -500px;">
 		   <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
 		        <div class="modal-content" style="background: #ffe099;">
