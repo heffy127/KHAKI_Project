@@ -15,7 +15,7 @@ public class MemberDAO {
 	SqlSessionTemplate my;
 	
 	public MemberDTO selectId_Member(String id) {
-		MemberDTO memberDTO = my.selectOne("memberDAO.selectId_Member", id);
+		MemberDTO memberDTO = my.selectOne("memberDAO.selectId_member", id);
 		System.out.println("selectId member 성공");
 		return memberDTO;
 	}
