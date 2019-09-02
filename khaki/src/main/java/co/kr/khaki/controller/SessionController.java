@@ -1,8 +1,5 @@
 package co.kr.khaki.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +27,7 @@ public class SessionController {
 	}
 	
 	@RequestMapping("sessionLoginLicense.do")
-	public String sessionLoginLicense(MemberDTO memberDTO, Model model, HttpSession session) {	
+	public String sessionLoginLicense(MemberDTO memberDTO, Model model) {	
 		memberDTO = memberDAO.selectId_Member(memberDTO.getId());
 		model.addAttribute("sessionId", memberDTO.getId());
 		model.addAttribute("sessionName", memberDTO.getName());

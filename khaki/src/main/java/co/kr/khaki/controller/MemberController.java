@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import co.kr.khaki.member.AuthNumber;
 import co.kr.khaki.member.HashingPw;
 import co.kr.khaki.member.LicenseDTO;
-import co.kr.khaki.member.Mail_auth;
 import co.kr.khaki.member.Mail_findId;
 import co.kr.khaki.member.Mail_findPw;
 import co.kr.khaki.member.Mail_mypageAuth;
@@ -36,7 +34,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("login.do")
-	public String login(HttpServletRequest request, HttpServletResponse response ,Model model, String license_go) {
+	public String login(HttpServletRequest request, Model model, String license_go) {
 		// 아이디 저장된 쿠키 가져오기
 		Cookie[] getCookie = request.getCookies();
 		if(getCookie != null) {
