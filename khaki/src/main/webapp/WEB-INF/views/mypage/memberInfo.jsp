@@ -112,7 +112,12 @@ $(document).ready(
 								// 이메일 형식에 맞게 입력한 경우
 							
 								$.ajax({ // 이메일 중복 체크
-									url: "emailCheck.do?email_id="+$('#email_id').val() + "&" + "email_site=" + $('#email_site').val(),
+									url: "emailCheck.do",
+									type: 'POST',
+									data: {	
+											"email_id":$('#email_id').val(),
+											"email_site":$('#email_site').val()
+											},
 									success: function(result){
 										var check = result
 										if(check.trim() != 'null'){
@@ -391,7 +396,7 @@ $(document).ready(
 			$('#kakao_chk').change( // 눌렀을때
 					function() {
 						if($('#kakao_chk').is(':checked')){ // 체크가 될 상황인경우
-							if(confirm('네이버 소셜 계정과 연동하시겠습니까?')){
+							if(confirm('카카오 소셜 계정과 연동하시겠습니까?')){
 								$('#kakao-login-btn').click() // 카카오 연동
 							}else{
 								location.reload(true);
@@ -460,6 +465,15 @@ $(document).ready(
 						
 					})
 			
+			// 회원탈퇴버튼 눌렀을때
+			$('#deleteMemberBtn').click(
+				function() {
+					if(confirm("정말 탈퇴하시겠습니까?")){
+						$('#mypageF').attr("action","mypage_deleteMember.do")
+						$('#mypageF').submit()
+					}
+			})		
+					
 		})
 		
 		function execDaumPostcode() {
@@ -806,12 +820,17 @@ input[type="text"]
                   </table>
                </div>
             </div>
+             <div class="pl-lg-4" style="padding-left: 14px; padding-right: 14px;">
+             	<div align="right">
+             		<a href="#none" id="deleteMemberBtn"><font color="red"><u>회원탈퇴하기</u></font></a>
+             	</div>
+             </div>
       </div>
      </form>
    </div>
    
    <!-- 비밀번호 변경 modal -->
-  	 
+   
 		<div class="modal fade" id="modal-changePw" tabindex="-1" role="dialog" aria-labelledby="modal-changePw" aria-hidden="true" style="top: -500px;">
 		   <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
 		        <div class="modal-content" style="background: #ffe099;">
@@ -918,23 +937,34 @@ input[type="text"]
      success: function(res) {
         var kakao_id = res.id //<---- 콘솔 로그에 id 정보 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
         $.ajax({ // 소셜 로그인에 id가 저장되어 있는지 조회
-		url: "checkSocialMypage.do?social_id=" + kakao_id + "&social_type=kakao",
-		success: function(result){
-			var check = result // already가 아닌경우 sessionId값을 가져옴
-			if(check.trim() == 'already'){ // 해당 카카오 계정으로 다른 아이디 소셜 계정 연결
-				alert("이미 다른 KHAKI 계정에서 사용중입니다.")
-				location.reload(true);
-				
-			}else{
-				$.ajax({
-					url: "mypage_socialInsert.do?id=" + check + "&social_id=" + kakao_id + "&social_type=kakao",
-					success: function(result){
-						alert("카카오 소셜 연동이 완료되었습니다.")
-						location.reload(true);
-					}
-				})
+			url: "checkSocialMypage.do",
+			type: 'POST',
+			data: {	
+					"social_id" : kakao_id,
+					"social_type" : "kakao"
+					},
+			success: function(result){
+				var check = result.trim() // already가 아닌경우 sessionId값을 가져옴
+				if(check == 'already'){ // 해당 카카오 계정으로 다른 아이디 소셜 계정 연결
+					alert("이미 다른 KHAKI 계정에서 사용중입니다.")
+					location.reload(true);
+					
+				}else{
+					$.ajax({
+						url: "mypage_socialInsert.do",
+						type: 'POST',
+						data: {	
+								"id" : check,
+								"social_id" : kakao_id,
+								"social_type" : "kakao"
+								},
+						success: function(result){
+							alert("카카오 소셜 연동이 완료되었습니다.")
+							location.reload(true);
+						}
+					})
+				}
 			}
-		}
 	})
         }
        })

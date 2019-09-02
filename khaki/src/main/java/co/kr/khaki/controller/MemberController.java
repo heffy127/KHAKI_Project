@@ -54,7 +54,7 @@ public class MemberController {
 	@RequestMapping("loginCheck.do")
 	public String loginCheck(HttpServletResponse response, HttpServletRequest request, 
 			MemberDTO memberDTO, HashingPw hp ,String id, String pw, String forCookie, Model model) {
-		memberDTO = memberDAO.selectId(id);
+		memberDTO = memberDAO.selectId_Member(id);
 		if(memberDTO == null) {	// 아이디가 없을때
 			model.addAttribute("loginCheck", "no");
 		}else if(hp.pwCheck(pw, memberDTO.getPw()).equals("yes")) { // 아이디와 비밀번호 일치
@@ -195,7 +195,7 @@ public class MemberController {
 	@RequestMapping("mypage_memberInfo.do")
 	public String memberInfo(MemberDTO memberDTO, LicenseDTO licenseDTO, SocialDTO socialDTO_naver, SocialDTO socialDTO_kakao, Model model, HttpSession session) {
 		String id = (String)session.getAttribute("sessionId");
-		memberDTO = memberDAO.selectId(id);
+		memberDTO = memberDAO.selectId_Member(id);
 		licenseDTO = memberDAO.selectId_license(id);
 		socialDTO_naver = memberDAO.selectId_naver(id);
 		socialDTO_kakao = memberDAO.selectId_kakao(id);
@@ -212,7 +212,7 @@ public class MemberController {
 			MemberDTO memberDTO, HashingPw hp ,String pw,Model model) {
 			System.out.println(memberDTO.getId());
 			System.out.println(pw);
-			memberDTO = memberDAO.selectId(memberDTO.getId());
+			memberDTO = memberDAO.selectId_Member(memberDTO.getId());
 			if(hp.pwCheck(pw, memberDTO.getPw()).equals("yes")) { // 아이디와 비밀번호 일치
 				model.addAttribute("check", "yes");
 			}else { // 아이디는 있지만 비밀번호와 불일치
@@ -233,7 +233,7 @@ public class MemberController {
 	@RequestMapping("mypage_newPw_check.do")
 	public String newPw_check(MemberDTO memberDTO, String pw, HashingPw hp ,Model model) {
 		System.out.println(pw);
-		memberDTO = memberDAO.selectId(memberDTO.getId());
+		memberDTO = memberDAO.selectId_Member(memberDTO.getId());
 		if(hp.pwCheck(pw, memberDTO.getPw()).equals("yes")) { // 아이디와 비밀번호 일치
 			model.addAttribute("check", "yes");
 		}else { // 아이디는 있지만 비밀번호와 불일치
@@ -336,5 +336,14 @@ public class MemberController {
 		memberDAO.updatePush(memberDTO);
 		
 		return "mypage/allCheck"; // ajax용
+	}
+	
+	// 회원삭제
+	@RequestMapping("mypage_deleteMember.do")
+	public String mypage_deleteMember(MemberDTO memberDTO) {
+		System.out.println("회원삭제 id " + memberDTO.getId());
+		memberDAO.deleteMember(memberDTO.getId()); // 회원정보 삭제
+		
+		return "mypage/deleteMember_ok"; // ajax용
 	}
 }

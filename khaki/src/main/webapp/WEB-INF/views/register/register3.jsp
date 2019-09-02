@@ -166,7 +166,12 @@
 							$(this).attr('class','form-control is-valid')
 							if(email_idType.test($('#email_id').val()))
 							$.ajax({
-									url: "emailCheck.do?email_id="+$('#email_id').val() + "&" + "email_site=" + $('#email_site').val(),
+									url: "emailCheck.do",
+									type: 'POST',
+									data: {	
+											"email_id":$('#email_id').val(),
+											"email_site":$('#email_site').val()
+											},
 									success: function(result){
 										var check = result
 										if(check.trim() != 'null'){

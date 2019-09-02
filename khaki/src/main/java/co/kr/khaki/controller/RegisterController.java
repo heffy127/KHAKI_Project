@@ -26,7 +26,7 @@ public class RegisterController {
 	
 	@RequestMapping("idCheck.do")
 	public String idCheck(String idCheck, MemberDTO memberDTO, Model model) {
-		memberDTO = memberDAO.selectId(idCheck);
+		memberDTO = memberDAO.selectId_Member(idCheck);
 		if(memberDTO == null) {
 			model.addAttribute("idCheck", "null");
 		} else {
@@ -135,7 +135,7 @@ public class RegisterController {
 		sessionStatus.setComplete(); // 가입 문자를 위해 생성했던 세션 삭제
 		
 		memberDTO = hp.hash(memberDTO); // 비밀번호 암호화
-		memberDAO.insert(memberDTO); // Member 테이블에 회원정보 저장
+		memberDAO.insertMember(memberDTO); // Member 테이블에 회원정보 저장
 		if(!(socialDTO.getSocial_id().equals("null"))) {
 			socialDTO.setId(memberDTO.getId()); // Member 테이블 아이디 정보 가져오기 (외래키) 
 			memberDAO.insertSocial(socialDTO); // Social 테이블에 저장

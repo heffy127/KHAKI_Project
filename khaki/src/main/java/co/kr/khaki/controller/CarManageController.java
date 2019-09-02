@@ -24,8 +24,18 @@ public class CarManageController {
 	@Autowired
 	CarConsumableDAO ccdao;
 	
+	@RequestMapping("car_consumable2.do")
+	public String car_consumable2(CarConsumableDTO carConsumableDTO, String change_data, String change_index) {
+		
+		// update
+		System.out.println("CarConsumable update");
+		ccdao.updata(carConsumableDTO);
+		
+		return "carmanage/car_consumable2";	//ajax용
+	}
+	
 	@RequestMapping("car_consumable1.do")
-	public String car_consumable(String distance, String carnum1, Model model){
+	public String car_consumable1(String distance, String carnum1, Model model){
 		// distance와 carnum(차량번호)을 넘겨 받음
 		model.addAttribute("distance",distance);
 		
@@ -38,7 +48,7 @@ public class CarManageController {
 		
 		System.out.println("test2");
 		model.addAttribute("ccdto", ccdao.select(carnum1));
-		
+		model.addAttribute("carnum1",carnum1);
 		
 		return "carmanage/car_consumable1";
 	}
