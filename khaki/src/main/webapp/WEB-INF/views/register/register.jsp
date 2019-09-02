@@ -253,17 +253,22 @@ $(document).ready(
      success: function(res) {
         var kakao_id = res.id //<---- 콘솔 로그에 id 정보 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
         $.ajax({ // 소셜 로그인에 id가 저장되어 있는지 조회
-		url: "checkSocialJoin.do?social_id=" + kakao_id + "&social_type=kakao",
-		success: function(result){
-			var check = result
-			if(check.trim() != 'null'){ // Social 테이블에 저장된 값 있으면 바로 로그인
-				alert("이미 가입된 회원이십니다.")
-				location.href = "sessionLogin.do?id=" + check
-				
-			}else{ // 가입 안된 상태이므로 가입창으로 넘어감  
-				location.href = "register2.do?social_id=" + kakao_id + "&social_type=kakao"
+			url: "checkSocialJoin.do",
+			type: 'POST',
+			data: {	
+					"social_id" : kakao_id,
+					"social_type" : "kakao"
+					},
+			success: function(result){
+				var check = result.trim()
+				if(check != 'null'){ // Social 테이블에 저장된 값 있으면 바로 로그인
+					alert("이미 가입된 회원이십니다.")
+					location.href = "sessionLogin.do?id=" + check
+					
+				}else{ // 가입 안된 상태이므로 가입창으로 넘어감  
+					location.href = "register2.do?social_id=" + kakao_id + "&social_type=kakao"
+				}
 			}
-		}
 	})
         }
        })

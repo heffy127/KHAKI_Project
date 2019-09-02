@@ -18,10 +18,15 @@
     var naver_email = naver_id_login.getProfileData('email');
     var naver_id = naver_id_login.getProfileData('id');
     $.ajax({ // 소셜 로그인에 id가 저장되어 있는지 조회
-		url: "checkSocialJoin.do?social_id=" + naver_id + "&social_type=naver",
+		url: "checkSocialJoin.do",
+		type: 'POST',
+		data: {	
+				"social_id" : naver_id,
+				"social_type" : "naver"
+				},
 		success: function(result){
-			var check = result
-			if(check.trim() != 'null'){ // Social 테이블에 저장된 값 있으면 이미 가입된 회원
+			var check = result.trim()
+			if(check != 'null'){ // Social 테이블에 저장된 값 있으면 이미 가입된 회원
 				alert("이미 가입된 회원이십니다.")
 				opener.parent.location.replace("sessionLogin.do?id="+check);
 				window.close()
