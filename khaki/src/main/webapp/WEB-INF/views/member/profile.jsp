@@ -34,6 +34,9 @@
   <link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+  <!-- jquery -->
+  <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+
 </head>
 
 <body class="">
@@ -360,7 +363,7 @@
                  <div class="tab-content" id="myTabContent">
                      <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab" style="text-align: center">
                        
-                       <iframe src="mypage_memberInfo.do" style="width: 100%; height: 1300px;" frameborder="0"></iframe>
+                       <iframe id="memberInfo" src="mypage_memberInfo.do" style="width: 100%; height: 1300px;" frameborder="0"></iframe>
                      
                      </div>
                      <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
@@ -424,7 +427,7 @@
     </div>
   </div>
   <!--   Core   -->
-  <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+
   <script src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <!--   Optional JS   -->
   <!--   Argon JS   -->

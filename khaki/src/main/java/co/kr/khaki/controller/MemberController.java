@@ -36,7 +36,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("login.do")
-	public String login(HttpServletRequest request, Model model, String license_go) {
+	public String login(HttpServletRequest request, HttpServletResponse response ,Model model, String license_go) {
 		// 아이디 저장된 쿠키 가져오기
 		Cookie[] getCookie = request.getCookies();
 		if(getCookie != null) {
@@ -44,13 +44,14 @@ public class MemberController {
 				Cookie c = getCookie[i];
 				String name = c.getName();
 				String value = c.getValue();
-				if(name.equals("userid"))
-					model.addAttribute("userid", value);
+				if(name.equals("userid")) // userid 저장위한 쿠키 찾을경우
+					model.addAttribute("userid", value); // 넘겨줌
 			}
 		}
 		
-		if(license_go.equals("ok")) {
-			model.addAttribute("license_go", "ok"); // 로그인하면 바로 면허증 페이지 열게 보냄
+		if(license_go != null) { // 사용자가 가입 후 면허증 등록하러 가기 눌렀을경우 
+			System.out.println("면허증 등록하러 갈꺼야");
+			model.addAttribute("license_go", "ok"); // 로그인하면 바로 면허증 페이지 간다는 표시
 		}
 		
 		return "member/login";

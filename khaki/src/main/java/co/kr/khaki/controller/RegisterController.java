@@ -152,8 +152,10 @@ public class RegisterController {
 		}
 		if(go.trim().equals("home")) {
 			return "home/index";
+			// 바로 홈으로
 		}else {
 			return "member/login_index";
+			// 면허등록 하기위한 로그인 화면으로
 		}
 	}
 	
