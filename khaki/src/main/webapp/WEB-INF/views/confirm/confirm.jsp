@@ -342,7 +342,7 @@
           	  	<div>
           	  		<table class="c_content">
           	  			<tr>
-          	  				<td rowspan="6" style="width: 30%;"><img style="width: 100%;" src="http://www.top-rider.com/news/photo/201803/26912_85506_4812.jpg"></td>
+          	  				<td rowspan="6" style="width: 30%;"><img style="width: 100%;" src="${buy_carImage }"></td>
           	  				<td class="c_content_1">차량번호 : </td>
           	  				<td class="c_content_2" style="width: 15%;" id="confirm_carNum">${payDTO.buy_carNum }</td>
           	  				<td class="c_content_1">차종 : </td>

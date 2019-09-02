@@ -104,7 +104,12 @@
 											// 아이디 비밀번호가 맞을 경우
 											// 리캡차가 동작하는 경우 절차를 거쳐야만 로그인
 										
-											sessionStorage.removeItem('loginCnt')
+											sessionStorage.removeItem('loginCnt') // 로그인 카운트 리셋
+											if('${license_go}' != ''){ // 홈이 아닌 면허등록으로 바로 이동한다는 표시가 있을경우
+												$('#loginF').attr("action","sessionLoginLicense.do")
+												sessionStorage.setItem('sessionLicense','ok')
+												// 운전면허 등록창 뜨게 하기위한 js세션
+											}
 											$('#loginF').submit()
 										}
 									}
