@@ -66,6 +66,7 @@ public class SocialController {
 	// 마이페이지 소셜 연동
 	@RequestMapping("mypage_socialInsert.do")
 	public String mypage_socialInsert(SocialDTO socialDTO, Model model) {
+		System.out.println(socialDTO.getId());
 		System.out.println(socialDTO.getSocial_id());
 		memberDAO.insertSocial(socialDTO);
 		
