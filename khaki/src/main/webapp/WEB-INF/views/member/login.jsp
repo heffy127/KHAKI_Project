@@ -52,6 +52,11 @@
 					$("#reCaptcha").show()
 				}
 				
+				if('${license_go}' == 'ok'){ // 홈이 아닌 바로 마이페이지 이동
+					alert("마이페이지 갈꺼야")
+					$('#loginF').attr("action","sessionLoginLicense.do")
+				}
+				
 				// 네이버 소셜 로그인 버튼 클릭
 				$('#naverBtn').click(
 						function() {

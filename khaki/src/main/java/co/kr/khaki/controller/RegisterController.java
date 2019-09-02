@@ -153,7 +153,7 @@ public class RegisterController {
 		if(go.trim().equals("home")) {
 			return "home/index";
 		}else {
-			return "member/login_license";
+			return "member/login_index";
 		}
 	}
 	

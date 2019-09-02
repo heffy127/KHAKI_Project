@@ -36,7 +36,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("login.do")
-	public String login(HttpServletRequest request, Model model) {
+	public String login(HttpServletRequest request, Model model, String license_go) {
 		// 아이디 저장된 쿠키 가져오기
 		Cookie[] getCookie = request.getCookies();
 		if(getCookie != null) {
@@ -48,6 +48,11 @@ public class MemberController {
 					model.addAttribute("userid", value);
 			}
 		}
+		
+		if(license_go.equals("ok")) {
+			model.addAttribute("license_go", "ok"); // 로그인하면 바로 면허증 페이지 열게 보냄
+		}
+		
 		return "member/login";
 	}
 		
