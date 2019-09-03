@@ -10,7 +10,19 @@
 		FROM carmanage
 		WHERE carnum = #{carnum}
 	</select>
-
+	
+	<select id="select_junggo" resultMap="rsMap">
+		SELECT
+		*
+		FROM carmanage
+		WHERE distance >= 30000 and distance < 50000
+	</select>
+	
+	<select id="select_old" resultMap="rsMap">
+		SELECT * FROM carmanage
+		WHERE distance >= 60000
+	</select>
+	
 	<resultMap type="cmDTO" id="rsMap">
 		<result property="khaki_num" column="kahki_num" />
 		<result property="carnum" column="carnum" />
@@ -26,6 +38,8 @@
 	<select id="selectAll" resultMap="rsMap">
 		SELECT * FROM carmanage order by khaki_num desc
 	</select>
+	
+	
 
 	<insert id="insert" parameterType="cmDTO">
 		INSERT INTO carmanage (khaki_num, carnum, distance, fuel, brand, car_size, carname, reg_date, img)

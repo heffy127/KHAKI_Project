@@ -16,6 +16,7 @@ public class CarManageDAO {
 	@Autowired
 	SqlSessionTemplate my;
 	
+	
 	public void insert(CarManageDTO carManageDTO) {
 		System.out.println("CarManageDAO Insert!");
 		
@@ -37,6 +38,16 @@ public class CarManageDAO {
 	public CarManageDTO select(CarManageDTO carManageDTO) {
 		System.out.println("carManageDAO select!");
 		return my.selectOne("cmDAO.select", carManageDTO);
+	}
+
+	public List<CarManageDTO> select_junggo() {
+		System.out.println("carManageDAO select_Junggo");
+		return my.selectList("cmDAO.select_junggo");
+	}
+	
+	public List<CarManageDTO> select_old() {
+		System.out.println("carManageDAO select_old");
+		return my.selectList("cmDAO.select_old");
 	}
 	
 	// 하위 코드 미작성 상태

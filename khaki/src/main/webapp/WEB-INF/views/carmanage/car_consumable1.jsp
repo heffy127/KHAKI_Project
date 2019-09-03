@@ -38,7 +38,7 @@
 			var percentage = 0;
 			var expire_item = 0;
 			
-			alert("test1")
+			//alert("test1")
 			// remainder 변수를 통해서 각 소모품주기 기준수로 나눠줌
 			for(var i=0; i<arr.length;i++){
 				var remainder = distance % arr[i];	//나머지 값이 들어 있음
@@ -50,7 +50,7 @@
 				var change_num = Math.round(distance / arr[i]);	//총 운행수 대비해서 교체 했어야했을 횟수
 				
 				percentage = Math.round(remainder / arr[i] * 100);
-				alert("consumableDB"+i+" : "+consumableDB[i]+"/ change_num"+i+" : "+change_num);
+				//alert("consumableDB"+i+" : "+consumableDB[i]+"/ change_num"+i+" : "+change_num);
 				num = percentage;
 				// percentage를 기준으로 80%~100%이면 버튼을 생성하고, 교체 횟수를 1개 늘림
 				if(num <=50 && num >=0){
@@ -205,7 +205,7 @@
 			// progress-bar bg-danger 빨간색
 				
 			var today2 = "<%= today1 %>";
-			alert(today2);
+			//alert(today2);
 			
 			$(".btn_change").click(function(){
 				// this일 때는 눌린 버튼을 의미함
@@ -274,9 +274,9 @@
 						
 						// 바뀌는 것은 보임
 						var span_index_data1 = $(".pctest1_"+(index_data+1)).children("span").text();
-						alert(span_index_data1);
+						//alert(span_index_data1);
 						var change_num2 = span_index_data1.split("/")[1].split("|")[0];
-						alert(change_num2);
+						//alert(change_num2);
 						
 						$(".pctest1_"+(index_data+1)).children("span").text("교체 횟수 : "+change_num1 + " / " + change_num1+" | "+percentage1+'%');
 						$("#btn_div"+(index_data+1)).css("display", "none");

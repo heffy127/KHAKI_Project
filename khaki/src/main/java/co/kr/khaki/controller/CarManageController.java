@@ -80,13 +80,28 @@ public class CarManageController {
 		System.out.println("carmanage selectAll");
 		List<CarManageDTO> cmlist = cmdao.selectAll();
 		
+		System.out.println("test1");
+		//selectJunggo
+		System.out.println("carmanage select_junggo");
+		List<CarManageDTO> junggolist = cmdao.select_junggo();
+		
+		System.out.println("test2");
+		//selectOld
+		System.out.println("carmanage select_old");
+		List<CarManageDTO> oldlist = cmdao.select_old();
+		
+		System.out.println("test3");
+		System.out.println("junggosize : "+junggolist.size() +" / " + "oldsize : "+oldlist.size());
+		
 		int listCnt = cmlist.size();
 		//pagination 객체 생성
 		pagination pg = new pagination(listCnt, curPage);
 		
 		
 		// model로 객체 전송
-		model.addAttribute("cmlist", cmlist);		
+		model.addAttribute("cmlist", cmlist);
+		model.addAttribute("junggolist", junggolist);
+		model.addAttribute("oldlist", oldlist);
 		model.addAttribute("listCnt", listCnt);
 		model.addAttribute("pagination", pg);
 		
