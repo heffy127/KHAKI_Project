@@ -26,6 +26,10 @@
 		<result property="h_point" column="h_point" />
 		<result property="h_using" column="h_using" />
 	</resultMap>
+	
+	<update id="update" parameterType="huDTO">
+		UPDATE HANDLERUSE SET h_using = #{h_using} WHERE h_id = #{h_id} and h_carNum = #{h_carNum} and h_complete = #{h_complete}
+	</update>
 
 
 </mapper>

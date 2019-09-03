@@ -12,6 +12,7 @@ import co.kr.khaki.handler.HandlerDTO;
 import co.kr.khaki.handler.HandlerStatusDTO;
 import co.kr.khaki.handler.HandlerUseDAO;
 import co.kr.khaki.handler.HandlerUseDTO;
+import co.kr.khaki.member.InsertPointDTO;
 import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.member.MemberDTO;
 
@@ -116,11 +117,34 @@ public class HandlerController {
 	public String handlerUseSelect(String h_id, Model model) {
         System.out.println("handlerUse select 시작");
         List<HandlerUseDTO> hu = hudao.select(h_id);
+        
         model.addAttribute("hulist", hu);
 		
 		return "handler/handlerUseSelect";
 	}
 	
+	@RequestMapping("handlerUseUpdate.do")
+	public String handlerUseUpdate(HandlerUseDTO handlerUseDTO, Model model) {
+
+		System.out.println(handlerUseDTO.getH_id() + "zzzz");
+		System.out.println(handlerUseDTO.getH_carNum() + "zzzz");
+		System.out.println(handlerUseDTO.getH_carModel() + "zzzz");
+		System.out.println(handlerUseDTO.getH_startLocation() + "zzzz");
+		System.out.println(handlerUseDTO.getH_returnLocation() + "zzzz");
+		System.out.println(handlerUseDTO.getH_complete() + "zzzz");
+		System.out.println(handlerUseDTO.getH_point() + "zzzz");
+		System.out.println(handlerUseDTO.getH_using() + "zzzz");
+		String[] sp = handlerUseDTO.getH_point().split("p");
+		System.out.println(sp[0]);
+		hudao.update(handlerUseDTO);
+		InsertPointDTO insertpointDTO = new InsertPointDTO();
+		insertpointDTO.setId(handlerUseDTO.getH_id());
+		insertpointDTO.setPoint(Integer.parseInt(sp[0]));
+		
+		memberDAO.updatePoint(insertpointDTO);
+		return "handler/handlerUseSelect";
+	}
+
 	@RequestMapping("handlerDelete.do")
 	public String handlerDelete(HandlerDTO handlerDTO) {
 		System.out.println(handlerDTO.getHb_num() + " 번호!!!");

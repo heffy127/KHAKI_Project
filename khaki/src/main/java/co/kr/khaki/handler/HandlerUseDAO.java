@@ -23,8 +23,13 @@ public class HandlerUseDAO {
 	}
 	
 	public List<HandlerUseDTO> select(String h_id) {
-		System.out.println("HanlderDAO select!");
+		System.out.println("HanlderUseDAO select!");
 		return my.selectList("huDAO.select", h_id);
+	}
+	
+	public void update(HandlerUseDTO HandlerUseDTO) {
+		System.out.println("HanlderUseDAO Update!");
+		my.update("huDAO.update", HandlerUseDTO);
 	}
 	
 }

@@ -21340,10 +21340,52 @@ pre>code.highlight {
 	background-color: white;
 }
 
-#handlerUseTr:hover {
-	background-color: #eff5f0; 
+#handlerUseLabel {
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 20px;
+	text-shadow: 5px 5px 5px #afb7c2;
 }
 
+#handlerUseArea2 {
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 40px;
+	padding: 5% 0 5% 5%;
+	background-color: white;
+}
+
+#handlerUseLabel2 {
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 20px;
+	text-shadow: 5px 5px 5px #afb7c2;
+}
+
+#handlerUseTr:hover{
+	background-color: #eff5f0;
+}
+
+#handlerUseTr:hover #handlerUseTdBtn {
+	background-color: #eff5f0;
+}
+
+#handlerUseTdBtn {
+	width: 25%;
+	border: none; 
+	background-color: white;
+	outline: none;
+}
+
+.blueFont {
+	color: #5e72e4;
+	font-size: 25px;
+}
+.redFont {
+	color: red;
+	font-size: 25px;
+}
+.greenFont {
+	color: green;
+	font-size: 25px;
+}
 
 
 /*# sourceMappingURL=dashboard-free.css.map */
