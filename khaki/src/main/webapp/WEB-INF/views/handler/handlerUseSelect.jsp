@@ -22,7 +22,9 @@
 			<td>${hudto.h_startLocation }</td>
 			<td>${hudto.h_returnLocation }</td>
 			<td>${hudto.h_complete }</td>
-			<td>${hudto.h_point }</td>
+			<td>
+			<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="This is a very beautiful popover, show some love.">${hudto.h_point }</button>
+			</td>
 			<td><button type="button" class="btn btn-outline-success" style="width: 100%; margin: 0;">처리완료</button><input type="hidden" value="${hudto.h_using }"></td>
 		</tr>
 	</c:forEach>
