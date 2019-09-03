@@ -354,19 +354,33 @@ $(document).ready(
 							$('#addressCancelDiv').hide()
 					})
 			
+			
+			//운전면허 등록 모달 함수
+			openLicense = function() {
+							var id = $('#id').val()
+							var name = $('#name').val()
+							$('#modal-body-license').append(
+									'<iframe src="mypage_license.do?id=' + id + '&name=' + name +'" width="730px" height="670px" frameborder="0" '
+									+ 'style="box-shadow: 0 15px 35px rgba(50, 50, 93, 0.2), 0 5px 15px rgba(0, 0, 0, 0.17);'
+									+ 'border-top-left-radius: 0.4375rem; border-top-right-radius: 0.4375rem;'
+									+ 'border-bottom-left-radius: 0.4375rem; border-bottom-right-radius: 0.4375rem;"></iframe>')
+							
+							$('#modal-license').modal({backdrop: 'static'}); // 모달 닫힘 방지 
+					}
+			
 			// 운전면허 버튼 클릭
-			$('#licenseBtn').click(
-					function() {
-						var id = $('#id').val()
-						var name = $('#name').val()
-						$('#modal-body-license').append(
-								'<iframe src="mypage_license.do?id=' + id + '&name=' + name +'" width="730px" height="670px" frameborder="0" '
-								+ 'style="box-shadow: 0 15px 35px rgba(50, 50, 93, 0.2), 0 5px 15px rgba(0, 0, 0, 0.17);'
-								+ 'border-top-left-radius: 0.4375rem; border-top-right-radius: 0.4375rem;'
-								+ 'border-bottom-left-radius: 0.4375rem; border-bottom-right-radius: 0.4375rem;"></iframe>')
-						
-						$('#modal-license').modal({backdrop: 'static'}); // 모달 닫힘 방지 
-					})
+			$('#licenseBtn').click(function () {
+				openLicense()
+			})
+			
+			// 가입 후 면허등록하기 눌러서 로그인 했을때 받아오는 세션
+			var sessionLicense = sessionStorage.getItem('sessionLicense')
+			
+			// 운전면허 등록 바로가기 했을경우 바로 면허등록 창 뜨도록 지정
+			if(sessionLicense == 'ok'){
+				openLicense()
+				sessionStorage.removeItem('sessionLicense') // 한번만 뜨게 하기 위해 세션 삭제
+			}
 			
 			// 소셜로그인 연동
 			$('#naver_chk').click( // 눌렀을때
