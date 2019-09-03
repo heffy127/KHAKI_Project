@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 
 import co.kr.khaki.member.AuthNumber;
 import co.kr.khaki.member.HashingPw;
@@ -352,11 +351,5 @@ public class MemberController {
 		
 		return "mypage/deleteMember_ok"; // ajax용
 	}
-	
-	@RequestMapping("profilePhotoUpload.do")
-	public String profilePhotoUpload(htt) {
-		 MultipartFile uploadfile = dto.getUploadfile();
-		 
-		return "mypage/deleteMember_ok"; // ajax용
-	}
+
 }
