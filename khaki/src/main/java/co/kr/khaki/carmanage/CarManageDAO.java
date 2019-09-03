@@ -40,14 +40,14 @@ public class CarManageDAO {
 		return my.selectOne("cmDAO.select", carManageDTO);
 	}
 
-	public List<CarManageDTO> select_junggo() {
+	public List<CarManageDTO> selectjunggo() {
 		System.out.println("carManageDAO select_Junggo");
-		return my.selectList("cmDAO.select_junggo");
+		return my.selectList("cmDAO.selectjunggo");
 	}
 	
-	public List<CarManageDTO> select_old() {
+	public List<CarManageDTO> selectold() {
 		System.out.println("carManageDAO select_old");
-		return my.selectList("cmDAO.select_old");
+		return my.selectList("cmDAO.selectold");
 	}
 	
 	// 하위 코드 미작성 상태

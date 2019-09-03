@@ -76,21 +76,18 @@ public class CarManageController {
 	@RequestMapping("carmanage.do")
 	public String carmanage(Model model, @RequestParam(defaultValue="1") int curPage){
 		
+		//selectJunggo
+		System.out.println("carmanage select_junggo");
+		List<CarManageDTO> junggolist = cmdao.selectjunggo();
+		
+		//selectOld
+		System.out.println("carmanage select_old");
+		List<CarManageDTO> oldlist = cmdao.selectold();
+
 		//selectAll
 		System.out.println("carmanage selectAll");
 		List<CarManageDTO> cmlist = cmdao.selectAll();
 		
-		System.out.println("test1");
-		//selectJunggo
-		System.out.println("carmanage select_junggo");
-		List<CarManageDTO> junggolist = cmdao.select_junggo();
-		
-		System.out.println("test2");
-		//selectOld
-		System.out.println("carmanage select_old");
-		List<CarManageDTO> oldlist = cmdao.select_old();
-		
-		System.out.println("test3");
 		System.out.println("junggosize : "+junggolist.size() +" / " + "oldsize : "+oldlist.size());
 		
 		int listCnt = cmlist.size();
@@ -140,6 +137,11 @@ public class CarManageController {
 		System.out.println("test3");
 		
 		List<CarManageDTO> cmlist = cmdao.selectAll();
+		//selectJunggo
+		List<CarManageDTO> junggolist = cmdao.selectjunggo();
+		//selectOld
+		List<CarManageDTO> oldlist = cmdao.selectold();
+		
 		int listCnt = cmlist.size();
 		pagination pg = new pagination(listCnt, curPage);
 		
@@ -150,6 +152,8 @@ public class CarManageController {
 		model.addAttribute("listCnt", listCnt);
 		model.addAttribute("pagination", pg);
 		model.addAttribute("carList", carList.getCars());
+		model.addAttribute("junggolist", junggolist);
+		model.addAttribute("oldlist", oldlist);
 		
 		return "carmanage/carmanage";
 	}
