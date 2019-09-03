@@ -21303,4 +21303,47 @@ pre>code.highlight {
   cursor: pointer;
 }
 
+#craLabel1 {
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 30px;
+	text-shadow: 1px 1px 1px #c7bebe;
+}
+
+#craLabel2 {
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 25px;
+	text-shadow: 1px 1px 1px #c7bebe;
+}
+
+#craDiv {
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 50px;
+	font-weight: 1000;
+	color: #428dffc4;
+	background-image: url(https://image.flaticon.com/icons/svg/2026/2026574.svg);
+	padding: 10% 30% 10% 30%;
+	background-size: 80% 100%;
+	background-position: center center;
+	text-shadow: 3px 3px 3px #03132b;
+
+}
+
+#craDiv:hover {
+	background-color: #f8f8f8;
+	cursor: pointer;
+}
+
+#handlerUseArea {
+	font-family: 'Do Hyeon', sans-serif;
+	font-size: 40px;
+	padding: 5% 0 5% 5%;
+	background-color: white;
+}
+
+#handlerUseTr:hover {
+	background-color: #eff5f0; 
+}
+
+
+
 /*# sourceMappingURL=dashboard-free.css.map */

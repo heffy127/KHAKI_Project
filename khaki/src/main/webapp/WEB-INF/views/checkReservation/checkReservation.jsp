@@ -91,15 +91,29 @@
 			}
 	    }
 		
+		if($("#confirm_carNum").text() == "") {
+			$("#checkReservationArea").append(""
+					+ "<div style='width: 100%; height: 1000px; text-align: center;'>"
+					+ "<img src='https://image.flaticon.com/icons/svg/705/705926.svg' style='width: 25%; text-align: center; margin-top: 5%; margin-bottom: 3%;'><br>"
+					+ "<label id='craLabel1'>주문 결제 내역이 없습니다.</label><br>"
+					+ "<label id='craLabel2'><img src='resources/assets/img/brand/khaki2.png' style='width: 20%;'> 이용을 통해 더 많은 <b style='color: #ff5353; font-size: 30px; text-shadow: 1px 1px 1px #978989;'>혜택</b>을 누려보세요! </label><br>"
+					+ "<div id='craDiv' style='width: 100%; text-align: center; margin-top: 15%; margin-bottom: 3%;'>차량 예약하러 가기</div>"
+					+ "</div>");	
+		}
 		
-	    
+		$("#craDiv").click(function(){
+			window.parent.location.href = "map.do";
+		})
+
+		
+	    //aaaaaaa
 	})
 	    	
   </script>
 </head>
 
 <body class="">
-          <div class="card shadow border-0">
+          <div class="card shadow border-0" id="checkReservationArea">
           	<!-- checkReservation -->
           	<div class="c_content_title" style="margin-top: 3%; margin-left: 3%;">
           		<img src="https://image.flaticon.com/icons/svg/179/179372.svg" style="width: 2.777%; margin-left: 1%; margin-right: 1%;">나의 결제 내역 확인

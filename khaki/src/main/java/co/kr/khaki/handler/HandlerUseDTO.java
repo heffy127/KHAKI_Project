@@ -9,8 +9,6 @@ public class HandlerUseDTO {
 	private String h_complete;
 	private String h_point;
 	private String h_using;
-	
-
 	public String getH_id() {
 		return h_id;
 	}
@@ -59,6 +57,7 @@ public class HandlerUseDTO {
 	public void setH_using(String h_using) {
 		this.h_using = h_using;
 	}
+	
 	
 	
 	
