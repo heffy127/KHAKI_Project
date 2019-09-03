@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import co.kr.khaki.member.AuthNumber;
 import co.kr.khaki.member.HashingPw;
@@ -28,8 +29,9 @@ public class MemberController {
 	MemberDAO memberDAO;
 	
 	@RequestMapping("profile.do")
-	public String member() {
-		
+	public String member(MemberDTO memberDTO, Model model, HttpSession session) {
+		memberDTO = memberDAO.selectId_Member((String)session.getAttribute("sessionId"));
+		model.addAttribute("memberDTO", memberDTO);
 		return "member/profile";
 	}
 	
@@ -348,6 +350,13 @@ public class MemberController {
 		System.out.println("회원삭제 id " + memberDTO.getId());
 		memberDAO.deleteMember(memberDTO.getId()); // 회원정보 삭제
 		
+		return "mypage/deleteMember_ok"; // ajax용
+	}
+	
+	@RequestMapping("profilePhotoUpload.do")
+	public String profilePhotoUpload(htt) {
+		 MultipartFile uploadfile = dto.getUploadfile();
+		 
 		return "mypage/deleteMember_ok"; // ajax용
 	}
 }

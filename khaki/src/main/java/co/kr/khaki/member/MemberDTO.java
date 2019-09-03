@@ -13,6 +13,7 @@ public class MemberDTO {
 	private String address1;
 	private String address2;
 	private String address3;
+	private int point;
 	private String smsPush;
 	private String emailPush;
 	private String useCount;
@@ -118,6 +119,14 @@ public class MemberDTO {
 
 	public void setAddress3(String address3) {
 		this.address3 = address3;
+	}
+	
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
 	}
 
 	public String getSmsPush() {
