@@ -401,7 +401,7 @@
           	  			</tr>
           	  		</table>
           	  	</div>
-          	  	<input type="hidden" id="firsr_amount" value="10"> <!-- confirm페이지에서 처음들어온 금액 -->
+          	  	<input type="hidden" id="firsr_amount" value="${payDTO.buy_amount }"> <!-- confirm페이지에서 처음들어온 금액 -->
           	  	<form action="couponConfirm.do" id="couponFrm" name="couponFrm">
 	          	  	<input type="hidden" id="cp_id" name="cp_id" value="${sessionId }">
 	          	  	<input type="hidden" id="cp_title" name="cp_title" value=" ">

@@ -104,7 +104,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <a href="../index.html">
-                <img src="resources/assets/img/brand/khaki_logo.png">
+                <img src="resources/assets/img/brand/khaki2.png">
               </a>
             </div>
             <div class="col-6 collapse-close">

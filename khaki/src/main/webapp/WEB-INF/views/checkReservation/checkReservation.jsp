@@ -107,15 +107,15 @@
           	<%
             	int i = 0;
            	%>
-          	<c:forEach var="pdto" items="${plist}">
+          	<c:forEach var="pdto" varStatus="status" items="${plist}">
             	<c:if test="${pdto.buy_id eq sessionId}">
           			<div class="confirm_area">
           	  			<div class="confirm_content">
           					<table class="c_content">
                   				<tr><!-- ddddd -->
-          	  						<td rowspan="6" style="width: 30%;"><img style="width: 100%;" src="http://www.top-rider.com/news/photo/201803/26912_85506_4812.jpg"></td>
+          	  						<td rowspan="6" style="width: 20%;"><img style="width: 100%;" src="${carImage.get(status.index)}"></td>
           	  						<td class="c_content_1">차량번호 : </td>
-          	  						<td class="c_content_2" style="width: 15%;" id="confirm_carNum">${pdto.buy_carNum }</td>
+          	  						<td class="c_content_2" style="width: 20%;" id="confirm_carNum">${pdto.buy_carNum }</td>
           	  						<td class="c_content_1">차종 : </td>
           	  						<td class="c_content_2" id="confirm_carModel">${pdto.buy_carIns }</td>
           	  					</tr>
@@ -142,9 +142,16 @@
           	  					</tr>
           	  					<tr>
           	  						<td class="c_content_1">결제금액 : </td>
-          	  						<td class="c_content_2" id="amount_div<%= i %>"><img style="width: 15%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_amount">${pdto.buy_amount }</div>원</td>
+          	  						<td class="c_content_2"><img style="width: 15%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_amount">${pdto.buy_amount }</div>원</td>
           	  						<td class="c_content_1">추가금액 : </td>
           	  						<td class="c_content_2"><img style="width: 9.3%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_addAmount">${pdto.buy_addAmount }</div>원</td>
+          	  					</tr>
+          	  					<tr>
+          	  						<td></td>
+          	  						<td></td>
+          	  						<td id="amount_div<%= i %>"></td>
+          	  						<td></td>
+          	  						<td></td>
           	  					</tr>
           	  					<tr>
           	  						<td></td>
