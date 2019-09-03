@@ -39,6 +39,9 @@
  	<link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
 	<!-- CSS Files -->
  	<link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+ 	<!-- CSS Font -->
+ 	<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Gugi&display=swap&subset=korean" rel="stylesheet">
+ 	
 </head>
 <body>
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
@@ -350,10 +353,10 @@
             	<div class="row">
             		<div class="col col-sm">
             			<div class="row">
-            				<div class="col col-sm-6">
-            					<img id="car_img" src="resources/assets/img/car/${cmdto.img}" />
+            				<div class="col col-sm-6" style="text-align: center;">
+            					<img style="position: absolute; top:0; left:0; width: 400px; height:100%;" id="car_img" src="resources/assets/img/car/${cmdto.img}" />
             				</div>
-            				<div class="col col-sm-6">
+            				<div class="col col-sm-6" style="font-family: 'Gugi', cursive;">
 	            					<div class="row">	<!-- row - col - row - 또 분할한 것 -->
 	            						<div class="col col-sm-12">
 	            							<table>

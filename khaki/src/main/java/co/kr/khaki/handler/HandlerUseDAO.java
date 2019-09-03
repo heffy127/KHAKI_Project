@@ -1,5 +1,7 @@
 package co.kr.khaki.handler;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,6 +20,11 @@ public class HandlerUseDAO {
 	public void delete(HandlerUseDTO HandlerUseDTO) {
 		System.out.println("HanlderUseDAO delete!");
 		my.delete("huDAO.delete", HandlerUseDTO);
+	}
+	
+	public List<HandlerUseDTO> select(String h_id) {
+		System.out.println("HanlderDAO select!");
+		return my.selectList("huDAO.select", h_id);
 	}
 	
 }

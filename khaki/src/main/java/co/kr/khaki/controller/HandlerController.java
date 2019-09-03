@@ -103,13 +103,22 @@ public class HandlerController {
 		return "handler/handlerUseCountCheck";
 	}
 	
-	
+	// 핸들러 게시판에서 신청하기 버튼 누를 때마다 handleruse db에 insert
 	@RequestMapping("handlerUse.do")
-	public String handlerUse(HandlerUseDTO handlerUseDTO) {
+	public String handlerUse(HandlerUseDTO handlerUseDTO, Model model) {
 		System.out.println("hudao Insert~");
         hudao.insert(handlerUseDTO);
-		
+        
 		return "handler/handlerUse";
+	}
+	
+	@RequestMapping("handlerUseSelect.do")
+	public String handlerUseSelect(String h_id, Model model) {
+        System.out.println("handlerUse select 시작");
+        List<HandlerUseDTO> hu = hudao.select(h_id);
+        model.addAttribute("hulist", hu);
+		
+		return "handler/handlerUseSelect";
 	}
 	
 	@RequestMapping("handlerDelete.do")

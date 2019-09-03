@@ -36,6 +36,7 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <!-- jquery -->
   <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+<<<<<<< HEAD
 <script type="text/javascript">
 	$(document).ready(
 			function() {
@@ -59,6 +60,8 @@
 			})
 	
 </script>
+=======
+>>>>>>> branch 'master' of https://github.com/heffy127/KHAKI_Project.git
 </head>
 
 <body class="">
@@ -395,7 +398,7 @@
                      
                      <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
                      
-                         <p class="description">tabs-icons-text-3-tab Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
+                         <iframe src="handlerUseSelect.do?h_id=${sessionId }" style="width: 100%; height: 1000px;" frameborder="0"></iframe>
                      </div>
                      
                      <div class="tab-pane fade" id="tabs-icons-text-4" role="tabpanel" aria-labelledby="tabs-icons-text-4-tab">

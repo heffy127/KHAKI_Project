@@ -5,11 +5,28 @@
 <mapper namespace="huDAO">
 
 	<insert id="insert" parameterType="huDTO">
-      INSERT INTO HANDLERUSE
-      VALUES(#{h_id},#{h_carNum},#{h_carModel},#{h_startLocation},#{h_returnLocation},#{h_complete},#{h_point},#{h_using})   <!-- 
-         oracle DB의 순서와 일치 시켜주어야한다! -->
-   </insert>
-   
-	
+		INSERT INTO HANDLERUSE
+		VALUES(#{h_id},#{h_carNum},#{h_carModel},#{h_startLocation},#{h_returnLocation},#{h_complete},#{h_point},#{h_using})   <!-- 
+			oracle DB의 순서와 일치 시켜주어야한다! -->
+	</insert>
+
+	<select id="select" parameterType="String" resultMap="rsMap">
+		SELECT *
+		FROM HANDLERUSE
+		WHERE H_ID = #{H_ID}
+	</select>
+
+	<resultMap type="huDTO" id="rsMap">
+		<result property="h_id" column="h_id" />
+		<result property="h_carNum" column="h_carNum" />
+		<result property="h_carModel" column="h_carModel" />
+		<result property="h_startLocation" column="h_startLocation" />
+		<result property="h_returnLocation" column="h_returnLocation" />
+		<result property="h_complete" column="h_complete" />
+		<result property="h_point" column="h_point" />
+		<result property="h_using" column="h_using" />
+	</resultMap>
+
+
 </mapper>
 

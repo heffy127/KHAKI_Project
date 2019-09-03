@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -49,10 +50,38 @@
 				
 			})	
 			
+			// 상위 차량 요약 내용
+			var cmlist_size= "${fn:length(cmlist)}";
+			var junggolist_size = "${fn:length(junggolist)}";
+			var oldlist_size = "${fn:length(oldlist)}";
+			
+			var normal = cmlist_size - junggolist_size - oldlist_size;
+			
+			var normal_percentage = normal / cmlist_size * 100;
+			
+			var junggolist_percentage = junggolist_size / cmlist_size * 100;
+			
+			var oldlist_percentage = oldlist_size / cmlist_size * 100;
+			
+			alert(normal_percentage + " / "+junggolist_percentage + " / "+oldlist_percentage);
+			alert(cmlist_size +"/"+junggolist_size +"/"+oldlist_size + "/" + normal);
+			alert(junggolist_percentage.toFixed(2));
+			
+			//정상운행
+			$(".normal").children(".row").children(".col").children("span").text(normal+"대");
+			$(".normal").children("p").children(".mr-2").text(normal_percentage.toFixed(2)+"%");
+			
+			//노후차량
+			$(".old").children("p").children(".mr-2").text(oldlist_percentage.toFixed(2)+"%");
+			
+			//중고차량(판매가능)
+			$(".junggo").children("p").children(".mr-2").text(junggolist_percentage.toFixed(2)+"%");
+			
+			
 			
 		});	//Jquery End
 	</script>
-
+			<!-- aaaaa -->
 	<!-- Favicon -->
   	<link href="resources/assets/img/brand/favicon.png" rel="icon" type="image/png">
   	<!-- Fonts -->
@@ -62,6 +91,9 @@
  	<link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
 	<!-- CSS Files -->
  	<link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+ 	<!-- CSS Font -->
+ 	<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Gugi&display=swap&subset=korean" rel="stylesheet">
+ 	
 </head>
 <body>
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
@@ -72,7 +104,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="home.do">
-        <img src="resources/assets/img/brand/khaki_logo.png" class="navbar-brand-img" alt="...">
+        <img src="resources/assets/img/brand/khaki2.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -268,6 +300,7 @@
     <!-- End Navbar -->
     <!-- Header -->
     <!-- 관리 차량에 대한 개략적인 정보 -->
+    <!-- 총차량수 : selectAll해온 size, 운행차량 = 총차량수 - 노후차량 - 중고차량,   -->
     <div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
       <div class="container-fluid">
         <div class="header-body">
@@ -279,70 +312,29 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">총차량수</h5>
-                      <span class="h2 font-weight-bold mb-0">100대</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                        <i class="fas fa-chart-bar"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">운행차량</h5>
-                      <span class="h2 font-weight-bold mb-0">80대</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="fas fa-chart-pie"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last week</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">노후차량</h5>
-                      <span class="h2 font-weight-bold mb-0">5대</span>
+                      <span class="h2 font-weight-bold mb-0">${fn:length(cmlist)}대</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-car"></i>
                       </div>
                     </div>
+                    <p></p>
                   </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                    <span class="text-nowrap">Since yesterday</span>
-                  </p>
+                  <!-- <p class="mt-3 mb-0 text-muted text-sm">
+                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    <span class="text-nowrap">Since last month</span>
+                  </p> -->
                 </div>
               </div>
             </div>
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
+                <div class="card-body normal">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">중고차량(판매가능)</h5>
-                      <span class="h2 font-weight-bold mb-0">15대</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">정상운행</h5>
+                      <span class="h2 font-weight-bold mb-0">00대</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -351,7 +343,49 @@
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
+                    <span class="text-success mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
+                    <span class="text-nowrap">Since last week</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body old">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">노후차량</h5>
+                      <span class="h2 font-weight-bold mb-0">${fn:length(oldlist)}대</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                        <i class="fas fa-percent"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
+                    <span class="text-nowrap">Since yesterday</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body junggo">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">중고차량(판매가능)</h5>
+                      <span class="h2 font-weight-bold mb-0">${fn:length(junggolist)}대</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                        <i class="fas fa-percent"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                    <span class="text-warning mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
                     <span class="text-nowrap">Since last month</span>
                   </p>
                 </div>
@@ -378,7 +412,9 @@
             	<div class="row">
             		<div class="col col-sm-12">
             		<!-- list up 메뉴 -->
-            			<div class="row">
+            			<div class="row" style="border-bottom-style: solid; border-bottom-color: #158c68; border-bottom-width: 3px;
+            			 border-top-style: solid; border-top-color: #158c68; border-top-width: 3px;
+            			vertical-align: middle; height: 50px; line-height:50px; font-family: 'Black Han Sans', sans-serif;">
             				<div class="col" align="center">
             					카키차량번호
             				</div>
@@ -407,41 +443,43 @@
             					등록일시
             				</div>
             			</div>
-            			<br>
             			<!-- list up 내용 -->
             			<!-- jstl로 조절할 수 없을까? 방법 찾아보기 -->
             			<!-- 현재는 전체 리스트를 다 뽑아오게끔 되어 있음 -->
             			<% pagination pg = (pagination)request.getAttribute("pagination"); %>
             			<c:forEach var="cmdto" items="${cmlist}" varStatus="status" begin="<%= pg.getStartIndex() %>" end="<%= pg.getEndIndex() %>">
-            			<div class="row row_carlist" style="border: 1; border-style: inset; vertical-align: middle;">
+            			<div class="row row_carlist" style="border-bottom-style: ridge; border-bottom-color: #158c68; border-bottom-width: 3px; vertical-align: middle;
+            			font-family: 'Gugi', cursive;">
             				<%-- ${status.count }
             				${status.index } --%>
-            				<div class="col" style="text-align: center;">
+            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
             					${cmdto.khaki_num }
             				</div>
-            				<div class="col car_num" align="center">
+            				<div class="col car_num" style="text-align: center; height:100px; line-height:100px;">
             					${cmdto.carnum }
             				</div>
-            				<div class="col" align="center">
-            					<img src="http://placehold.it/100" />
+            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+            					<img style="position: absolute; top:0; left:0; width: 140px; height:100%;" src="resources/assets/img/car/${cmdto.img }" />
             				</div>
-            				<div class="col" align="center">
+            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
             					${cmdto.distance }KM
             				</div>
-            				<div class="col" align="center">
+            				<div class="col"  style="text-align: center; height:100px; line-height:100px;">
             					${cmdto.fuel }
             				</div>
-            				<div class="col" align="center">
+            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
             					${cmdto.brand }
             				</div>
-            				<div class="col" align="center">
+            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
             					${cmdto.car_size }
             				</div>
-            				<div class="col" align="center">
+            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
             					${cmdto.carname }
             				</div>
-            				<div class="col" align="center">
-            					${cmdto.reg_date }
+            				<div class="col" style="text-align: center; height:50px; line-height:50px;">
+            					<div>
+            						${cmdto.reg_date }
+            					</div>
             				</div>
             			</div>
             			</c:forEach>
