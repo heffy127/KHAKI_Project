@@ -199,6 +199,11 @@
               <i class="ni ni-collection text-green"></i> CheckReservation
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link " href="cctv.do">
+              <i class="ni ni-image text-black"></i> CCTV
+            </a>
+          </li>
          </ul>
         <!-- Divider -->
         <hr class="my-3">
