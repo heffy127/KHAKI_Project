@@ -360,7 +360,7 @@ public class MemberController {
 	
 	// 프로필 사진 업로드
 	@RequestMapping("photoUpload.do")
-	public String photoUpload(MemberDTO memberDTO,MultipartHttpServletRequest mpRequest, Model model) {
+	public String photoUpload(MemberDTO memberDTO,MultipartHttpServletRequest mpRequest, Model model, HttpSession session) {
 		System.out.println(memberDTO.getId());
 		Calendar today = Calendar.getInstance();
 		SimpleDateFormat sd = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -382,7 +382,7 @@ public class MemberController {
 		memberDAO.updatePhoto(memberDTO);
 		memberDTO = memberDAO.selectId_Member(memberDTO.getId());
 		model.addAttribute("memberDTO", memberDTO);
-		
+		session.setAttribute("sessionPhoto", memberDTO.getPhoto()); // 프로필 사진 세션 교체
 		return "member/profile"; // ajax용
 	}
 

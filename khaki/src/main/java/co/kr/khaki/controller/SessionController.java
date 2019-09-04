@@ -11,7 +11,7 @@ import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.member.MemberDTO;
 
 @Controller
-@SessionAttributes({"sessionId","sessionName"}) // 세션 생성
+@SessionAttributes({"sessionId","sessionName","sessionPhoto"}) // 세션 생성
 public class SessionController {
 
 	@Autowired
@@ -22,6 +22,7 @@ public class SessionController {
 		memberDTO = memberDAO.selectId_Member(memberDTO.getId());
 		model.addAttribute("sessionId", memberDTO.getId());
 		model.addAttribute("sessionName", memberDTO.getName());
+		model.addAttribute("sessionPhoto", memberDTO.getPhoto());
 		
 		return "home/index";
 	}
