@@ -32,7 +32,7 @@ public class SessionController {
 		memberDTO = memberDAO.selectId_Member(memberDTO.getId());
 		model.addAttribute("sessionId", memberDTO.getId());
 		model.addAttribute("sessionName", memberDTO.getName());
-		
+		model.addAttribute("sessionPhoto", memberDTO.getPhoto());
 		return "member/profile";
 	}
 	

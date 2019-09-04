@@ -40,29 +40,23 @@
 <script type="text/javascript">
    $(document).ready(
          function() {
-            
-            var divChanger = 0
-            
-            $('#profilePhotoBtn').click( // 마이페이지 사진 눌렀을때
-               function() {
-                  if(divChanger == 0){ // 프로필 사진 변경 보이기
-                     $('.infoDiv').hide()
-                     $('.photoDiv').show()
-                     
-                     divChanger = 1               
-                  } else { // 내 정보 보이기
-                     $('.photoDiv').hide()
-                     $('.infoDiv').show()
-                     $('#photoReset').click()
-                     divChanger = 0      
-                  }
-               })
-            
-               
-           	$('#photoSubmit').click( // 변경버튼 눌렀을때
-           			function() {
+        	 
+        	$('#profilePhotoBtn').click(
+        			function() {
+						$('#file').click()
+					})
+        	
+       		$('#file').change(
+	          function() {
+				$('#photoSubmit').click()
+			}) 
+           	
+			$('#photoSubmit').click(
+					function() {
 						if(confirm("프로필 사진을 변경하시겠습니까?")){
 							$('#photoF').submit()
+						} else {
+							$('#photoReset').click()
 						}
 					})
             
@@ -314,12 +308,9 @@
                 <div class="card-profile-image" >
                      <a href="#none" id="profilePhotoBtn">
                        <img src="${memberDTO.photo}"
-                        class="rounded-circle" id="photoImg"  
-                        data-toggle="tooltip" data-placement="top" title="프로필 사진&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;내 정보">
+                        class="rounded-circle" id="photoImg"
+                        data-toggle="tooltip" data-placement="top" title="프로필 사진을 변경하려면 클릭!">
                      </a>
-                     <div style="display: none !important;">
-                        <input type="file" name="file" id="file"/>
-                     </div>          
                 </div>
                 
                 
@@ -343,23 +334,24 @@
                          <span class="heading">89</span>
                          <span class="description">현재 예약</span>
                        </div>
-                       <div class="photoDiv" style="display: none !important">
+                       <!-- 이미지 파일 선택창 숨김 -->
                           <form name="photoF" id="photoF" action="photoUpload.do?id=${memberDTO.id}" enctype="multipart/form-data" method="post">
-                             <table>
-                                <tr>
-                                   <td>
-                                      <input type="file" id="file" name="file">
-                                   </td>
-                                   <td>
-                                      <input type="button" value="변경" id="photoSubmit">
-                                   </td>
-                                   <td>
-                                      <input type="reset" value="취소" style="display: none;" id="photoReset">
-                                   </td>
-                                </tr>
-                             </table>
+		                       <div class="photoDiv" style="display: none;">
+		                             <table>
+		                                <tr>
+		                                   <td>
+		                                      <input type="file" id="file" name="file" accept=".gif, .jpg, .png, .jpeg">
+		                                   </td>
+		                                   <td>
+		                                      <input type="button" value="변경" id="photoSubmit">
+		                                   </td>
+		                                   <td>
+		                                      <input type="reset" value="취소" style="display: none;" id="photoReset">
+		                                   </td>
+		                                </tr>
+		                             </table>
+		                       </div>
                           </form>
-                       </div>
                  </div>
                 </div>
               </div>
