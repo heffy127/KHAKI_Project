@@ -147,6 +147,7 @@
 							//이메일 체크박스 체크 안되어있을때
 							alert("이메일 정보 입력을 통해\nKHAKI에서 제공하는 다양한 혜택정보 수신과\n이메일을 통한 계정찾기 기능을 이용하실 수 있습니다.")
 							$('#email_id').val("")
+							$('#email_site').val("")
 							$('#email_id').attr('disabled',true)
 							$('#email_site').attr('disabled',true)
 							$('#email_select').attr('disabled',true)

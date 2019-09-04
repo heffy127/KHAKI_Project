@@ -36,32 +36,40 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <!-- jquery -->
   <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
-<<<<<<< HEAD
+
 <script type="text/javascript">
-	$(document).ready(
-			function() {
-				
-				$('#profilePhotoBtn').click(
-					function() {
-						$('#file').click()
-					})
-				
-				$('#p').click(function() {
-					$.ajax({
-						type : 'POST',
-						url: 'loginCheck.do',
-						data: d,
-						success: function(result){
-							
+   $(document).ready(
+         function() {
+            
+            var divChanger = 0
+            
+            $('#profilePhotoBtn').click( // 마이페이지 사진 눌렀을때
+               function() {
+                  if(divChanger == 0){ // 프로필 사진 변경 보이기
+                     $('.infoDiv').hide()
+                     $('.photoDiv').show()
+                     
+                     divChanger = 1               
+                  } else { // 내 정보 보이기
+                     $('.photoDiv').hide()
+                     $('.infoDiv').show()
+                     $('#photoReset').click()
+                     divChanger = 0      
+                  }
+               })
+            
+               
+           	$('#photoSubmit').click( // 변경버튼 눌렀을때
+           			function() {
+						if(confirm("프로필 사진을 변경하시겠습니까?")){
+							$('#photoF').submit()
 						}
-					})			
-				})
-					
-			})
-	
+					})
+            
+         })
+   
 </script>
-=======
->>>>>>> branch 'master' of https://github.com/heffy127/KHAKI_Project.git
+
 </head>
 
 <body class="">
@@ -301,17 +309,20 @@
           <div class="card card-profile shadow">
             <div class="row justify-content-center">
               <div class="col-lg-3 order-lg-2">
+              
                 <!-- 프로필 이미지 -->
-                <div class="card-profile-image">
-                	<form action="profilePhotoUpload.do" method="post" enctype="multipart/form-data">
-	                  <a href="#none" id="profilePhotoBtn">
-	                    <img src="resources/assets/img/theme/team-4-800x800.jpg" class="rounded-circle" id="photoZone">
-	                  </a>
-	                  <div style="display: none !important;">
-	                  	<input type="file" name="file" id="file"/>
-	                  </div>
-					</form>                
+                <div class="card-profile-image" >
+                     <a href="#none" id="profilePhotoBtn">
+                       <img src="${memberDTO.photo}"
+                        class="rounded-circle" id="photoImg"  
+                        data-toggle="tooltip" data-placement="top" title="프로필 사진&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;내 정보">
+                     </a>
+                     <div style="display: none !important;">
+                        <input type="file" name="file" id="file"/>
+                     </div>          
                 </div>
+                
+                
               </div>
             </div>
             <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
@@ -320,20 +331,36 @@
               <div class="row">
                 <div class="col">
                   <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-                    <div>
-                      <span class="heading">${memberDTO.point}</span>
-                      <button id="p">a</button>
-                      <span class="description">포인트</span>
-                    </div>
-                    <div>
-                      <span class="heading">10</span>
-                      <span class="description">내가 쓴 글</span>
-                    </div>
-                    <div>
-                      <span class="heading">89</span>
-                      <span class="description">현재 예약</span>
-                    </div>
-                  </div>
+                       <div class="infoDiv" style="margin: 0px 0px 0px 8px;">
+                         <span class="heading">${memberDTO.point}</span>
+                         <span class="description">포인트</span>
+                       </div>
+                       <div class="infoDiv" style="margin: 0px 0px 0px 8px;">
+                         <span class="heading">10</span>
+                         <span class="description">내가 쓴 글</span>
+                       </div>
+                       <div class="infoDiv" style="margin: 0px 0px 0px 8px;">
+                         <span class="heading">89</span>
+                         <span class="description">현재 예약</span>
+                       </div>
+                       <div class="photoDiv" style="display: none !important">
+                          <form name="photoF" id="photoF" action="photoUpload.do?id=${memberDTO.id}" enctype="multipart/form-data" method="post">
+                             <table>
+                                <tr>
+                                   <td>
+                                      <input type="file" id="file" name="file">
+                                   </td>
+                                   <td>
+                                      <input type="button" value="변경" id="photoSubmit">
+                                   </td>
+                                   <td>
+                                      <input type="reset" value="취소" style="display: none;" id="photoReset">
+                                   </td>
+                                </tr>
+                             </table>
+                          </form>
+                       </div>
+                 </div>
                 </div>
               </div>
               <div class="text-center">

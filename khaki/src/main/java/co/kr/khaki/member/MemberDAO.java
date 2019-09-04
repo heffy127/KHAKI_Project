@@ -128,6 +128,11 @@ public class MemberDAO {
 		my.update("memberDAO.updatePush", memberDTO);
 		System.out.println("마케팅 변경 성공");
 	}
+	
+	public void updatePhoto(MemberDTO memberDTO) {
+		my.update("memberDAO.updatePhoto", memberDTO);
+		System.out.println("프사 변경 성공");
+	}
 
 	public void updateHandler(HandlerStatusDTO hsDTO) {
 		my.update("memberDAO.updateHandler", hsDTO);
