@@ -25,6 +25,7 @@ public class PayDTO {
 	private String buy_accident; // 고객 이용 중 사고 접수내용
 	private String buy_coupon; // 고객이 사용한 쿠폰
 	private String buy_discount; // 쿠폰으로 할인 받은 금액
+	private String buy_burum; // 부름서비스 이용여부
 	private String buy_impUid; // 아임포트 거래고유번호(주문번호)
 	
 	
@@ -130,12 +131,6 @@ public class PayDTO {
 	public void setBuy_accident(String buy_accident) {
 		this.buy_accident = buy_accident;
 	}
-	public String getBuy_impUid() {
-		return buy_impUid;
-	}
-	public void setBuy_impUid(String buy_impUid) {
-		this.buy_impUid = buy_impUid;
-	}
 	public String getBuy_coupon() {
 		return buy_coupon;
 	}
@@ -148,6 +143,20 @@ public class PayDTO {
 	public void setBuy_discount(String buy_discount) {
 		this.buy_discount = buy_discount;
 	}
+	public String getBuy_burum() {
+		return buy_burum;
+	}
+	public void setBuy_burum(String buy_burum) {
+		this.buy_burum = buy_burum;
+	}
+	public String getBuy_impUid() {
+		return buy_impUid;
+	}
+	public void setBuy_impUid(String buy_impUid) {
+		this.buy_impUid = buy_impUid;
+	}
+	
+	
 
 	
 	

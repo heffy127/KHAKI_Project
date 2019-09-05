@@ -54,6 +54,8 @@ public class PayController {
       @RequestMapping("payResult.do")
          public String payResult(PayDTO payDTO) {
             System.out.println("PayDAO Insert~");
+            System.out.println(payDTO.getBuy_startTime() + "aaaaaaaaaaa");
+            System.out.println(payDTO.getBuy_endTime() + "aaaaaaaaaaa");
             pdao.insert(payDTO);
             return "pay/payResult";
          }

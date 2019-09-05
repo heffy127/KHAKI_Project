@@ -139,6 +139,7 @@ create table reservation ( -- 모든 예약정보
    buy_accident varchar2(20),
    buy_coupon varchar2(50),
    buy_discount varchar2(20),
+   buy_burum char(1),
    buy_impUid varchar2(50)
 )
 
@@ -234,18 +235,27 @@ create table couponUse (
 	cp_id varchar2(20), -- 쿠폰 다운받은 사용자 sessionId
 	cp_title varchar2(20), -- 쿠폰 이름
 	cp_type char(1), -- 쿠폰종류(퍼센트 할인, 금액할인 구분. P일경우 퍼센트 M일 경우 금액할인)
-	cp_per number(20), -- 퍼센트할인 쿠폰(몇퍼센트인지)
-	cp_mon number(20), --금액할인 쿠폰(몇원인지)
-	cp_end varchar2(20) -- 쿠폰 유효기간 마감날짜(해당 DTO 호출할 때 유효기간 마감날짜가 이미 지났을 경우 해당 쿠폰 삭제)
+	cp_num number(20), -- 얼마만큼 할인인지
+	cp_end varchar2(20), -- 쿠폰 유효기간 마감날짜
+	cp_using char(1) -- 쿠폰 사용 여부(Y, N으로 구분)
 )
 
-insert into couponUse values('rlgus1232','1원 할인쿠폰!!','M',,1,'19.09.20');
-insert into couponUse values('rlgus1232','2원 할인쿠폰!!','M',,2,'19.09.15');
-insert into couponUse values('rlgus1232','3원 할인쿠폰!!','M',,3,'19.08.30');
-insert into couponUse values('rlgus1232','4원 할인쿠폰!!','M',,4,'19.08.28');
-insert into couponUse values('rlgus1232','5원 할인쿠폰!!','M',,5,'19.08.25');
-insert into couponUse values('rlgus1232','6원 할인쿠폰!!','M',,6,'19.08.24');
-insert into couponUse values('rlgus1232','7원 할인쿠폰!!','M',,7,'19.09.22');
-insert into couponUse values('rlgus1232','8원 할인쿠폰!!','M',,8,'19.09.04');
-insert into couponUse values('rlgus1232','9원 할인쿠폰!!','M',,9,'19.09.11');
-insert into couponUse values('rlgus1232','10원 할인쿠폰!!','M',,10,'19.09.11');
+insert into couponUse values('rlgus1232','1원 할인쿠폰!!','M',1,'19.09.20','N');
+insert into couponUse values('rlgus1232','2원 할인쿠폰!!','M',2,'19.09.15','N');
+insert into couponUse values('rlgus1232','3원 할인쿠폰!!','M',3,'19.08.30','N');
+insert into couponUse values('rlgus1232','4원 할인쿠폰!!','M',4,'19.08.28','N');
+insert into couponUse values('rlgus1232','5원 할인쿠폰!!','M',5,'19.08.25','N');
+insert into couponUse values('rlgus1232','6원 할인쿠폰!!','M',6,'19.08.24','N');
+insert into couponUse values('rlgus1232','7원 할인쿠폰!!','M',7,'19.09.22','N');
+insert into couponUse values('rlgus1232','8원 할인쿠폰!!','M',8,'19.09.04','N');
+insert into couponUse values('rlgus1232','9원 할인쿠폰!!','M',9,'19.09.11','N');
+insert into couponUse values('rlgus1232','2% 할인쿠폰!!','P',2,'19.09.11','N');
+insert into couponUse values('rlgus1232','4% 할인쿠폰!!','P',4,'19.09.01','N');
+insert into couponUse values('rlgus1232','6% 할인쿠폰!!','P',6,'19.09.11','N');
+insert into couponUse values('rlgus1232','8% 할인쿠폰!!','P',8,'19.09.03','N');
+insert into couponUse values('rlgus1232','10% 할인쿠폰!!','P',10,'19.09.11','N');
+insert into couponUse values('rlgus1232','12% 할인쿠폰!!','P',12,'19.09.02','N');
+insert into couponUse values('rlgus1232','14% 할인쿠폰!!','P',14,'19.09.11','N');
+insert into couponUse values('rlgus1232','16% 할인쿠폰!!','P',16,'19.09.11','N');
+insert into couponUse values('rlgus1232','18% 할인쿠폰!!','P',18,'19.09.11','N');
+insert into couponUse values('rlgus1232','20% 할인쿠폰!!','P',20,'19.09.11','N');

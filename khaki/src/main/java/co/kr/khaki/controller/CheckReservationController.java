@@ -41,7 +41,7 @@ public class CheckReservationController {
 			}
 			System.out.println(dto.getBuy_carNum() + " 차번호 확인ㄴㄴㄴㄴ");
 			CarDTO cdto = cdao.carNumSearch((String)dto.getBuy_carNum());
-			System.out.println(cdto.getCar_image() + " 차이미지이이이이");
+			System.out.println(cdto + " 차이미지이이이이");
 			carImageList.add(cdto.getCar_image());
 			System.out.println("최종!!!!! 이 부분이 나와야 함");
 		}

@@ -52,12 +52,7 @@
 	    index *= 1;
 	    for (var i = 0; i < index; i++) {
 	    	var confirm_endTime = $("#confirm_endTime"+i).text();
-	    	confirm_endTime = confirm_endTime.split(".");
-	    	confirm_endTime[2] = confirm_endTime[2].split(" ");
-	    	end = confirm_endTime[0] + confirm_endTime[1] + confirm_endTime[2];
-	    	end = end.substring(0,6);
-	    	end *= 1;
-	    	confirm_endTime = Number(end);
+	    	confirm_endTime *= 1;
 	    	if(String(now).substring(2,4) == String(confirm_endTime).substring(2,4)) { // 현재 월과 결제한 월이 같을 경우 (ex. 현재=9월 결제=9월)
 	    		if((now - confirm_endTime) > 4) {
 		    	    $("#refund_btn"+i).attr("disabled", "disabled");
@@ -83,12 +78,21 @@
 	    			alert("환불 신청 db처리");
 	    		}
 	    	})
-	    	
+			$("#amount_div"+i).append("  <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
 	    	if($("#db_discount"+i).val() == ""){
-				
-			} else {
-				$("#amount_div"+i).append("  <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
+	    		$("#amount_div"+i).remove();
 			}
+	    	
+	    	var startTime = $("#confirm_startTime"+i).text();
+	  		var endTime = $("#confirm_endTime"+i).text();
+	  		startTime = startTime.split("");
+	  		endTime = endTime.split("");
+	  		startTime = startTime[0]+startTime[1]+"."+startTime[2]+startTime[3]+"."+startTime[4]+startTime[5]+" "+startTime[6]+startTime[7]+":"+startTime[8]+startTime[9];
+	  		endTime = endTime[0]+endTime[1]+"."+endTime[2]+endTime[3]+"."+endTime[4]+endTime[5]+" "+endTime[6]+endTime[7]+":"+endTime[8]+endTime[9];
+	  		$("#confirm_startTime"+i).text(startTime);  		
+	  		$("#confirm_endTime"+i).text(endTime);
+	  		
+	  		
 	    }
 		
 		if($("#confirm_carNum").text() == "") {
@@ -104,12 +108,14 @@
 		$("#craDiv").click(function(){
 			window.parent.location.href = "map.do";
 		})
-
 		
-	    //aaaaaaa
+		
 	})
 	    	
+	
+	
   </script>
+  
 </head>
 
 <body class="">
@@ -176,12 +182,12 @@
           	  						</td>
           	  					</tr>
               				 </table>
+          					 <input type="hidden" id="db_discount<%= i %>" value="${pdto.buy_discount }">
               				 <%
           	  					i += 1;
           	  				 %>
           				</div>
           			</div>
-          			<input type="hidden" id="db_discount<%= i %>" value="${pdto.buy_discount }">
 				</c:if>
 			</c:forEach>
 			<input type="hidden" id="i_storage" value="<%= i %>">

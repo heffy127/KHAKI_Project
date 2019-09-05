@@ -1,3 +1,4 @@
+<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -8,6 +9,11 @@
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3010ba59fe5cb4ef476a120272fd67f0"></script>
 <style>
+select{
+   width: 19%;
+   height: 60px;
+   text-align: center;
+}
 .wrap {
    position: absolute;
    left: 0;
@@ -119,6 +125,8 @@
 <title>1등 카셰어링, khaki</title>
 <%
 String sessionId = (String)session.getAttribute("sessionId");
+int strTimeCheck = 0;
+int endTimeCheck = 0;
 %>
 <input id="selectZoneNum" type ="hidden" value='${selectZoneNum}'>
 <input id="sessionId" type ="hidden" value=<%=sessionId%>>
@@ -131,8 +139,6 @@ String sessionId = (String)session.getAttribute("sessionId");
 
 <!-- ajax  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- 데이트피커 -->
-
 <!-- 주소 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <!-- Favicon -->
@@ -179,7 +185,6 @@ String sessionId = (String)session.getAttribute("sessionId");
 </script>
 <!-- modal 닫기, 시간/차량/보험 정보 변수 -->
 <script type="text/javascript"> 
-
    function burumClose1() { // 부름 장소설정 , 다음 눌렀을 때 부름 금액 크롤링하여 다음 모달에 보여줌
       $('#burum1').modal("hide"); //닫기 
       var number = parseInt($('#zoneNumber').val());
@@ -208,6 +213,11 @@ String sessionId = (String)session.getAttribute("sessionId");
    }
    function modalClose() {
       $('#reservation').modal("hide"); //닫기 
+      var eeee = parseInt($('#zoneNumber').val());
+      var buy_startLocation = zone_addr[eeee];
+      $('#sample5_address').val(buy_startLocation);
+      $('input[name=buy_returnLocation]').val(buy_startLocation);
+      
    }
    function modalClose_1() {
       $('#reservation').modal("hide"); //닫기
@@ -246,6 +256,7 @@ String sessionId = (String)session.getAttribute("sessionId");
 </script>
 <!-- 조건 입력 후 ajax  -->
 <script type="text/javascript">
+
    var selectZoneNum1 = $('#selectZoneNum').val();
    // 세션에 들어있는 존 번호 나열(string)을 가져옴
    var selectZoneNum2 = selectZoneNum1.split(",");
@@ -257,6 +268,146 @@ String sessionId = (String)session.getAttribute("sessionId");
    }
    // 선택된 존 번호 배열로 맵에 마커를 나타냄
    // 맨 처음에는 모든 마커 나타내도록 되어있음
+   
+   
+   // 처음 접속시 현재시간으로 예약 시작시간 셋팅하기 위해--------
+   var d = new Date();
+   function rererere() {
+      $('#timeCheck').attr('disabled', true);
+   }
+   //---------------------------------------------------------------------------------------
+   
+   function leadingZeros(n, digits) {
+        var zero = '';
+        n = n.toString();
+
+        if (n.length < digits) {
+          for (var i = 0; i < digits - n.length; i++)
+            zero += '0';
+        }
+       return zero + n;
+   }
+   
+   
+   function strCheck1() { // 현재년도 보다 이를 경우 얼럿발생
+      var year0 = String(d.getFullYear());
+      var year = year0.substr(2,3);
+      var strY = $('#startYear').val();
+      if (parseInt(strY)<parseInt(year)) {
+         alert("현재시간 이후로 다시 선택해주세요.");
+         $('#startYear').val(year);
+      }
+   }
+   
+   function strCheck2() { // 현재월 보다 이를 경우 얼럿발생
+      var month = String(d.getMonth()+1);
+      month = leadingZeros(month,2);
+      var strY = $('#startMonth').val();
+      if (parseInt(strY)<parseInt(month)) {
+         alert("현재시간 이후로 다시 선택해주세요.");
+         $('#startMonth').val(month);
+      }
+   }
+   
+   function strCheck3() { // 현재일 보다 이를 경우 얼럿발생
+      var date = d.getDate();
+      date = leadingZeros(date,2);
+      var strY = $('#startDay').val();
+      if (parseInt(strY)<parseInt(date)) {
+         alert("현재시간 이후로 다시 선택해주세요.")
+         $('#startDay').val(date);
+      }
+   }
+   
+   function strCheck4() { // 현재 시간 보다 이를 경우 얼럿발생
+      var hour = d.getHours();
+      hour = leadingZeros(hour,2);
+      var strY = $('#startClock').val();
+      if (parseInt(strY)<parseInt(hour)) {
+         alert("현재시간 이후로 다시 선택해주세요.")
+         $('#startClock').val(hour);
+      }
+   }
+   
+   function strCheck5() { // 현재 분 보다 이를 경우 얼럿발생
+      
+      var allTime = $('#startYear').val() + $('#startMonth').val() + $('#startDay').val() + $('#startClock').val() + $('#startMin').val();
+   
+      var tempY = String(d.getFullYear());
+      tempY = tempY.substr(2,3); // "19"
+      
+      var tempM = d.getMonth()+1;
+      tempM = String(leadingZeros(tempM,2)); // "09"
+      
+      var tempD = d.getDate();
+      tempD = String(leadingZeros(tempD,2)); // "04"
+      
+      var tempH = d.getHours();
+      tempH = String(leadingZeros(tempH,2)); // "13"
+
+      var tempMs = d.getMinutes();
+      tempMs = String(leadingZeros(tempMs,2)); // "35"
+      
+      var allTimePre = tempY + tempM + tempD + tempH + tempMs;
+      
+      if(parseInt(allTimePre) < parseInt(allTime)){
+         
+      } else{
+         alert("현재 시간보다 빠릅니다. 다시 설정 하세요.")
+         $('#startMin').val("분");
+      }
+   }
+   
+   function endCheck1() { // 현재년도 보다 이를 경우 얼럿발생
+      var year = $('#startYear').val();
+      var strY = $('#endYear').val();
+      if (parseInt(strY)<parseInt(year)) {
+         alert("시작보다 이른 시간입니다. 다시 입력하세요.")
+         $('#endYear').val(year);
+      }
+   }
+   
+   function endCheck2() { // 현재년도 보다 이를 경우 얼럿발생
+      var month = $('#startMonth').val();
+      month = leadingZeros(month,2);
+      var strY = $('#endMonth').val();
+      if (parseInt(strY)<parseInt(month)) {
+         alert("시작보다 이른 시간입니다. 다시 입력하세요.")
+         $('#endMonth').val(month);
+      }
+   }
+   function endCheck3() { // 현재년도 보다 이를 경우 얼럿발생
+      var date = $('#startDay').val();
+      date = leadingZeros(date,2);
+      var strY = $('#endDay').val();
+      if (parseInt(strY)<parseInt(date)) {
+         alert("시작보다 이른 시간입니다. 다시 입력하세요.")
+         $('#endDay').val(date);
+      }
+   }
+   function endCheck4() { // 현재시간 보다 이를 경우 얼럿발생
+      var hour = $('#startClock').val();
+      hour = leadingZeros(parseInt(hour),2);
+      var strY = $('#endClock').val();
+      if (parseInt(strY)<hour) {
+         alert("시작보다 이른 시간입니다. 다시 입력하세요.")
+         $('#endClock').val(hour);
+      }
+   }
+   function endCheck5() {
+      var allTimeStr = $('#startYear').val() + $('#startMonth').val() + $('#startDay').val() + $('#startClock').val() + $('#startMin').val();
+      var allTimeEnd = $('#endYear').val() + $('#endMonth').val() + $('#endDay').val() + $('#endClock').val() + $('#endMin').val();
+      var allTime = parseInt(allTimeEnd) - parseInt(allTimeStr);
+      if(allTime <= 0){
+         alert("반납시간을 다시 설정해주세요. (시작시간보다 이르게 입력되었음)");
+         $('#endMin').val("분");
+         $('#timeCheck').attr('disabled', true);
+      } else{
+         $('#timeCheck').attr('disabled', false);
+      }
+   }
+   
+   
    function reset() {
       var zones = "0,1,2,3,4,5,6,7,8,9,";
       var buy_startTime = null;
@@ -267,9 +418,8 @@ String sessionId = (String)session.getAttribute("sessionId");
    function searchCar() { //reservation table에서 선택한 차량에 해당하는 건을 모두 가져옴
       $('#reservation3').modal("hide"); //닫기 
       var buy_carModel = $('#buy_carModel').val(); //선택된 차종
-      var buy_startTime = $('#startTime').val(); //입력된 시작시간
-      var buy_endTime = $('#endTime').val(); //입력된 반납시간
-      
+      var buy_startTime = $('#startYear').val() + $('#startMonth').val() + $('#startDay').val() + $('#startClock').val() + $('#startMin').val(); //입력된 시작시간
+      var buy_endTime = $('#endYear').val() + $('#endMonth').val() + $('#endDay').val() + $('#endClock').val() + $('#endMin').val(); //입력된 반납시간
       $.ajax({
          type : "GET",
          url : "search1.do",
@@ -325,6 +475,37 @@ String sessionId = (String)session.getAttribute("sessionId");
 </script>
 <!-- 조건에 맞는 차량번호, 존번호 ajax -->
 <script type="text/javascript">
+//숫자가 아닌 정규식
+var replaceNotInt = /[^0-9]/gi;
+
+$(document).ready(function(){
+    $("#startTime").on("focusout", function() {
+        var x = $(this).val();
+        if (x.length > 0) {
+            if (x.match(replaceNotInt)) {
+               x = x.replace(replaceNotInt, "");
+            }
+            $(this).val(x);
+        }
+    }).on("keyup", function() {
+        $(this).val($(this).val().replace(replaceNotInt, ""));
+    });
+});
+
+$(document).ready(function(){
+    $("#endTime").on("focusout", function() {
+        var x = $(this).val();
+        if (x.length > 0) {
+            if (x.match(replaceNotInt)) {
+               x = x.replace(replaceNotInt, "");
+            }
+            $(this).val(x);
+        }
+    }).on("keyup", function() {
+        $(this).val($(this).val().replace(replaceNotInt, ""));
+    });
+});
+
 function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모두 가져옴
                           // 존에 아무것도 없을 떄 오류남
    $("#carList").empty(); //기존에 있던 내용 지움
@@ -360,13 +541,14 @@ function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모�
             '<tr><td width="30%"><img alt="" src="'+x2[2]+'" width="80%"></td>'
             +'<td width="30%"><strong>'+x2[0]+'</strong></td>'
             +'<td width="30%">'+x2[4]+" / "+x2[1]+'% </td>'
-            +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#reservation" value="'+x3+'">'+x2[3]+'</button></td></tr>'
+            +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-primary" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'">'+x2[3]+'</button></td></tr>'
          );
       
          } 
       }
    })
 }
+
 $(document).on('click','#res_start', function () {
    var xxxx = $(this).attr("value");
    var xxxx2 = xxxx.split(",");
@@ -422,10 +604,6 @@ function reservation() {
    $('input[name=buy_carIns]').val(buy_ins);
    //---------------------- 해당차량 초기지불금액 계산 (대여비 + 보험료)
    var insFee = null;
-   if(buy_startLocation==null){
-      var eeee = parseInt($('#zoneNumber').val());
-      buy_startLocation = zone_addr[eeee];
-   }
    
    if(buy_ins=='스페셜'){
       insFee = 0.2;
@@ -453,7 +631,7 @@ function reservation() {
             var ww = data.split(",");
             var timeFee = parseInt(ww[0].trim());
             var carImage = ww[1].trim();
-            buy_amount = (timeFee*24*use_day)+(use_hour*timeFee)+(use_min*timeFee*(1/60)); 
+            buy_amount = (timeFee*24*use_day)+(use_hour*timeFee)+(use_min*timeFee*(1/60));
             buy_amount = parseInt(buy_amount + (buy_amount*insFee));   
             $('input[name=buy_amount]').val(buy_amount);
             $('input[name=buy_carImage]').val(carImage);
@@ -482,6 +660,7 @@ function reservation() {
    <input name="buy_startTime" type="hidden">
    <input name="buy_endTime" type="hidden">
    <input name="buy_startLocation" type="hidden">
+   <input name="buy_returnLocation" type="hidden">
    <input name="buy_amount" type="hidden">
    <input name="buy_carImage" type="hidden">
 </form>
@@ -685,7 +864,7 @@ function reservation() {
                      <div class="card-body" style="height: 100%">
                         <div class="row" style="height: 100%">
                            <!-- Button trigger modal -->
-                           <button type="button" class="btn btn-outline-default" style="font-weight: bold; font-size: 20px" data-toggle="modal" data-target="#reservation1">시간&차종 검색</button>
+                           <button type="button" class="btn btn-outline-default" style="font-weight: bold; font-size: 20px" data-toggle="modal" data-target="#reservation1" onclick="rererere()">시간&차종 검색</button>
                            <button type="button" class="btn btn-outline-default" style="font-weight: bold; font-size: 20px" onclick="reset()">설정초기화</button>
                            <!-------------------------------------------------->
                            <!-- 예약시간 선택 -->
@@ -701,20 +880,148 @@ function reservation() {
                                     </div>
                                     <div class="modal-body" style="width: 100%">
                                        <table style="width: 100%">
-                                          <tr>
+                                       <div>
+                                             <tr>
                                              <td>
-                                                시작시간 : <input class="form-control" type="text" id="startTime" placeholder="ex) 1907081930" />
+                                             <%
+                                                Calendar cal = Calendar.getInstance();
+                                                    
+                                                   //현재 년도, 월, 일
+                                                   String year = Integer.toString(cal.get ( cal.YEAR ));
+                                                   String month = Integer.toString(cal.get ( cal.MONTH ) + 1) ;
+                                                   String date = Integer.toString(cal.get ( cal.DATE )) ;
+                                                   String hour = Integer.toString(cal.get ( cal.HOUR_OF_DAY )) ;
+                                                   String min = Integer.toString(cal.get ( cal.MINUTE )) ;
+                                                   
+                                                   if(Integer.parseInt(month) < 10) {
+                                                      month = "0"+month;
+                                                   }
+                                                   
+                                                   if(Integer.parseInt(date) < 10) {
+                                                      date = "0"+date;
+                                                   }
+                                                   
+                                                   if(Integer.parseInt(hour) < 10) {
+                                                      hour = "0"+hour;
+                                                   }
+                                                   
+                                                   if(Integer.parseInt(min) < 10) {
+                                                      min = "0"+min;
+                                                   }
+                                                  
+                                                %>
+                                             <select id="startYear" onchange="strCheck1()">
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                             </select>
+                                             <select id="startMonth" onchange="strCheck2()">
+                                                
+                                                <option value=<%=month%>><%=month%></option>
+                                                <option value="01">01</option>
+                                                <option value="02">02</option>
+                                                <option value="03">03</option>
+                                                <option value="04">04</option>
+                                                <option value="05">05</option>
+                                                <option value="06">06</option>
+                                                <option value="07">07</option>
+                                                <option value="08">08</option>
+                                                <option value="09">09</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                             </select>
+                                             <select id="startDay" onchange="strCheck3()">
+                                                <option value=<%=date%>><%=date%></option>
+                                                <option value="01">01</option><option value="02">02</option><option value="03">03</option>
+                                                <option value="04">04</option><option value="05">05</option><option value="06">06</option>
+                                                <option value="07">07</option><option value="08">08</option><option value="09">09</option>
+                                                <option value="10">10</option><option value="11">11</option><option value="12">12</option>
+                                                <option value="13">13</option><option value="14">14</option><option value="15">15</option>
+                                                <option value="16">16</option><option value="17">17</option><option value="18">18</option>
+                                                <option value="19">19</option><option value="20">20</option><option value="21">21</option>
+                                                <option value="22">22</option><option value="23">23</option><option value="24">24</option>
+                                                <option value="25">25</option><option value="26">26</option><option value="27">27</option>
+                                                <option value="28">28</option><option value="29">29</option><option value="30">30</option>
+                                                <option value="31">31</option>
+                                             </select>
+                                             <select id="startClock" onchange="strCheck4()">
+                                                <option value=<%=hour%>><%=hour%></option>
+                                                <option value="00">00</option><option value="01">01</option><option value="02">02</option>
+                                                <option value="03">03</option><option value="04">04</option><option value="05">05</option>
+                                                <option value="06">06</option><option value="07">07</option><option value="08">08</option>
+                                                <option value="09">09</option><option value="10">10</option><option value="11">11</option>
+                                                <option value="12">12</option><option value="13">13</option><option value="14">14</option>
+                                                <option value="15">15</option><option value="16">16</option><option value="17">17</option>
+                                                <option value="18">18</option><option value="19">19</option><option value="20">20</option>
+                                                <option value="21">21</option><option value="22">22</option><option value="23">23</option>
+                                             </select>
+                                             <select id="startMin" onchange="strCheck5()">
+                                                <option value=<%=min%>><%=min%></option>
+                                                <option value="00">00</option><option value="10">10</option><option value="20">20</option>
+                                                <option value="30">30</option><option value="40">40</option><option value="50">50</option>
+                                             </select>
                                              </td>
                                           </tr>
-                                          <tr>
+                                          </div>
+                                          <div>
+                                             <tr>
                                              <td>
-                                                반납시간 : <input class="form-control" type="text" id="endTime" placeholder="ex) 1907081930" />
+                                             <select id="endYear" onchange="endCheck1()">
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                             </select>
+                                             <select id="endMonth" onchange="endCheck2()">
+                                                <option value=<%=month%>><%=month%></option>
+                                                <option value="01">01</option>
+                                                <option value="02">02</option>
+                                                <option value="03">03</option>
+                                                <option value="04">04</option>
+                                                <option value="05">05</option>
+                                                <option value="06">06</option>
+                                                <option value="07">07</option>
+                                                <option value="08">08</option>
+                                                <option value="09">09</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                             </select>
+                                             <select id="endDay" onchange="endCheck3()">
+                                                <option value=<%=date%>><%=date%></option>
+                                                <option value="01">01</option><option value="02">02</option><option value="03">03</option>
+                                                <option value="04">04</option><option value="05">05</option><option value="06">06</option>
+                                                <option value="07">07</option><option value="08">08</option><option value="09">09</option>
+                                                <option value="10">10</option><option value="11">11</option><option value="12">12</option>
+                                                <option value="13">13</option><option value="14">14</option><option value="15">15</option>
+                                                <option value="16">16</option><option value="17">17</option><option value="18">18</option>
+                                                <option value="19">19</option><option value="20">20</option><option value="21">21</option>
+                                                <option value="22">22</option><option value="23">23</option><option value="24">24</option>
+                                                <option value="25">25</option><option value="26">26</option><option value="27">27</option>
+                                                <option value="28">28</option><option value="29">29</option><option value="30">30</option>
+                                                <option value="31">31</option>
+                                             </select>
+                                             <select id="endClock" onchange="endCheck4()">
+                                                <option value=<%=hour%>><%=hour%></option>
+                                                <option value="00">00</option><option value="01">01</option><option value="02">02</option>
+                                                <option value="03">03</option><option value="04">04</option><option value="05">05</option>
+                                                <option value="06">06</option><option value="07">07</option><option value="08">08</option>
+                                                <option value="09">09</option><option value="10">10</option><option value="11">11</option>
+                                                <option value="12">12</option><option value="13">13</option><option value="14">14</option>
+                                                <option value="15">15</option><option value="16">16</option><option value="17">17</option>
+                                                <option value="18">18</option><option value="19">19</option><option value="20">20</option>
+                                                <option value="21">21</option><option value="22">22</option><option value="23">23</option>
+                                             </select>
+                                             <select id="endMin" onchange="endCheck5()">
+                                                <option value=<%=min%>><%=min%></option>
+                                                <option value="00">00</option><option value="10">10</option><option value="20">20</option>
+                                                <option value="30">30</option><option value="40">40</option><option value="50">50</option>
+                                             </select>
                                              </td>
                                           </tr>
+                                          </div>
                                        </table>
                                     </div>
                                     <div class="modal-footer">
-                                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reservation2" onclick="modalClose1()">다음</button>
+                                       <button id="timeCheck" type="button" class="btn btn-primary" data-toggle="modal" data-target="#reservation2" onclick="modalClose1()" disabled="true">다음</button>
                                     </div>
                                  </div>
                               </div>
@@ -913,14 +1220,13 @@ function reservation() {
                               <div class="modal-dialog modal-dialog-centered" role="document">
                                  <div class="modal-content">
                                     <div class="modal-header">
-                                       <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                       <h5 class="modal-title" id="exampleModalLabel">검색</h5>
                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
                                        </button>
 
                                     </div>
                                     <div class="modal-body">
-                                       <input id="con1"> <input id="con2">
                                     </div>
                                     <div class="modal-footer">
                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reservation2" onclick="modalClose3()">이전</button>
@@ -962,7 +1268,7 @@ function reservation() {
                                           <h4>* 불법 주차구역으로 부과되는 과태료는 고객부담입니다.</h4>
                                           <h4>* 부름은 출발 4시간 이전까지만 예약 가능합니다.</h4>
                                        </div>
-                                       <input type="text" id="sample5_address" class="form-control is-valid" placeholder="ex) 서울시 은평구 불광동 445-17" width="40%"> <br> <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" class="btn btn-outline-primary"><br>
+                                       <input type="text" id="sample5_address" class="form-control is-valid" placeholder="ex) 서울시 은평구 불광동 445-17" width="40%" readonly> <br> <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" class="btn btn-outline-primary"><br>
                                     </div>
                                     <div class="modal-footer">
                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#reservation" onclick="burumClose1()">이전</button>
@@ -1132,7 +1438,11 @@ function reservation() {
                         new kakao.maps.LatLng(37.41071, 126.70606),
                         new kakao.maps.LatLng(37.20071, 126.89606),
                         new kakao.maps.LatLng(37.35071, 126.77606),
-                        new kakao.maps.LatLng(33.45022, 126.57384), ], selectedMarker = null;// 클릭한 마커를 담을 변수
+                        new kakao.maps.LatLng(33.45022, 126.57384), 
+                        new kakao.maps.LatLng(37.55100, 127.10991), 
+                        new kakao.maps.LatLng(37.54875, 127.01141), 
+                        new kakao.maps.LatLng(37.58792 , 126.90599), 
+                        ], selectedMarker = null;// 클릭한 마커를 담을 변수
                   //----------------------------------------------------------------------------------------------------------------------
                   var positions = [];
                   selectZoneNum.forEach(function(item) {

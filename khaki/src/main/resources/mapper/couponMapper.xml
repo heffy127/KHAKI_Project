@@ -15,9 +15,9 @@
 		<result property="cp_id" column="cp_id" />
 		<result property="cp_title" column="cp_title" />
 		<result property="cp_type" column="cp_type" />
-		<result property="cp_per" column="cp_per" />
-		<result property="cp_mon" column="cp_mon" />
+		<result property="cp_num" column="cp_num" />
 		<result property="cp_end" column="cp_end" />
+		<result property="cp_using" column="cp_using" />
 	</resultMap>
 	
 	<delete id="delete" parameterType="cpuDTO">

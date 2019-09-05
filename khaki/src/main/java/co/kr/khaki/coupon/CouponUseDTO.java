@@ -8,12 +8,17 @@ public class CouponUseDTO {
 	private String cp_id; // 쿠폰 다운받은 사용자 sessionId
 	private String cp_title; // 쿠폰 이름
 	private String cp_type; // 쿠폰종류(퍼센트 할인, 금액할인 구분. P일경우 퍼센트 M일 경우 금액할인)
-	private int cp_per; // 퍼센트할인 쿠폰(몇퍼센트인지)
-	private int cp_mon; // 금액할인 쿠폰(몇원인지)
+	private int cp_num; // 할인정도
 	private String cp_end; // 쿠폰 유효기간 마감날짜(해당 DTO 호출할 때 유효기간 마감날짜가 이미 지났을 경우 해당 쿠폰 삭제)
+	private String cp_using;
 	
 	
-	
+	public String getCp_using() {
+		return cp_using;
+	}
+	public void setCp_using(String cp_using) {
+		this.cp_using = cp_using;
+	}
 	public String getCp_id() {
 		return cp_id;
 	}
@@ -32,17 +37,11 @@ public class CouponUseDTO {
 	public void setCp_type(String cp_type) {
 		this.cp_type = cp_type;
 	}
-	public int getCp_per() {
-		return cp_per;
+	public int getCp_num() {
+		return cp_num;
 	}
-	public void setCp_per(int cp_per) {
-		this.cp_per = cp_per;
-	}
-	public int getCp_mon() {
-		return cp_mon;
-	}
-	public void setCp_mon(int cp_mon) {
-		this.cp_mon = cp_mon;
+	public void setCp_num(int cp_num) {
+		this.cp_num = cp_num;
 	}
 	public String getCp_end() {
 		return cp_end;

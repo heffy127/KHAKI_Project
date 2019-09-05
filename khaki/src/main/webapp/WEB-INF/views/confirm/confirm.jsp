@@ -38,35 +38,98 @@
   <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   <script>
   	$(function(){
+  		
+  		
+  		var startTime = $("#confirm_startTime").text();
+  		var endTime = $("#confirm_endTime").text();
+  		startTime = startTime.split("");
+  		endTime = endTime.split("");
+  		startTime = startTime[0]+startTime[1]+"."+startTime[2]+startTime[3]+"."+startTime[4]+startTime[5]+" "+startTime[6]+startTime[7]+":"+startTime[8]+startTime[9];
+  		endTime = endTime[0]+endTime[1]+"."+endTime[2]+endTime[3]+"."+endTime[4]+endTime[5]+" "+endTime[6]+endTime[7]+":"+endTime[8]+endTime[9];
+  		$("#confirm_startTime").text(startTime);  		
+  		$("#confirm_endTime").text(endTime);
+  		// 예약할 때 설정되어 파라메터로 최초 결제금액을 저장함
   		var initial_amount = $("#confirm_amount").text();
+  		// 쿠폰을 적용 시킬때마다 이벤트 발생
   		$(".coupon_method").change(function(){
+  			// 다른 쿠폰을 선택할 때마다 최초 결제금액으로 돌아옴.(이 부분이 없으면 할인적용된 금액에 추가적으로 또 할인이 적용됨.)
   			$("#confirm_amount").text(initial_amount);
+  			// 선택한 option의 value(타입, 할인정도) 가져온다.
 	  		var couponVal = $('select[name=coupon_method]').val();
+  			couponVal = couponVal.split(",");
+  			// 0번인덱스에는 쿠폰 타입, 1번 인덱스에는 할인정도가 들어가있다.
+  			// alert(couponVal[0]);
+  			// alert(couponVal[1]);
+  			// 최초 결제금액을 가져온다.
 			var amount = $("#confirm_amount").text();
-			var result = amount - couponVal;
-			$("#confirm_amount").text(result);
-			$("#discount_label").remove();
-			$("#amount_div").append("  <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
-			var amount = parseInt($("#confirm_amount").text());
-	  		amount = parseInt(amount * 0.03);
-	  		$("#confirm_point").text(amount);
+  			// 쿠폰타입이 금액할인이라면
+  			if(couponVal[0] == "basic") {
+  				result = amount;
+  				$("#discount_label").remove();
+  				$("#discount_label2").remove();
+  				// 최초 결제금액을 할인 적용한 금액으로 변경
+  				$("#confirm_amount").text(result);
+  	  			// 할인 적용 안된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+  		  		amount = parseInt(amount * 0.03);
+  		  		$("#confirm_point").text(amount);
+  				
+  			} else if(couponVal[0] == "M") {
+				result = amount - couponVal[1];
+				if(result < 0) {
+					result = 0;
+				}
+				// 최초 결제금액을 할인 적용한 금액으로 변경
+				$("#confirm_amount").text(result);
+	  			// (할인적용)이라는 문구가 만들어져 있다면 우선 삭제한 후 다시 append
+				$("#discount_label").remove();
+				$("#discount_label2").remove();
+	  			// 할인이 적용되었다고 알리기 위해 라벨 추가
+				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px'>할인전금액 : " + amount + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
+	  			// 할인적용된 금액을 가져온다.
+				var amount = parseInt($("#confirm_amount").text());
+	  			// 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+		  		amount = parseInt(amount * 0.03);
+		  		$("#confirm_point").text(amount);
+  			} else { // 쿠폰타입이 퍼센트 할인이라면 
+  				result = parseInt(amount - (amount * (couponVal[1] * 0.01)));
+  				// 최초 결제금액을 할인 적용한 금액으로 변경
+  				$("#confirm_amount").text(result);
+  	  			// (할인적용)이라는 문구가 만들어져 있다면 우선 삭제한 후 다시 append
+  				$("#discount_label").remove();
+  				$("#discount_label2").remove();
+  	  			// 할인이 적용되었다고 알리기 위해 라벨 추가
+  				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px'>할인전금액 : " + amount + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
+  	  			// 할인적용된 금액을 가져온다.
+  				var amount = parseInt($("#confirm_amount").text());
+  	  			// 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+  		  		amount = parseInt(amount * 0.03);
+  		  		$("#confirm_point").text(amount);
+  			}
+  			
   			
   		})
   		
+  		// 쿠폰 select는 기본적으로 숨겨져있음
   		$("#select_couponMethod").hide();
+  		// 쿠폰 적용하기 글씨를 클릭 했을 경우
   		$("#cpCheckLabel").click(function() {
+  			// 쿠폰 select에 클릭 이벤트 적용하여 쿠폰 체크박스가 클릭 되게 함
   			$("#couponCheckBox").click();
   		})
+  		// 쿠폰 체크박스가 클릭되거나 클릭 해제될때마다 실행
   		$("#couponCheckBox").change(function(){
+  			// 쿠폰 체크박스에 체크가 되어있는 상태라면
   			if ($("input:checkbox[id='couponCheckBox']").is(":checked") == true){
+  				// sessionId를 cp_id에 저장
   				var cp_id = $("#cp_id").val();
   				$.ajax({
+  					  // couponconfirm.do에 ajax로 연결
 	  			      url:"couponConfirm.do",
 	  			      data : {
 	  			    	  "cp_id" : cp_id
 	  			      },
 	  			      success:function(data){
-	  			    	  
+	  			    	  // ajax를 select의 option들을 가져옴
 	  			    	  $("#cp_method").children().remove();
 	  			    	  console.log(data);
 	  			    	  $("#cp_method").append(data);
@@ -89,28 +152,6 @@
   		
   		
   		
-  		/* $("#select_couponMethod").click(function(){
-			var cp_id = $("#cp_id").val();
-  			$.ajax({
-			      url:"couponConfirm.do",
-			      data : {
-			    	  "cp_id" : cp_id
-			      },
-			      success:function(data){
-					  // $("#cp_method").children().remove();
-			    	  // console.log(data);
-					  // $("#cp_method").append("<option value=\"\" class=\"cpu_choice\" id=\"cpu_choice\">- 쿠폰 선택  -</option>");
-			    	  // $("#cp_method").append(data);//aaaabbzzzz
-			    	  
-			    	  $("#cp_method").children().remove();
-			    	  console.log(data);
-			    	  $("#cp_method").append(data);//aaaabbzzzz
-			      },
-			      error : function(xhr, status) {
-		              alert(xhr + " : " + status);
-		          }
-			});
-  		}) */
 		
   		
   	})
@@ -349,9 +390,9 @@
           	  				<td class="c_content_2" id="confirm_carModel">${payDTO.buy_carModel }</td>
           	  			</tr>
           	  			<tr>
-          	  				<td class="c_content_1">대여시간 : </td>
+          	  				<td class="c_content_1">대여시간 : <input type="hidden" id="confirm_startTime2" value="${payDTO.buy_startTime }"></td>
           	  				<td class="c_content_2" id="confirm_startTime">${payDTO.buy_startTime }</td>
-          	  				<td class="c_content_1">반납시간 : </td>
+          	  				<td class="c_content_1">반납시간 : <input type="hidden" id="confirm_endTime2" value="${payDTO.buy_endTime }"></td>
           	  				<td class="c_content_2" id="confirm_endTime">${payDTO.buy_endTime }</td>
           	  			</tr>
           	  			<tr>
@@ -366,7 +407,7 @@
           	  			</tr>
           	  			<tr>
           	  				<td class="c_content_1">반납주소 : </td>
-          	  				<td colspan="3" class="c_content_2" id="confirm_returnLocation">${payDTO.buy_startLocation }</td>
+          	  				<td colspan="3" class="c_content_2" id="confirm_returnLocation">${payDTO.buy_returnLocation }</td>
           	  			</tr>
           	  			<tr>
           	  				<td class="c_content_1">결제금액 : </td>
@@ -383,6 +424,13 @@
 					  				</select>
 								</div>
 							</td>
+          	  			</tr>
+          	  			<tr>
+          	  				<td></td>
+          	  				<td></td>
+          	  				<td id="amount_div2"></td>
+          	  				<td></td>
+          	  				<td></td>
           	  			</tr>
           	  			<tr>
           	  				<td class="c_content_1" id="couponCheckTd" style="text-align: center;">
@@ -406,9 +454,9 @@
 	          	  	<input type="hidden" id="cp_id" name="cp_id" value="${sessionId }">
 	          	  	<input type="hidden" id="cp_title" name="cp_title" value=" ">
 	          	  	<input type="hidden" id="cp_type" name="cp_type" value=" ">
-	          	  	<input type="hidden" id="cp_per" name="cp_per" value=" ">
-	          	  	<input type="hidden" id="cp_mon" name="cp_mon" value=" ">
+	          	  	<input type="hidden" id="cp_num" name="cp_num" value=" ">
 	          	  	<input type="hidden" id="cp_end" name="cp_end" value=" ">
+	          	  	<input type="hidden" id="cp_using" name="cp_using" value=" ">
           	  	</form>
           	  	<form action="payResult.do" id="payInsert" name="payInsert">
           	  		<input type="hidden" id="buy_num" name="buy_num" value="1">
@@ -433,56 +481,42 @@
           	  		<input type="hidden" id="buy_accident" name="buy_accident" value=""> <!-- 사고정보(나중에 추가 됨) -->
           	  		<input type="hidden" id="buy_coupon" name="buy_coupon" value=""> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_discount" name="buy_discount" value=""> <!-- 할인받은 금액 -->
+          	  		<input type="hidden" id="buy_burum" name="buy_burum" value=""> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_impUid" name="buy_impUid" value=""> <!-- 주문번호(script에서 결제할때 추가 됨) -->
           	  	</form>
           	  	<script>
 				$("#check_module").click(function () {
 					var sessionId = '<%=(String)session.getAttribute("sessionId")%>';
+					alert($("#confirm_startTime2").val());
+					alert($("#confirm_endTime2").val());
+					alert($("#buy_startTime").val());
+					alert($("#buy_endTime").val());
 					
-					
-					
-					// db전송할 때 대여시간과 반납시간을 년.월.일 시:분 형태로 바꿈
-					var startTime_sp = String($("#confirm_startTime").text()).split("");
-					var endTime_sp = String($("#confirm_endTime").text()).split("");
-					var startTime = "";
-					var endTime = "";
-			  		for (var i = 0; i < startTime_sp.length; i++) {
-			  			startTime += startTime_sp[i];
-			  			if(i == 1 || i == 3) {
-			  				startTime += ".";
-			  			} else if(i == 5){
-			  				startTime += " ";
-			  			} else if(i == 7) {
-			  				startTime += ":";
-			  			}
-			  		}
-			  		for (var i = 0; i < endTime_sp.length; i++) {
-			  			endTime += endTime_sp[i];
-			  			if(i == 1 || i == 3) {
-			  				endTime += ".";
-			  			} else if(i == 5){
-			  				endTime += " ";
-			  			} else if(i == 7) {
-			  				endTime += ":";
-			  			}
-			  		}
 					var coupon_v = $('select[name=coupon_method]').val();
 					var coupon_t = $('#cp_method option:checked').text();
-					alert(coupon_v);
-					alert(coupon_t);
+					var coupon_sp = coupon_t.split("(");
 					$("#buy_id").val(sessionId);
 			  		$("#buy_carIns").val($("#confirm_carIns").text());
-			  		$("#buy_startTime").val(startTime);
-					$("#buy_endTime").val(endTime); 		
+			  		$("#buy_startTime").val($("#confirm_startTime2").val());
+					$("#buy_endTime").val($("#confirm_endTime2").val()); 		
 					$("#buy_startLocation").val($("#confirm_startLocation").text()); 		
 					$("#buy_returnLocation").val($("#confirm_returnLocation").text()); 		
 					$("#buy_carNum").val($("#confirm_carNum").text()); 		
 					$("#buy_carModel").val($("#confirm_carModel").text()); 		
 					$("#buy_point").val($("#confirm_point").text()); 		
 					$("#buy_amount").val($("#confirm_amount").text()); 
-					$("#buy_coupon").val(coupon_t);
+					$("#buy_coupon").val(coupon_sp[0]);
 					$("#buy_discount").val(coupon_v);
-					
+					if($("#confirm_startLocation").text() == $("#confirm_returnLocation").text()) {
+						$("#buy_burum").val("Y");
+					} else {
+						$("#buy_burum").val("N");
+						
+					}
+					alert($("#confirm_startTime2").val());
+					alert($("#confirm_endTime2").val());
+					alert($("#buy_startTime").val());
+					alert($("#buy_endTime").val());
 					
 					// 결제 필수파라미터 부분
 					var radioVal = $('select[name=pay_method]').val();
