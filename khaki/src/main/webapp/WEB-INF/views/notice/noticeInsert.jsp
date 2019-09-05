@@ -379,7 +379,7 @@
     		- 댓글 기능
     		- 포토업로더, editor 기능 구현
     		- 
-    
+    	aaaabbccdd
      -->
     
     <!-- white 테마 사용 -->
@@ -396,15 +396,26 @@
             		<div class="row">
 	            		<div class="col-md-6">
 					      <div class="form-group">
-					      	<div class="custom-control custom-radio mb-3">
-							  <input name="notice_type" class="custom-control-input" id="customRadio5" type="radio" value="P">
-							  <label class="custom-control-label" for="customRadio5">공지</label>
-							</div>
-							<div class="custom-control custom-radio mb-3">
-							  <input name="notice_type" class="custom-control-input" id="customRadio6" type="radio" value="G">
-							  <label class="custom-control-label" for="customRadio6">일반</label>
-							</div>
-					      </div>
+	            			<div class="row">
+	            				&nbsp;&nbsp;&nbsp;&nbsp;
+						      	<div class="custom-control custom-radio mb-3 col-md-3">
+								  <input name="notice_type" class="custom-control-input" id="customRadio5" type="radio" value="P">
+								  <label class="custom-control-label" for="customRadio5">공지</label>
+								</div>
+								<div class="custom-control custom-radio mb-3 col-md-3">
+								  <input name="notice_type" class="custom-control-input" id="customRadio6" type="radio" value="A">
+								  <label class="custom-control-label" for="customRadio6">광고</label>
+								</div>
+								<div class="custom-control custom-radio mb-3 col-md-3">
+								  <input name="notice_type" class="custom-control-input" id="customRadio7" type="radio" value="E">
+								  <label class="custom-control-label" for="customRadio7">이벤트</label>
+								</div>
+								<div class="custom-control custom-radio mb-3 col-md-2">
+								  <input name="notice_type" class="custom-control-input" id="customRadio8" type="radio" value="G" checked="checked">
+								  <label class="custom-control-label" for="customRadio8">일반</label>
+								</div>
+						      </div>
+					      	</div>
 					    </div>
             		</div>
             		<div class="row">	<!-- row는 한 행을 구분 짓는 것 -->
@@ -432,7 +443,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<input type="button" class="btn btn-outline-success" id="writebtn" value="글등록">
-							<button type="button" class="btn btn-outline-success">취소</button>
+							<button type="button" class="btn btn-outline-success" onclick="history.back(-1);">취소</button>
 						</div>
 					</div>
 					<input type="hidden" name="notice_num" value="1">	<!-- 게시판 번호 1씩 더해서 들어갈 수 있도록(어떤방식으로? DB에서 가장 높은 수 가져와서 +1 or autoincrement처럼 되는 기능 확인 -->

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
+import co.kr.khaki.member.MemberDAO;
+import co.kr.khaki.member.MemberDTO;
 import co.kr.khaki.pay.PayDTO;
 
 @Controller
@@ -20,10 +22,15 @@ public class ConfirmController {
 	@Autowired
 	CouponUseDAO cpuDAO;
 	
+	@Autowired
+	MemberDAO memberDAO;
+	
 	@RequestMapping("confirm.do")
 	   public String confirm(Model model, PayDTO payDTO, String buy_carImage) {
 	      model.addAttribute("payDTO", payDTO);
 	      model.addAttribute("buy_carImage", buy_carImage);
+	     MemberDTO memberDTO = memberDAO.selectId_Member(payDTO.getBuy_id());
+	     model.addAttribute("memberDTO", memberDTO);
 	      return "confirm/confirm";
 	   }
 	

@@ -96,6 +96,7 @@
 	    }
 		
 		if($("#confirm_carNum").text() == "") {
+			$(".c_content_title").remove();
 			$("#checkReservationArea").append(""
 					+ "<div style='width: 100%; height: 1000px; text-align: center;'>"
 					+ "<img src='https://image.flaticon.com/icons/svg/705/705926.svg' style='width: 25%; text-align: center; margin-top: 5%; margin-bottom: 3%;'><br>"

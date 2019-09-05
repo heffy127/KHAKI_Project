@@ -98,7 +98,11 @@ write_date varchar2(30)
 	8/22(목)
 	- notice listup을 jstl로 바꾸기
 	
-	
+	9/5(목)
+	- notice css 꾸미기 시작
+	- 답글기능 구현
+	- 댓글기능 구현
+	- 
 	
 	
 	

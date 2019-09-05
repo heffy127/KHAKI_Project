@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.pay.PayDAO;
 import co.kr.khaki.pay.PayDTO;
 
@@ -13,6 +14,9 @@ public class PayController {
    
       @Autowired
       PayDAO pdao;
+      
+      @Autowired
+  	  MemberDAO memberDAO;
 
       String cnt;
 
@@ -57,6 +61,7 @@ public class PayController {
             System.out.println(payDTO.getBuy_startTime() + "aaaaaaaaaaa");
             System.out.println(payDTO.getBuy_endTime() + "aaaaaaaaaaa");
             pdao.insert(payDTO);
+            memberDAO.updatePointCount(payDTO);
             return "pay/payResult";
          }
    
