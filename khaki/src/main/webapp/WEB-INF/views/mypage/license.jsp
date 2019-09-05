@@ -139,7 +139,7 @@
 							data: d,
 							type: 'POST',
 							success: function(result){
-								alert("운전면호 정보 등록이 완료되었습니다.\n관리자 심사이후 카셰어링 서비스를 이용하실 수 있습니다.")
+								alert("운전면허 정보 등록이 완료되었습니다.\n관리자 심사이후 카셰어링 서비스를 이용하실 수 있습니다.")
 								window.parent.closeModal_normal('changed')
 							}
 						})

@@ -309,7 +309,7 @@
                      <a href="#none" id="profilePhotoBtn">
                        <img src="${memberDTO.photo}"
                         class="rounded-circle" id="photoImg"
-                        data-toggle="tooltip" data-placement="top" title="프로필 사진을 변경하려면 클릭!">
+                        data-toggle="tooltip" data-placement="top" title="프로필 사진을 변경하기!">
                      </a>
                 </div>
                 
@@ -366,8 +366,9 @@
                   <i class="ni education_hat mr-2"></i>University of Computer Science
                 </div>
                 <hr class="my-4" />
-                <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
-                <a href="#">Show more</a>
+               	
+               		<iframe src="chat.do" frameborder="1" width="300px" height="400px"></iframe>
+               	
               </div>
             </div>
           </div>
