@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import co.kr.khaki.handler.HandlerStatusDTO;
+import co.kr.khaki.pay.PayDTO;
 
 @Repository
 public class MemberDAO {
@@ -102,6 +103,11 @@ public class MemberDAO {
 	public void updatePoint(InsertPointDTO insertPointDTO) {
 		my.update("memberDAO.updatePoint", insertPointDTO);
 		System.out.println("point증가 성공");
+	}
+	
+	public void updatePointCount(PayDTO payDTO) {
+		my.update("memberDAO.updatePointCount", payDTO);
+		System.out.println("point, 카운트 증가 성공");
 	}
 	
 	public void updatePw(MemberDTO memberDTO) {

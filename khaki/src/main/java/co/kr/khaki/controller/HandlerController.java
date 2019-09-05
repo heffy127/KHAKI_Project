@@ -1,5 +1,6 @@
 package co.kr.khaki.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import co.kr.khaki.handler.HandlerStatusDTO;
 import co.kr.khaki.handler.HandlerUseDAO;
 import co.kr.khaki.handler.HandlerUseDTO;
 import co.kr.khaki.member.InsertPointDTO;
+import co.kr.khaki.member.LicenseDTO;
 import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.member.MemberDTO;
 
@@ -81,25 +83,52 @@ public class HandlerController {
 		System.out.println("확이이인");
 		hsDTO.setId(memberDTO.getId()); // handler여부 DTO에 set id
 		if(Integer.parseInt(memberDTO.getUseCount()) > 4) { // select해 온 useCount가 4보다 클 경우(5이상인 경우)
-			handler = "Y";
-			hsDTO.setHandler(handler);
-			System.out.println("입력 될 데이터 : " + hsDTO.getId() + ", " + hsDTO.getHandler());
-			memberDAO.updateHandler(hsDTO); 
-			model.addAttribute("useCountCheck", handler);
-		} else if(memberDTO.getUseCount() == "") { // select해 온 useCount가 한번도 이용을 하지 않아 비어 있을 경우(NULL)
+			LicenseDTO licenseDTO = memberDAO.selectId_license(memberDTO.getId());
+			int liYear = Integer.parseInt(licenseDTO.getIssueYear());
+			int liMonth = Integer.parseInt(licenseDTO.getIssueMonth());
+			int liDate = Integer.parseInt(licenseDTO.getIssueDay());
+			Calendar cal = Calendar.getInstance();
+			int year = cal.get ( cal.YEAR );
+			int month = cal.get ( cal.MONTH ) + 1 ;
+			int date = cal.get ( cal.DATE ) ;
+			if((year - liYear) >= 2) {
+				handler = "Y";
+				hsDTO.setHandler(handler);
+				System.out.println("입력 될 데이터 : " + hsDTO.getId() + ", " + hsDTO.getHandler());
+				memberDAO.updateHandler(hsDTO); 
+				model.addAttribute("useCountCheck", handler);// 핸들러 여부 결과 Y/N 중 하나를 다음 페이지로 전송
+			} else if((year - liYear) == 1) {
+				if(month > liMonth) {
+					handler = "Y";
+					hsDTO.setHandler(handler);
+					System.out.println("입력 될 데이터 : " + hsDTO.getId() + ", " + hsDTO.getHandler());
+					memberDAO.updateHandler(hsDTO); 
+					model.addAttribute("useCountCheck", handler);// 핸들러 여부 결과 Y/N 중 하나를 다음 페이지로 전송
+				} else if(month == liMonth) {
+					if(date > liDate) {
+						handler = "Y";
+						hsDTO.setHandler(handler);
+						System.out.println("입력 될 데이터 : " + hsDTO.getId() + ", " + hsDTO.getHandler());
+						memberDAO.updateHandler(hsDTO); 
+						model.addAttribute("useCountCheck", handler);// 핸들러 여부 결과 Y/N 중 하나를 다음 페이지로 전송
+					}
+				}
+			}
+			
+		} else if(memberDTO.getUseCount() == "null") { // select해 온 useCount가 한번도 이용을 하지 않아 비어 있을 경우(NULL)
 			handler = "N";
 			hsDTO.setHandler(handler);
 			System.out.println("입력 될 데이터 : " + hsDTO.getId() + ", " + hsDTO.getHandler());
 			memberDAO.updateHandler(hsDTO);
-			model.addAttribute("useCountCheck", handler);
+			model.addAttribute("useCountCheck", handler);// 핸들러 여부 결과 Y/N 중 하나를 다음 페이지로 전송
 		} else { // 4미만일 경우
 			handler = "N";
 			hsDTO.setHandler(handler);
 			System.out.println("입력 될 데이터 : " + hsDTO.getId() + ", " + hsDTO.getHandler());
 			memberDAO.updateHandler(hsDTO);
-			model.addAttribute("useCountCheck", handler);
+			model.addAttribute("useCountCheck", handler);// 핸들러 여부 결과 Y/N 중 하나를 다음 페이지로 전송
 		}
-		model.addAttribute("useCountCheck", handler); // 핸들러 여부 결과 Y/N 중 하나를 다음 페이지로 전송
+		// model.addAttribute("useCountCheck", handler); // 핸들러 여부 결과 Y/N 중 하나를 다음 페이지로 전송
 		
 		return "handler/handlerUseCountCheck";
 	}

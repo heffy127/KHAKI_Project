@@ -9,25 +9,19 @@
       COUNT(*) as cnt FROM
       reservation where buy_carModel=#{buy_carModel}
    </select>
-      <!-- 입력된 차종에 해당하는 예약건들 개수를 가져옴 -->
+   <!-- 예약시간을 비교하여서 가능여부 도출 !! -->
    <select id="search2_1" parameterType="pDTO" resultMap="str">
       SELECT COUNT(*) as cnt FROM
       reservation WHERE
-      buy_carNum=#{buy_carNum} AND buy_endTime>#{buy_startTime}
+      buy_carNum=#{buy_carNum} AND buy_endTime>#{buy_startTime} AND #{buy_endTime}>buy_endTime
    </select>
    
    <select id="search2_2" parameterType="pDTO" resultMap="str">
       SELECT COUNT(*) as cnt FROM
       reservation WHERE
-      buy_carNum=#{buy_carNum} AND #{buy_endTime}>buy_startTime
+      buy_carNum=#{buy_carNum} AND buy_startTime>#{buy_startTime} AND #{buy_endTime}>buy_startTime
    </select>
    
-   <select id="search2_3" parameterType="pDTO" resultMap="str">
-      SELECT COUNT(*) as cnt FROM
-      reservation WHERE
-      buy_carNum=#{buy_carNum} AND buy_endTime>#{buy_startTime}
-   </select>
-
    <select id="selectEndTime" parameterType="pDTO" resultMap="str">
       SELECT COUNT(*) as cnt FROM
       reservation WHERE
@@ -84,5 +78,7 @@
       SELECT * FROM RESERVATION ORDER
       BY buy_num DESC
    </select>
+   
+   
 
 </mapper>

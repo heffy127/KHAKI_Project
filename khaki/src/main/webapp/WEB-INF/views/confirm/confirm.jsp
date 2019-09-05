@@ -487,10 +487,6 @@
           	  	<script>
 				$("#check_module").click(function () {
 					var sessionId = '<%=(String)session.getAttribute("sessionId")%>';
-					alert($("#confirm_startTime2").val());
-					alert($("#confirm_endTime2").val());
-					alert($("#buy_startTime").val());
-					alert($("#buy_endTime").val());
 					
 					var coupon_v = $('select[name=coupon_method]').val();
 					var coupon_t = $('#cp_method option:checked').text();
@@ -513,10 +509,6 @@
 						$("#buy_burum").val("N");
 						
 					}
-					alert($("#confirm_startTime2").val());
-					alert($("#confirm_endTime2").val());
-					alert($("#buy_startTime").val());
-					alert($("#buy_endTime").val());
 					
 					// 결제 필수파라미터 부분
 					var radioVal = $('select[name=pay_method]').val();

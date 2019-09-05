@@ -12,6 +12,34 @@
   <script type="text/javascript">
   	$(function() {
   		var id = '<%=(String)session.getAttribute("sessionId")%>';
+  		$.ajax({ // ajax 실행
+		      url:"handlerIdCheck.do", 
+	 	      data : {
+	 	    	  "id" : id
+	 	      },
+	 	      success:function(data){ // ajax가 성공했을 때
+	 	    	  if(data == "Y") {
+	 	    	  } else {
+	 	    		  $("#handlerBody").children().remove();
+	 	    		  $("#handlerBody").append(""
+	 	 					+ "<div style='width: 100%; height: 1000px; text-align: center;'>"
+	 						+ "<img src='https://image.flaticon.com/icons/svg/1464/1464727.svg' style='width: 15%; text-align: center; margin-top: 5%; margin-bottom: 3%;'><br>"
+	 						+ "<label id='craLabel1'>핸들러 유저가 아닙니다.</label><br>"
+	 						+ "<label id='craLabel2'>아래 링크를 클릭하여 핸들러 신청 후 이용 해주세요.</label><br>"
+	 						+ "<div id='craDiv' style='width: 100%; text-align: center; margin-top: 15%; margin-bottom: 3%;'>핸들러 조건 확인하기</div>"
+	 						+ "</div>");
+	 	    	  }
+	 	    	  $("#craDiv").click(function(){
+	 				  window.parent.location.href = "handler.do";
+	 			  })
+	 	      },
+	 	      error : function(xhr, status) { // ajax가 실패했을 때
+	               alert(xhr + " : " + status); // 실패 내용 확인
+	           }
+		}) // ajax end
+		
+		
+  		  		
   		if($("#handlerUseCheck1").text() == "") {
   			$("#handlerUseArea").remove();
   			$("#handlerUseLabel").remove();
@@ -26,17 +54,6 @@
   		
   		$(".handlerUseBtn").click(function(){
   			var a = $(this).children("#hiddenNum").val()
-  			/*
-  			alert(a);
-  			alert($("#h_id"+a).val());
-  			alert($("#h_carNum"+a).val());
-  			alert($("#h_carModel"+a).val());
-  			alert($("#h_startLocation"+a).val());
-  			alert($("#h_returnLocation"+a).val());
-  			alert($("#h_complete"+a).val());
-  			alert($("#h_point"+a).val());
-  			alert($("#h_using"+a).val());
-  			*/
   			var result = confirm("운송완료 처리 하시겠습니까?"); 
   			if(result) { 
   				$.ajax({ // ajax 실행
@@ -65,7 +82,7 @@
   	}) // ajax function end
   </script>
 </head>
-<div style="background-color: white; width: 100%; height: 1000px;">
+<div id="handlerBody" style="background-color: white; width: 100%; height: 1000px;">
 	<div style="background-color: white; padding-bottom: 5%;">
 		<div id="handlerUseArea">Handler</div>
 		<label id="handlerUseLabel" style="padding-left: 5%;">핸들러 미션을 통하여 포인트를 <b class="blueFont">적립</b>해 보세요!<br>도착 완료시간내에 완료하지 못할 경우 <b class="redFont">패널티</b>가 부과 될 수 있습니다.<br>완료한 차량이 경우 <b class="greenFont">운송완료</b> 버튼을 눌러주세요!</label>
