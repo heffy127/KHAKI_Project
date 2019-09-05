@@ -40,26 +40,10 @@
 <script type="text/javascript">
    $(document).ready(
          function() {
-        	 
-        	$('#profilePhotoBtn').click(
-        			function() {
-						$('#file').click()
-					})
-        	
-       		$('#file').change(
-	          function() {
-				$('#photoSubmit').click()
-			}) 
-           	
-			$('#photoSubmit').click(
-					function() {
-						if(confirm("프로필 사진을 변경하시겠습니까?")){
-							$('#photoF').submit()
-						} else {
-							$('#photoReset').click()
-						}
-					})
-            
+        		$("#userMode").click( // 사용자 모드로 전환
+          				function() {
+          					location.href = "home.do"
+        		})
          })
    
 </script>
@@ -94,8 +78,7 @@
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="resources/assets/img/theme/team-1-800x800.jpg
-">
+                <img alt="Image placeholder" src="resources/assets/img/theme/team-1-800x800.jpg">
               </span>
             </div>
           </a>
@@ -214,8 +197,24 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">User Profile</a>
-       
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="admin.do">Admin</a>
+        <c:if test="${sessionId == 'admin1' }">
+	        <div align="center">
+	        	<table>
+	        		<tr>
+	        			<td>
+	        				<button type="button" class="btn btn-success" id="userMode">사용자 모드</button>
+	        			</td>
+	        			<td>
+	        				&nbsp;&nbsp;&nbsp;&nbsp;
+	        			</td>
+	        			<td>
+	        				<button type="button" class="btn btn-warning" disabled="disabled" id="adminMode">관리자 모드</button>
+	        			</td>
+	        		</tr>
+	        	</table>
+			</div>
+		</c:if>
           <!-- 우측 상단 프로필 -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
@@ -270,16 +269,16 @@
     </nav>
     <!-- End Navbar -->
     <!-- Header -->
-    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(resources/assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(resources/assets/img/theme/admin-cover.png); background-size: cover; background-position: center top;">
       <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
       <!-- Header container -->
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
           <div class="col-lg-12 col-md-12">
-            <h1 class="display-2 text-white">반갑습니다. ${sessionName}님</h1>
+            <h1 class="display-2 text-white">반갑습니다. 관리자님</h1>
             <div>
-               <font color="#e0e0e0">언제, 어디서나, 차가 필요한 모든 순간 KHAKI를 찾아주세요!<br>
+               <font color="#e0e0e0">대한민국의 카셰어링 문화, 우리가 주도합니다!<br>
                함께 달리며 더 나은 미래를 만듭니다. 대한민국 1등 카셰어링, KHAKI</font>
             </div>
           </div>
@@ -289,103 +288,36 @@
     <!-- Page content -->
     <div class="container-fluid mt--7">
       <div class="row">
-        <div class="col-xl-3 order-xl-2 mb-5 mb-xl-0">
-          <div class="card card-profile shadow">
-            <div class="row justify-content-center">
-              <div class="col-lg-3 order-lg-2">
-              
-                <!-- 프로필 이미지 -->
-                <div class="card-profile-image" >
-                     <a href="#none" id="profilePhotoBtn">
-                       <img src="${memberDTO.photo}"
-                        class="rounded-circle" id="photoImg"
-                        data-toggle="tooltip" data-placement="top" title="프로필 사진을 변경하기!">
-                     </a>
-                </div>
-                
-                
-              </div>
-            </div>
-            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-            </div>
-            <div class="card-body pt-0 pt-md-4">
-              <div class="row">
-                <div class="col">
-                  <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-                       <div class="infoDiv" style="margin: 0px 0px 0px 8px;">
-                         <span class="heading">${memberDTO.point}</span>
-                         <span class="description">포인트</span>
-                       </div>
-                       <div class="infoDiv" style="margin: 0px 0px 0px 8px;">
-                         <span class="heading">10</span>
-                         <span class="description">내가 쓴 글</span>
-                       </div>
-                       <div class="infoDiv" style="margin: 0px 0px 0px 8px;">
-                         <span class="heading">89</span>
-                         <span class="description">현재 예약</span>
-                       </div>
-                       <!-- 이미지 파일 선택창 숨김 -->
-                          <form name="photoF" id="photoF" action="photoUpload.do?id=${memberDTO.id}" enctype="multipart/form-data" method="post">
-		                       <div class="photoDiv" style="display: none;">
-		                             <table>
-		                                <tr>
-		                                   <td>
-		                                      <input type="file" id="file" name="file" accept=".gif, .jpg, .png, .jpeg">
-		                                   </td>
-		                                   <td>
-		                                      <input type="button" value="변경" id="photoSubmit">
-		                                   </td>
-		                                   <td>
-		                                      <input type="reset" value="취소" style="display: none;" id="photoReset">
-		                                   </td>
-		                                </tr>
-		                             </table>
-		                       </div>
-                          </form>
-                 </div>
-                </div>
-              </div>
-              <div class="text-center">
-                <h1>
-                  ${memberDTO.name}
-                </h1>
-                <div class="h5 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
-                </div>
-                <div>
-                  <i class="ni education_hat mr-2"></i>University of Computer Science
-                </div>
-                <hr class="my-4" />
-               	
-               		<iframe src="chat.do" frameborder="1" width="300px" height="400px"></iframe>
-               	
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-9 order-xl-1">
+
+        <div class="col-xl-12 order-xl-1">
           <div class="card bg-secondary shadow">
             <div class="card-header bg-white border-0">
 
                <div class="nav-wrapper">
                 <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-circle-08 mr-2"></i>회원정보 관리</a>
+                        <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-single-02 mr-2"></i>회원 관리</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-time-alarm mr-2"></i>예약정보 관리</a>
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-bus-front-12 mr-2"></i>차량 관리</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-user-run mr-2"></i>핸들러 관리</a>
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-square-pin mr-2"></i>카키존 관리</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-4-tab" data-toggle="tab" href="#tabs-icons-text-4" role="tab" aria-controls="tabs-icons-text-4" aria-selected="false"><i class="ni ni-book-bookmark mr-2"></i>나의 쿠폰북</a>
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-4-tab" data-toggle="tab" href="#tabs-icons-text-4" role="tab" aria-controls="tabs-icons-text-4" aria-selected="false"><i class="ni ni-email-83 mr-2"></i>신고 게시판</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-5-tab" data-toggle="tab" href="#tabs-icons-text-5" role="tab" aria-controls="tabs-icons-text-5" aria-selected="false"><i class="ni ni-align-center mr-2"></i>내가 쓴 글 확인</a>
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-5-tab" data-toggle="tab" href="#tabs-icons-text-5" role="tab" aria-controls="tabs-icons-text-5" aria-selected="false"><i class="ni ni-box-2 mr-2"></i>분실신고 처리</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-6-tab" data-toggle="tab" href="#tabs-icons-text-6" role="tab" aria-controls="tabs-icons-text-6" aria-selected="false"><i class="ni ni-key-25 mr-2"></i>CarKey</a>
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-6-tab" data-toggle="tab" href="#tabs-icons-text-6" role="tab" aria-controls="tabs-icons-text-6" aria-selected="false"><i class="ni ni-money-coins mr-2"></i>환불신청 관리</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-7-tab" data-toggle="tab" href="#tabs-icons-text-7" role="tab" aria-controls="tabs-icons-text-7" aria-selected="false"><i class="ni ni-books mr-2"></i>쿠폰 관리</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-8-tab" data-toggle="tab" href="#tabs-icons-text-8" role="tab" aria-controls="tabs-icons-text-8" aria-selected="false"><i class="ni ni-chart-pie-35 mr-2"></i>회원 설문조사</a>
                     </li>
                 </ul>
             </div>
@@ -396,34 +328,46 @@
               <div class="card shadow">
              <div class="card-body" style="padding: 4px">
                  <div class="tab-content" id="myTabContent">
-                     <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab" style="text-align: center">
+                     <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
                        
-                       <iframe id="memberInfo" src="mypage_memberInfo.do" style="width: 100%; height: 1300px;" frameborder="0"></iframe>
+                     	<p class="description">회원 관리 iframe 자리</p>
                      
                      </div>
                      <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
                      
-                         <iframe src="checkReservation.do" style="width: 100%; height: 1000px;" frameborder="0"></iframe>
+                     	<p class="description">차량 관리 iframe 자리</p>
+                     
                      </div>
                      
                      <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
                      
-                         <iframe src="handlerUseSelect.do?h_id=${sessionId }" style="width: 100%; height: 1000px;" frameborder="0"></iframe>
+						<p class="description">카키존 관리 iframe 자리</p>
+						                    
                      </div>
                      
                      <div class="tab-pane fade" id="tabs-icons-text-4" role="tabpanel" aria-labelledby="tabs-icons-text-4-tab">
                      
-                         <p class="description">tabs-icons-text-4-tab Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
+                         <p class="description">신고 게시판 iframe 자리</p>
                     
                      </div>
                      <div class="tab-pane fade" id="tabs-icons-text-5" role="tabpanel" aria-labelledby="tabs-icons-text-5-tab">
                      
-                         <p class="description">tabs-icons-text-5-tab Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-                   
+                         <p class="description">분실신고 처리 iframe 자리</p>
+                    
                      </div>
                      <div class="tab-pane fade" id="tabs-icons-text-6" role="tabpanel" aria-labelledby="tabs-icons-text-6-tab">
                      
-                         <p class="description">tabs-icons-text-6-tab Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
+                         <p class="description">환불신청 관리 iframe 자리</p>
+                   
+                     </div>
+                     <div class="tab-pane fade" id="tabs-icons-text-7" role="tabpanel" aria-labelledby="tabs-icons-text-7-tab">
+                     
+                         <p class="description">쿠폰 관리 iframe 자리</p>
+                  
+                     </div>
+                     <div class="tab-pane fade" id="tabs-icons-text-8" role="tabpanel" aria-labelledby="tabs-icons-text-8-tab">
+                     
+                         <p class="description">회원 설문조사 관리 iframe 자리</p>
                   
                      </div>
                  </div>
