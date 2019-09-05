@@ -437,11 +437,11 @@
       <div class="row">
         <div class="col">
           <div class="card shadow border-0">
-          	<div class="card-header">
-          		교통상황 CCTV
+          	<div class="card-header" id="cctv_title">
+          		<img src="https://image.flaticon.com/icons/svg/2035/2035524.svg" style="width: 3%; margin-right: 2%;">교통상황 CCTV
           	</div>	<!-- card-header end -->
             <div class="card-body">	<!-- id에 map을 주어 위의 script 실행되도록 함 -->
-            	<div id="map" style="width: 1000px;height: 1000px;"></div>
+            	<div id="map" style="width: 1000px;height: 1000px; background-image: url('https://thumbs.gfycat.com/DeficientBareDalmatian-size_restricted.gif'); background-size: 100%; background-repeat: no-repeat; background-position: center top;"></div>
             </div>	<!-- cardbody End -->
           </div>
           <div class="card-footer">

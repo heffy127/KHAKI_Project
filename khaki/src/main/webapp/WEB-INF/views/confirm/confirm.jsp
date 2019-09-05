@@ -484,6 +484,10 @@
           	  		<input type="hidden" id="buy_burum" name="buy_burum" value=""> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_impUid" name="buy_impUid" value=""> <!-- 주문번호(script에서 결제할때 추가 됨) -->
           	  	</form>
+          	  	<input type="hidden" id="memberName" value="${memberDTO.name }">
+          	  	<input type="hidden" id="memberEmail" value="${memberDTO.email_id }@${memberDTO.email_site }">
+          	  	<input type="hidden" id="memberPhone" value="${memberDTO.phone1 }-${memberDTO.phone2 }-${memberDTO.phone3 }">
+          	  	<input type="hidden" id="memberAddress" value="${memberDTO.address1 } ${memberDTO.address2 }">
           	  	<script>
 				$("#check_module").click(function () {
 					var sessionId = '<%=(String)session.getAttribute("sessionId")%>';
@@ -507,16 +511,14 @@
 						$("#buy_burum").val("Y");
 					} else {
 						$("#buy_burum").val("N");
-						
 					}
-					
 					// 결제 필수파라미터 부분
 					var radioVal = $('select[name=pay_method]').val();
 					var buy_id_data = sessionId; // session id
-					var buy_name_data = "정기현"; // session id로 db조회했을 때 회원 이름
-					var buy_email = "jeongkyoni@gmail.com"; // session id로 db조회했을 때 회원 이메일
-					var buy_phone = "010-5048-7705"; // session id로 db조회했을 때 회원 휴대폰번호
-					var buy_addr = "서울특별시 중랑구 면목동 547-15번지 옥탑"; // session id로 db조회했을 때 회원 주소
+					var buy_name_data = $("#memberName").val(); // session id로 db조회했을 때 회원 이름
+					var buy_email = $("#memberEmail").val(); // session id로 db조회했을 때 회원 이메일
+					var buy_phone = $("#memberPhone").val(); // session id로 db조회했을 때 회원 휴대폰번호
+					var buy_addr = $("#memberAddress").val(); // session id로 db조회했을 때 회원 주소
 					var buy_carModel_data = $("#confirm_carModel").text();
 					var buy_amount_data = $("#confirm_amount").text();
 					
