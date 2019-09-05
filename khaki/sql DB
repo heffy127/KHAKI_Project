@@ -27,7 +27,7 @@ smsPush char(1),
 emailPush char(1),
 useCount varchar2(20),
 handler char(1), 
-photo clob
+photo clob default '/khaki/resources/profilePhoto/profilePhoto_basic.png'
 );
 
 create table license(

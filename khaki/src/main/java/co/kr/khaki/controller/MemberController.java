@@ -1,5 +1,9 @@
 package co.kr.khaki.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import co.kr.khaki.member.AuthNumber;
 import co.kr.khaki.member.HashingPw;
@@ -350,6 +356,34 @@ public class MemberController {
 		memberDAO.deleteMember(memberDTO.getId()); // 회원정보 삭제
 		
 		return "mypage/deleteMember_ok"; // ajax용
+	}
+	
+	// 프로필 사진 업로드
+	@RequestMapping("photoUpload.do")
+	public String photoUpload(MemberDTO memberDTO,MultipartHttpServletRequest mpRequest, Model model, HttpSession session) {
+		System.out.println(memberDTO.getId());
+		Calendar today = Calendar.getInstance();
+		SimpleDateFormat sd = new SimpleDateFormat("yyyyMMddHHmmss");
+		String convert = sd.format(today.getTime());
+		// 이미지 중복처리 방지용 날짜 String 
+		
+		MultipartFile mf = mpRequest.getFile("file"); // 이미지 파일 가져오기
+		String path = mpRequest.getRealPath("resources/profilePhoto");
+		String fileName = mf.getOriginalFilename() + "_" + convert;
+		System.out.println("path : " + path);
+		System.out.println("fileName : " + fileName);
+		File uploadFile = new File(path+"//"+fileName); // WAS가 바라보는 폴더에 이미지 저장
+		try {
+			mf.transferTo(uploadFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		memberDTO.setPhoto("/khaki/resources/profilePhoto/" + fileName);
+		memberDAO.updatePhoto(memberDTO);
+		memberDTO = memberDAO.selectId_Member(memberDTO.getId());
+		model.addAttribute("memberDTO", memberDTO);
+		session.setAttribute("sessionPhoto", memberDTO.getPhoto()); // 프로필 사진 세션 교체
+		return "member/profile"; // ajax용
 	}
 
 }
