@@ -5,6 +5,7 @@
     pageEncoding="UTF-8"%>
     <!-- jstl 사용 태그 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!--
 
 =========================================================
@@ -52,8 +53,10 @@
   <link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+  <!-- Google font  -->
+  <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Pen+Script&display=swap" rel="stylesheet">
 </head>
-
+<!-- aaabb -->
 <body class="">
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
@@ -264,90 +267,8 @@
         <div class="header-body">
           <!-- Card stats -->
           <div class="row">
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
-                      <span class="h2 font-weight-bold mb-0">350,897</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                        <i class="fas fa-chart-bar"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                      <span class="h2 font-weight-bold mb-0">2,356</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="fas fa-chart-pie"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last week</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                      <span class="h2 font-weight-bold mb-0">924</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                        <i class="fas fa-users"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                    <span class="text-nowrap">Since yesterday</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                      <span class="h2 font-weight-bold mb-0">49,65%</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
+          	<div class="col">
+          	</div>
           </div>
         </div>
       </div>
@@ -367,7 +288,12 @@
     <% 
     	List<NoticeDTO> list = (List<NoticeDTO>)request.getAttribute("nlist");
     	
+    /* font-family: 'Black Han Sans', sans-serif;
+    font-family: 'Nanum Pen Script', cursive; */
+    
+    
     %>
+    <!-- aaaabbcccddeeffee -->
     <!-- white 테마 사용 -->
     <div class="container-fluid mt--7">
       <!-- Table -->
@@ -380,59 +306,56 @@
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
-                  <tr>
-                  	<th scope="col" width="20">글 번 호</th>
-                    <th scope="col" width="30">글 쓴 이</th>
-                    <th scope="col">글 제 목</th>	<!-- component에서 modal기능을 이용하여 보여줄 수 있게-->
-                    <th scope="col" width="40">작성일시</th>
-                    <th scope="col" width="20">조 회 수</th>
-                    <th scope="col" width="30">추 천 수</th>
-                    <th scope="col"></th>
+                  <tr style="font-family: 'Black Han Sans', sans-serif;" align="center">
+                  	<th scope="col" style="font-size: 20px;">글 분 류</th>
+                    <th scope="col" style="font-size: 20px;">글 번 호</th>
+                    <th scope="col" style="font-size: 20px;">글 쓴 이</th>	<!-- component에서 modal기능을 이용하여 보여줄 수 있게-->
+                    <th scope="col" style="font-size: 20px;">글 제 목</th>
+                    <th scope="col" style="font-size: 20px;">조 회 수</th>
+                    <th scope="col" style="font-size: 20px;">작성일시</th>
                   </tr>
                 </thead>
-                <!-- 전체적인 정렬이 필요(css확인 후 강제 인라인 먹일 수 있는 방법 모색) or 그냥... 넣어보자 ㅋㅋㅋㅋ -->
+                <!-- 전체적인 정렬이 필요(css확인 후 강제 인라인 먹일 수 있는 방법 모색) or 그냥... 넣어보자 ㅋㅋㅋㅋ aaabbbcccdddeeeee -->
                 <%
                 	pagination pg = (pagination)request.getAttribute("pagination");
          	   	%>
                 <tbody>
                 <!-- for문을 돌릴 떄 현재 페이지를 보내서  -->
                 <c:forEach var="ndto" items="${nlist}" varStatus="status" begin="<%=pg.getStartIndex() %>" end="<%=pg.getEndIndex() %>">
-                  <tr>
-                  	<td scope="row">	<!-- scope의 의미는? -->
+                  <tr style="font-family: 'Nanum Pen Script', cursive;" align="center">
+                  	<!-- 글분류 -->
+                  	<td scope="row" style="font-size: 20px;">
+                  		<c:choose>
+                  		<c:when test="${ndto.notice_type eq 'P'}">
+                  			<img style="width: auto; height: auto; max-width: 70px; max-height: 30px;" src="resources/assets/img/icons/noticeicon/공지.gif">
+                  		</c:when>
+                  		<c:when test="${ndto.notice_type eq 'A'}">
+                  			<img style="width: auto; height: auto; max-width: 70px; max-height: 30px;" src="resources/assets/img/icons/noticeicon/광고.gif">
+                  		</c:when>
+                  		<c:when test="${ndto.notice_type eq 'E'}">
+                  			<img style="width: auto; height: auto; max-width: 70px; max-height: 30px;" src="resources/assets/img/icons/noticeicon/이벤트.gif">
+                  		</c:when>
+                  		</c:choose>
+                  	</td>
+                  	<!-- 글번호 -->
+                  	<td style="font-size: 20px;">	<!-- scope의 의미는? -->
                   		${ndto.notice_num }
                   	</td>
                   	<!-- 글쓴이( 이미지 + 아이디 : 글쓴이 클릭하면 쪽지 보낼 수 있도록이나 이런 기능??) -->
-                    <td>
+                    <td style="font-size: 20px;">
 	                    ${ndto.writer }
                     </td>
                     <!-- 내용이 나오도록(내용 누르면 공지사항 상세페이지로 가도록 or 카드 열리는 형식으로 표시 되도록) -->
-                    <td>
+                    <td style="font-size: 20px;">
                       <a href="noticeSelect.do?notice_num=${ndto.notice_num }">${ndto.title }</a>
                     </td>
-                    <!-- 작성일시 -->
-                    <td>
-                    	${ndto.write_date }
-                    </td>
                     <!-- 조회수 -->
-                    <td>
-                  		${ndto.hit }
+                    <td style="font-size: 20px;">
+                    	${ndto.hit }
                     </td>
-                    <!-- 추천 -->
-                    <td>
-                    	${ndto.notice_type }
-                    </td>
-                    <!-- 버튼부분 : 뭘로 활용할 수 있으려나??? -->
-                    <td class="text-right">
-                      <div class="dropdown">
-                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fas fa-ellipsis-v"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                      </div>
+                    <!-- 작성일시 -->
+                    <td style="font-size: 20px;">
+                  		${ndto.write_date }
                     </td>
                   </tr>
                   </c:forEach>
@@ -442,14 +365,16 @@
                 		<td colspan="6" align="right">
                 			<form action="noticeInsert.do">
 		                		<button type="submit" class="btn btn-outline-info">글쓰기</button>
+		                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		                		<input type="button" class="btn btn-outline-info" onclick="history.back(-1);" value="뒤로가기">
+		                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 			</form>
                 		</td>
                 	</tr>
                 </tfoot>
               </table>
             </div>
-            <div class="card-footer py-4">
+            <div class="card-footer py-4" align="center">
             	<!-- 페이지 네이션 구현 -->
             		<!-- pagenatin 블럭이 1이 아니면 처음 표시가 나오게끔 -->
 				 	<c:if test="${pagination.curRange ne 1 }">
