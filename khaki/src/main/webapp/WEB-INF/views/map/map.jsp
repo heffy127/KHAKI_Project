@@ -290,46 +290,52 @@ int endTimeCheck = 0;
    
    
    function strCheck1() { // 현재년도 보다 이를 경우 얼럿발생
+	   $('#timeCheck').attr('disabled', true);
       var year0 = String(d.getFullYear());
       var year = year0.substr(2,3);
       var strY = $('#startYear').val();
       if (parseInt(strY)<parseInt(year)) {
-         alert("현재시간 이후로 다시 선택해주세요.");
          $('#startYear').val(year);
       }
+      endCheck5();
    }
    
    function strCheck2() { // 현재월 보다 이를 경우 얼럿발생
+	   $('#timeCheck').attr('disabled', true);
       var month = String(d.getMonth()+1);
       month = leadingZeros(month,2);
       var strY = $('#startMonth').val();
       if (parseInt(strY)<parseInt(month)) {
-         alert("현재시간 이후로 다시 선택해주세요.");
          $('#startMonth').val(month);
       }
+      endCheck5();
    }
    
    function strCheck3() { // 현재일 보다 이를 경우 얼럿발생
+	   $('#timeCheck').attr('disabled', true);
       var date = d.getDate();
       date = leadingZeros(date,2);
       var strY = $('#startDay').val();
       if (parseInt(strY)<parseInt(date)) {
-         alert("현재시간 이후로 다시 선택해주세요.")
          $('#startDay').val(date);
       }
+      endCheck5();
    }
    
    function strCheck4() { // 현재 시간 보다 이를 경우 얼럿발생
+	   $('#timeCheck').attr('disabled', true);
       var hour = d.getHours();
       hour = leadingZeros(hour,2);
       var strY = $('#startClock').val();
       if (parseInt(strY)<parseInt(hour)) {
-         alert("현재시간 이후로 다시 선택해주세요.")
          $('#startClock').val(hour);
       }
+      endCheck5();
    }
    
    function strCheck5() { // 현재 분 보다 이를 경우 얼럿발생
+	   
+	   $('#timeCheck').attr('disabled', true);
       
       var allTime = $('#startYear').val() + $('#startMonth').val() + $('#startDay').val() + $('#startClock').val() + $('#startMin').val();
    
@@ -353,54 +359,58 @@ int endTimeCheck = 0;
       if(parseInt(allTimePre) < parseInt(allTime)){
          
       } else{
-         alert("현재 시간보다 빠릅니다. 다시 설정 하세요.")
-         $('#startMin').val("분");
+         $('#startMin').val("00");
       }
+      endCheck5();
    }
    
    function endCheck1() { // 현재년도 보다 이를 경우 얼럿발생
+	   $('#timeCheck').attr('disabled', true);
       var year = $('#startYear').val();
       var strY = $('#endYear').val();
       if (parseInt(strY)<parseInt(year)) {
-         alert("시작보다 이른 시간입니다. 다시 입력하세요.")
          $('#endYear').val(year);
       }
+      endCheck5();
    }
    
    function endCheck2() { // 현재년도 보다 이를 경우 얼럿발생
+	   $('#timeCheck').attr('disabled', true);
       var month = $('#startMonth').val();
       month = leadingZeros(month,2);
       var strY = $('#endMonth').val();
       if (parseInt(strY)<parseInt(month)) {
-         alert("시작보다 이른 시간입니다. 다시 입력하세요.")
          $('#endMonth').val(month);
       }
+      endCheck5();
    }
    function endCheck3() { // 현재년도 보다 이를 경우 얼럿발생
+	   $('#timeCheck').attr('disabled', true);
       var date = $('#startDay').val();
       date = leadingZeros(date,2);
       var strY = $('#endDay').val();
       if (parseInt(strY)<parseInt(date)) {
-         alert("시작보다 이른 시간입니다. 다시 입력하세요.")
          $('#endDay').val(date);
       }
+      endCheck5();
    }
    function endCheck4() { // 현재시간 보다 이를 경우 얼럿발생
+	   $('#timeCheck').attr('disabled', true);
       var hour = $('#startClock').val();
       hour = leadingZeros(parseInt(hour),2);
       var strY = $('#endClock').val();
       if (parseInt(strY)<hour) {
-         alert("시작보다 이른 시간입니다. 다시 입력하세요.")
          $('#endClock').val(hour);
       }
+      endCheck5();
    }
    function endCheck5() {
       var allTimeStr = $('#startYear').val() + $('#startMonth').val() + $('#startDay').val() + $('#startClock').val() + $('#startMin').val();
       var allTimeEnd = $('#endYear').val() + $('#endMonth').val() + $('#endDay').val() + $('#endClock').val() + $('#endMin').val();
       var allTime = parseInt(allTimeEnd) - parseInt(allTimeStr);
       if(allTime <= 0){
-         alert("반납시간을 다시 설정해주세요. (시작시간보다 이르게 입력되었음)");
-         $('#endMin').val("분");
+         alert("시간을 다시 설정해주세요. \n (시작시간이 현재보다 빠르거나 \n 반납시간이 시작 시간보다 이르게 입력되었음)");
+         $('#endMin').val("00");
          $('#timeCheck').attr('disabled', true);
       } else{
          $('#timeCheck').attr('disabled', false);
@@ -536,17 +546,28 @@ function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모�
          //x2[6] = 차량타입
          var x3 = x2[3] + "," + x2[6];
          var x4 =$('#selectCarNum').val();
-         
-         $("#carList").append( // 마커클릭 후 오른쪽에 추가되는 내용들
-            '<tr><td width="30%"><img alt="" src="'+x2[2]+'" width="80%"></td>'
-            +'<td width="30%"><strong>'+x2[0]+'</strong></td>'
-            +'<td width="30%">'+x2[4]+" / "+x2[1]+'% </td>'
-            +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-primary" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'">'+x2[3]+'</button></td></tr>'
-         );
+         var xxxx = '${selectCarNum}';
+         if(xxxx!=null){
+	         if(xxxx.indexOf(x2[3])==(-1)){
+	        	 $("#carList").append( // 마커클릭 후 오른쪽에 추가되는 내용들
+	     	            '<tr><td width="30%"><img alt="" src="'+x2[2]+'" width="80%"></td>'
+	     	            +'<td width="30%"><strong>'+x2[0]+'</strong></td>'
+	     	            +'<td width="30%">'+x2[4]+" / "+x2[1]+'% </td>'
+	     	            +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-danger" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'" disabled>'+x2[3]+'</button></td></tr>'
+	     	         );	 
+	         } else {
+				$("#carList").append( // 마커클릭 후 오른쪽에 추가되는 내용들
+	        	          '<tr><td width="30%"><img alt="" src="'+x2[2]+'" width="80%"></td>'
+	        	          +'<td width="30%"><strong>'+x2[0]+'</strong></td>'
+	        	          +'<td width="30%">'+x2[4]+" / "+x2[1]+'% </td>'
+	        	          +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-info" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'">'+x2[3]+'</button></td></tr>'
+	        	      );	 
+	        	 
+	         }
+         }
       
-         } 
-      }
-   })
+   }}
+})
 }
 
 $(document).on('click','#res_start', function () {
@@ -616,8 +637,29 @@ function reservation() {
    
    var use_time = buy_endTime - buy_startTime; // 대여시간
    var use_day = parseInt(use_time/10000); // 日 시간금액*24
-   var use_hour = parseInt((use_time % 10000) - (use_time % 100))/100 ;// 詩
-   var use_min = use_time % 100; // 分 시간금액 * (1/60)
+   var use_hour = 0;
+   //var use_min = use_time % 100; // 分 시간금액 * (1/60)
+   var use_min = 0;
+   // buy_startTime = 1909051250
+   // buy_endTime  =  1909051320
+   var strMin = parseInt(buy_startTime.substr(8,2));
+   var endMin = parseInt(buy_endTime.substr(8,2));
+   if ((endMin-strMin)>=0){
+	   use_min = endMin-strMin;
+   } else {
+	   use_min = 60-(strMin-endMin);
+   }
+ //------
+   var strHour = parseInt(buy_startTime.substr(6,2));
+   var endHour = parseInt(buy_endTime.substr(6,2));
+   alert(endHour-strHour);
+   if ((endHour-strHour)>=0){
+	   use_hour = endHour-strHour;
+   } else {
+	   use_hour = 24-(strHour-endHour);
+   }
+ //------
+   /*  */
    $.ajax({
          type : "GET",
          url : "carNumSearch.do",
