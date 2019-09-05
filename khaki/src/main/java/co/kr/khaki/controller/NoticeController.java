@@ -82,6 +82,33 @@ public class NoticeController {
 	      return "notice/notice";
 	      // notice/notice는 게시판 맨 처음 부분(selectAll 등의 전체 적인 곳이 나오는 곳)
 	   }
+
+	@RequestMapping("noticeUpdate1.do")
+	public String noticeUpdate(NoticeDTO noticeDTO, Model model){
+		
+		System.out.println("NoticeController Update1!");
+		noticeDTO = ndao.select(noticeDTO);
+		model.addAttribute("ndto", noticeDTO);
+		
+		return "notice/noticeUpdate";
+	}
+	
+	@RequestMapping("noticeUpdate2.do")
+	public String noticeUpdate2(NoticeDTO noticeDTO, Model model, @RequestParam(defaultValue="1") int curPage){
+		System.out.println("NoticeController Update2!");
+		ndao.update(noticeDTO);
+		
+		List<NoticeDTO> notice_list = ndao.selectAll();
+		int listCnt = notice_list.size();
+	      
+		pagination pg = new pagination(listCnt, curPage);
+		
+		model.addAttribute("nlist", notice_list);
+	    model.addAttribute("listCnt", listCnt);
+	    model.addAttribute("pagination",pg);
+	    
+		return "notice/notice";
+	}
 	
 	@RequestMapping("noticeSelect.do")
 	public String noticeSelect(NoticeDTO noticeDTO, Model model){
@@ -96,36 +123,22 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("noticeDelete.do")
-	public String noticeDelete(NoticeDTO noticeDTO, Model model){
+	public String noticeDelete(NoticeDTO noticeDTO, Model model, @RequestParam(defaultValue="1") int curPage){
 		
 		System.out.println("NoticeController Delete!");
 		ndao.delete(noticeDTO);
 		
 		List<NoticeDTO> notice_list = ndao.selectAll();
+		int listCnt = notice_list.size();
+		
+		pagination pg = new pagination(listCnt, curPage);
+		 
+		model.addAttribute("listCnt", listCnt);
+		model.addAttribute("pagination",pg);
 		model.addAttribute("nlist", notice_list);
+		
 		return "notice/notice";
-	}
-	
-	@RequestMapping("noticeUpdate1.do")
-	public String noticeUpdate(NoticeDTO noticeDTO, Model model){
-		
-		System.out.println("NoticeController Update1!");
-		noticeDTO = ndao.select(noticeDTO);
-		model.addAttribute("ndto", noticeDTO);
-		
-		return "notice/noticeUpdate";
-	}
-	
-	@RequestMapping("noticeUpdate2.do")
-	public String noticeUpdate2(NoticeDTO noticeDTO, Model model){
-		System.out.println("NoticeController Update2!");
-		ndao.update(noticeDTO);
-		
-		List<NoticeDTO> notice_list = ndao.selectAll();
-		model.addAttribute("nlist", notice_list);
-		return "notice/notice";
-	}
-	
+	}	
  
     // 다중파일업로드
     @RequestMapping(value = "/file_uploader_html5.do",

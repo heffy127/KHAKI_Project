@@ -367,7 +367,7 @@
   	});	//Jquery End
   
   	</script>
-    
+    <!-- aaa -->
     <!-- white 테마 사용 -->
     <div class="container-fluid mt--7">
       <!-- Table -->
@@ -391,12 +391,28 @@
 							  <label class="custom-control-label" for="customRadio5">공지</label>
 							</div>
 					      	<%
+					      	}else if(ndto.getNotice_type().equals("A")){
+					      		
+			      		 	%>
+							<div class="custom-control custom-radio mb-3">
+							  <input name="notice_type" class="custom-control-input" id="customRadio6" type="radio" value="A" checked="checked">
+							  <label class="custom-control-label" for="customRadio6">광고</label>
+							</div>
+					      	<%
+					      	}else if(ndto.getNotice_type().equals("E")){
+					      		
+			      		 	%>
+							<div class="custom-control custom-radio mb-3">
+							  <input name="notice_type" class="custom-control-input" id="customRadio6" type="radio" value="E" checked="checked">
+							  <label class="custom-control-label" for="customRadio7">이벤트</label>
+							</div>
+							<%
 					      	}else{
 					      		
 			      		 	%>
 							<div class="custom-control custom-radio mb-3">
-							  <input name="notice_type" class="custom-control-input" id="customRadio6" type="radio" value="G" checked="checked">
-							  <label class="custom-control-label" for="customRadio6">일반</label>
+							  <input name="notice_type" class="custom-control-input" id="customRadio8" type="radio" value="G" checked="checked">
+							  <label class="custom-control-label" for="customRadio7">일반</label>
 							</div>
 							<%
 					      	}
