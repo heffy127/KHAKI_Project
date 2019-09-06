@@ -12,6 +12,8 @@ CREATE SEQUENCE RE_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 MINVALUE 1 NOC
 
 @ 박준영
 
+
+// 회원 테이블
 create table member(
 id varchar2(20) primary key not null,
 pw clob not null,
@@ -39,6 +41,7 @@ insert into member values('rlgus1232', '$2a$10$02KEbqDI9cIqHAyyVzonJuJ8yvXE7vqkq
 insert into member values('rlgus1233', '$2a$10$02KEbqDI9cIqHAyyVzonJuJ8yvXE7vqkqCW96G5YtaZLEbmzLWW/e', '정기현', 'rlgus0617', 'hanmail.net', '010', '5048', '7705', '02217', '서울 중랑구 면목로61길 60-1', '옥탑', '(면목동)', '100', '1', '1', '6', 'Y', '/khaki/resources/profilePhoto/profilePhoto_basic.png');
 insert into member values('rlgus1234', '$2a$10$02KEbqDI9cIqHAyyVzonJuJ8yvXE7vqkqCW96G5YtaZLEbmzLWW/e', '정기현', 'rlgus0617', 'hanmail.net', '010', '5048', '7705', '02217', '서울 중랑구 면목로61길 60-1', '옥탑', '(면목동)', '100', '1', '1', '8', 'Y', '/khaki/resources/profilePhoto/profilePhoto_basic.png');
 
+// 운전면허 테이블
 create table license(
 id varchar2(50) primary key,
 name varchar2(50) not null,
@@ -57,12 +60,21 @@ permission char(1) default 'x',
 constraint FK_licenseId foreign key(id) references member(id) on delete cascade
 );
 
+// 소셜 로그인 테이블
 create table social(
 id varchar2(50),
 social_type varchar2(50),
 social_id varchar2(50) not null,
 constraint PK_social primary key(id, social_type),
 constraint FK_socialId foreign key(id) references member(id) on delete cascade);
+
+// 회원 등급 테이블
+create table MemberLevel (
+id varchar2(50) primary key,
+memberLevel number default 1,
+exp number default 0,
+constraint FK_levelId foreign key(id) references member(id) on delete cascade
+);
 
 @ 민병호
 

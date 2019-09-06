@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import co.kr.khaki.member.AuthNumber;
+import co.kr.khaki.member.CalculateMemberLevel;
 import co.kr.khaki.member.HashingPw;
 import co.kr.khaki.member.LicenseDAO;
 import co.kr.khaki.member.LicenseDTO;
@@ -25,6 +26,8 @@ import co.kr.khaki.member.Mail_findPw;
 import co.kr.khaki.member.Mail_mypageAuth;
 import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.member.MemberDTO;
+import co.kr.khaki.member.MemberLevelDAO;
+import co.kr.khaki.member.MemberLevelDTO;
 import co.kr.khaki.member.SocialDAO;
 import co.kr.khaki.member.SocialDTO;
 import co.kr.khaki.member.TempPw;
@@ -38,11 +41,22 @@ public class MemberController {
 	LicenseDAO licenseDAO;
 	@Autowired
 	SocialDAO socialDAO;
+	@Autowired 
+	MemberLevelDAO memberLevelDAO;
 	
 	@RequestMapping("profile.do")
-	public String member(MemberDTO memberDTO, Model model, HttpSession session) {
+	public String member(MemberDTO memberDTO, MemberLevelDTO memberLevelDTO, Model model, HttpSession session, CalculateMemberLevel cal) {
 		memberDTO = memberDAO.selectId((String)session.getAttribute("sessionId"));
 		model.addAttribute("memberDTO", memberDTO);
+		//
+		memberLevelDTO = memberLevelDAO.selectId(memberDTO.getId());
+		memberLevelDTO = cal.setLevel(memberLevelDTO, 300);  // 프로필 들어갈때 300씩 증가(테스트용)
+		memberLevelDAO.update(memberLevelDTO); // 등급 DB 업데이트
+		int[] arr = cal.showStat(memberLevelDTO);
+		model.addAttribute("memberLevelDTO",memberLevelDTO);
+		model.addAttribute("expLimit", arr[0]); // 요구 경험치
+		model.addAttribute("expPer", arr[1]); // 레벨업까지의 퍼센트
+		//
 		return "member/profile";
 	}
 	

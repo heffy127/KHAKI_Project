@@ -12,6 +12,7 @@
 		<typeAlias type="co.kr.khaki.board.BoardDTO" alias="bDTO"></typeAlias>
 		<typeAlias type="co.kr.khaki.board.BoardReplyDTO" alias="reDTO"></typeAlias>
 		<typeAlias type="co.kr.khaki.member.MemberDTO" alias="memberDTO"></typeAlias>
+		<typeAlias type="co.kr.khaki.member.MemberLevelDTO" alias="memberLevelDTO"></typeAlias>
 		<typeAlias type="co.kr.khaki.member.SocialDTO" alias="socialDTO"></typeAlias>
 		<typeAlias type="co.kr.khaki.member.LicenseDTO" alias="licenseDTO"></typeAlias>
 		<typeAlias type="co.kr.khaki.member.InsertPointDTO" alias="insertPointDTO"></typeAlias>
@@ -29,6 +30,7 @@
 		<mapper resource="mapper/boardMapper.xml" />
 		<mapper resource="mapper/boardReplyMapper.xml" />
 		<mapper resource="mapper/memberMapper.xml" />
+		<mapper resource="mapper/memberLevelMapper.xml" />
 		<mapper resource="mapper/licenseMapper.xml" />
 		<mapper resource="mapper/socialMapper.xml" />
 		<mapper resource="mapper/noticeMapper.xml" />

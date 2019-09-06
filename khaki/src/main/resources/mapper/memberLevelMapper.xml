@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberLevelDAO">
+
+
+	<resultMap type="memberLevelDTO" id="rsMap">
+		<result property="id" column="id" />
+		<result property="memberLevel" column="memberLevel" />
+		<result property="exp" column="exp" />
+	</resultMap>
+
+	<select id="selectId" parameterType="String" resultMap="rsMap">
+		SELECT *
+		FROM memberLevel
+		WHERE id = #{id}
+	</select>
+
+	<insert id="insert" parameterType="String">
+		INSERT INTO memberLevel (id)
+		VALUES(#{id})
+	</insert>
+
+	<update id="update" parameterType="memberLevelDTO">
+		UPDATE memberLevel
+		SET
+		memberLevel = #{memberLevel}, exp = #{exp}
+		WHERE
+		id = #{id}
+	</update>
+
+	<select id="selectAll" resultMap="rsMap">
+		SELECT * FROM memberLevel
+	</select>
+
+</mapper>

@@ -41,6 +41,8 @@
    $(document).ready(
          function() {
         	 
+        	$('#expBar').attr('style',"width: "+'${expPer}'+"%;") // 경험치 퍼센트 표시
+        	 
         	$('#profilePhotoBtn').click(
         			function() {
 						$('#file').click()
@@ -349,11 +351,27 @@
                 <h1>
                   ${memberDTO.name}
                 </h1>
-                <div class="h5 mt-4">
-                  
+                <div class="h5 mt-4" align="center" style="margin-bottom: 0px;">
+                  <div style="width: 189px; height: 61px; 
+                  background-image: url(resources/assets/img/icons/common/level-background.jpg); background-size: 190px;
+                  line-height: 65px;" data-toggle="tooltip" data-placement="left" title="Level을 증가시켜 보다 더 큰 혜택을 누리세요!">
+                  	<font size="6"><b>${memberLevelDTO.memberLevel}</b></font>
+                  </div>
                 </div>
                 <div>
-                  
+                  <div class="progress-wrapper" style="padding-top: 0px;">
+					  <div class="progress-info">
+					    <div class="progress-label">
+					      ${memberLevelDTO.exp } / ${expLimit }
+					    </div>
+					    <div class="progress-percentage">
+					      <span>${expPer}%</span>
+					    </div>
+					  </div>
+					  <div class="progress">
+					    <div id="expBar" class="progress-bar bg-warning" role="progressbar" aria-valuenow="${expPer}" aria-valuemin="0" aria-valuemax="100"></div>
+					  </div>
+					</div>
                 </div>
                 <hr class="my-4" />
                	

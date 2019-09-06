@@ -14,6 +14,7 @@ import co.kr.khaki.member.InsertPointDTO;
 import co.kr.khaki.member.Mail_auth;
 import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.member.MemberDTO;
+import co.kr.khaki.member.MemberLevelDAO;
 import co.kr.khaki.member.SocialDAO;
 import co.kr.khaki.member.SocialDTO;
 
@@ -25,6 +26,8 @@ public class RegisterController {
 	MemberDAO memberDAO;
 	@Autowired
 	SocialDAO socialDAO;
+	@Autowired
+	MemberLevelDAO memberLevelDAO;
 	
 	@RequestMapping("idCheck.do")
 	public String idCheck(String idCheck, MemberDTO memberDTO, Model model) {
@@ -152,6 +155,7 @@ public class RegisterController {
 			insertPointDTO.setPoint(20);
 			memberDAO.updatePoint(insertPointDTO);			
 		}
+		memberLevelDAO.insert(memberDTO.getId()); // 회원 등급 생성
 		if(go.trim().equals("home")) {
 			return "home/index";
 			// 바로 홈으로
