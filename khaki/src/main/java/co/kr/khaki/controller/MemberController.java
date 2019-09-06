@@ -18,12 +18,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import co.kr.khaki.member.AuthNumber;
 import co.kr.khaki.member.HashingPw;
+import co.kr.khaki.member.LicenseDAO;
 import co.kr.khaki.member.LicenseDTO;
 import co.kr.khaki.member.Mail_findId;
 import co.kr.khaki.member.Mail_findPw;
 import co.kr.khaki.member.Mail_mypageAuth;
 import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.member.MemberDTO;
+import co.kr.khaki.member.SocialDAO;
 import co.kr.khaki.member.SocialDTO;
 import co.kr.khaki.member.TempPw;
 
@@ -32,10 +34,14 @@ public class MemberController {
 
 	@Autowired
 	MemberDAO memberDAO;
+	@Autowired
+	LicenseDAO licenseDAO;
+	@Autowired
+	SocialDAO socialDAO;
 	
 	@RequestMapping("profile.do")
 	public String member(MemberDTO memberDTO, Model model, HttpSession session) {
-		memberDTO = memberDAO.selectId_Member((String)session.getAttribute("sessionId"));
+		memberDTO = memberDAO.selectId((String)session.getAttribute("sessionId"));
 		model.addAttribute("memberDTO", memberDTO);
 		return "member/profile";
 	}
@@ -65,7 +71,7 @@ public class MemberController {
 	@RequestMapping("loginCheck.do")
 	public String loginCheck(HttpServletResponse response, HttpServletRequest request, 
 			MemberDTO memberDTO, HashingPw hp ,String id, String pw, String forCookie, Model model) {
-		memberDTO = memberDAO.selectId_Member(id);
+		memberDTO = memberDAO.selectId(id);
 		if(memberDTO == null) {	// 아이디가 없을때
 			model.addAttribute("loginCheck", "no");
 		}else if(hp.pwCheck(pw, memberDTO.getPw()).equals("yes")) { // 아이디와 비밀번호 일치
@@ -206,10 +212,10 @@ public class MemberController {
 	@RequestMapping("mypage_memberInfo.do")
 	public String memberInfo(MemberDTO memberDTO, LicenseDTO licenseDTO, SocialDTO socialDTO_naver, SocialDTO socialDTO_kakao, Model model, HttpSession session) {
 		String id = (String)session.getAttribute("sessionId");
-		memberDTO = memberDAO.selectId_Member(id);
-		licenseDTO = memberDAO.selectId_license(id);
-		socialDTO_naver = memberDAO.selectId_naver(id);
-		socialDTO_kakao = memberDAO.selectId_kakao(id);
+		memberDTO = memberDAO.selectId(id);
+		licenseDTO = licenseDAO.selectId(memberDTO.getId());
+		socialDTO_naver = socialDAO.selectId_naver(id);
+		socialDTO_kakao = socialDAO.selectId_kakao(id);
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("licenseDTO", licenseDTO);
 		model.addAttribute("socialDTO_naver", socialDTO_naver);
@@ -223,7 +229,7 @@ public class MemberController {
 			MemberDTO memberDTO, HashingPw hp ,String pw,Model model) {
 			System.out.println(memberDTO.getId());
 			System.out.println(pw);
-			memberDTO = memberDAO.selectId_Member(memberDTO.getId());
+			memberDTO = memberDAO.selectId(memberDTO.getId());
 			if(hp.pwCheck(pw, memberDTO.getPw()).equals("yes")) { // 아이디와 비밀번호 일치
 				model.addAttribute("check", "yes");
 			}else { // 아이디는 있지만 비밀번호와 불일치
@@ -244,7 +250,7 @@ public class MemberController {
 	@RequestMapping("mypage_newPw_check.do")
 	public String newPw_check(MemberDTO memberDTO, String pw, HashingPw hp ,Model model) {
 		System.out.println(pw);
-		memberDTO = memberDAO.selectId_Member(memberDTO.getId());
+		memberDTO = memberDAO.selectId(memberDTO.getId());
 		if(hp.pwCheck(pw, memberDTO.getPw()).equals("yes")) { // 아이디와 비밀번호 일치
 			model.addAttribute("check", "yes");
 		}else { // 아이디는 있지만 비밀번호와 불일치
@@ -327,7 +333,7 @@ public class MemberController {
 	// 마이페이지 운전면허정보 등록 창
 		@RequestMapping("mypage_license.do")
 		public String license(MemberDTO memberDTO, LicenseDTO licenseDTO, Model model) {
-			licenseDTO = memberDAO.selectId_license(memberDTO.getId());
+			licenseDTO = licenseDAO.selectId(memberDTO.getId());
 			model.addAttribute("licenseDTO", licenseDTO);
 			model.addAttribute("memberDTO",memberDTO);
 			return "mypage/license";
@@ -336,8 +342,8 @@ public class MemberController {
 	// 운전면허 정보 등록 완료
 	@RequestMapping("mypage_license_fin.do")
 	public String license_fin(LicenseDTO licenseDTO) {
-		memberDAO.deleteLicense(licenseDTO.getId());
-		memberDAO.insertLicense(licenseDTO);
+		licenseDAO.deleteLicense(licenseDTO.getId());
+		licenseDAO.insertLicense(licenseDTO);
 		return "mypage/allCheck"; // ajax용
 	}
 	
@@ -380,7 +386,7 @@ public class MemberController {
 		}
 		memberDTO.setPhoto("/khaki/resources/profilePhoto/" + fileName);
 		memberDAO.updatePhoto(memberDTO);
-		memberDTO = memberDAO.selectId_Member(memberDTO.getId());
+		memberDTO = memberDAO.selectId(memberDTO.getId());
 		model.addAttribute("memberDTO", memberDTO);
 		session.setAttribute("sessionPhoto", memberDTO.getPhoto()); // 프로필 사진 세션 교체
 		return "member/profile"; // ajax용

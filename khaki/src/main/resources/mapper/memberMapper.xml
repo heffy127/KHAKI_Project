@@ -4,7 +4,7 @@
 
 <mapper namespace="memberDAO">
 
-	<resultMap type="memberDTO" id="rsMap_member">
+	<resultMap type="memberDTO" id="rsMap">
 		<result property="id" column="id" />
 		<result property="pw" column="pw" />
 		<result property="name" column="name" />
@@ -24,53 +24,13 @@
 		<result property="photo" column="photo" />
 	</resultMap>
 	
-	<resultMap type="licenseDTO" id="rsMap_license">
-		<result property="id" column="id" />
-		<result property="name" column="name" />
-		<result property="licenseType" column="licenseType" />
-		<result property="area" column="area" />
-		<result property="num1" column="num1" />
-		<result property="num2" column="num2" />
-		<result property="num3" column="num3" />
-		<result property="issueYear" column="issueYear" />
-		<result property="issueMonth" column="issueMonth" />
-		<result property="issueDay" column="issueDay" />
-		<result property="expireYear" column="expireYear" />
-		<result property="expireMonth" column="expireMonth" />
-		<result property="expireDay" column="expireDay" />
-	</resultMap>
-	
-	<resultMap type="socialDTO" id="rsMap_social">
-		<result property="id" column="id" />
-		<result property="social_id" column="social_id" />
-		<result property="social_type" column="social_type" />
-	</resultMap>
-
-	<select id="selectId_member" parameterType="String" resultMap="rsMap_member">
+	<select id="selectId" parameterType="String" resultMap="rsMap">
 		SELECT *
 		FROM member
 		WHERE id = #{id}
 	</select>
-	
-	<select id="selectId_license" parameterType="String" resultMap="rsMap_license">
-		SELECT *
-		FROM license
-		WHERE id = #{id}
-	</select>
-	
-	<select id="selectId_naver" parameterType="String" resultMap="rsMap_social">
-		SELECT *
-		FROM social
-		WHERE id = #{id} and social_type = 'naver'
-	</select>
-	
-	<select id="selectId_kakao" parameterType="String" resultMap="rsMap_social">
-		SELECT *
-		FROM social
-		WHERE id = #{id} and social_type = 'kakao'
-	</select>
 
-	<select id="selectEmail" parameterType="memberDTO" resultMap="rsMap_member">
+	<select id="selectEmail" parameterType="memberDTO" resultMap="rsMap">
 		SELECT *
 		FROM member
 		WHERE email_id = #{email_id} and email_site = #{email_site}
@@ -88,7 +48,7 @@
 		WHERE email_id = #{email_id} and email_site = #{email_site} and name = #{name} and id = #{id}
 	</select>
 	
-	<select id="selectPhone" parameterType="memberDTO" resultMap="rsMap_member">
+	<select id="selectPhone" parameterType="memberDTO" resultMap="rsMap">
 		SELECT *
 		FROM member
 		WHERE phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3}
@@ -106,33 +66,14 @@
 		WHERE phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3} and name = #{name} and id = #{id}
 	</select>
 
-	<select id="selectAll" resultMap="rsMap_member">
+	<select id="selectAll" resultMap="rsMap">
 		SELECT * FROM member
-	</select>
-
-	<!-- 소셜 유무 확인 -->
-	<select id="snsJoinCheck" parameterType="memberDTO" resultType="String">
-		SELECT id 
-		FROM social
-		WHERE social_id = #{social_id} and social_type = #{social_type}
 	</select>
 
 	<!-- 회원가입 정보 주입 -->
 	<insert id="insertMember" parameterType="memberDTO">
 		INSERT INTO member (id, pw, name, email_id, email_site, phone1, phone2, phone3, postcode, address1, address2, address3, smsPush, emailPush, useCount, handler)
 		VALUES(#{id}, #{pw}, #{name},#{email_id}, #{email_site},#{phone1}, #{phone2}, #{phone3},#{postcode}, #{address1}, #{address2}, #{address3},#{smsPush}, #{emailPush}, #{useCount},#{handler})
-	</insert>
-	
-	<!-- 소셜 정보 주입 -->
-	<insert id="insertSocial" parameterType="socialDTO">
-		INSERT INTO social 
-		VALUES(#{id}, #{social_type}, #{social_id})
-	</insert>
-	
-	<!-- 운전면허 정보 주입 -->
-	<insert id="insertLicense" parameterType="licenseDTO">
-		INSERT INTO license (id, name, licenseType, area, num1, num2, num3, issueYear, issueMonth, issueDay, expireYear, expireMonth, expireDay)
-		VALUES(#{id}, #{name}, #{licenseType}, #{area}, #{num1}, #{num2}, #{num3}, #{issueYear}, #{issueMonth}, #{issueDay}, #{expireYear}, #{expireMonth}, #{expireDay})
 	</insert>
 
 	<update id="updatePoint" parameterType="insertPointDTO">
@@ -185,14 +126,6 @@
 		id = #{id}
 	</delete>
 
-	<delete id="deleteLicense" parameterType="String">
-		DELETE FROM license WHERE
-		id = #{id}
-	</delete>
 	
-	<delete id="deleteSocial" parameterType="socialDTO">
-		DELETE FROM social WHERE
-		id = #{id} and social_type = #{social_type}
-	</delete>
 
  </mapper>
