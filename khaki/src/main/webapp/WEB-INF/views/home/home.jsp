@@ -59,6 +59,11 @@
 		          }
 			});
   		})
+  		
+  		$("#adminMode").click( // 관리자 모드로 전환
+  				function() {
+  					location.href = "admin.do"
+		})
   	})
   </script>
 </head>
@@ -234,19 +239,26 @@
     <!-- Navbar -->
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
-        <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Dashboard</a>
-        <!-- Form -->
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-          <div class="form-group mb-0">
-            <div class="input-group input-group-alternative">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
-              </div>
-              <input class="form-control" placeholder="Search" type="text">
-            </div>
-          </div>
-        </form>
+        <!-- 관리자 분기점 -->
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="home.do">KHAKI</a>
+        <c:if test="${sessionId == 'admin1' }">
+	        <div align="center">
+	        	<table>
+	        		<tr>
+	        			<td>
+	        				<button type="button" class="btn btn-success" disabled="disabled" id="userMode">사용자 모드</button>
+	        			</td>
+	        			<td>
+	        				&nbsp;&nbsp;&nbsp;&nbsp;
+	        			</td>
+	        			<td>
+	        				<button type="button" class="btn btn-warning" id="adminMode">관리자 모드</button>
+	        			</td>
+	        		</tr>
+	        	</table>
+			</div>
+		</c:if>
+		
         <!-- 우측 상단 프로필 -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">

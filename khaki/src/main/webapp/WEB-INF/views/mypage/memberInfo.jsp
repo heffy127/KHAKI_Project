@@ -199,7 +199,6 @@ $(document).ready(
 									// 인증번호 session 삭제
 								}
 							})
-							
 							$('#emailChangeBtn').attr('class','btn btn-outline-primary')
 							$('#emailChangeBtn').text('변경')
 							$('#email_id').val('${memberDTO.email_id}') // 기존 값 삽입
@@ -209,6 +208,7 @@ $(document).ready(
 							$("#email_select").val('').prop("selected", true); // '직접입력' option 선택
 							$('#email_select').attr('disabled',true)
 							$('#emailCancelDiv').hide()
+							$('#emailPop').popover('hide')
 					})
 					
 			// email_select박스
@@ -286,6 +286,7 @@ $(document).ready(
 							$('#phone3').val('${memberDTO.phone3}')
 							$('#phone3').attr('readonly',true)
 							$('#phoneCancelDiv').hide()
+							$('#phonePop').popover('hide')
 					})
 					
 					
@@ -352,6 +353,7 @@ $(document).ready(
 							$('#detailAddress').attr('readonly',true)
 							$('#extraAddress').val('${memberDTO.address3}')
 							$('#addressCancelDiv').hide()
+							$('#addressPop').popover('hide')
 					})
 			
 			
@@ -460,6 +462,14 @@ $(document).ready(
 			// 마케팅 푸시 확인버튼 눌렀을떄
 			$('#pushBtn').click(
 					function() {
+						if($("#emailPush_chk").is(":checked")){
+							if('${memberDTO.email_id}' == ''){
+								alert('이메일을 통한 정보 수신을 원하실 경우\n이메일 주소를 등록해주세요.')
+								location.reload(true)
+								return false
+							}
+						}
+						
 						if(confirm('마케팅 정보 수신을 변경하시겠습니까?')){ // 변경할게요
 							var d = $('#mypageF').serialize()
 							$.ajax({  // 주소 업데이트

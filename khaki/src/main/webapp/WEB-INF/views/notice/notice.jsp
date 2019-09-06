@@ -39,9 +39,64 @@
   		//alert(curPage); //페이지 넘버 확인
   	};
   	
-    /* $(function(){
+    $(function(){
     	
-    });	//Jquery End */
+    	$(".btn_notice").click(function(){
+    		alert("공지사항 버튼");
+    		
+    		<%-- <c:forEach var="ndto" items="${nlist}" varStatus="status" begin="<%=pg.getStartIndex() %>" end="<%=pg.getEndIndex() %>">
+            <tr style="font-family: 'Nanum Pen Script', cursive;" align="center">
+              	<!-- 글분류 -->
+              	<td scope="row" style="font-size: 20px;">
+              		<c:choose>
+              		<c:when test="${ndto.notice_type eq 'P'}">
+              			<img style="width: auto; height: auto; max-width: 70px; max-height: 30px;" src="resources/assets/img/icons/noticeicon/공지.gif">
+              		</c:when>
+              		<c:when test="${ndto.notice_type eq 'A'}">
+              			<img style="width: auto; height: auto; max-width: 70px; max-height: 30px;" src="resources/assets/img/icons/noticeicon/광고.gif">
+              		</c:when>
+              		<c:when test="${ndto.notice_type eq 'E'}">
+              			<img style="width: auto; height: auto; max-width: 70px; max-height: 30px;" src="resources/assets/img/icons/noticeicon/이벤트.gif">
+              		</c:when>
+              		</c:choose>
+              	</td>
+              	<!-- 글번호 -->
+              	<td style="font-size: 20px;">	<!-- scope의 의미는? -->
+              		${ndto.notice_num }
+              	</td>
+              	<!-- 글쓴이( 이미지 + 아이디 : 글쓴이 클릭하면 쪽지 보낼 수 있도록이나 이런 기능??) -->
+                <td style="font-size: 20px;">
+                    ${ndto.writer }
+                </td>
+                <!-- 내용이 나오도록(내용 누르면 공지사항 상세페이지로 가도록 or 카드 열리는 형식으로 표시 되도록) -->
+                <td style="font-size: 20px;">
+                  <a href="noticeSelect.do?notice_num=${ndto.notice_num }">${ndto.title }</a>
+                </td>
+                <!-- 조회수 -->
+                <td style="font-size: 20px;">
+                	${ndto.hit }
+                </td>
+                <!-- 작성일시 -->
+                <td style="font-size: 20px;">
+              		${ndto.write_date }
+                </td>
+              </tr>
+          </c:forEach> --%>
+    		
+    	});		//공지사항 버튼 end
+    	
+    	$(".btn_add").click(function(){
+    		alert("광고 버튼");
+    	});		//광고 버튼 end
+    	
+    	$(".btn_event").click(function(){
+    		alert("이벤트 버튼");
+    	});		//이벤트 버튼 end
+    	
+    	
+    	
+    	
+    });	//Jquery End
   </script>
   
   <!-- Favicon -->
@@ -290,7 +345,7 @@
     	
     /* font-family: 'Black Han Sans', sans-serif;
     font-family: 'Nanum Pen Script', cursive; */
-    
+    	
     
     %>
     <!-- aaaabbcccddeeffee -->
@@ -301,7 +356,18 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header border-0">
-              <h3 class="mb-0">총 게시물 수 : <%= list.size() %></h3>
+            	<div class="row">
+            		<div class="col-md-3" align="center">
+	          		    총 게시물 수 : <%= list.size() %>
+            		</div>
+            		<div class="col-md-6" align="center">
+            			<button type="button" class="btn btn-success btn_notice">공     지</button>
+            			<button type="button" class="btn btn-warning btn_add">광     고</button>
+            			<button type="button" class="btn btn-info btn_event">이 벤 트</button>
+            		</div>
+            		<div class="col-md-3">
+            		</div>
+            	</div>
             </div>
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
@@ -320,44 +386,44 @@
                 	pagination pg = (pagination)request.getAttribute("pagination");
          	   	%>
                 <tbody>
-                <!-- for문을 돌릴 떄 현재 페이지를 보내서  -->
+                <!-- for문을 돌릴 떄 현재 페이지를 보내서 aaaabcdd -->
                 <c:forEach var="ndto" items="${nlist}" varStatus="status" begin="<%=pg.getStartIndex() %>" end="<%=pg.getEndIndex() %>">
-                  <tr style="font-family: 'Nanum Pen Script', cursive;" align="center">
-                  	<!-- 글분류 -->
-                  	<td scope="row" style="font-size: 20px;">
-                  		<c:choose>
-                  		<c:when test="${ndto.notice_type eq 'P'}">
-                  			<img style="width: auto; height: auto; max-width: 70px; max-height: 30px;" src="resources/assets/img/icons/noticeicon/공지.gif">
-                  		</c:when>
-                  		<c:when test="${ndto.notice_type eq 'A'}">
-                  			<img style="width: auto; height: auto; max-width: 70px; max-height: 30px;" src="resources/assets/img/icons/noticeicon/광고.gif">
-                  		</c:when>
-                  		<c:when test="${ndto.notice_type eq 'E'}">
-                  			<img style="width: auto; height: auto; max-width: 70px; max-height: 30px;" src="resources/assets/img/icons/noticeicon/이벤트.gif">
-                  		</c:when>
-                  		</c:choose>
-                  	</td>
-                  	<!-- 글번호 -->
-                  	<td style="font-size: 20px;">	<!-- scope의 의미는? -->
-                  		${ndto.notice_num }
-                  	</td>
-                  	<!-- 글쓴이( 이미지 + 아이디 : 글쓴이 클릭하면 쪽지 보낼 수 있도록이나 이런 기능??) -->
-                    <td style="font-size: 20px;">
-	                    ${ndto.writer }
-                    </td>
-                    <!-- 내용이 나오도록(내용 누르면 공지사항 상세페이지로 가도록 or 카드 열리는 형식으로 표시 되도록) -->
-                    <td style="font-size: 20px;">
-                      <a href="noticeSelect.do?notice_num=${ndto.notice_num }">${ndto.title }</a>
-                    </td>
-                    <!-- 조회수 -->
-                    <td style="font-size: 20px;">
-                    	${ndto.hit }
-                    </td>
-                    <!-- 작성일시 -->
-                    <td style="font-size: 20px;">
-                  		${ndto.write_date }
-                    </td>
-                  </tr>
+	                <tr style="font-family: 'Nanum Pen Script', cursive;" align="center">
+	                  	<!-- 글분류 -->
+	                  	<td scope="row" style="font-size: 30px;">
+	                  		<c:choose>
+	                  		<c:when test="${ndto.notice_type eq 'P'}">
+	                  			<img  style="width: auto; height: auto; max-width: 60px; max-height: 25px;" src="resources/assets/img/icons/noticeicon/공지.gif">
+	                  		</c:when>
+	                  		<c:when test="${ndto.notice_type eq 'A'}">
+	                  			<img style="width: auto; height: auto; max-width: 60px; max-height: 25px;" src="resources/assets/img/icons/noticeicon/광고.gif">
+	                  		</c:when>
+	                  		<c:when test="${ndto.notice_type eq 'E'}">
+	                  			<img style="width: auto; height: auto; max-width: 60px; max-height: 25px;" src="resources/assets/img/icons/noticeicon/이벤트.gif">
+	                  		</c:when>
+	                  		</c:choose>
+	                  	</td>
+	                  	<!-- 글번호 -->
+	                  	<td style="font-size: 30px;">	<!-- scope의 의미는? -->
+	                  		${ndto.notice_num }
+	                  	</td>
+	                  	<!-- 글쓴이( 이미지 + 아이디 : 글쓴이 클릭하면 쪽지 보낼 수 있도록이나 이런 기능??) -->
+	                    <td style="font-size: 30px;">
+		                    ${ndto.writer }
+	                    </td>
+	                    <!-- 내용이 나오도록(내용 누르면 공지사항 상세페이지로 가도록 or 카드 열리는 형식으로 표시 되도록) -->
+	                    <td style="font-size: 30px;">
+	                      <a href="noticeSelect.do?notice_num=${ndto.notice_num }">${ndto.title }</a>
+	                    </td>
+	                    <!-- 조회수 -->
+	                    <td style="font-size: 30px;">
+	                    	${ndto.hit }
+	                    </td>
+	                    <!-- 작성일시 -->
+	                    <td style="font-size: 30px;">
+	                  		${ndto.write_date }
+	                    </td>
+	                  </tr>
                   </c:forEach>
                 </tbody>
                 <tfoot>
