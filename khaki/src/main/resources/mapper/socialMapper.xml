@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="socialDAO">
+
+	<resultMap type="socialDTO" id="rsMap">
+		<result property="id" column="id" />
+		<result property="social_id" column="social_id" />
+		<result property="social_type" column="social_type" />
+	</resultMap>
+
+
+	<select id="selectId_naver" parameterType="String" resultMap="rsMap">
+		SELECT *
+		FROM social
+		WHERE id = #{id} and social_type = 'naver'
+	</select>
+	
+	<select id="selectId_kakao" parameterType="String" resultMap="rsMap">
+		SELECT *
+		FROM social
+		WHERE id = #{id} and social_type = 'kakao'
+	</select>
+	
+	<!-- 소셜 유무 확인 -->
+	<select id="snsJoinCheck" parameterType="socialDTO" resultType="String">
+		SELECT id 
+		FROM social
+		WHERE social_id = #{social_id} and social_type = #{social_type}
+	</select>
+	
+	<!-- 소셜 정보 주입 -->
+	<insert id="insertSocial" parameterType="socialDTO">
+		INSERT INTO social 
+		VALUES(#{id}, #{social_type}, #{social_id})
+	</insert>
+
+	<delete id="deleteSocial" parameterType="socialDTO">
+		DELETE FROM social WHERE
+		id = #{id} and social_type = #{social_type}
+	</delete>
+	
+</mapper>

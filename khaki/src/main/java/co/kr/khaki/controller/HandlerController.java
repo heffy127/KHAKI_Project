@@ -14,6 +14,7 @@ import co.kr.khaki.handler.HandlerStatusDTO;
 import co.kr.khaki.handler.HandlerUseDAO;
 import co.kr.khaki.handler.HandlerUseDTO;
 import co.kr.khaki.member.InsertPointDTO;
+import co.kr.khaki.member.LicenseDAO;
 import co.kr.khaki.member.LicenseDTO;
 import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.member.MemberDTO;
@@ -29,6 +30,9 @@ public class HandlerController {
 	
 	@Autowired
 	MemberDAO memberDAO;
+	
+	@Autowired
+	LicenseDAO licenseDAO;
 	
 	@RequestMapping("handler.do")
 	public String handler() {
@@ -66,7 +70,7 @@ public class HandlerController {
 	
 	@RequestMapping("handlerIdCheck.do")
 	public String handlerIdCheck(MemberDTO memberDTO, Model model) {
-		memberDTO = memberDAO.selectId_Member(memberDTO.getId());
+		memberDTO = memberDAO.selectId(memberDTO.getId());
 		model.addAttribute("memberDTO", memberDTO);
 		return "handler/handlerIdCheck";
 	}
@@ -75,7 +79,7 @@ public class HandlerController {
 	// 사용자의 useCount(카키 이용횟수)를 파악해 5번 이상 이용한 회원 일 경우 핸들러 신청 가능.
 	@RequestMapping("handlerUseCountCheck.do")
 	public String handlerUseCountCheck(MemberDTO memberDTO, Model model) {
-		memberDTO = memberDAO.selectId_Member(memberDTO.getId()); // ajax에서 sessionId를 data로 보내서 해당 id로 select
+		memberDTO = memberDAO.selectId(memberDTO.getId()); // ajax에서 sessionId를 data로 보내서 해당 id로 select
 		System.out.println(memberDTO.getId() + " : sessionId 확인");
 		System.out.println(memberDTO.getUseCount() + " : useCount 확인"); // sessionId와 useCount 확인.
 		String handler = ""; // handler여부에 들어갈 데이터 변수 생성
@@ -83,7 +87,7 @@ public class HandlerController {
 		System.out.println("확이이인");
 		hsDTO.setId(memberDTO.getId()); // handler여부 DTO에 set id
 		if(Integer.parseInt(memberDTO.getUseCount()) > 4) { // select해 온 useCount가 4보다 클 경우(5이상인 경우)
-			LicenseDTO licenseDTO = memberDAO.selectId_license(memberDTO.getId());
+			LicenseDTO licenseDTO = licenseDAO.selectId(memberDTO.getId());
 			int liYear = Integer.parseInt(licenseDTO.getIssueYear());
 			int liMonth = Integer.parseInt(licenseDTO.getIssueMonth());
 			int liDate = Integer.parseInt(licenseDTO.getIssueDay());

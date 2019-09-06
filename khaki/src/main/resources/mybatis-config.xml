@@ -29,6 +29,8 @@
 		<mapper resource="mapper/boardMapper.xml" />
 		<mapper resource="mapper/boardReplyMapper.xml" />
 		<mapper resource="mapper/memberMapper.xml" />
+		<mapper resource="mapper/licenseMapper.xml" />
+		<mapper resource="mapper/socialMapper.xml" />
 		<mapper resource="mapper/noticeMapper.xml" />
 		<mapper resource="mapper/carmanageMapper.xml" />
 		<mapper resource="mapper/handlerMapper.xml" />
