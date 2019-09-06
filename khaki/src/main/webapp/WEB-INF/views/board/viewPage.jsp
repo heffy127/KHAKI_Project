@@ -42,7 +42,6 @@
   
   <!-- 스마트 에디터  -->
   <script src="https://code.jquery.com/jquery-latest.js"></script>
-  <script type="text/javascript" src="./resources/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
   <script type="text/javascript">
   	$(function(){
   		
@@ -57,6 +56,17 @@
   			$("#insertReFrm").submit();
   		});
   		
+        /* // 댓글 삭제버튼
+        $("#reDelBtn").click(function(){
+        	var retVal = confirm("댓글을 삭제하시겠습니까?");
+        	   if( retVal == true ){
+	        	   alert("삭제되었습니다.");
+	        	   //var num1 = ${reDTO.reNum}
+	        	   var num2 = ${dto.bNum}
+			       location.href = 'deletRe.do?bNum=' + num2;
+        	   }
+        }); */
+  		
         //목록버튼
         $("#boardBtn").click(function(){
             location.href = 'board.do';
@@ -67,13 +77,13 @@
         	var num = ${dto.bNum}
         	location.href = 'updatePage.do?bNum=' + num
         });
-        
+        //게시글 삭제버튼
         $("#deleteBtn").click(function(){
         	var retVal = confirm("게시글을 삭제하시겠습니까?");
         	   if( retVal == true ){
 	        	   alert("삭제되었습니다.");
 			       var num = ${dto.bNum}
-			       location.href = 'delete.do?bNum=' + num
+			       location.href = 'delete.do?bNum=' + num 
         	   }
         });
         
@@ -273,19 +283,28 @@
             </div>
           </div>
         </form>
-        <!-- User -->
+         <!-- 우측 상단 프로필 -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
-            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <div class="media align-items-center">
-                <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="resources/assets/img/theme/team-4-800x800.jpg">
-                </span>
-                <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
-                </div>
-              </div>
-            </a>
+            <c:choose>
+                  <c:when test="${sessionName != null }">
+                  <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       <div class="media align-items-center">
+                         <span class="avatar avatar-sm rounded-circle">
+                           <img alt="Image placeholder" src="${sessionPhoto}">
+                         </span>
+                         <div class="media-body ml-2 d-none d-lg-block">
+                           <span class="mb-0 text-sm  font-weight-bold">${sessionName} 님</span>
+                         </div>
+                       </div>
+                  </a>
+                       </c:when>
+                 <c:when test="${sessionName == null }">
+               <div>
+                  <a href="login.do" style="color: white; font-weight: bold;">&nbsp;&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;</a>
+               </div>
+                 </c:when>
+            </c:choose>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
@@ -318,14 +337,21 @@
     </nav>
     <!-- End Navbar -->
     <!-- Header -->
-    <div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
-      <div class="container-fluid">
-        <div class="header-body">
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 400px; background-image: url(resources/assets/img/theme/admin-cover.png); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h3 class="display-2 text-white">게시글 보기 </h3>
+          </div>
         </div>
       </div>
     </div>
     
-    <!-- 게시글 작성  -->  <div class="container-fluid mt--7">
+    <!-- 게시글 작성  --> 
+    <div class="container-fluid mt--7">
 	      <div class="row">
 	        <div class="col">
 	          <div class="card shadow border-0" style="padding: 5% 10% 5% 10%;">
@@ -342,7 +368,8 @@
 							<br>
 							</td>
 							<td align="center"><font size="5" color="gray"><b>${dto.writer}</b></font>
-								<img src="resources/assets/img/brand/jyp.jpg" style="width:40px; border-radius: 40px; border: 1px solid black;">
+								<img alt="Image placeholder" src="${sessionPhoto}" 
+								style="width:40px; border-radius: 40px;">
 								
 							<br>
 							</td>
@@ -389,9 +416,16 @@
 						<div id="replybox">
 							<c:forEach var="reDTO" items="${listRe}">
 								<b>${reDTO.writer}</b>&nbsp;
-								<img src="resources/assets/img/brand/jyp.jpg" 
-									style="width:25px; border-radius: 40px; border: 1px solid black;"><br>
-								${reDTO.content}&nbsp; <div style="float: right;">${fn:substring(reDTO.write_date,0,14)}</div><br>
+								<img alt="Image placeholder" src="${sessionPhoto}"
+									style="width:25px; border-radius: 40px;"><br>
+								${reDTO.content}&nbsp; <div style="float: right;">${fn:substring(reDTO.write_date,0,14)}
+								
+								<!-- 댓글 작성자만 삭제버튼 활성화 -->
+								<c:if test="${reDTO.writer eq sessionId}">
+									<button type="submit" id="reDelBtn" class="btn btn-danger btn-sm">삭제</button>
+								</c:if>
+								
+								</div><br>
 								<hr>
 							</c:forEach>
 							<nav aria-label="...">
@@ -427,9 +461,9 @@
 							<div id="reWrite">
 								<form action="insertRe.do" method="POST" id="insertReFrm">
 									<input type="hidden" value="${dto.bNum}" name="bNum" id="bNum">
-									<input type="hidden" value="admin" name="writer" id="writer">
+									<input type="hidden" value="${sessionId}" name="writer" id="writer">
 	 								<textarea class="form-control" id="content" name="content" rows="3" 
-	 									placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다.
+	 									placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. &#13;&#10;
 	 									댓글 작성 시 타인에 대한 배려와 책임을 담아주세요."></textarea>
 	 								<button type="submit" class="btn btn-outline-success btn-sm"
 	 									id="replyBtn" style="float: right; margin-top: 10px;">댓글 등록</button>

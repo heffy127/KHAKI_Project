@@ -212,19 +212,28 @@
             </div>
           </div>
         </form>
-        <!-- User -->
+         <!-- 우측 상단 프로필 -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
-            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <div class="media align-items-center">
-                <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="resources/assets/img/theme/team-4-800x800.jpg">
-                </span>
-                <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
-                </div>
-              </div>
-            </a>
+            <c:choose>
+                  <c:when test="${sessionName != null }">
+                  <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       <div class="media align-items-center">
+                         <span class="avatar avatar-sm rounded-circle">
+                           <img alt="Image placeholder" src="${sessionPhoto}">
+                         </span>
+                         <div class="media-body ml-2 d-none d-lg-block">
+                           <span class="mb-0 text-sm  font-weight-bold">${sessionName} 님</span>
+                         </div>
+                       </div>
+                  </a>
+                       </c:when>
+                 <c:when test="${sessionName == null }">
+               <div>
+                  <a href="login.do" style="color: white; font-weight: bold;">&nbsp;&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;</a>
+               </div>
+                 </c:when>
+            </c:choose>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
@@ -233,20 +242,20 @@
                 <i class="ni ni-single-02"></i>
                 <span>My profile</span>
               </a>
-              <a href="profile.do" class="dropdown-item">
+              <a href="profile.jsp" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
                 <span>Settings</span>
               </a>
-              <a href="profile.do" class="dropdown-item">
+              <a href="profile.jsp" class="dropdown-item">
                 <i class="ni ni-calendar-grid-58"></i>
                 <span>Activity</span>
               </a>
-              <a href="profile.do" class="dropdown-item">
+              <a href="profile.jsp" class="dropdown-item">
                 <i class="ni ni-support-16"></i>
                 <span>Support</span>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#!" class="dropdown-item">
+              <a href="sessionLogout.do" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
                 <span>Logout</span>
               </a>
@@ -257,9 +266,15 @@
     </nav>
     <!-- End Navbar -->
     <!-- Header -->
-    <div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
-      <div class="container-fluid">
-        <div class="header-body">
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 400px; background-image: url(resources/assets/img/theme/admin-cover.png); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h3 class="display-2 text-white">자유게시판</h3>
+          </div>
         </div>
       </div>
     </div>
