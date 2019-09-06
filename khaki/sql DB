@@ -6,6 +6,9 @@ create sequence hb_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
 create sequence khakinum_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
 create sequence notice_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
 
+CREATE SEQUENCE NO_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 MINVALUE 1 NOCYCLE; - 자유게시판 글번호 시퀀스(다솔)
+CREATE SEQUENCE RE_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 MINVALUE 1 NOCYCLE; - 댓글 번호 시퀀스(다솔)
+
 
 @ 박준영
 
@@ -147,7 +150,7 @@ create table reservation ( -- 모든 예약정보
    buy_discount varchar2(20),
    buy_burum char(1),
    buy_impUid varchar2(50)
-)
+);
 
 drop table reservation
 
@@ -160,7 +163,7 @@ create table handler ( -- 핸들러 게시판
    handler varchar2(20), -- 핸들러(운송자)
    point number(20), -- 적립 될 포인트
    complete varchar2(20) -- 고객 이용시간(운송 완료 해야 하는 시간)
-)
+);
 
 drop table handler
 
@@ -198,7 +201,7 @@ create table handlerUse ( -- 핸들러 이용 테이블
 	h_complete varchar2(20), -- 운송완료시간
 	h_point varchar2(20), -- 예상적립포인트
 	h_using char(1) -- 핸들러 이용중 여부
-)
+);
 
 
 
@@ -237,6 +240,29 @@ INSERT INTO RESERVATION VALUES(tmp_seq.NEXTVAL,'mos4657','스페셜','1908241600
 
 정다솔
 
+-- 게시판 DB table --
+create table board(
+	bNum number(10) not null,
+	title varchar2(100),
+	writer varchar2(20),
+	content varchar2(4000),
+	image varchar2(50),
+	views number(10),
+	hit number(10),
+	category varchar2(10),
+	write_date varchar2(40) not null
+);
+
+-- 댓글 DB table --
+create table reply(
+	bNum number(10) not null,
+	reNum number(10) not null,
+	writer varchar2(20),
+	content varchar2(2000),
+	write_date varchar2(40) not null
+);
+
+-- 쿠폰 DB table --
 create table couponUse (
 	cp_id varchar2(20), -- 쿠폰 다운받은 사용자 sessionId
 	cp_title varchar2(20), -- 쿠폰 이름

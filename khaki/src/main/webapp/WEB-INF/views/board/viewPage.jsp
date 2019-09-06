@@ -1,10 +1,8 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
-<%@page import="co.kr.khaki.board.BoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!--
 
 =========================================================
@@ -17,7 +15,7 @@
 
 * Coded by Creative Tim
 
-=\========================================================
+=========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
@@ -25,6 +23,7 @@
 
 <head>
   <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
     1등 카셰어링, khaki
@@ -38,18 +37,80 @@
   <link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
-  <!-- 글씨체 -->
-  <link href="https://fonts.googleapis.com/css?family=Hi+Melody&display=swap" rel="stylesheet">
   <!-- JQuery CDN -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <!-- 글쓰기 버튼 실행 -->
+  
+  <!-- 스마트 에디터  -->
+  <script src="https://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" src="./resources/SE2/js/HuskyEZCreator.js" charset="utf-8"></script>
   <script type="text/javascript">
   	$(function(){
-  		$("#writeButton").click(function(){
-  			location.href= 'insertPage.do';
+  		
+  		//page처리
+  		function fn_paging(curPage){
+  	  		location.href = "viewPage.do?curPage="+curPage;
+  	  		//alert(curPage); //페이지 넘버 확인
+  	  	};
+  		
+  		// 댓글 버튼
+  		$("#replyBtn").click(function(){
+  			$("#insertReFrm").submit();
   		});
-  	});
-  </script>
+  		
+        //목록버튼
+        $("#boardBtn").click(function(){
+            location.href = 'board.do';
+        });
+        
+        //수정버튼
+        $("#updateBtn").click(function(){
+        	var num = ${dto.bNum}
+        	location.href = 'updatePage.do?bNum=' + num
+        });
+        
+        $("#deleteBtn").click(function(){
+        	var retVal = confirm("게시글을 삭제하시겠습니까?");
+        	   if( retVal == true ){
+	        	   alert("삭제되었습니다.");
+			       var num = ${dto.bNum}
+			       location.href = 'delete.do?bNum=' + num
+        	   }
+        });
+        
+        //추천버튼
+        
+			$("#goodBtn").click(function() {
+					var retVal = confirm("게시글을 추천하시겠습니까?");
+					var num = ${dto.bNum};
+					var hit = ${dto.hit};
+					if (retVal == true) {
+						$.ajax({
+							url : "updateHit.do",
+							data : {
+								"bNum" : num
+							},
+							success : function(data) {
+								$.ajax({
+									url : "updateHitSelect.do",
+									data : {
+										"bNum" : num
+									},
+									success : function(data) {
+										$("#goodPlace").text(data);
+									},
+									error : function(xhr, status) {
+										alert(xhr + " : " + status);
+									}
+								});
+							},
+							error : function(xhr, status) {
+								alert(xhr + " : " + status);
+							}
+						});
+					}
+				});
+			});
+		</script>
 </head>
 
 <body class="">
@@ -85,7 +146,7 @@
             </div>
           </a>
           <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-            <div class\=" dropdown-header noti-title">
+            <div class=" dropdown-header noti-title">
               <h6 class="text-overflow m-0">Welcome!</h6>
             </div>
             <a href="profile.do" class="dropdown-item">
@@ -119,7 +180,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <a href="home.do">
-                <img \src="resources/assets/img/brand/khaki2.png">
+                <img src="resources/assets/img/brand/khaki2.png">
               </a>
             </div>
             <div class="col-6 collapse-close">
@@ -156,7 +217,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="board.do">
-              <i class="fas fa-clipboard-list text-blue"></i> board
+              <i class="ni ni-bullet-list-67 text-blue"></i> board
             </a>
           </li>
           <li class="nav-item">
@@ -187,7 +248,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class\="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
+            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
               <i class="ni ni-ui-04"></i> Components
             </a>
           </li>
@@ -200,7 +261,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Board <i class="fas fa-pencil-alt"></i></a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">Board <i class="fas fa-pencil-alt"></i></a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -263,117 +324,125 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid mt--7">
     
-      <!-- 게시판 리스트 -->
-      <div class="row">
-        <div class="col">
-          <div class="card shadow">
-            <div class="card-header border-0">
-              <h3 class="mb-0" style="font-family: 'Hi Melody', cursive; font-size: 20px;">자유게시판</h3>
-            </div>
-            <div class="table-responsive">
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th class="bodyList" scope="col" width="10%">N   U   M</th>
-                    <th class="bodyList" scope="col" width="10%">C A T E</th>
-                    <th class="bodyList" scope="col" width="30%">S U B J E C T</th>
-                    <th class="bodyList" scope="col" width="10%">W R I T E R</th>
-                    <th class="bodyList" scope="col" width="10%">V I E W S</th>
-                    <th class="bodyList" scope="col" width="10%">H   I   T</th>
-                    <th class="bodyList" scope="col" width="20%">D  A  T  E</th>
-                  </tr>
-                </thead>
-                
-               
-                <c:forEach var="bDTO" items="${list}">
-                <tbody class="listBody">
-                
-                  <tr>
-                  <!-- num -->
-                    <td scope="row">
-                      <div id="num">
-                      	${bDTO.bNum}
-                      </div>
-                  	</td>
-                    <!-- category -->
-                    <td >
-                    	<c:set var="category" value="category" />
-                    	<c:choose>
-							<c:when test="${bDTO.category eq 'free'}">
-								<font style="color: navy; font-weight: bold;">일반</font>
-							</c:when>  
-							                  	
-							<c:when test="${bDTO.category eq 'notice'}">
-								<font style="color: red; font-weight: bold;">공지</font>
-							</c:when>                    	
-                    	</c:choose>
-                    </td>
-                    <!-- subject -->
-                    <td >
-                    	<a href="select.do?bNum=${bDTO.bNum}"><b>${bDTO.title}</b></a>
-                    </td>
-                  	<!-- writer -->
-                    <td>
-						${bDTO.writer}
-                    </td>
-                    <!-- views -->
-                    <td>
-                      <div>
-                        ${bDTO.views}
-                      </div>
-                    </td>
-                    
-                    <!-- hit -->
-                   	<td>
-                     	${bDTO.hit}
-                   	</td>
-                    
-                    <!-- time -->
-                    <td>
-                    	<!-- timestamp로 등록한 값을 분까지만 자름 -->
-						${fn:substring(bDTO.write_date,0,14)}
-                    </td>
-                 
-             	 </c:forEach>
-                	<tr>
-                		<td colspan="6" style="margin-right: 500px;" >
-                			<form action="insertPage.do">
-		                		<button type="button" class="btn btn-secondary" id="writeButton">글쓰기</button>
-                			</form>
-                		</td>
-                	</tr>
-              </table>
-            </div>
-            <div class="card-footer py-4">
-             <nav aria-label="Page navigation example">
-			  <ul class="pagination justify-content-center">
-			    <li class="page-item disabled">
-			      <a class="page-link" href="#" tabindex="-1">
-			        <i class="fa fa-angle-left"></i>
-			        <span class="sr-only">Previous</span>
-			      </a>
-			    </li>
-			    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-			    <li class="page-item "><a class="page-link" href="#">2</a></li>
-			    <li class="page-item"><a class="page-link" href="#">3</a></li>
-			    <li class="page-item">
-			      <a class="page-link" href="#">
-			        <i class="fa fa-angle-right"></i>
-			        <span class="sr-only">Next</span>
-			      </a>
-			    </li>
-			    
-			  </ul>
-			</nav>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- 게시글 작성  -->  <div class="container-fluid mt--7">
+	      <div class="row">
+	        <div class="col">
+	          <div class="card shadow border-0" style="padding: 5% 10% 5% 10%;">
+			    <div id="board" style="width: 100%; padding: 5% 10% 5% 10%;">
+		    		<div style=" width:100%; height: 30px; ">
+						<table>
+						<tr>
+							<td width="74%"><font size="6"><b>${dto.title}</b></font>&nbsp;&nbsp;&nbsp;&nbsp;
+								<!-- 공지글일때 공지글 표시  -->
+								<c:set var="category" value="category" />
+			                    	<c:if test="${dto.category eq 'notice'}">
+			                    		<span class="badge badge-danger">공지</span>
+			                    	</c:if>
+							<br>
+							</td>
+							<td align="center"><font size="5" color="gray"><b>${dto.writer}</b></font>
+								<img src="resources/assets/img/brand/jyp.jpg" style="width:40px; border-radius: 40px; border: 1px solid black;">
+								
+							<br>
+							</td>
+						</tr>
+						<tr>
+							<td><font size="2"><b>글번호</b>&nbsp;&nbsp;&nbsp;&nbsp;</font>
+							<font size="2" color="gray">${dto.bNum}
+								&nbsp;&nbsp;| <b>작성 시간</b> &nbsp;&nbsp;${fn:substring(dto.write_date,0,14)}</font></td>
+							<td align="center">추천 &nbsp; <font size="2"
+								color="gray"><b id="goodPlace">${dto.hit}</b></font>
+								&nbsp;&nbsp;&nbsp; 조회 &nbsp; <font size="2" color="gray">
+								<b>${dto.views}</b>
+							</font>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2"><br>
+								<div style="background-color: #f9f9fb; font-size: 14px; margin-top: 10px;" 
+									align="center">
+									<table border="0">
+										<tr>
+											<td width="850" height="200" valign="top"><font size="5px;">${dto.content}</font></td>
+										</tr>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="card-footer">
+								<button type="button" class="btn btn-secondary btn-sm" id="goodBtn">추천
+									 <i class="far fa-thumbs-up" style="color: red;"></i></button>
+					   			<button type="button" id="boardBtn" class="btn btn-outline-default btn-sm" >글목록</button>
+					   			
+					   			<!-- session ID를 이용하여  수정/삭제 버튼 보이기(관리자는 삭제버튼 무조건 보이기)  -->
+					   			<button type="button" id="updateBtn" class="btn btn-outline-info btn-sm" >수정</button>
+					   			<button type="button" id="deleteBtn" class="btn btn-outline-danger btn-sm" >삭제</button>
+					   			
+					   		</td> <!-- card-footer End -->
+						</tr>
+						</table>
+						<!-- 댓글  -->
+						<h3>댓글</h3>
+						<hr>
+						<div id="replybox">
+							<c:forEach var="reDTO" items="${listRe}">
+								<b>${reDTO.writer}</b>&nbsp;
+								<img src="resources/assets/img/brand/jyp.jpg" 
+									style="width:25px; border-radius: 40px; border: 1px solid black;"><br>
+								${reDTO.content}&nbsp; <div style="float: right;">${fn:substring(reDTO.write_date,0,14)}</div><br>
+								<hr>
+							</c:forEach>
+							<nav aria-label="...">
+							  <ul class="pagination justify-content-center">
+							<c:if test="${pagination.curPage ne 1}">
+							   <li class="page-item">
+							     <a class="page-link" href="#" tabindex="-1" onClick="fn_paging('${Boardpagination.prevPage }')">
+							       <i class="fa fa-angle-left"></i>
+							       <span class="sr-only">Previous</span>
+							     </a>
+							   </li>
+							</c:if>
+							<c:if test="${Boardpagination.curRange ne 1 }">
+								<li class="page-item"><a class="page-link" href="#" onClick="fn_paging(1)">1<span class="sr-only">(current)</span></a></li>
+							</c:if>
+							<c:forEach var="pageNum" begin="${Boardpagination.startPage }" end="${Boardpagination.endPage }">
+								<c:choose>
+								<c:when test="${pageNum eq Boardpagination.curPage}">
+									<li class="page-item active" value="${Boardpagination.startPage + 1}">
+								</c:when>
+								</c:choose>
+							</c:forEach>
+								
+							    <li class="page-item">
+							      <a class="page-link" href="#">
+							        <i class="fa fa-angle-right"></i>
+							        <span class="sr-only">Next</span>
+							      </a>
+							    </li>
+							  </ul>
+							</nav>
+							
+							<div id="reWrite">
+								<form action="insertRe.do" method="POST" id="insertReFrm">
+									<input type="hidden" value="${dto.bNum}" name="bNum" id="bNum">
+									<input type="hidden" value="admin" name="writer" id="writer">
+	 								<textarea class="form-control" id="content" name="content" rows="3" 
+	 									placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다.
+	 									댓글 작성 시 타인에 대한 배려와 책임을 담아주세요."></textarea>
+	 								<button type="submit" class="btn btn-outline-success btn-sm"
+	 									id="replyBtn" style="float: right; margin-top: 10px;">댓글 등록</button>
+								</form>
+							</div>
+						</div>
+			   		</div>
+	        	</div> <!-- card End -->
+	        </div> <!-- col End -->
+	      </div> <!-- row End  -->
+	   	</div> <!-- container End -->
+	  	</div><!-- main-content End -->
   </div>
-  
 </body>
 
 </html>

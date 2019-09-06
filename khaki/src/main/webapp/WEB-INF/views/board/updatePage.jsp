@@ -1,10 +1,6 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
-<%@page import="co.kr.khaki.board.BoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!--
 
 =========================================================
@@ -17,7 +13,7 @@
 
 * Coded by Creative Tim
 
-=\========================================================
+=========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
@@ -25,6 +21,7 @@
 
 <head>
   <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
     1등 카셰어링, khaki
@@ -38,17 +35,40 @@
   <link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
-  <!-- 글씨체 -->
-  <link href="https://fonts.googleapis.com/css?family=Hi+Melody&display=swap" rel="stylesheet">
   <!-- JQuery CDN -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <!-- 글쓰기 버튼 실행 -->
+  
+  <!-- 스마트 에디터  -->
+  <script src="https://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" src="./resources/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
   <script type="text/javascript">
   	$(function(){
-  		$("#writeButton").click(function(){
-  			location.href= 'insertPage.do';
-  		});
-  	});
+  		// 전역변수
+  		var obj = [];
+  		// 스마트 에디터 프레임 생성
+  		nhn.husky.EZCreator.createInIFrame({
+            oAppRef: obj,
+            elPlaceHolder: "content",
+            sSkinURI: "./resources/smarteditor2/SmartEditor2Skin.html",
+            htParams : {
+                // 툴바 사용 여부
+                bUseToolbar : true,            
+                // 입력창 크기 조절바 사용 여부
+                bUseVerticalResizer : true,    
+                // 모드 탭(Editor | HTML | TEXT) 사용 여부
+                bUseModeChanger : true,
+            }
+        });
+        //전송버튼
+        $("#insertBoard").click(function(){
+            //id가 smarteditor인 textarea에 에디터에서 대입
+            obj.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+            //폼 submit
+            	alert("게시글이 수정되었습니다.")
+	            $("#insertBoardFrm").submit();
+        });
+    });
+  	
   </script>
 </head>
 
@@ -85,7 +105,7 @@
             </div>
           </a>
           <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-            <div class\=" dropdown-header noti-title">
+            <div class=" dropdown-header noti-title">
               <h6 class="text-overflow m-0">Welcome!</h6>
             </div>
             <a href="profile.do" class="dropdown-item">
@@ -119,7 +139,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <a href="home.do">
-                <img \src="resources/assets/img/brand/khaki2.png">
+                <img src="resources/assets/img/brand/khaki2.png">
               </a>
             </div>
             <div class="col-6 collapse-close">
@@ -156,7 +176,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="board.do">
-              <i class="fas fa-clipboard-list text-blue"></i> board
+              <i class="ni ni-bullet-list-67 text-blue"></i> board
             </a>
           </li>
           <li class="nav-item">
@@ -187,7 +207,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class\="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
+            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
               <i class="ni ni-ui-04"></i> Components
             </a>
           </li>
@@ -263,116 +283,56 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid mt--7">
     
-      <!-- 게시판 리스트 -->
-      <div class="row">
-        <div class="col">
-          <div class="card shadow">
-            <div class="card-header border-0">
-              <h3 class="mb-0" style="font-family: 'Hi Melody', cursive; font-size: 20px;">자유게시판</h3>
-            </div>
-            <div class="table-responsive">
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th class="bodyList" scope="col" width="10%">N   U   M</th>
-                    <th class="bodyList" scope="col" width="10%">C A T E</th>
-                    <th class="bodyList" scope="col" width="30%">S U B J E C T</th>
-                    <th class="bodyList" scope="col" width="10%">W R I T E R</th>
-                    <th class="bodyList" scope="col" width="10%">V I E W S</th>
-                    <th class="bodyList" scope="col" width="10%">H   I   T</th>
-                    <th class="bodyList" scope="col" width="20%">D  A  T  E</th>
-                  </tr>
-                </thead>
-                
-               
-                <c:forEach var="bDTO" items="${list}">
-                <tbody class="listBody">
-                
-                  <tr>
-                  <!-- num -->
-                    <td scope="row">
-                      <div id="num">
-                      	${bDTO.bNum}
-                      </div>
-                  	</td>
-                    <!-- category -->
-                    <td >
-                    	<c:set var="category" value="category" />
-                    	<c:choose>
-							<c:when test="${bDTO.category eq 'free'}">
-								<font style="color: navy; font-weight: bold;">일반</font>
-							</c:when>  
-							                  	
-							<c:when test="${bDTO.category eq 'notice'}">
-								<font style="color: red; font-weight: bold;">공지</font>
-							</c:when>                    	
-                    	</c:choose>
-                    </td>
-                    <!-- subject -->
-                    <td >
-                    	<a href="select.do?bNum=${bDTO.bNum}"><b>${bDTO.title}</b></a>
-                    </td>
-                  	<!-- writer -->
-                    <td>
-						${bDTO.writer}
-                    </td>
-                    <!-- views -->
-                    <td>
-                      <div>
-                        ${bDTO.views}
-                      </div>
-                    </td>
-                    
-                    <!-- hit -->
-                   	<td>
-                     	${bDTO.hit}
-                   	</td>
-                    
-                    <!-- time -->
-                    <td>
-                    	<!-- timestamp로 등록한 값을 분까지만 자름 -->
-						${fn:substring(bDTO.write_date,0,14)}
-                    </td>
-                 
-             	 </c:forEach>
-                	<tr>
-                		<td colspan="6" style="margin-right: 500px;" >
-                			<form action="insertPage.do">
-		                		<button type="button" class="btn btn-secondary" id="writeButton">글쓰기</button>
-                			</form>
-                		</td>
-                	</tr>
-              </table>
-            </div>
-            <div class="card-footer py-4">
-             <nav aria-label="Page navigation example">
-			  <ul class="pagination justify-content-center">
-			    <li class="page-item disabled">
-			      <a class="page-link" href="#" tabindex="-1">
-			        <i class="fa fa-angle-left"></i>
-			        <span class="sr-only">Previous</span>
-			      </a>
-			    </li>
-			    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-			    <li class="page-item "><a class="page-link" href="#">2</a></li>
-			    <li class="page-item"><a class="page-link" href="#">3</a></li>
-			    <li class="page-item">
-			      <a class="page-link" href="#">
-			        <i class="fa fa-angle-right"></i>
-			        <span class="sr-only">Next</span>
-			      </a>
-			    </li>
-			    
-			  </ul>
-			</nav>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <!-- 게시글 수정  -->
+	    <div class="container-fluid mt--7">
+	      <div class="row">
+	        <div class="col">
+	          <div class="card shadow border-0" style="padding: 5% 10% 5% 10%;">
+			    <div id="board" style="width: 100%; padding: 5% 10% 5% 10%;">
+		    		<div style=" width:800px; height: 30px; ">
+						<div style="repeat-x; text-align:center;">
+							<div ></div> 
+							<div align="center"><h2>자유게시판</h2></div>
+						</div>
+					</div>
+					<form action="update.do" method="POST" id="insertBoardFrm" enctype="multipart/form-data">
+						<div>
+				   			<div class="form-group">
+			            		<h3>제목 </h3>
+			           			<input type="text" id="title" name="title" value="${dto.title}" style="left:92px; height:27px; width:700px; margin-top: -5px;">
+					   		</div>
+				        	<div>
+				           		<div style="width: 100px;"><h3>글 카테고리 </h3>
+									<div><input type="radio" id="category" name="category" value="free" checked disabled="">일반
+									<input type="radio" id="category" name="category" value="notice" disabled="">공지 <br>
+									</div>
+								</div>
+				        	</div>
+				        		<div>
+					           		<div style="width: 100px;"><h3>글 작성자 </h3></div>
+									<div><input id="writer" name="writer" value="${dto.writer}" readonly="readonly">
+										<input type="hidden" name="bNum" value="${dto.bNum}">
+									</div>
+				        		</div>
+				        		<div>
+				        			<div><h3>내용</h3></div>
+				            		<div>
+				    					<textarea class="form-control" name="content" id="content" rows="20" cols="50">
+				    						${dto.content}
+				    					</textarea>
+				    				</div>
+				    			</div>
+			    		</div>
+				   			<button type="button" id="insertBoard" class="btn btn-outline-success" style="margin-left:330px;">게시글 수정</button>
+				   			<button type="button" class="btn btn-outline-danger" OnClick="javascript:history.back(-1)">취소</button>
+					</form>
+			   		</div>
+	        	</div>
+	        </div>
+	      </div>
+	   	</div>
+	  	</div>
   
 </body>
 
