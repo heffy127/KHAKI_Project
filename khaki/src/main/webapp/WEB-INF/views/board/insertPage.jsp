@@ -64,15 +64,12 @@
             //id가 smarteditor인 textarea에 에디터에서 대입
             obj.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
             //폼 submit
-            var title = $("#title").text();
-            if(title == null){
-            	alert("제목을 입력해주세요.")
-            }else{
-            	alert("게시글이 등록되었습니다.")
-	            $("#insertBoardFrm").submit();
-            }
+            alert("게시글이 등록되었습니다.")
+	        $("#insertBoardFrm").submit();
+           
 
         });
+        
     });
   	
   </script>
@@ -144,7 +141,7 @@
         <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
-              <a href="home.do">
+              <a href="../index.html">
                 <img src="resources/assets/img/brand/khaki2.png">
               </a>
             </div>
@@ -167,12 +164,11 @@
             </div>
           </div>
         </form>
-        <!-- Navigation -->
-       <!-- 왼쪽 공통 메뉴 -->
+<!-- 왼쪽 공통 메뉴 -->
         <ul class="navbar-nav">
           <li class="nav-item ">
-          	<a class=" nav-link" href="home.do"> 
-          		<i class="ni ni-tv-2 text-black"></i> Home
+             <a class=" nav-link" href="home.do"> 
+                <i class="ni ni-tv-2 text-black"></i> Home
             </a>
           </li>
           <li class="nav-item">
@@ -181,7 +177,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="board.do">
+            <a class="nav-link" href="board.do">
               <i class="ni ni-bullet-list-67 text-blue"></i> board
             </a>
           </li>
@@ -227,30 +223,45 @@
       <div class="container-fluid">
         <!-- Brand -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Board <i class="fas fa-pencil-alt"></i></a>
-        <!-- Form -->
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-          <div class="form-group mb-0">
-            <div class="input-group input-group-alternative">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
-              </div>
-              <input class="form-control" placeholder="Search" type="text">
-            </div>
-          </div>
-        </form>
-        <!-- User -->
+        <c:if test="${sessionId == 'admin1' }">
+	        <div align="center">
+	        	<table>
+	        		<tr>
+	        			<td>
+	        				<button type="button" class="btn btn-success" id="userMode">사용자 모드</button>
+	        			</td>
+	        			<td>
+	        				&nbsp;&nbsp;&nbsp;&nbsp;
+	        			</td>
+	        			<td>
+	        				<button type="button" class="btn btn-warning" disabled="disabled" id="adminMode">관리자 모드</button>
+	        			</td>
+	        		</tr>
+	        	</table>
+			</div>
+		</c:if>
+          <!-- 우측 상단 프로필 -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
-            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <div class="media align-items-center">
-                <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="resources/assets/img/theme/team-4-800x800.jpg">
-                </span>
-                <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
-                </div>
-              </div>
-            </a>
+            <c:choose>
+                  <c:when test="${sessionName != null }">
+                  <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       <div class="media align-items-center">
+                         <span class="avatar avatar-sm rounded-circle">
+                           <img alt="Image placeholder" src="${sessionPhoto}">
+                         </span>
+                         <div class="media-body ml-2 d-none d-lg-block">
+                           <span class="mb-0 text-sm  font-weight-bold">${sessionName} 님</span>
+                         </div>
+                       </div>
+                  </a>
+                       </c:when>
+                 <c:when test="${sessionName == null }">
+               <div>
+                  <a href="login.do" style="color: white; font-weight: bold;">&nbsp;&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;</a>
+               </div>
+                 </c:when>
+            </c:choose>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
@@ -259,20 +270,20 @@
                 <i class="ni ni-single-02"></i>
                 <span>My profile</span>
               </a>
-              <a href="profile.do" class="dropdown-item">
+              <a href="profile.jsp" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
                 <span>Settings</span>
               </a>
-              <a href="profile.do" class="dropdown-item">
+              <a href="profile.jsp" class="dropdown-item">
                 <i class="ni ni-calendar-grid-58"></i>
                 <span>Activity</span>
               </a>
-              <a href="profile.do" class="dropdown-item">
+              <a href="profile.jsp" class="dropdown-item">
                 <i class="ni ni-support-16"></i>
                 <span>Support</span>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#!" class="dropdown-item">
+              <a href="sessionLogout.do" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
                 <span>Logout</span>
               </a>
@@ -283,13 +294,22 @@
     </nav>
     <!-- End Navbar -->
     <!-- Header -->
-    <div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
-      <div class="container-fluid">
-        <div class="header-body">
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 400px; background-image: url(resources/assets/img/theme/admin-cover.png); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h3 class="display-2 text-white">자유게시판 이용안내<img width="40px;" src="https://image.flaticon.com/icons/svg/752/752755.svg"></h3>
+            <div>
+         	  <font color="#e0e0e0"><img width="25px;" height="21px;" src="https://image.flaticon.com/icons/svg/2022/2022552.svg"> 광고/홍보 등의 글을 바로 삭제 처리가 됩니다.<br>
+              <img width="20px;" height="18px;" src="https://image.flaticon.com/icons/svg/1100/1100349.svg"> 특정 불법 광고성글(도박,음란물 등)의 경우 고지없이 바로 <b><u>회원 강제 탈퇴처리</u></b>가 되오니 참고해주시길 바랍니다.</font>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    
     <!-- 게시글 작성  -->
 	    <div class="container-fluid mt--7">
 	      <div class="row">
@@ -309,17 +329,18 @@
 			           			<input type="text" id="title" name="title" placeholder="제목을 입력하세요." style="left:92px; height:27px; width:700px; margin-top: -5px;">
 					   		</div>
 				        	<div>
-				        	<!-- 관리자 권한  -->
+				        	<c:if test="${sessionId == 'admin1'}">
 				           		<div style="width: 100px;"><h3>글 카테고리 </h3>
 									<div><input type="radio" id="category" name="category" value="free" checked>일반
 									<input type="radio" id="category" name="category" value="notice">공지 <br>
 									</div>
 								</div>
+							</c:if>
 							<!-- 관리자 권한  END -->
 				        	</div>
 				        		<div>
 					           		<div style="width: 100px;"><h3>글 작성자 </h3></div>
-									<div><input id="writer" name="writer" value="admin" readonly="readonly"></div>
+									<div><input id="writer" name="writer" value="${sessionId}" readonly="readonly"></div>
 				        		</div>
 				        		<div>
 				        			<div><h3>내용</h3></div>

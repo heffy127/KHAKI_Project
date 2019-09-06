@@ -22,7 +22,15 @@
 	</resultMap>
 
 	<select id="selectAll" resultMap="rsMap">
-		SELECT * FROM notice_board
+		SELECT * FROM notice_board order by notice_num desc
+	</select>
+
+	<select id="select_notice" resultMap="rsMap">
+		SELECT * FROM notice_board where notice_type = 'P' order by notice_num desc
+	</select>
+
+	<select id="select_event" resultMap="rsMap">
+		SELECT * FROM notice_board where notice_type = 'E' order by notice_num desc
 	</select>
 
 	<insert id="insert" parameterType="nDTO">
