@@ -43,7 +43,7 @@
     	
     	$(".btn_notice").click(function(){
     		alert("공지사항 버튼");
-    		$("tbody").children("#board_add").hide();
+    		$("tbody").children("#board_notice").hide();
     		
     		
     		
@@ -62,7 +62,14 @@
     	
     });	//Jquery End
   </script>
-  
+  <style type="text/css">
+  	.grayback {
+	  padding: 0rem;
+	  vertical-align: top;
+	  border-top: 1px solid #e9ecef;
+	  background-color: #e7e9ea;
+	}
+  </style>
   <!-- Favicon -->
   <link href="resources/assets/img/brand/favicon.png" rel="icon" type="image/png">
   <!-- Fonts -->
@@ -357,27 +364,27 @@
 	                	<tr id="board_notice" style="font-family: 'Nanum Pen Script', cursive;" align="center">
 		                  	<!-- 공지 - 광고 - 이벤트 - 일반글 순서로 나열 -->
 		                  	<!-- 글분류 -->
-		                  	<td scope="row" style="font-size: 30px;">
+		                  	<td class="grayback" scope="row" style="font-size: 30px;">
 			                  	<img  style="width: auto; height: auto; max-width: 60px; max-height: 25px;" src="resources/assets/img/icons/noticeicon/공지.gif">
 		                  	</td>
 			                  	<!-- 글번호 -->
-		                  	<td style="font-size: 30px;">	<!-- scope의 의미는? -->
+		                  	<td class="grayback" style="font-size: 30px;">	<!-- scope의 의미는? -->
 		                  		${notice_dto.notice_num }
 		                  	</td>
 		                  	<!-- 글쓴이( 이미지 + 아이디 : 글쓴이 클릭하면 쪽지 보낼 수 있도록이나 이런 기능??) -->
-		                    <td style="font-size: 30px;">
+		                    <td class="grayback" style="font-size: 30px;">
 			                    ${notice_dto.writer }
 		                    </td>
 		                    <!-- 내용이 나오도록(내용 누르면 공지사항 상세페이지로 가도록 or 카드 열리는 형식으로 표시 되도록) -->
-		                    <td style="font-size: 30px;">
+		                    <td class="grayback" style="font-size: 30px;">
 		                      <a href="noticeSelect.do?notice_num=${notice_dto.notice_num }">${notice_dto.title }</a>
 		                    </td>
 		                    <!-- 조회수 -->
-		                    <td style="font-size: 30px;">
+		                    <td class="grayback" style="font-size: 30px;">
 		                    	${notice_dto.hit }
 		                    </td>
 		                    <!-- 작성일시 -->
-		                    <td style="font-size: 30px;">
+		                    <td class="grayback" style="font-size: 30px;">
 		                  		${notice_dto.write_date }
 		                    </td>
 	                	</tr>
@@ -389,27 +396,27 @@
 		                	<tr id="board_notice" style="font-family: 'Nanum Pen Script', cursive;" align="center">
 			                  	<!-- 공지 - 광고 - 이벤트 - 일반글 순서로 나열 -->
 			                  	<!-- 글분류 -->
-			                  	<td scope="row" style="font-size: 30px;">
+			                  	<td class="grayback" scope="row" style="font-size: 30px;">
 				                  	<img  style="width: auto; height: auto; max-width: 60px; max-height: 25px;" src="resources/assets/img/icons/noticeicon/공지.gif">
 			                  	</td>
 				                  	<!-- 글번호 -->
-			                  	<td style="font-size: 30px;">	<!-- scope의 의미는? -->
+			                  	<td class="grayback" style="font-size: 30px;">	<!-- scope의 의미는? -->
 			                  		${notice_dto.notice_num }
 			                  	</td>
 			                  	<!-- 글쓴이( 이미지 + 아이디 : 글쓴이 클릭하면 쪽지 보낼 수 있도록이나 이런 기능??) -->
-			                    <td style="font-size: 30px;">
+			                    <td class="grayback" style="font-size: 30px;">
 				                    ${notice_dto.writer }
 			                    </td>
 			                    <!-- 내용이 나오도록(내용 누르면 공지사항 상세페이지로 가도록 or 카드 열리는 형식으로 표시 되도록) -->
-			                    <td style="font-size: 30px;">
+			                    <td class="grayback" style="font-size: 30px;">
 			                      <a href="noticeSelect.do?notice_num=${notice_dto.notice_num }">${notice_dto.title }</a>
 			                    </td>
 			                    <!-- 조회수 -->
-			                    <td style="font-size: 30px;">
+			                    <td class="grayback" style="font-size: 30px;">
 			                    	${notice_dto.hit }
 			                    </td>
 			                    <!-- 작성일시 -->
-			                    <td style="font-size: 30px;">
+			                    <td class="grayback" style="font-size: 30px;">
 			                  		${notice_dto.write_date }
 			                    </td>
 		                	</tr>
@@ -425,27 +432,27 @@
 	                	<tr id="board_event" style="font-family: 'Nanum Pen Script', cursive;" align="center">
 		                  	<!-- 공지 - 광고 - 이벤트 - 일반글 순서로 나열 -->
 		                  	<!-- 글분류 -->
-		                  	<td scope="row" style="font-size: 30px;">
+		                  	<td class="grayback" scope="row" style="font-size: 30px;">
 			                  	<img style="width: auto; height: auto; max-width: 60px; max-height: 25px;" src="resources/assets/img/icons/noticeicon/이벤트.gif">
 		                  	</td>
 			                  	<!-- 글번호 -->
-		                  	<td style="font-size: 30px;">	<!-- scope의 의미는? -->
+		                  	<td class="grayback" style="font-size: 30px;">	<!-- scope의 의미는? -->
 		                  		${event_dto.notice_num }
 		                  	</td>
 		                  	<!-- 글쓴이( 이미지 + 아이디 : 글쓴이 클릭하면 쪽지 보낼 수 있도록이나 이런 기능??) -->
-		                    <td style="font-size: 30px;">
+		                    <td class="grayback" style="font-size: 30px;">
 			                    ${event_dto.writer }
 		                    </td>
 		                    <!-- 내용이 나오도록(내용 누르면 공지사항 상세페이지로 가도록 or 카드 열리는 형식으로 표시 되도록) -->
-		                    <td style="font-size: 30px;">
+		                    <td class="grayback" style="font-size: 30px;">
 		                      <a href="noticeSelect.do?notice_num=${event_dto.notice_num }">${event_dto.title }</a>
 		                    </td>
 		                    <!-- 조회수 -->
-		                    <td style="font-size: 30px;">
+		                    <td class="grayback" style="font-size: 30px;">
 		                    	${event_dto.hit }
 		                    </td>
 		                    <!-- 작성일시 -->
-		                    <td style="font-size: 30px;">
+		                    <td class="grayback" style="font-size: 30px;">
 		                  		${event_dto.write_date }
 		                    </td>
 	                	</tr>
@@ -486,9 +493,6 @@
                 	<c:otherwise>
                 	</c:otherwise>
                 </c:choose>
-                <tr bordercolor="green" height="1px">
-                	<td height="1px" colspan="6" bordercolor="green">
-                </tr>
                 <!-- for문을 돌릴 떄 현재 페이지를 보내서 aaaabcddee -->
                 <c:forEach var="ndto" items="${nlist}" varStatus="status" begin="<%=pg.getStartIndex() %>" end="<%=pg.getEndIndex() %>">
 	                <tr id="" style="font-family: 'Nanum Pen Script', cursive;" align="center">
