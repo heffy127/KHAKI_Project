@@ -333,7 +333,16 @@
             		</div>
             		<div class="col-md-6" align="center">
             			<button type="button" class="btn btn-success btn_notice">공     지</button>
+            			<label class="custom-toggle">
+						  <input type="checkbox">
+						  <span class="custom-toggle-slider rounded-circle"></span>
+						</label>
+						<!-- <span class="clearfix"></span> -->
             			<button type="button" class="btn btn-warning btn_add">광     고</button>
+            			<label class="custom-toggle">
+						  <input type="checkbox" checked>
+						  <span class="custom-toggle-slider rounded-circle"></span>
+						</label>
             			<button type="button" class="btn btn-info btn_event">이 벤 트</button>
             		</div>
             		<div class="col-md-3">

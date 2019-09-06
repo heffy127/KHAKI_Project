@@ -22,7 +22,7 @@
 	</resultMap>
 
 	<select id="selectAll" resultMap="rsMap">
-		SELECT * FROM notice_board
+		SELECT * FROM notice_board order by notice_num desc
 	</select>
 
 	<select id="select_notice" resultMap="rsMap">

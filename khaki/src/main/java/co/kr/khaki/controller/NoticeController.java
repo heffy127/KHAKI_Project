@@ -83,12 +83,23 @@ public class NoticeController {
 	      System.err.println("저장할 내용 : " + noticeDTO.getContent());
 	      List<NoticeDTO> notice_list = ndao.selectAll();
 	      int listCnt = notice_list.size();
+	      	// 공지사항 글 select
+			List<NoticeDTO> notice_list_notice = ndao.select_notice();
+			//System.out.println("공지사항 갯수 : "+notice_list_notice.size());
+			
+			// 이벤트 글 select
+			List<NoticeDTO> notice_list_event = ndao.select_event();
+			System.out.println("이벤트글 갯수 : "+notice_list_event.size());
+	      
 	      
 	      pagination pg = new pagination(listCnt, curPage);
 	      
 	      model.addAttribute("nlist", notice_list);
 	      model.addAttribute("listCnt", listCnt);
 	      model.addAttribute("pagination",pg);
+	      model.addAttribute("noticelist", notice_list_notice);
+		  model.addAttribute("eventlist", notice_list_event);
+	      
 	      
 	      return "notice/notice";
 	      // notice/notice는 게시판 맨 처음 부분(selectAll 등의 전체 적인 곳이 나오는 곳)
@@ -111,12 +122,23 @@ public class NoticeController {
 		
 		List<NoticeDTO> notice_list = ndao.selectAll();
 		int listCnt = notice_list.size();
-	      
+		// 공지사항 글 select
+		List<NoticeDTO> notice_list_notice = ndao.select_notice();
+		//System.out.println("공지사항 갯수 : "+notice_list_notice.size());
+		
+		// 이벤트 글 select
+		List<NoticeDTO> notice_list_event = ndao.select_event();
+		System.out.println("이벤트글 갯수 : "+notice_list_event.size());  
+		
+		
 		pagination pg = new pagination(listCnt, curPage);
 		
 		model.addAttribute("nlist", notice_list);
 	    model.addAttribute("listCnt", listCnt);
 	    model.addAttribute("pagination",pg);
+	    model.addAttribute("noticelist", notice_list_notice);
+		model.addAttribute("eventlist", notice_list_event);
+	    
 	    
 		return "notice/notice";
 	}
@@ -141,12 +163,23 @@ public class NoticeController {
 		
 		List<NoticeDTO> notice_list = ndao.selectAll();
 		int listCnt = notice_list.size();
+		// 공지사항 글 select
+		List<NoticeDTO> notice_list_notice = ndao.select_notice();
+		//System.out.println("공지사항 갯수 : "+notice_list_notice.size());
+		
+		// 이벤트 글 select
+		List<NoticeDTO> notice_list_event = ndao.select_event();
+		System.out.println("이벤트글 갯수 : "+notice_list_event.size()); 
+
 		
 		pagination pg = new pagination(listCnt, curPage);
 		 
 		model.addAttribute("listCnt", listCnt);
 		model.addAttribute("pagination",pg);
 		model.addAttribute("nlist", notice_list);
+		model.addAttribute("noticelist", notice_list_notice);
+		model.addAttribute("eventlist", notice_list_event);
+		
 		
 		return "notice/notice";
 	}	
