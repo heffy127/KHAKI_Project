@@ -39,6 +39,14 @@ public class NoticeController {
 		
 		// 해당 view에서 jstl 또는 스크립트 릿으로 위의 명칭한 이름으로 받는다
 		
+		// 공지사항 글 select
+		List<NoticeDTO> notice_list_notice = ndao.select_notice();
+		//System.out.println("공지사항 갯수 : "+notice_list_notice.size());
+		
+		// 이벤트 글 select
+		List<NoticeDTO> notice_list_event = ndao.select_event();
+		System.out.println("이벤트글 갯수 : "+notice_list_event.size());
+		
 
 		// 총 게시글 수
 		int listCnt = notice_list.size();
@@ -50,9 +58,12 @@ public class NoticeController {
     	System.out.println(listCnt + ", 총 페이지수 : " + pg.getPageCnt() + ", 총 블럭수 : "
     	+ pg.getRangeCnt()+", 현재 블럭 : "+pg.getCurRange()+", startIndex : "+pg.getStartIndex()+", endIndex : "+pg.getEndIndex());
 		
+    	
 		model.addAttribute("nlist", notice_list);
 		model.addAttribute("listCnt", listCnt);
 		model.addAttribute("pagination",pg);
+		model.addAttribute("noticelist", notice_list_notice);
+		model.addAttribute("eventlist", notice_list_event);
 		
 		
 		return "notice/notice";

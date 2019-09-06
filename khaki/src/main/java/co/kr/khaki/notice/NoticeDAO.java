@@ -46,5 +46,15 @@ public class NoticeDAO {
 		return my.selectList("nDAO.selectAll");
 	}
 	
+	public List<NoticeDTO> select_notice(){
+		System.out.println("NoticeDAO select_notice");
+		return my.selectList("nDAO.select_notice");
+	}
+	
+	public List<NoticeDTO> select_event(){
+		System.out.println("NoticeDAO select_event");
+		return my.selectList("nDAO.select_event");
+	}
+	
 }
 
