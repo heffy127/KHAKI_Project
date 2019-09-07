@@ -36,8 +36,14 @@
   	
   	function fn_paging(curPage){
   		location.href = "notice.do?curPage="+curPage;
-  		//alert(curPage); //페이지 넘버 확인
+  		//alert(curPage); //페이지 넘버 확인 aaaaaabb
   	};
+  	
+  	function change_pagesize(pageSize, curPage){
+  		alert(pageSize +" / "+ curPage);
+  		location.href = "notice.do?curPage="+curPage+"&pageSize="+pageSize;
+  	}
+  	
   	// aaaaa
     $(function(){
     	$(".check_notice1").click(function(){
@@ -342,6 +348,31 @@
 						</label>
             		</div>
             		<div class="col-md-3">
+            			<div class="dropdown">
+	                        <a class="btn btn-lg btn-icon-only text-light" id="pagesize_dropDown" style="width: 100px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						            		<b><i class="fas fa-car-side"></i></b>-페이지 수-
+	                          <!-- <i class="ni ni-bus-front-12"></i> -->
+	                        </a>
+	                        <!--  dropdown-menu-arrow -->
+	                        <div class="dropdown-menu dropdown-menu-right " style="overflow-y: scroll;height: 150px;">
+                        			<%-- <input type="dropdown-item carname" name="carname" value="${car }" readonly="readonly"> --%>
+                        			<div class="dropdown-item">
+                        				<a href="#" onclick="change_pagesize(10,${pagination.curPage})">10개</a>
+                        			</div>
+                        			<div class="dropdown-item">
+                        				<a href="#" onclick="change_pagesize(20,'${pagination.curPage}')">20개</a>
+                        			</div>
+                        			<div class="dropdown-item">
+                        				<a href="#" onclick="change_pagesize(30,'${pagination.curPage}')">30개</a>
+                        			</div>
+                        			
+                        			<%-- <a href="#" onClick="fn_paging('${pagination.nextPage }')"> 
+                        			<div class="dropdown-item pagesize">10개</div>
+                        			<div class="dropdown-item pagesize">20개</div>
+                        			<div class="dropdown-item pagesize">30개</div>--%>
+                        		<!-- dropdown 구성요소 재확인 및 notice.do로 넘어가게끔 만들고 curpage와 바꿀 pagesize를 가지고 넘어가게끔 구현 -->
+	                        </div>
+                     	</div>	<!-- dropdown End -->
             		</div>
             	</div>
             </div>
