@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="licenseDAO">
+
+	<resultMap type="licenseDTO" id="rsMap">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="licenseType" column="licenseType" />
+		<result property="area" column="area" />
+		<result property="num1" column="num1" />
+		<result property="num2" column="num2" />
+		<result property="num3" column="num3" />
+		<result property="issueYear" column="issueYear" />
+		<result property="issueMonth" column="issueMonth" />
+		<result property="issueDay" column="issueDay" />
+		<result property="expireYear" column="expireYear" />
+		<result property="expireMonth" column="expireMonth" />
+		<result property="expireDay" column="expireDay" />
+	</resultMap>
+
+	<select id="selectId" parameterType="String" resultMap="rsMap">
+		SELECT *
+		FROM license
+		WHERE id = #{id}
+	</select>
+	
+		<!-- 운전면허 정보 주입 -->
+	<insert id="insertLicense" parameterType="licenseDTO">
+		INSERT INTO license (id, name, licenseType, area, num1, num2, num3, issueYear, issueMonth, issueDay, expireYear, expireMonth, expireDay)
+		VALUES(#{id}, #{name}, #{licenseType}, #{area}, #{num1}, #{num2}, #{num3}, #{issueYear}, #{issueMonth}, #{issueDay}, #{expireYear}, #{expireMonth}, #{expireDay})
+	</insert>
+
+	
+	<delete id="deleteLicense" parameterType="String">
+		DELETE FROM license WHERE
+		id = #{id}
+	</delete>
+ 
+</mapper>

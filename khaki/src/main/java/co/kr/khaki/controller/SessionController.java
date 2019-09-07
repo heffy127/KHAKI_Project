@@ -19,7 +19,7 @@ public class SessionController {
 	
 	@RequestMapping("sessionLogin.do")
 	public String sessionLogin(MemberDTO memberDTO, Model model) {	
-		memberDTO = memberDAO.selectId_Member(memberDTO.getId());
+		memberDTO = memberDAO.selectId(memberDTO.getId());
 		model.addAttribute("sessionId", memberDTO.getId());
 		model.addAttribute("sessionName", memberDTO.getName());
 		model.addAttribute("sessionPhoto", memberDTO.getPhoto());
@@ -29,7 +29,7 @@ public class SessionController {
 	
 	@RequestMapping("sessionLoginLicense.do")
 	public String sessionLoginLicense(MemberDTO memberDTO, Model model) {	
-		memberDTO = memberDAO.selectId_Member(memberDTO.getId());
+		memberDTO = memberDAO.selectId(memberDTO.getId());
 		model.addAttribute("sessionId", memberDTO.getId());
 		model.addAttribute("sessionName", memberDTO.getName());
 		model.addAttribute("sessionPhoto", memberDTO.getPhoto());

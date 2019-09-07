@@ -14,6 +14,8 @@ import co.kr.khaki.member.InsertPointDTO;
 import co.kr.khaki.member.Mail_auth;
 import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.member.MemberDTO;
+import co.kr.khaki.member.MemberLevelDAO;
+import co.kr.khaki.member.SocialDAO;
 import co.kr.khaki.member.SocialDTO;
 
 
@@ -22,11 +24,14 @@ public class RegisterController {
 	
 	@Autowired
 	MemberDAO memberDAO;
-	
+	@Autowired
+	SocialDAO socialDAO;
+	@Autowired
+	MemberLevelDAO memberLevelDAO;
 	
 	@RequestMapping("idCheck.do")
 	public String idCheck(String idCheck, MemberDTO memberDTO, Model model) {
-		memberDTO = memberDAO.selectId_Member(idCheck);
+		memberDTO = memberDAO.selectId(idCheck);
 		if(memberDTO == null) {
 			model.addAttribute("idCheck", "null");
 		} else {
@@ -138,7 +143,7 @@ public class RegisterController {
 		memberDAO.insertMember(memberDTO); // Member 테이블에 회원정보 저장
 		if(!(socialDTO.getSocial_id().equals("null"))) {
 			socialDTO.setId(memberDTO.getId()); // Member 테이블 아이디 정보 가져오기 (외래키) 
-			memberDAO.insertSocial(socialDTO); // Social 테이블에 저장
+			socialDAO.insertSocial(socialDTO); // Social 테이블에 저장
 		}
 		// 가입시 100point 지급
 		insertPointDTO.setId(memberDTO.getId());
@@ -150,6 +155,7 @@ public class RegisterController {
 			insertPointDTO.setPoint(20);
 			memberDAO.updatePoint(insertPointDTO);			
 		}
+		memberLevelDAO.insert(memberDTO.getId()); // 회원 등급 생성
 		if(go.trim().equals("home")) {
 			return "home/index";
 			// 바로 홈으로

@@ -29,7 +29,7 @@ public class ConfirmController {
 	   public String confirm(Model model, PayDTO payDTO, String buy_carImage) {
 	      model.addAttribute("payDTO", payDTO);
 	      model.addAttribute("buy_carImage", buy_carImage);
-	     MemberDTO memberDTO = memberDAO.selectId_Member(payDTO.getBuy_id());
+	     MemberDTO memberDTO = memberDAO.selectId(payDTO.getBuy_id());
 	     model.addAttribute("memberDTO", memberDTO);
 	      return "confirm/confirm";
 	   }

@@ -41,6 +41,8 @@
    $(document).ready(
          function() {
         	 
+        	$('#expBar').attr('style',"width: "+'${expPer}'+"%;") // 경험치 퍼센트 표시
+        	 
         	$('#profilePhotoBtn').click(
         			function() {
 						$('#file').click()
@@ -215,17 +217,7 @@
       <div class="container-fluid">
         <!-- Brand -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">User Profile</a>
-        <!-- Form -->
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-          <div class="form-group mb-0">
-            <div class="input-group input-group-alternative">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
-              </div>
-              <input class="form-control" placeholder="Search" type="text">
-            </div>
-          </div>
-        </form>
+       
           <!-- 우측 상단 프로필 -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
@@ -309,7 +301,7 @@
                      <a href="#none" id="profilePhotoBtn">
                        <img src="${memberDTO.photo}"
                         class="rounded-circle" id="photoImg"
-                        data-toggle="tooltip" data-placement="top" title="프로필 사진을 변경하려면 클릭!">
+                        data-toggle="tooltip" data-placement="top" title="프로필 사진을 변경하기!">
                      </a>
                 </div>
                 
@@ -359,15 +351,32 @@
                 <h1>
                   ${memberDTO.name}
                 </h1>
-                <div class="h5 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+                <div class="h5 mt-4" align="center" style="margin-bottom: 0px;">
+                  <div style="width: 189px; height: 61px; 
+                  background-image: url(resources/assets/img/icons/common/level-background.jpg); background-size: 190px;
+                  line-height: 65px;" data-toggle="tooltip" data-placement="left" title="Level을 증가시켜 보다 더 큰 혜택을 누리세요!">
+                  	<font size="6"><b>${memberLevelDTO.memberLevel}</b></font>
+                  </div>
                 </div>
                 <div>
-                  <i class="ni education_hat mr-2"></i>University of Computer Science
+                  <div class="progress-wrapper" style="padding-top: 0px;">
+					  <div class="progress-info">
+					    <div class="progress-label">
+					      ${memberLevelDTO.exp } / ${expLimit }
+					    </div>
+					    <div class="progress-percentage">
+					      <span>${expPer}%</span>
+					    </div>
+					  </div>
+					  <div class="progress">
+					    <div id="expBar" class="progress-bar bg-warning" role="progressbar" aria-valuenow="${expPer}" aria-valuemin="0" aria-valuemax="100"></div>
+					  </div>
+					</div>
                 </div>
                 <hr class="my-4" />
-                <p>Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
-                <a href="#">Show more</a>
+               	
+               		<iframe src="chat.do" frameborder="1" width="300px" height="400px"></iframe>
+               	
               </div>
             </div>
           </div>
