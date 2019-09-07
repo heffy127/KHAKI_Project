@@ -9,20 +9,20 @@ public class CalculateMemberLevel {
 	}
 
 	public MemberLevelDTO setLevel(MemberLevelDTO memberLevelDTO, int inputExp) {
-		int memberExpLimit = 1000; // 1레벨의 요구 경험치
+		int memberExpLimit = 1000; // 1에서 2레벨로의 요구 경험치
 		int exp = memberLevelDTO.getExp();
 		int memberLevel = memberLevelDTO.getMemberLevel();
 		exp += inputExp;
 		
 		int i = 1;
 		while(i < memberLevel) {
-			memberExpLimit = (int)Math.round(memberExpLimit * upgrade); // 레벨이 올라갈수록 이전 레벨보다 110% 증가한  경험치 필요
+			memberExpLimit = (int)Math.round(memberExpLimit * upgrade); // 레벨이 올라갈수록 이전 레벨보다 10% 증가한  경험치 필요
 			i++;
 		}
 		while(exp >= memberExpLimit) { // 멤버의 경험치가 레벨 요구경험치보다 높을 경우
-			memberLevel++; // 레벨 1증가
+			memberLevel++; // 레벨 1 증가
 			exp -= memberExpLimit; // 멤버의 경험치 - 이전 요구경험치
-			memberExpLimit = (int)Math.round(memberExpLimit * upgrade); // 레벨이 올라갈수록 이전 레벨보다 110% 증가한  경험치 필요
+			memberExpLimit = (int)Math.round(memberExpLimit * upgrade); // 레벨이 올라갈수록 이전 레벨보다 10% 증가한  경험치 필요
 			System.out.println("레벨업 제한 증가 : " + memberExpLimit);
 		}
 		memberLevelDTO.setExp(exp);
@@ -31,14 +31,14 @@ public class CalculateMemberLevel {
 	}
 	
 	public int[] showStat(MemberLevelDTO memberLevelDTO) {
-		int memberExpLimit = 1000; // 1레벨의 요구 경험치
+		int memberExpLimit = 1000; // 1에서 2레벨로의 요구 경험치
 		int exp = memberLevelDTO.getExp();
 		int memberLevel = memberLevelDTO.getMemberLevel();
 		int[] array = new int[2];
 		
 		int i = 1;
 		while(i < memberLevel) {
-			memberExpLimit = (int)Math.round(memberExpLimit * upgrade); // 레벨이 올라갈수록 이전 레벨보다 110% 증가한  경험치 필요
+			memberExpLimit = (int)Math.round(memberExpLimit * upgrade); // 레벨이 올라갈수록 이전 레벨보다 10% 증가한  경험치 필요
 			i++;
 		}
 		array[0] = memberExpLimit; // 요구경험치
