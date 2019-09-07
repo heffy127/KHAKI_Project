@@ -31,13 +31,18 @@ public class NoticeController {
 	NoticeDAO ndao;
 	
 	@RequestMapping("notice.do")
-	public String board(Model model, @RequestParam(defaultValue="1") int curPage) {
+	public String board(Model model, @RequestParam(defaultValue="1") int curPage, 
+			@RequestParam(defaultValue="10") int pageSize) {
+		// pageSize는 기본 10으로 요청이 있을 때는 바뀌어서 가져오게끔
 		// spring 흐름 알기
 		// 클라이언트 > 요청 > FC > 해당 Controller > (model 객체로 넘김) > View단
 		List<NoticeDTO> notice_list = ndao.selectAll();
 		System.out.println(notice_list);
 		
 		// 해당 view에서 jstl 또는 스크립트 릿으로 위의 명칭한 이름으로 받는다
+		
+		//test
+		System.out.println("현재 페이지 : " + curPage+ "/ 현재 페이지 사이즈 : "+pageSize);
 		
 		// 공지사항 글 select
 		List<NoticeDTO> notice_list_notice = ndao.select_notice();
@@ -51,7 +56,7 @@ public class NoticeController {
 		// 총 게시글 수
 		int listCnt = notice_list.size();
 		
-		pagination pg = new pagination(listCnt, curPage);
+		pagination pg = new pagination(listCnt, curPage, pageSize);
     	// for문으로 출력해오는 것을 수로 어떻게 처리하는 것에 따라 다름
     	
     	
@@ -75,7 +80,8 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="noticeInsertProcess.do", method = RequestMethod.POST)
-	   public String noticeInsertProcess(NoticeDTO noticeDTO, Model model, @RequestParam(defaultValue="1") int curPage) {
+	   public String noticeInsertProcess(NoticeDTO noticeDTO, Model model, @RequestParam(defaultValue="1") int curPage, 
+				@RequestParam(defaultValue="10") int pageSize) {
 	      System.out.println(noticeDTO);
 	      System.out.println("NoticeController InsertProcess!");
 	      ndao.insert(noticeDTO);
@@ -92,7 +98,7 @@ public class NoticeController {
 			System.out.println("이벤트글 갯수 : "+notice_list_event.size());
 	      
 	      
-	      pagination pg = new pagination(listCnt, curPage);
+	      pagination pg = new pagination(listCnt, curPage, pageSize);
 	      
 	      model.addAttribute("nlist", notice_list);
 	      model.addAttribute("listCnt", listCnt);
@@ -116,7 +122,8 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("noticeUpdate2.do")
-	public String noticeUpdate2(NoticeDTO noticeDTO, Model model, @RequestParam(defaultValue="1") int curPage){
+	public String noticeUpdate2(NoticeDTO noticeDTO, Model model, @RequestParam(defaultValue="1") int curPage, 
+			@RequestParam(defaultValue="10") int pageSize){
 		System.out.println("NoticeController Update2!");
 		ndao.update(noticeDTO);
 		
@@ -131,7 +138,7 @@ public class NoticeController {
 		System.out.println("이벤트글 갯수 : "+notice_list_event.size());  
 		
 		
-		pagination pg = new pagination(listCnt, curPage);
+		pagination pg = new pagination(listCnt, curPage, pageSize);
 		
 		model.addAttribute("nlist", notice_list);
 	    model.addAttribute("listCnt", listCnt);
@@ -156,7 +163,8 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("noticeDelete.do")
-	public String noticeDelete(NoticeDTO noticeDTO, Model model, @RequestParam(defaultValue="1") int curPage){
+	public String noticeDelete(NoticeDTO noticeDTO, Model model, @RequestParam(defaultValue="1") int curPage, 
+			@RequestParam(defaultValue="10") int pageSize){
 		
 		System.out.println("NoticeController Delete!");
 		ndao.delete(noticeDTO);
@@ -172,7 +180,7 @@ public class NoticeController {
 		System.out.println("이벤트글 갯수 : "+notice_list_event.size()); 
 
 		
-		pagination pg = new pagination(listCnt, curPage);
+		pagination pg = new pagination(listCnt, curPage, pageSize);
 		 
 		model.addAttribute("listCnt", listCnt);
 		model.addAttribute("pagination",pg);
