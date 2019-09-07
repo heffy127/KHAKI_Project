@@ -37,6 +37,9 @@
   <link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+  <!-- Google font  -->
+  <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Pen+Script&display=swap" rel="stylesheet">
+
 </head>
 
 <body class="">
@@ -48,7 +51,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="home.do">
-        <img src="resources/assets/img/brand/khaki_logo.png" class="navbar-brand-img" alt="...">
+        <img src="resources/assets/img/brand/khaki2.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -384,7 +387,6 @@
 					      <div class="form-group">
 					      	<%
 					      	if(ndto.getNotice_type().equals("P")){
-					      		
 				      		%>
 					      	<div class="custom-control custom-radio mb-3">
 							  <input name="notice_type" class="custom-control-input" id="customRadio5" type="radio" value="P" checked="checked">
@@ -408,7 +410,6 @@
 							</div>
 							<%
 					      	}else{
-					      		
 			      		 	%>
 							<div class="custom-control custom-radio mb-3">
 							  <input name="notice_type" class="custom-control-input" id="customRadio8" type="radio" value="G" checked="checked">
@@ -420,26 +421,38 @@
 					      </div>
 					    </div>
             		</div>
-            		<div class="row">	<!-- row는 한 행을 구분 짓는 것 -->
-					    <div class="col-md-6">
+            		<div class="row" style="font-family: 'Black Han Sans', sans-serif;">
+            			<div class="col-md-9">
+            				<div class="row">
+		            			<div class="col-md-6" align="left">
+		            				글번호 : <%=ndto.getNotice_num() %>
+		            			</div>
+		            			<div class="col-md-6" align="right">
+		            				조회수 : <%=ndto.getHit() %> | 작성일시 : <%=ndto.getWrite_date() %>
+		            			</div>
+            				</div>
+            			</div>
+            		</div>
+            		<div class="row" style="font-family: 'Nanum Pen Script', cursive;"> 	<!-- row는 한 행을 구분 짓는 것 -->
+					    <div class="col-md-9">
 					      <div class="form-group">	
-					        <input type="text" class="form-control" name="title" placeholder="" readonly="readonly" value="<%=ndto.getTitle() %>">
+					        <input style="font-size: 20px;" type="text" class="form-control" name="title" placeholder="" readonly="readonly" value="<%=ndto.getTitle() %>">
 					      </div>
 					    </div>
 				  	</div>
-					<div class="row">
-					    <div class="col-md-6">
+					<div class="row" style="font-family: 'Nanum Pen Script', cursive;">
+					    <div class="col-md-9">
 					      <div class="form-group">
 					      <!-- 일단은 session에서 id 받아오는 것 대신 test 아이디 넣음 -->
-					        <input type="text" class="form-control" value="<%=ndto.getWriter() %>" name="writer" placeholder="">
+					        <input style="font-size: 20px;" type="text" class="form-control" value="<%=ndto.getWriter() %>" readonly="readonly" name="writer">
 					      </div>
 					    </div>
 				  	</div>
-					<div class="row">
-						<div class="col-md-7">
+					<div class="row" style="font-family: 'Nanum Pen Script', cursive;">
+						<div class="col-md-9">
 							<div class="form-group">
-								<div class="card" style="width: 47rem; background-color: #fafafa;">
-									<div class="card-body">
+								<div class="card" style="width: 100%; background-color: #fafafa;">
+									<div style="font-size: 15px;"  class="card-body">
 										<%=ndto.getContent() %>
 									</div>
 								</div>

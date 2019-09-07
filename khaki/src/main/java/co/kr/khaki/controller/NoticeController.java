@@ -195,9 +195,8 @@ public class NoticeController {
             // 파일명을 받는다 - 일반 원본파일명
             String oldName = request.getHeader("file-name");
             // 파일 기본경로 _ 상세경로
-            //String filePath = "D:/min/eGovFrameDev-3.7.0-64bit/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp2/wtpwebapps/khaki/resources/photoUpload/";	//학원에서의 filepath
-            //String filePath = "D:/eGovFrameDev/eGovFrameDev-3.7.0-64bit/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/khaki/resources/photoUpload/";	//집에서의 filepath
-            String filePath = "D:/min/project3/khaki/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/khaki/resources/photoUpload/";	//종합본에서의 filepath
+            //String filePath = "D:/min/project3/khaki/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/khaki/resources/photoUpload/";	//종합본에서의 filepath
+            String filePath = "D:/projectKHAKI/egit/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/khaki/resources/photoUpload/";	//노트북시 서버경로
             
             //서버경로로 설정
             String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss")

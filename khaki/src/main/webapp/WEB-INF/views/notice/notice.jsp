@@ -40,25 +40,25 @@
   	};
   	// aaaaa
     $(function(){
-    	
-    	$(".btn_notice").click(function(){
-    		alert("공지사항 버튼");
-    		$("tbody").children("#board_notice").hide();
-    		
-    		
-    		
-    	});		//공지사항 버튼 end
-    	
-    	$(".btn_add").click(function(){
-    		alert("광고 버튼");
-    	});		//광고 버튼 end
-    	
-    	$(".btn_event").click(function(){
-    		alert("이벤트 버튼");
-    	});		//이벤트 버튼 end
-    	
-    	
-    	
+    	$(".check_notice1").click(function(){
+	  		var check_notice = $("#check_notice").prop("checked");	//prop는 속성값을 의미 체크안되어 있으면 false를 반환, 되어있으면 true를 반환
+	    	//alert(check_notice);
+	  		if(check_notice == true){
+	    		$("tbody").children("#board_notice").hide();
+	    	}else{
+	    		$("tbody").children("#board_notice").show();
+	    	}
+  		})	// 공지 감추기/보이기 기능 END checkbox label을 누르면 동작하도록
+  		
+  		$(".check_event1").click(function(){
+	  		var check_notice = $("#check_event").prop("checked");	//prop는 속성값을 의미 체크안되어 있으면 false를 반환, 되어있으면 true를 반환
+	    	//alert(check_notice);
+	  		if(check_notice == true){
+	    		$("tbody").children("#board_event").hide();
+	    	}else{
+	    		$("tbody").children("#board_event").show();
+	    	}
+  		})	//	광고 감추기/보이기 기능 END checkbox label을 누르면 동작하도록
     	
     });	//Jquery End
   </script>
@@ -332,18 +332,14 @@
 	          		    총 게시물 수 : <%= list.size() %>
             		</div>
             		<div class="col-md-6" align="center">
-            			<button type="button" class="btn btn-success btn_notice">공     지</button>
-            			<label class="custom-toggle">
-						  <input type="checkbox">
-						  <span class="custom-toggle-slider rounded-circle"></span>
+            			<button type="button" class="btn btn-success btn_notice" disabled="disabled">공지감추기</button>
+						<label class="custom-toggle check_notice1"> <input id="check_notice" type="checkbox">
+							<span class="custom-toggle-slider rounded-circle"></span>
 						</label>
-						<!-- <span class="clearfix"></span> -->
-            			<button type="button" class="btn btn-warning btn_add">광     고</button>
-            			<label class="custom-toggle">
-						  <input type="checkbox" checked>
-						  <span class="custom-toggle-slider rounded-circle"></span>
+						<button type="button" class="btn btn-info btn_event" disabled="disabled">이 벤 트 감추기</button>
+						<label class="custom-toggle check_event1"> <input id="check_event" type="checkbox">
+							<span class="custom-toggle-slider rounded-circle"></span>
 						</label>
-            			<button type="button" class="btn btn-info btn_event">이 벤 트</button>
             		</div>
             		<div class="col-md-3">
             		</div>
