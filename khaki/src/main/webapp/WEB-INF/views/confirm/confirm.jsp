@@ -84,7 +84,7 @@
 				$("#discount_label").remove();
 				$("#discount_label2").remove();
 	  			// 할인이 적용되었다고 알리기 위해 라벨 추가
-				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px'>할인전금액 : " + amount + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
+				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>할인전금액 : " + amount + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
 	  			// 할인적용된 금액을 가져온다.
 				var amount = parseInt($("#confirm_amount").text());
 	  			// 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
@@ -98,7 +98,7 @@
   				$("#discount_label").remove();
   				$("#discount_label2").remove();
   	  			// 할인이 적용되었다고 알리기 위해 라벨 추가
-  				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px'>할인전금액 : " + amount + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
+  				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>할인전금액 : " + amount + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
   	  			// 할인적용된 금액을 가져온다.
   				var amount = parseInt($("#confirm_amount").text());
   	  			// 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
@@ -381,73 +381,97 @@
           	  		<img src="https://image.flaticon.com/icons/svg/179/179372.svg" style="width: 2.777%; margin-left: 1%; margin-right: 1%;">선택 상품 확인
           	  	</div>
           	  	<div>
-          	  		<table class="c_content">
-          	  			<tr>
-          	  				<td rowspan="6" style="width: 30%;"><img style="width: 100%;" src="${buy_carImage }"></td>
-          	  				<td class="c_content_1">차량번호 : </td>
-          	  				<td class="c_content_2" style="width: 15%;" id="confirm_carNum">${payDTO.buy_carNum }</td>
-          	  				<td class="c_content_1">차종 : </td>
-          	  				<td class="c_content_2" id="confirm_carModel">${payDTO.buy_carModel }</td>
-          	  			</tr>
-          	  			<tr>
-          	  				<td class="c_content_1">대여시간 : <input type="hidden" id="confirm_startTime2" value="${payDTO.buy_startTime }"></td>
-          	  				<td class="c_content_2" id="confirm_startTime">${payDTO.buy_startTime }</td>
-          	  				<td class="c_content_1">반납시간 : <input type="hidden" id="confirm_endTime2" value="${payDTO.buy_endTime }"></td>
-          	  				<td class="c_content_2" id="confirm_endTime">${payDTO.buy_endTime }</td>
-          	  			</tr>
-          	  			<tr>
-          	  				<td class="c_content_1">보험종류 : </td>
-          	  				<td class="c_content_2" id="confirm_carIns">${payDTO.buy_carIns }</td>
-          	  				<td class="c_content_1">예상적립포인트 : </td>
-          	  				<td class="c_content_2"><span id="confirm_point">${payDTO.buy_point }</span>p</td>
-          	  			</tr>
-          	  			<tr>
-          	  				<td class="c_content_1">대여주소 : </td>
-          	  				<td colspan="3" class="c_content_2" id="confirm_startLocation">${payDTO.buy_startLocation }</td>
-          	  			</tr>
-          	  			<tr>
-          	  				<td class="c_content_1">반납주소 : </td>
-          	  				<td colspan="3" class="c_content_2" id="confirm_returnLocation">${payDTO.buy_returnLocation }</td>
-          	  			</tr>
-          	  			<tr>
-          	  				<td class="c_content_1">결제금액 : </td>
-          	  				<td class="c_content_2" id="amount_div"><img style="width: 15%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_amount">${payDTO.buy_amount }</div>원</td>
-          	  				<td class="c_content_1">결제수단 선택 : </td>
-          	  				<td class="c_content_2">
-								<div class="fl_left" id="select_payMentMethod">
-									<select name="pay_method" id="region_2_n" class="form-control_jkh input-sm">
-										<option value="" class="" selected>- 결제 수단 선택 -</option>
-										<option value="card" class="payment_method">신용카드</option>
-										<option value="trans" class="payment_method" >실시간계좌이체</option>
-										<option value="vbank" class="payment_method" >가상계좌</option>
-										<option value="phone" class="payment_method" >휴대폰소액결제</option>
-					  				</select>
-								</div>
-							</td>
-          	  			</tr>
-          	  			<tr>
-          	  				<td></td>
-          	  				<td></td>
-          	  				<td id="amount_div2"></td>
-          	  				<td></td>
-          	  				<td></td>
-          	  			</tr>
-          	  			<tr>
-          	  				<td class="c_content_1" id="couponCheckTd" style="text-align: center;">
-          	  					<input type="checkbox" id="couponCheckBox" name="coupon" value="coupon" /><label id="cpCheckLabel" style="cursor: pointer; padding-left: 5%;">쿠폰 적용하기</label>
-          	  				</td>
-          	  				<td colspan="2">
-          	  					<div class="fl_left" id="select_couponMethod" style="padding-right: 2%;">
-									<select name="coupon_method" id="cp_method" class="form-control_jkh input-sm coupon_method" style="margin-top: 1.3%; height: 60px;">
-										
-					  				</select>
-								</div>
-          	  				</td>
-          	  				<td colspan="2">
-          	  					<button type="button" class="btn btn-outline-danger c_content_payBtn" id="check_module">결제하기</button>
-          	  				</td>
-          	  			</tr>
-          	  		</table>
+          	  		<div class="c_content">
+          	  			<table>
+          	  				<tr>
+          	  					<td rowspan="8" style="width: 50%;"><img style="width: 100%;" src="${buy_carImage }"></td>
+          	  					<td class="c_content_1">차량번호</td>
+          	  					<td></td>
+          	  				</tr>
+          	  				<tr>
+          	  					<td></td>
+          	  					<td class="c_content_2" id="confirm_carNum">${payDTO.buy_carNum }</td>
+          	  				</tr>
+          	  				<tr>
+          	  					<td class="c_content_1">차종</td>
+          	  					<td></td>
+          	  				</tr>
+          	  				<tr>
+          	  					<td></td>
+          	  					<td class="c_content_2" id="confirm_carModel">${payDTO.buy_carModel }</td>
+          	  				</tr>
+          	  				<tr>
+          	  					<td class="c_content_1">대여시간<input type="hidden" id="confirm_startTime2" value="${payDTO.buy_startTime }"></td>
+          	  					<td></td>
+          	  				</tr>
+          	  				<tr>
+          	  					<td></td>
+          	  					<td class="c_content_2" id="confirm_startTime">${payDTO.buy_startTime }</td>
+          	  				</tr>
+          	  				<tr>
+          	  					<td class="c_content_1">반납시간<input type="hidden" id="confirm_endTime2" value="${payDTO.buy_endTime }"></td>
+          	  					<td></td>
+          	  				</tr>
+          	  				<tr>
+          	  					<td></td>
+          	  					<td class="c_content_2" id="confirm_endTime">${payDTO.buy_endTime }</td>
+          	  				</tr>
+          	  			</table>
+          	  		</div>
+          	  		<div class="c_content2">
+          	  			<div class="confirm_content_title" style="width: 50%; float: left;">
+          	  				보험종류
+          	  			</div>
+          	  			<div class="confirm_content_title" style="width: 50%; float: left;">
+          	  				예상적립포인트
+          	  			</div>
+          	  			<div style="width: 50%; padding-left: 10%; float: left;" id="confirm_carIns">${payDTO.buy_carIns }</div>
+          	  			<div style="width: 50%; padding-left: 10%; float: left;" id="confirm_point">${payDTO.buy_point }</div>
+          	  			<div class="confirm_content_title" style="width: 100%;">
+          	  				대여주소
+          	  			</div>
+          	  			<div style="width: 100%; padding-left: 10%;" id="confirm_startLocation">${payDTO.buy_startLocation }
+          	  			</div>
+          	  			<div class="confirm_content_title" style="width: 100%;">
+          	  				반납주소
+          	  			</div>
+          	  			<div style="width: 100%; padding-left: 10%;" id="confirm_returnLocation">${payDTO.buy_returnLocation }</div>
+          	  			<div class="confirm_content_title" style="width: 100%;">
+          	  				결제금액
+          	  			</div>
+          	  			<div style="width: 100%; text-align: center;" id="amount_div">
+          	  				<img style="width: 2.5%; float: left; margin-left: 45%; margin-right: 1%;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_amount" style="float: left;">${payDTO.buy_amount }</div><label style="float:left;">원</label>
+          	  			</div>
+          	  			<div style="width: 100%;" id="amount_div2">
+          	  			</div>
+          	  			<div class="confirm_content_title" style="clear: both;">
+          	  				<input type="checkbox" id="couponCheckBox" name="coupon" value="coupon" style="opacity: 0;"/><label id="cpCheckLabel" style="cursor: pointer; margin-left: 43%; margin-top: 2%;"><img src="https://image.flaticon.com/icons/svg/1041/1041894.svg" style="width: 10%; margin-right: 1.5%;">쿠폰 적용하기</label>
+          	  			</div>
+          	  			<div>
+          	  				<div class="fl_left" id="select_couponMethod">
+								<select name="coupon_method" id="cp_method" class="form-control_jkh input-sm coupon_method" style="margin-top: 1.3%; height: 60px;">
+									
+					  			</select>
+							</div>
+          	  			</div>
+          	  			<div class="confirm_content_title" style="width: 100%;">
+          	  				결제수단 선택
+          	  			</div>
+          	  			<div style="width: 100%; text-align: center;">
+          	  				<div class="fl_left" id="select_payMentMethod">
+								<select name="pay_method" id="region_2_n" class="form-control_jkh input-sm">
+									<option value="" class="" selected>- 결제 수단 선택 -</option>
+									<option value="card" class="payment_method">신용카드</option>
+									<option value="trans" class="payment_method" >실시간계좌이체</option>
+									<option value="vbank" class="payment_method" >가상계좌</option>
+									<option value="phone" class="payment_method" >휴대폰소액결제</option>
+					  			</select>
+							</div>
+          	  			</div>
+          	  			<div>
+          	  				<button type="button" class="btn btn-outline-danger c_content_payBtn" id="check_module">결제하기</button>
+          	  			</div>
+          	  		</div>
           	  	</div>
           	  	<input type="hidden" id="firsr_amount" value="${payDTO.buy_amount }"> <!-- confirm페이지에서 처음들어온 금액 -->
           	  	<form action="couponConfirm.do" id="couponFrm" name="couponFrm">
@@ -475,7 +499,7 @@
           	  		<input type="hidden" id="buy_carModel" name="buy_carModel" value=""> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_point" name="buy_point" value=""> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_amount" name="buy_amount" value=""> <!-- table과 동일한 데이터 -->
-          	  		<input type="hidden" id="buy_addAmount" name="buy_addAmount" value=""> <!-- 추가금액(나중에 추가 됨) -->
+          	  		<input type="hidden" id="buy_addAmount" name="buy_addAmount" value="0"> <!-- 추가금액(나중에 추가 됨) -->
           	  		
           	  		<input type="hidden" id="buy_totalAmount" name="buy_totalAmount" value=""> <!-- 총 금액(나중에 추가 됨) -->
           	  		<input type="hidden" id="buy_accident" name="buy_accident" value=""> <!-- 사고정보(나중에 추가 됨) -->
@@ -491,7 +515,6 @@
           	  	<script>
 				$("#check_module").click(function () {
 					var sessionId = '<%=(String)session.getAttribute("sessionId")%>';
-					
 					var coupon_v = $('select[name=coupon_method]').val();
 					var coupon_t = $('#cp_method option:checked').text();
 					var coupon_sp = coupon_t.split("(");
@@ -505,6 +528,8 @@
 					$("#buy_carModel").val($("#confirm_carModel").text()); 		
 					$("#buy_point").val($("#confirm_point").text()); 		
 					$("#buy_amount").val($("#confirm_amount").text()); 
+					$("#buy_totalAmount").val($("#confirm_amount").text()); 
+					
 					$("#buy_coupon").val(coupon_sp[0]);
 					$("#buy_discount").val(coupon_v);
 					if($("#confirm_startLocation").text() == $("#confirm_returnLocation").text()) {
@@ -522,6 +547,7 @@
 					var buy_carModel_data = $("#confirm_carModel").text();
 					var buy_amount_data = $("#confirm_amount").text();
 					
+					alert($("#buy_carIns").val());
 					var IMP = window.IMP; // 생략가능
 					IMP.init('imp74838776');
 					// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용

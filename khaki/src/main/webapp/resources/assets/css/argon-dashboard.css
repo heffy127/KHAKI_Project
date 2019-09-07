@@ -21227,17 +21227,37 @@ pre>code.highlight {
 .c_content {
    font-family: 'Do Hyeon', sans-serif;
    font-size: 20px;
+   width: 100%;
 }
+.c_content2 {
+   font-family: 'Do Hyeon', sans-serif;
+   font-size: 20px;
+   width: 100%;
+   clear: both;
+}
+
 .c_content_1 {
    color: #3fb49f;
+   width: 50%; 
+   float: left; 
+   text-align: left; 
+   padding-left: 3%;
    margin-bottom: 1%;
-   width: 15%;
-   text-align: center;
 }
 
 .c_content_2 {
+   width: 50%; 
+   float: left; 
+   text-align: center; 
+   font-size: 30px;
    margin-bottom: 1%;
-   font-size: 23px;
+}
+
+.confirm_content_title {
+	margin-top: 2%;
+	margin-bottom: 2%;
+	font-size: 20px;
+	color: #3fb49f;
 }
 
 .c_content_payBtn {
@@ -21262,15 +21282,6 @@ pre>code.highlight {
   transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-#confirm_amount {
-   float: left;
-}
-#confirm_addAmount {
-   float: left;
-}
-#confirm_totalAmount {
-   float: left;
-}
 
 #handler_label1 {
 	font-family: 'Do Hyeon', sans-serif;
@@ -21390,6 +21401,14 @@ pre>code.highlight {
 #cctv_title {
 	font-family: 'Do Hyeon', sans-serif;
 	font-size: 35px;
+}
+
+#checkREservationTable td{
+	padding: 1%;
+}
+
+.checkREservationTd {
+	color: #3fb49f;
 }
 
 

@@ -38,12 +38,23 @@
 	           }
 		}) // ajax end
 		
-		
   		  		
   		if($("#handlerUseCheck1").text() == "") {
   			$("#handlerUseArea").remove();
   			$("#handlerUseLabel").remove();
   			$("#handlerUseTable1").remove();
+  			$("#handlerUseArea2").remove();
+  			$("#handlerUseLabel2").remove();
+  			$("#handlerUseTable2").remove();
+  			$("#handlerBody").append(""
+	 					+ "<div style='width: 100%; height: 1000px; text-align: center;'>"
+						+ "<img src='https://image.flaticon.com/icons/svg/1464/1464727.svg' style='width: 15%; text-align: center; margin-top: 5%; margin-bottom: 3%;'><br>"
+						+ "<label id='craLabel1'>핸들러 신청 내역이 없습니다.</label><br>"
+						+ "<label id=\"handlerUseLabel2\" style=\"padding-left: 5%;\">더 많은 핸들러 미션을 통하여 포인트를 <b class=\"blueFont\">적립</b>해 보세요!<br>적립 된 포인트는 KHAKI 서비스 이용 시 각종 <b class=\"redFont\">할인</b>혜택을 받을 수 있습니다.</label>"
+						+ "<label id='craLabel2'>아래 링크를 클릭하여 핸들러 신청 후 이용 해주세요.</label><br>"
+						+ "<div id='craDiv' style='width: 100%; text-align: center; margin-top: 15%; margin-bottom: 3%;'>핸들러 신청하러 가기</div>"
+						+ "</div>");
+  			
   		} else if($("#handlerUseCheck2").text() == "") {
   			$("#handlerUseArea2").remove();
   			$("#handlerUseLabel2").remove();

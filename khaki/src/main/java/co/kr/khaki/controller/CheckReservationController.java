@@ -24,11 +24,26 @@ public class CheckReservationController {
 	
 	
 	@RequestMapping("checkReservation.do")
-	public String checkReservation(Model model) {
+	public String checkReservation(String id, Model model) {
 
 		List<PayDTO> pay_list = pdao.selectAll();
+		List<PayDTO> list = new ArrayList<PayDTO>();
 		List<String> carImageList = new ArrayList<String>();
 		System.out.println(pay_list + "확인11111111");
+		for (int i = 0; i < pay_list.size(); i++) {
+			PayDTO dto = pay_list.get(i);
+			if(dto.getBuy_id().equals(id)) {
+				System.out.println(dto.getBuy_id() + " 예약 아이디 확인");
+				System.out.println(dto.getBuy_impUid() + " 예약 주문번호 확인");
+				
+				list.add(dto);
+			}
+			
+			
+			CarDTO cdto = cdao.carNumSearch((String)dto.getBuy_carNum());
+			carImageList.add(cdto.getCar_image());
+		}
+		/* 
 		for (int i = 0; i < pay_list.size(); i++) {
 			System.out.println("확인22222222222");
 			PayDTO dto = pay_list.get(i);
@@ -45,8 +60,8 @@ public class CheckReservationController {
 			carImageList.add(cdto.getCar_image());
 			System.out.println("최종!!!!! 이 부분이 나와야 함");
 		}
-		
-		model.addAttribute("plist", pay_list);
+		*/
+		model.addAttribute("plist", list);
 		model.addAttribute("carImage", carImageList);
 		return "checkReservation/checkReservation";
 	}

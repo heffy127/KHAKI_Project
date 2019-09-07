@@ -71,17 +71,20 @@
 	    	}
 	    	
         }
-	    
 		for (var i = 0; i < parseInt(index); i++) {
 	    	$("#refund_btn"+i).click(function(){
-	    		if(!$(this).hasClass("disabled")) {
-	    			alert("환불 신청 db처리");
-	    		}
+	    		var num = $(this).val();
+				var buy_impUid = $("#impNum" + num).val(); 
+				alert("db처리");
 	    	})
 			$("#amount_div"+i).append("  <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
 	    	if($("#db_discount"+i).val() == ""){
 	    		$("#amount_div"+i).remove();
 			}
+	    	
+	    	if($("#confirm_addAmount"+i).text() == "") {
+	    		$("#confirm_totalAmount"+i).text($("#confirm_amount"+i).text());
+	    	} 
 	    	
 	    	var startTime = $("#confirm_startTime"+i).text();
 	  		var endTime = $("#confirm_endTime"+i).text();
@@ -129,67 +132,60 @@
             	int i = 0;
            	%>
           	<c:forEach var="pdto" varStatus="status" items="${plist}">
-            	<c:if test="${pdto.buy_id eq sessionId}">
           			<div class="confirm_area">
           	  			<div class="confirm_content">
-          					<table class="c_content">
-                  				<tr><!-- ddddd -->
-          	  						<td rowspan="6" style="width: 20%;"><img style="width: 100%;" src="${carImage.get(status.index)}"></td>
-          	  						<td class="c_content_1">차량번호 : </td>
-          	  						<td class="c_content_2" style="width: 20%;" id="confirm_carNum">${pdto.buy_carNum }</td>
-          	  						<td class="c_content_1">차종 : </td>
-          	  						<td class="c_content_2" id="confirm_carModel">${pdto.buy_carIns }</td>
+          	  			
+          	  				<table class="c_content" id="checkREservationTable">
+          	  					<tr>
+          	  						<td rowspan="4" colspan="2" style="width: 50%;"><img style="width: 100%;" src="${carImage.get(status.index)}"></td>
+          	  						<td class="checkREservationTd" style="width: 25%; font-size: 28px;">차량번호</td>
+          	  						<td style="width: 25%; font-size: 28px;" id="confirm_carNum">${pdto.buy_carNum }</td>
           	  					</tr>
           	  					<tr>
-          	  						<td class="c_content_1">대여시간 : </td>
-          	  						<td class="c_content_2" id="confirm_startTime<%=i%>">${pdto.buy_startTime }</td>
-          	  						<td class="c_content_1">반납시간 : </td>
-          	  						<td class="c_content_2" class="confirm_endTime" id="confirm_endTime<%= i %>">${pdto.buy_endTime }</td>
-          	  						
+          	  						<td class="checkREservationTd" style="width: 25%; font-size: 28px;">차종</td>
+          	  						<td style="width: 25%; font-size: 28px;" id="confirm_carModel">${pdto.buy_carModel }</td>
           	  					</tr>
           	  					<tr>
-          	  						<td class="c_content_1">보험종류 : </td>
-          	  						<td class="c_content_2" id="confirm_carIns">${pdto.buy_carIns }</td>
-          	  						<td class="c_content_1">예상적립포인트 : </td>
-          	  						<td class="c_content_2" id="confirm_point">${pdto.buy_point }</td>
+          	  						<td class="checkREservationTd" style="width: 25%; font-size: 28px;">대여시간</td>
+          	  						<td style="width: 25%; font-size: 28px;" id="confirm_startTime<%=i%>">${pdto.buy_startTime }</td>
           	  					</tr>
           	  					<tr>
-          	  						<td class="c_content_1">대여주소 : </td>
-          	  						<td colspan="3" class="c_content_2" id="confirm_startLocation">${pdto.buy_startLocation }</td>
+          	  						<td class="checkREservationTd" style="width: 25%; font-size: 28px;">반납시간</td>
+          	  						<td style="width: 25%; font-size: 28px;" class="confirm_endTime" id="confirm_endTime<%= i %>">${pdto.buy_endTime }</td>
+          	  					</tr>
+          	  					<tr style="padding: 1%">
+          	  						<td class="checkREservationTd" style="width: 25%;">보험종류</td>
+          	  						<td style="width: 25%;" id="confirm_carIns">${pdto.buy_carIns }</td>
+          	  						<td class="checkREservationTd" style="width: 25%;">예상적립포인트</td>
+          	  						<td style="width: 25%;" id="confirm_point">${pdto.buy_point }</td>
           	  					</tr>
           	  					<tr>
-          	  						<td class="c_content_1">반납주소 : </td>
-          	  						<td colspan="3" class="c_content_2" id="confirm_returnLocation">${pdto.buy_returnLocation }</td>
+          	  						<td class="checkREservationTd">대여주소</td>
+          	  						<td style="width: 25%;" colspan="3" id="confirm_startLocation">${pdto.buy_startLocation }</td>
           	  					</tr>
           	  					<tr>
-          	  						<td class="c_content_1">결제금액 : </td>
-          	  						<td class="c_content_2"><img style="width: 15%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_amount">${pdto.buy_amount }</div>원</td>
-          	  						<td class="c_content_1">추가금액 : </td>
-          	  						<td class="c_content_2"><img style="width: 9.3%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_addAmount">${pdto.buy_addAmount }</div>원</td>
+          	  						<td class="checkREservationTd">반납주소</td>
+          	  						<td style="width: 25%;" colspan="3"  id="confirm_returnLocation">${pdto.buy_returnLocation }</td>
           	  					</tr>
           	  					<tr>
-          	  						<td></td>
-          	  						<td></td>
-          	  						<td id="amount_div<%= i %>"></td>
-          	  						<td></td>
-          	  						<td></td>
+          	  						<td class="checkREservationTd">결제금액</td>
+          	  						<td><img style="width: 15%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_amount<%= i %>" style="float: left;">${pdto.buy_amount }</div><div style="float: left; margin-right: 2%;">원</div><div id="amount_div<%= i %>"></div></td>
+          	  						<td class="checkREservationTd">추가금액</td>
+          	  						<td><img style="width: 9.3%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_addAmount<%= i %>" style="float: left;">${pdto.buy_addAmount }</div>원</td>
           	  					</tr>
           	  					<tr>
-          	  						<td></td>
-          	  						<td class="c_content_1" style="font-size: 28px;">총 금액 : </td>
-          	  						<td class="c_content_2"><img style="width: 15%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_totalAmount">${pdto.buy_totalAmount }</div>원</td>
-          	  						<td colspan="2">
-          	  							<button type="button" class="btn btn-outline-danger c_content_payBtn" id="refund_btn<%= i %>">환불신청하기</button>
-          	  						</td>
+          	  						<td class="checkREservationTd" style="font-size: 28px;">총 금액</td>
+          	  						<td style="font-size: 28px;"><img style="width: 15%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_totalAmount<%= i %>" style="float: left;">${pdto.buy_totalAmount }</div>원</td>
+          	  						<td colspan="2"><button type="button" class="btn btn-outline-danger c_content_payBtn" value="<%= i %>" id="refund_btn<%= i %>">환불신청하기</button></td>
           	  					</tr>
-              				 </table>
+          	  				</table>
           					 <input type="hidden" id="db_discount<%= i %>" value="${pdto.buy_discount }">
+          					 <input type="hidden" id="impNum<%= i %>" value="${pdto.buy_impUid }">
               				 <%
           	  					i += 1;
           	  				 %>
           				</div>
           			</div>
-				</c:if>
 			</c:forEach>
 			<input type="hidden" id="i_storage" value="<%= i %>">
           </div>
