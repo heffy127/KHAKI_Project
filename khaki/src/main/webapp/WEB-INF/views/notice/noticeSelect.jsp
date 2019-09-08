@@ -37,6 +37,9 @@
   <link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+  <!-- Google font  -->
+  <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Pen+Script&display=swap" rel="stylesheet">
+
 </head>
 
 <body class="">
@@ -48,7 +51,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="home.do">
-        <img src="resources/assets/img/brand/khaki_logo.png" class="navbar-brand-img" alt="...">
+        <img src="resources/assets/img/brand/khaki2.png" class="navbar-brand-img" alt="...">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -248,92 +251,6 @@
       <div class="container-fluid">
         <div class="header-body">
           <!-- Card stats -->
-          <div class="row">
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
-                      <span class="h2 font-weight-bold mb-0">350,897</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                        <i class="fas fa-chart-bar"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                      <span class="h2 font-weight-bold mb-0">2,356</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="fas fa-chart-pie"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last week</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                      <span class="h2 font-weight-bold mb-0">924</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                        <i class="fas fa-users"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                    <span class="text-nowrap">Since yesterday</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                      <span class="h2 font-weight-bold mb-0">49,65%</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -367,7 +284,6 @@
   	});	//Jquery End
   
   	</script>
-    <!-- aaa -->
     <!-- white 테마 사용 -->
     <div class="container-fluid mt--7">
       <!-- Table -->
@@ -384,7 +300,6 @@
 					      <div class="form-group">
 					      	<%
 					      	if(ndto.getNotice_type().equals("P")){
-					      		
 				      		%>
 					      	<div class="custom-control custom-radio mb-3">
 							  <input name="notice_type" class="custom-control-input" id="customRadio5" type="radio" value="P" checked="checked">
@@ -408,7 +323,6 @@
 							</div>
 							<%
 					      	}else{
-					      		
 			      		 	%>
 							<div class="custom-control custom-radio mb-3">
 							  <input name="notice_type" class="custom-control-input" id="customRadio8" type="radio" value="G" checked="checked">
@@ -420,26 +334,38 @@
 					      </div>
 					    </div>
             		</div>
-            		<div class="row">	<!-- row는 한 행을 구분 짓는 것 -->
-					    <div class="col-md-6">
+            		<div class="row" style="font-family: 'Black Han Sans', sans-serif;">
+            			<div class="col-md-9">
+            				<div class="row">
+		            			<div class="col-md-6" align="left">
+		            				글번호 : <%=ndto.getNotice_num() %>
+		            			</div>
+		            			<div class="col-md-6" align="right">
+		            				조회수 : <%=ndto.getHit() %> | 작성일시 : <%=ndto.getWrite_date() %>
+		            			</div>
+            				</div>
+            			</div>
+            		</div>
+            		<div class="row" style="font-family: 'Nanum Pen Script', cursive;"> 	<!-- row는 한 행을 구분 짓는 것 -->
+					    <div class="col-md-9">
 					      <div class="form-group">	
-					        <input type="text" class="form-control" name="title" placeholder="" readonly="readonly" value="<%=ndto.getTitle() %>">
+					        <input style="font-size: 20px;" type="text" class="form-control" name="title" placeholder="" readonly="readonly" value="<%=ndto.getTitle() %>">
 					      </div>
 					    </div>
 				  	</div>
-					<div class="row">
-					    <div class="col-md-6">
+					<div class="row" style="font-family: 'Nanum Pen Script', cursive;">
+					    <div class="col-md-9">
 					      <div class="form-group">
 					      <!-- 일단은 session에서 id 받아오는 것 대신 test 아이디 넣음 -->
-					        <input type="text" class="form-control" value="<%=ndto.getWriter() %>" name="writer" placeholder="">
+					        <input style="font-size: 20px;" type="text" class="form-control" value="<%=ndto.getWriter() %>" readonly="readonly" name="writer">
 					      </div>
 					    </div>
 				  	</div>
-					<div class="row">
-						<div class="col-md-7">
+					<div class="row" style="font-family: 'Nanum Pen Script', cursive;">
+						<div class="col-md-9">
 							<div class="form-group">
-								<div class="card" style="width: 47rem; background-color: #fafafa;">
-									<div class="card-body">
+								<div class="card" style="width: 100%; background-color: #fafafa;">
+									<div style="font-size: 15px;"  class="card-body">
 										<%=ndto.getContent() %>
 									</div>
 								</div>

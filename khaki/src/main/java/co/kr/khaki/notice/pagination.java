@@ -47,11 +47,12 @@ public class pagination {
     	
     }
     
-    public pagination(int listCnt, int curPage){	//파라미터 있는 생성자
+    public pagination(int listCnt, int curPage, int pageSize){	//파라미터 있는 생성자
     	
     	//현재 페이지 정보를 갱신
     	setCurPage(curPage);
     	setListCnt(listCnt);
+    	setPageSize(pageSize);
     	
     	// 블럭 > 페이지 > 게시물의 상관관계가 있음
     	/** 1. 총 페이지 수 **/

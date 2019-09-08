@@ -36,29 +36,35 @@
   	
   	function fn_paging(curPage){
   		location.href = "notice.do?curPage="+curPage;
-  		//alert(curPage); //페이지 넘버 확인
+  		//alert(curPage); //페이지 넘버 확인 aaaaaabb
   	};
+  	
+  	function change_pagesize(pageSize, curPage){
+  		alert(pageSize +" / "+ curPage);
+  		location.href = "notice.do?curPage="+curPage+"&pageSize="+pageSize;
+  	}
+  	
   	// aaaaa
     $(function(){
-    	
-    	$(".btn_notice").click(function(){
-    		alert("공지사항 버튼");
-    		$("tbody").children("#board_notice").hide();
-    		
-    		
-    		
-    	});		//공지사항 버튼 end
-    	
-    	$(".btn_add").click(function(){
-    		alert("광고 버튼");
-    	});		//광고 버튼 end
-    	
-    	$(".btn_event").click(function(){
-    		alert("이벤트 버튼");
-    	});		//이벤트 버튼 end
-    	
-    	
-    	
+    	$(".check_notice1").click(function(){
+	  		var check_notice = $("#check_notice").prop("checked");	//prop는 속성값을 의미 체크안되어 있으면 false를 반환, 되어있으면 true를 반환
+	    	//alert(check_notice);
+	  		if(check_notice == true){
+	    		$("tbody").children("#board_notice").hide();
+	    	}else{
+	    		$("tbody").children("#board_notice").show();
+	    	}
+  		})	// 공지 감추기/보이기 기능 END checkbox label을 누르면 동작하도록
+  		
+  		$(".check_event1").click(function(){
+	  		var check_notice = $("#check_event").prop("checked");	//prop는 속성값을 의미 체크안되어 있으면 false를 반환, 되어있으면 true를 반환
+	    	//alert(check_notice);
+	  		if(check_notice == true){
+	    		$("tbody").children("#board_event").hide();
+	    	}else{
+	    		$("tbody").children("#board_event").show();
+	    	}
+  		})	//	광고 감추기/보이기 기능 END checkbox label을 누르면 동작하도록
     	
     });	//Jquery End
   </script>
@@ -332,20 +338,41 @@
 	          		    총 게시물 수 : <%= list.size() %>
             		</div>
             		<div class="col-md-6" align="center">
-            			<button type="button" class="btn btn-success btn_notice">공     지</button>
-            			<label class="custom-toggle">
-						  <input type="checkbox">
-						  <span class="custom-toggle-slider rounded-circle"></span>
+            			<button type="button" class="btn btn-success btn_notice" disabled="disabled">공지감추기</button>
+						<label class="custom-toggle check_notice1"> <input id="check_notice" type="checkbox">
+							<span class="custom-toggle-slider rounded-circle"></span>
 						</label>
-						<!-- <span class="clearfix"></span> -->
-            			<button type="button" class="btn btn-warning btn_add">광     고</button>
-            			<label class="custom-toggle">
-						  <input type="checkbox" checked>
-						  <span class="custom-toggle-slider rounded-circle"></span>
+						<button type="button" class="btn btn-info btn_event" disabled="disabled">이 벤 트 감추기</button>
+						<label class="custom-toggle check_event1"> <input id="check_event" type="checkbox">
+							<span class="custom-toggle-slider rounded-circle"></span>
 						</label>
-            			<button type="button" class="btn btn-info btn_event">이 벤 트</button>
             		</div>
             		<div class="col-md-3">
+            			<div class="dropdown">
+	                        <a class="btn btn-lg btn-icon-only text-light" id="pagesize_dropDown" style="width: 100px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						            		<b><i class="fas fa-car-side"></i></b>-페이지 수-
+	                          <!-- <i class="ni ni-bus-front-12"></i> -->
+	                        </a>
+	                        <!--  dropdown-menu-arrow -->
+	                        <div class="dropdown-menu dropdown-menu-right " style="overflow-y: scroll;height: 150px;">
+                        			<%-- <input type="dropdown-item carname" name="carname" value="${car }" readonly="readonly"> --%>
+                        			<div class="dropdown-item">
+                        				<a href="#" onclick="change_pagesize(10,${pagination.curPage})">10개</a>
+                        			</div>
+                        			<div class="dropdown-item">
+                        				<a href="#" onclick="change_pagesize(20,'${pagination.curPage}')">20개</a>
+                        			</div>
+                        			<div class="dropdown-item">
+                        				<a href="#" onclick="change_pagesize(30,'${pagination.curPage}')">30개</a>
+                        			</div>
+                        			
+                        			<%-- <a href="#" onClick="fn_paging('${pagination.nextPage }')"> 
+                        			<div class="dropdown-item pagesize">10개</div>
+                        			<div class="dropdown-item pagesize">20개</div>
+                        			<div class="dropdown-item pagesize">30개</div>--%>
+                        		<!-- dropdown 구성요소 재확인 및 notice.do로 넘어가게끔 만들고 curpage와 바꿀 pagesize를 가지고 넘어가게끔 구현 -->
+	                        </div>
+                     	</div>	<!-- dropdown End -->
             		</div>
             	</div>
             </div>
