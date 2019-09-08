@@ -32,10 +32,20 @@
 		VALUES(#{id}, #{name}, #{licenseType}, #{area}, #{num1}, #{num2}, #{num3}, #{issueYear}, #{issueMonth}, #{issueDay}, #{expireYear}, #{expireMonth}, #{expireDay})
 	</insert>
 
+	<update id="updatePermission" parameterType="licenseDTO">
+		UPDATE license SET
+		permission = #{permission}
+		WHERE
+		id = #{id}
+	</update>
 	
 	<delete id="deleteLicense" parameterType="String">
 		DELETE FROM license WHERE
 		id = #{id}
 	</delete>
- 
+ 	
+ 	<select id="selectAll" resultMap="rsMap">
+		SELECT * FROM license
+	</select>
+ 	
 </mapper>

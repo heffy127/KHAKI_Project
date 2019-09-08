@@ -43,12 +43,12 @@
         	 
         	$('#expBar').attr('style',"width: "+'${expPer}'+"%;") // 경험치 퍼센트 표시
         	 
-        	$('#profilePhotoBtn').click(
+        	$('#profilePhotoBtn').click( // 프로필 사진 눌렀을때 파일 선택 창 오픈
         			function() {
 						$('#file').click()
 					})
         	
-       		$('#file').change(
+       		$('#file').change( // 사진 선택했을경우 submit 실행
 	          function() {
 				$('#photoSubmit').click()
 			}) 
@@ -56,7 +56,7 @@
 			$('#photoSubmit').click(
 					function() {
 						if(confirm("프로필 사진을 변경하시겠습니까?")){
-							$('#photoF').submit()
+							$('#photoF').submit() // 바뀐 프로필 사진으로 변경
 						} else {
 							$('#photoReset').click()
 						}
@@ -301,7 +301,7 @@
                      <a href="#none" id="profilePhotoBtn">
                        <img src="${memberDTO.photo}"
                         class="rounded-circle" id="photoImg"
-                        data-toggle="tooltip" data-placement="top" title="프로필 사진을 변경하기!">
+                        data-toggle="tooltip" data-placement="top" title="프로필 사진 변경하기!">
                      </a>
                 </div>
                 

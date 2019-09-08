@@ -345,13 +345,13 @@ public class MemberController {
 	}
 	
 	// 마이페이지 운전면허정보 등록 창
-		@RequestMapping("mypage_license.do")
-		public String license(MemberDTO memberDTO, LicenseDTO licenseDTO, Model model) {
-			licenseDTO = licenseDAO.selectId(memberDTO.getId());
-			model.addAttribute("licenseDTO", licenseDTO);
-			model.addAttribute("memberDTO",memberDTO);
-			return "mypage/license";
-		}
+	@RequestMapping("mypage_license.do")
+	public String license(MemberDTO memberDTO, LicenseDTO licenseDTO, Model model) {
+		licenseDTO = licenseDAO.selectId(memberDTO.getId());
+		model.addAttribute("licenseDTO", licenseDTO);
+		model.addAttribute("memberDTO",memberDTO);
+		return "mypage/license";
+	}
 		
 	// 운전면허 정보 등록 완료
 	@RequestMapping("mypage_license_fin.do")
