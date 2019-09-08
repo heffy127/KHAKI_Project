@@ -29,7 +29,7 @@ public class MemberLevelDAO {
 	}
 	
 	public List<MemberLevelDTO> selectAll() {
-		List<MemberLevelDTO> list = my.selectList("memberDAO.selectAll");
+		List<MemberLevelDTO> list = my.selectList("memberLevelDAO.selectAll");
 		System.out.println("멤버 레벨 selectAll 완료");
 		return list;
 	}

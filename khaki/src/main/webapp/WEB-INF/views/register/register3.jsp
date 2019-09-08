@@ -52,7 +52,7 @@
 				}
 				
 				//자바스크립트 정규표현식
-				var idType = /^[a-z0-9+]{6,15}$/; // 영소문자, 숫자, 6~15자에만 필터링해줌
+				var idType = /^[a-z0-9+]{6,12}$/; // 영소문자, 숫자, 6~12자에만 필터링해줌
 				var pwType = /^(?=.*[0-9])(?=.*[!?@#$%^&*])(?=.*[a-zA-Z])[a-zA-Z0-9!?@#$%^&*]{8,18}$/; 
 				//			최소 하나 이상의 숫자           문자                         영어              영어 숫자 문자만 입력   8~18자리
 				var nameType = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$/ // ㄱ에서ㅎ 또는 ㅏ에서ㅣ 또는 가에서힣
@@ -81,7 +81,7 @@
 								})
 							} else {
 								$(this).attr('class',"form-control is-invalid")
-								$('#id_span').attr('style',"color: red; font-size: '1';").text("영소문자 또는 숫자 6~15글자")
+								$('#id_span').attr('style',"color: red; font-size: '1';").text("영소문자 또는 숫자 6~12글자")
 							}
 						})
 				
@@ -470,7 +470,7 @@
 										placeholder="아이디" id="id" name="id">
 									<div align="left" style="padding-top: 5px;">
 										&nbsp;&nbsp; <span id="id_span"
-											style="color: gray; font-size: '1';">영소문자 또는 숫자 6~15글자</span>
+											style="color: gray; font-size: '1';">영소문자 또는 숫자 6~12글자</span>
 									</div>
 									<br> <input type="password"
 										class="form-control form-control-alternative"

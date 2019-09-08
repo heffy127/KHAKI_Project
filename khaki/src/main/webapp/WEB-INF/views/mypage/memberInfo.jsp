@@ -762,11 +762,14 @@ input[type="text"]
                      <td>
                        <c:set var = "permission" value="${licenseDTO.permission}"/>
                        <c:choose>
-                       		<c:when test="${permission == 'x'}">
+                       		<c:when test="${permission == '?'}">
                        			 &nbsp;&nbsp;<span class="badge badge-warning"><font size="4">심사중</font></span>
                        		</c:when>
+                       		<c:when test="${permission == 'x'}">
+                       			 &nbsp;&nbsp;<span class="badge badge-danger"><font size="4">승인거절</font></span>
+                       		</c:when>
                        		<c:when test="${permission == 'o'}">
-                       			 &nbsp;&nbsp;<span class="badge badge-success"><font size="4">심사완료</font></span>
+                       			 &nbsp;&nbsp;<span class="badge badge-success"><font size="4">승인완료</font></span>
                        		</c:when>
                        </c:choose>
                      </td>
