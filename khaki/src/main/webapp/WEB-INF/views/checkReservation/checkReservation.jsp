@@ -55,28 +55,26 @@
 	    	confirm_endTime *= 1;
 	    	if(String(now).substring(2,4) == String(confirm_endTime).substring(2,4)) { // 현재 월과 결제한 월이 같을 경우 (ex. 현재=9월 결제=9월)
 	    		if((now - confirm_endTime) > 4) {
-		    	    $("#refund_btn"+i).attr("disabled", "disabled");
+		    	    // $("#refund_btn"+i).attr("disabled", "disabled");
+		    	    $("#refund_btn"+i).css("opacity", "0.5");
 		    	    $("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
 			    }
 	    	} else if (Number(String(now).substring(2,4)) == 1) { // 현재 월이 1월일 경우
 	    		if(Number(String(now).substring(4,6)) > 4) { // 5일 이전 결제건은 환불 불가
-	    			$("#refund_btn"+i).attr("disabled", "disabled");
+	    			// $("#refund_btn"+i).attr("disabled", "disabled");
+		    	    $("#refund_btn"+i).css("opacity", "0.5");
 		    	    $("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
 	    		}
 	    	} else if (Number(String(now).substring(2,4)) > Number(String(confirm_endTime).substring(2,4))) { // 현재 월이 결제한 월보다 클 경우(ex. 현재=10월 결제=9월)
 	    		if(Number(String(now).substring(4,6)) > 3) { // 5일 이전 결제건은 환불 불가
-	    			$("#refund_btn"+i).attr("disabled", "disabled");
+	    			// $("#refund_btn"+i).attr("disabled", "disabled");
+		    	    $("#refund_btn"+i).css("opacity", "0.5");
 		    	    $("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
 	    		}
 	    	}
 	    	
         }
 		for (var i = 0; i < parseInt(index); i++) {
-	    	$("#refund_btn"+i).click(function(){
-	    		var num = $(this).val();
-				var buy_impUid = $("#impNum" + num).val(); 
-				alert("db처리");
-	    	})
 			$("#amount_div"+i).append("  <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
 	    	if($("#db_discount"+i).val() == ""){
 	    		$("#amount_div"+i).remove();
@@ -111,6 +109,14 @@
 		
 		$("#craDiv").click(function(){
 			window.parent.location.href = "map.do";
+		})
+		
+		$(".c_content_payBtn").click(function(){
+			if($(this).text() == "환불신청하기"){
+				alert("db처리");
+			} else{
+				alert("고객센터로 문의해주세요\nKHAKI 고객센터 : 1577-1577");
+			}
 		})
 		
 		

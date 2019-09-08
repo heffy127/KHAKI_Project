@@ -190,6 +190,13 @@ int endTimeCheck = 0;
       var number = parseInt($('#zoneNumber').val());
       var zone_loc = zone_addr[number];
       var home_loc = $('#sample5_address').val();
+      
+      if(zone_loc != home_loc){
+    	  $('input[name=buy_burum]').val("y");
+      } else {
+    	  $('input[name=buy_burum]').val("n");
+      }
+      
       $.ajax({
          type : "GET",
          url : "burumReservation.do",
@@ -519,6 +526,10 @@ $(document).ready(function(){
 function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모두 가져옴
                           // 존에 아무것도 없을 떄 오류남
    $("#carList").empty(); //기존에 있던 내용 지움
+   $("#markerAddr").empty(); //기존에 있던 내용 지움
+   $("#markerAddr").append(
+		   '<h2 class="badge badge-pill badge-primary">'+zone_addr[i]+'</h2>'
+			 );
    $.ajax({
       type : "GET",
       url : "carListInfo.do",
@@ -548,7 +559,11 @@ function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모�
          var x4 =$('#selectCarNum').val();
          var xxxx = '${selectCarNum}';
          if(xxxx!=null){
+        	 $("#markerAddr").append(
+        			   '<h2 class="badge badge-success"> '+x2[6]+' </h2>'
+        				 );
 	         if(xxxx.indexOf(x2[3])==(-1)){
+	        	 
 	        	 $("#carList").append( // 마커클릭 후 오른쪽에 추가되는 내용들
 	     	            '<tr><td width="30%"><img alt="" src="'+x2[2]+'" width="80%"></td>'
 	     	            +'<td width="30%"><strong>'+x2[0]+'</strong></td>'
@@ -705,6 +720,7 @@ function reservation() {
    <input name="buy_returnLocation" type="hidden">
    <input name="buy_amount" type="hidden">
    <input name="buy_carImage" type="hidden">
+   <input name="buy_burum" type="hidden">
 </form>
 
 <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
@@ -1314,7 +1330,7 @@ function reservation() {
                                     </div>
                                     <div class="modal-footer">
                                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#reservation" onclick="burumClose1()">이전</button>
-                                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#burum2" onclick="burumClose1()">다음</button>
+                                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#burum2" onclick="burumClose1()" id="burumNext">다음</button>
                                     </div>
                                  </div>
                               </div>
@@ -1415,6 +1431,8 @@ function reservation() {
                      <div class="card-header bg-transparent" style="width: 100%; height: 100%">
                         <div id="carListInfo1" style="width: 100%;"></div>
                         <div class="row align-items-center" style="width: 100%">
+                        <!-- 마커를 클릭했을 때 주소가 들어갈 장소 -->
+                        <div id = "markerAddr"></div>
                            <div style="width: 100%;">
                               <table class="table align-items-center table-flush" style="width: 100%;">
                                  <thead class="thead-light">

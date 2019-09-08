@@ -5,6 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import co.kr.khaki.coupon.CouponUseDAO;
+import co.kr.khaki.coupon.CouponUseDTO;
+import co.kr.khaki.handler.HandlerDAO;
+import co.kr.khaki.handler.HandlerDTO;
 import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.pay.PayDAO;
 import co.kr.khaki.pay.PayDTO;
@@ -17,6 +21,12 @@ public class PayController {
       
       @Autowired
   	  MemberDAO memberDAO;
+      
+      @Autowired
+  	  HandlerDAO hdao;
+      
+      @Autowired
+  	  CouponUseDAO cpuDAO;
 
       String cnt;
 
@@ -64,5 +74,33 @@ public class PayController {
             memberDAO.updatePointCount(payDTO);
             return "pay/payResult";
          }
+      
+      @RequestMapping("burumService.do")
+  	  public String burumService(PayDTO payDTO) {
+    	  System.out.println("부름서비스 확인 " + payDTO.getBuy_carNum());
+      	  HandlerDTO hDTO = new HandlerDTO();
+    	
+      	  hDTO.setCarNum(payDTO.getBuy_carNum());
+      	  hDTO.setCarModel(payDTO.getBuy_carModel());
+      	  hDTO.setStartLocation(payDTO.getBuy_startLocation());
+    	  hDTO.setReturnLocation(payDTO.getBuy_returnLocation());
+    	  hDTO.setHandler(payDTO.getBuy_id());
+    	  hDTO.setPoint(Integer.parseInt(payDTO.getBuy_amount()) / 2);
+    	  String[] c = payDTO.getBuy_startTime().split("");
+    	  String comp = c[0]+c[1] + "." + c[2]+c[3] + "." + c[4]+c[5] + " " + c[6]+c[7] + ":" + c[8]+c[9];
+    	  hDTO.setComplete(comp);
+    	  System.out.println("hdto set완료!!!");
+    	  hdao.insert(hDTO);
+    	  System.out.println("hdao insert완료오오오");
+  		
+  		  return "pay/payResult";
+  	  }
+      
+      @RequestMapping("couponUsing.do")
+  	  public String couponUsing(CouponUseDTO cpuDTO) {
+    	  System.out.println("쿠폰 사용처리");
+    	  cpuDAO.update(cpuDTO);
+  		  return "pay/payResult";
+  	  }
    
 }

@@ -19,6 +19,9 @@
 	 	      },
 	 	      success:function(data){ // ajax가 성공했을 때
 	 	    	  if(data == "Y") {
+	 	    		 $("#craDiv").click(function(){
+		 				  window.parent.location.href = "handlerBoard.do";
+		 			  })
 	 	    	  } else {
 	 	    		  $("#handlerBody").children().remove();
 	 	    		  $("#handlerBody").append(""
@@ -28,10 +31,10 @@
 	 						+ "<label id='craLabel2'>아래 링크를 클릭하여 핸들러 신청 후 이용 해주세요.</label><br>"
 	 						+ "<div id='craDiv' style='width: 100%; text-align: center; margin-top: 15%; margin-bottom: 3%;'>핸들러 조건 확인하기</div>"
 	 						+ "</div>");
+	 	    		 $("#craDiv").click(function(){
+		 				  window.parent.location.href = "handler.do";
+		 			  })
 	 	    	  }
-	 	    	  $("#craDiv").click(function(){
-	 				  window.parent.location.href = "handler.do";
-	 			  })
 	 	      },
 	 	      error : function(xhr, status) { // ajax가 실패했을 때
 	               alert(xhr + " : " + status); // 실패 내용 확인
@@ -89,7 +92,7 @@
   			}
   			
   		})
-			
+		
   	}) // ajax function end
   </script>
 </head>

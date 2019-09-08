@@ -1,13 +1,13 @@
-시퀀스
 create sequence tmp_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
 create sequence pay_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
+create sequence couponUse_seq start with 1 increment by 1 maxvalue 10000 cycle nocache; -- 다운로드 받은 쿠폰 시퀀스
 create sequence hb_seq start with 1 increment by 1 maxvalue 10000 cycle nocache; -- 핸들러 게시판글 번호 시퀀스
 
 create sequence khakinum_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
 create sequence notice_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
 
-CREATE SEQUENCE NO_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 MINVALUE 1 NOCYCLE; - 자유게시판 글번호 시퀀스(다솔)
-CREATE SEQUENCE RE_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 MINVALUE 1 NOCYCLE; - 댓글 번호 시퀀스(다솔)
+CREATE SEQUENCE NO_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 MINVALUE 1 NOCYCLE; -- 자유게시판 글번호 시퀀스(다솔)
+CREATE SEQUENCE RE_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 MINVALUE 1 NOCYCLE; -- 댓글 번호 시퀀스(다솔)
 
 
 @ 박준영
@@ -235,20 +235,20 @@ car_image varchar(100)
 // 샘플
 INSERT INTO car_board VALUES('SPARK','30하1512',1200,
 'gasoline',90,'37.61361473,126.93490864',1,
-11000,170, 'resources/assets/img/brand/kona.png')
+11000,170, 'resources/assets/img/brand/kona.png');
 
 INSERT INTO car_board VALUES('PALISADE','30하1515',1200,
 'gasoline',90,'37.61361473,126.93490864',3,
-11000,170, 'resources/assets/img/brand/kona.png')
+11000,170, 'resources/assets/img/brand/kona.png');
 
 INSERT INTO car_board VALUES('I30','30하1222',9000,
 'gasoline',90,'37.61361473,126.93490864',5,
-10000,170,'resources/assets/img/brand/kona.png')
+10000,170,'resources/assets/img/brand/kona.png');
 
 
 INSERT INTO RESERVATION VALUES(tmp_seq.NEXTVAL,'mos4657','스페셜','1908241600','1908242100',
 '150','서울시 은평구 불광2동 445-17','서울시 은평구 불광2동 445-17','30호1111',
-'kona','20000','20000','40000',NULL,NULL)
+'kona','20000','20000','40000',NULL,NULL); -- 샘플오류
 
 정다솔
 
@@ -274,8 +274,9 @@ create table reply(
 	write_date varchar2(40) not null
 );
 
--- 쿠폰 DB table --
+-- 다운로드 받은 쿠폰 DB table --
 create table couponUse (
+	num number(20), -- 다운로드 받은 쿠폰테이블 시퀀스
 	cp_id varchar2(20), -- 쿠폰 다운받은 사용자 sessionId
 	cp_title varchar2(20), -- 쿠폰 이름
 	cp_type char(1), -- 쿠폰종류(퍼센트 할인, 금액할인 구분. P일경우 퍼센트 M일 경우 금액할인)
@@ -284,22 +285,22 @@ create table couponUse (
 	cp_using char(1) -- 쿠폰 사용 여부(Y, N으로 구분)
 )
 
-insert into couponUse values('rlgus1232','1원 할인쿠폰!!','M',1,'19.09.20','N');
-insert into couponUse values('rlgus1232','2원 할인쿠폰!!','M',2,'19.09.15','N');
-insert into couponUse values('rlgus1232','3원 할인쿠폰!!','M',3,'19.08.30','N');
-insert into couponUse values('rlgus1232','4원 할인쿠폰!!','M',4,'19.08.28','N');
-insert into couponUse values('rlgus1232','5원 할인쿠폰!!','M',5,'19.08.25','N');
-insert into couponUse values('rlgus1232','6원 할인쿠폰!!','M',6,'19.08.24','N');
-insert into couponUse values('rlgus1232','7원 할인쿠폰!!','M',7,'19.09.22','N');
-insert into couponUse values('rlgus1232','8원 할인쿠폰!!','M',8,'19.09.04','N');
-insert into couponUse values('rlgus1232','9원 할인쿠폰!!','M',9,'19.09.11','N');
-insert into couponUse values('rlgus1232','2% 할인쿠폰!!','P',2,'19.09.11','N');
-insert into couponUse values('rlgus1232','4% 할인쿠폰!!','P',4,'19.09.01','N');
-insert into couponUse values('rlgus1232','6% 할인쿠폰!!','P',6,'19.09.11','N');
-insert into couponUse values('rlgus1232','8% 할인쿠폰!!','P',8,'19.09.03','N');
-insert into couponUse values('rlgus1232','10% 할인쿠폰!!','P',10,'19.09.11','N');
-insert into couponUse values('rlgus1232','12% 할인쿠폰!!','P',12,'19.09.02','N');
-insert into couponUse values('rlgus1232','14% 할인쿠폰!!','P',14,'19.09.11','N');
-insert into couponUse values('rlgus1232','16% 할인쿠폰!!','P',16,'19.09.11','N');
-insert into couponUse values('rlgus1232','18% 할인쿠폰!!','P',18,'19.09.11','N');
-insert into couponUse values('rlgus1232','20% 할인쿠폰!!','P',20,'19.09.11','N');
+insert into couponUse values('1', 'rlgus1231','1원 할인쿠폰!!','M',1,'19.09.20','N');
+insert into couponUse values('2', 'rlgus1231','2원 할인쿠폰!!','M',2,'19.09.15','N');
+insert into couponUse values('3', 'rlgus1231','3원 할인쿠폰!!','M',3,'19.08.30','N');
+insert into couponUse values('4', 'rlgus1231','4원 할인쿠폰!!','M',4,'19.08.28','N');
+insert into couponUse values('5', 'rlgus1231','5원 할인쿠폰!!','M',5,'19.08.25','N');
+insert into couponUse values('6', 'rlgus1231','6원 할인쿠폰!!','M',6,'19.08.24','N');
+insert into couponUse values('7', 'rlgus1231','7원 할인쿠폰!!','M',7,'19.09.22','N');
+insert into couponUse values('8', 'rlgus1231','8원 할인쿠폰!!','M',8,'19.09.04','N');
+insert into couponUse values('9', 'rlgus1231','9원 할인쿠폰!!','M',9,'19.09.11','N');
+insert into couponUse values('10', 'rlgus1231','2% 할인쿠폰!!','P',2,'19.09.11','N');
+insert into couponUse values('11', 'rlgus1231','4% 할인쿠폰!!','P',4,'19.09.01','N');
+insert into couponUse values('12', 'rlgus1231','6% 할인쿠폰!!','P',6,'19.09.11','N');
+insert into couponUse values('13', 'rlgus1231','8% 할인쿠폰!!','P',8,'19.09.03','N');
+insert into couponUse values('14', 'rlgus1231','10% 할인쿠폰!!','P',10,'19.09.11','N');
+insert into couponUse values('15', 'rlgus1231','12% 할인쿠폰!!','P',12,'19.09.02','N');
+insert into couponUse values('16', 'rlgus1231','14% 할인쿠폰!!','P',14,'19.09.11','N');
+insert into couponUse values('17', 'rlgus1231','16% 할인쿠폰!!','P',16,'19.09.11','N');
+insert into couponUse values('18', 'rlgus1231','18% 할인쿠폰!!','P',18,'19.09.11','N');
+insert into couponUse values('19', 'rlgus1231','20% 할인쿠폰!!','P',20,'19.09.11','N');

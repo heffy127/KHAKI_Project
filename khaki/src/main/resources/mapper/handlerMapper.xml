@@ -4,6 +4,11 @@
 
 <mapper namespace="hDAO">
 
+	<insert id="insert" parameterType="hDTO">
+		INSERT INTO handler
+		VALUES(hb_seq.nextval,#{carNum},#{carModel},#{startLocation},#{returnLocation},#{handler},#{point},#{complete})
+	</insert>
+
 	<select id="select" parameterType="hDTO" resultMap="rsMap">
 		SELECT *
 		FROM handler

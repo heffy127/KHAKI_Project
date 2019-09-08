@@ -38,8 +38,7 @@
   <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   <script>
   	$(function(){
-  		
-  		
+  		alert($("#buy_burum").val());
   		var startTime = $("#confirm_startTime").text();
   		var endTime = $("#confirm_endTime").text();
   		startTime = startTime.split("");
@@ -62,8 +61,9 @@
   			// alert(couponVal[1]);
   			// 최초 결제금액을 가져온다.
 			var amount = $("#confirm_amount").text();
-  			// 쿠폰타입이 금액할인이라면
-  			if(couponVal[0] == "basic") {
+  			
+  			/*if(couponVal[0] == "basic") {
+  				alert("베이직");
   				result = amount;
   				$("#discount_label").remove();
   				$("#discount_label2").remove();
@@ -73,9 +73,11 @@
   		  		amount = parseInt(amount * 0.03);
   		  		$("#confirm_point").text(amount);
   				
-  			} else if(couponVal[0] == "M") {
-				result = amount - couponVal[1];
-				if(result < 0) {
+  			} else */
+  			
+  			if(couponVal[0] == "M") { // 쿠폰타입이 금액할인이라면
+				result = amount - couponVal[1]; // result = 결제금액 - 할인금액
+				if(result < 0) { // 결제할 금액이 0원 아래로 내려갈경우 -금액이 아닌 0원으로 대체
 					result = 0;
 				}
 				// 최초 결제금액을 할인 적용한 금액으로 변경
@@ -106,6 +108,8 @@
   		  		$("#confirm_point").text(amount);
   			}
   			
+  			$("#couponSeq").val(couponVal[2]);
+  			
   			
   		})
   		
@@ -132,20 +136,26 @@
 	  			    	  // ajax를 select의 option들을 가져옴
 	  			    	  $("#cp_method").children().remove();
 	  			    	  console.log(data);
+	  			    	  // 현재 해당 회원이 가지고 있는 option들을 select에 추가해준다.
 	  			    	  $("#cp_method").append(data);
 	  			      },
 	  			      error : function(xhr, status) {
 	  		              alert(xhr + " : " + status);
 	  		          }
 	  			});
+  				// select를 감싸고있는 div가 쿠폰적용하기를 클릭하면 select를 보이게 함
   				$("#select_couponMethod").show();
-  			} else {
+  			} else {// 쿠폰 적용하기에 체크박스에 체크가 안되어 있는 상태라면
+  				// 빨간색(할인적용)을 div를 삭제
   				$("#discount_label").remove();
+  				// 쿠폰 적용 전 상태로 돌려야 하기 때문에 결제금액 부분을 최초 넘어왔던 기본 금액으로 다시 세팅
   				$("#confirm_amount").text($("#firsr_amount").val());
+  				// 쿠폰select를 담고있는 div 안보이게 hide
   				$("#select_couponMethod").hide();
   			}
   		})
   		
+  		// 쿠폰을 적용하여 할인이 되거나, 할인이 되지 않아도 현재 결제될 금액에 3%를 포인트로 제공.
   		var amount = parseInt($("#confirm_amount").text());
   		amount = parseInt(amount * 0.03);
   		$("#confirm_point").text(amount);
@@ -474,6 +484,8 @@
           	  		</div>
           	  	</div>
           	  	<input type="hidden" id="firsr_amount" value="${payDTO.buy_amount }"> <!-- confirm페이지에서 처음들어온 금액 -->
+          	  	<input type="hidden" id="buy_burum" value="${payDTO.buy_burum }"> <!-- 부름서비스 선택여부 y혹은 n이 들어옴 -->
+          	  	<input type="hidden" id="couponSeq"> <!-- 선택한 쿠폰의 시퀀스 넘버(결제 완료 됐을때 쿠폰사용여부에 체크해주기 위함) -->
           	  	<form action="couponConfirm.do" id="couponFrm" name="couponFrm">
 	          	  	<input type="hidden" id="cp_id" name="cp_id" value="${sessionId }">
 	          	  	<input type="hidden" id="cp_title" name="cp_title" value=" ">
@@ -505,7 +517,7 @@
           	  		<input type="hidden" id="buy_accident" name="buy_accident" value=""> <!-- 사고정보(나중에 추가 됨) -->
           	  		<input type="hidden" id="buy_coupon" name="buy_coupon" value=""> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_discount" name="buy_discount" value=""> <!-- 할인받은 금액 -->
-          	  		<input type="hidden" id="buy_burum" name="buy_burum" value=""> <!-- table과 동일한 데이터 -->
+          	  		<input type="hidden" id="buy_burum" name="buy_burum" value="${payDTO.buy_burum }"> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_impUid" name="buy_impUid" value=""> <!-- 주문번호(script에서 결제할때 추가 됨) -->
           	  	</form>
           	  	<input type="hidden" id="memberName" value="${memberDTO.name }">
@@ -514,6 +526,7 @@
           	  	<input type="hidden" id="memberAddress" value="${memberDTO.address1 } ${memberDTO.address2 }">
           	  	<script>
 				$("#check_module").click(function () {
+					alert($("#couponSeq").val());
 					var sessionId = '<%=(String)session.getAttribute("sessionId")%>';
 					var coupon_v = $('select[name=coupon_method]').val();
 					var coupon_t = $('#cp_method option:checked').text();
@@ -532,11 +545,6 @@
 					
 					$("#buy_coupon").val(coupon_sp[0]);
 					$("#buy_discount").val(coupon_v);
-					if($("#confirm_startLocation").text() == $("#confirm_returnLocation").text()) {
-						$("#buy_burum").val("Y");
-					} else {
-						$("#buy_burum").val("N");
-					}
 					// 결제 필수파라미터 부분
 					var radioVal = $('select[name=pay_method]').val();
 					var buy_id_data = sessionId; // session id
@@ -612,6 +620,31 @@
 						if(result == "ok"){
 							var params = $("form[name=payInsert]").serialize();
 							console.log(params);
+							alert("결제완료");
+							if($("#buy_burum").val() == "y") {
+								alert("부름서비스 신청했음");
+								$.ajax({
+								      url:"burumService.do",
+								      data : params,
+								      success:function(data){
+								    	  alert("부름 서비스 신청이 완료 되었습니다.\n요청하신 주소로 차량이 이동 될 예정입니다.");
+								      },
+								      error : function(xhr, status) {
+							              alert(xhr + " : " + status);
+							          }
+								});
+							}
+							$.ajax({
+							      url:"couponUsing.do",
+							      data : {
+							    	  "num" : $("#couponSeq").val()
+							      },
+							      success:function(){
+							      },
+							      error : function(xhr, status) {
+						              alert(xhr + " : " + status);
+						          }
+							});
 							$.ajax({
 							      url:"payResult.do",
 							      data : params,

@@ -12,6 +12,7 @@
 	
 	
 	<resultMap type="cpuDTO" id="rsMap">
+		<result property="num" column="num" />
 		<result property="cp_id" column="cp_id" />
 		<result property="cp_title" column="cp_title" />
 		<result property="cp_type" column="cp_type" />
@@ -23,6 +24,10 @@
 	<delete id="delete" parameterType="cpuDTO">
 		DELETE FROM couponUse WHERE
 		cp_end = #{cp_end}
+	</delete>
+	
+	<delete id="update" parameterType="cpuDTO">
+		UPDATE couponUse SET cp_using = 'Y' WHERE num = #{num}
 	</delete>
 
 </mapper>
