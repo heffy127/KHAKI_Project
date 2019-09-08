@@ -75,6 +75,18 @@ public class PayController {
             return "pay/payResult";
          }
       
+      @RequestMapping("pointUseInput.do")
+      public String payResult(String getPoint) {
+    	 // 결제화면에서 포인트 사용을 했을 경우 입력한 포인트만큼 memberDB에서 포인트 차감
+    	 // ex) 100포인트 사용시 100 * (-1) = -100
+    	 // 현재 포인트가 500포인트라면 500 + (-100) = 400
+    	 PayDTO payDTO = new PayDTO();
+    	 getPoint = Integer.toString(Integer.parseInt(getPoint) * (-1));
+    	 payDTO.setBuy_point(getPoint);
+         memberDAO.updatePointCount(payDTO);
+         return "pay/payResult";
+      }
+      
       @RequestMapping("burumService.do")
   	  public String burumService(PayDTO payDTO) {
     	  System.out.println("부름서비스 확인 " + payDTO.getBuy_carNum());

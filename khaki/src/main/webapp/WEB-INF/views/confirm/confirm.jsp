@@ -38,7 +38,14 @@
   <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   <script>
   	$(function(){
-  		alert($("#buy_burum").val());
+  		// var kyul = parseInt($("#kyul").val($("#first_amount").text()));
+  		// var one = parseInt($("#first_amount").val());
+  		// var ku = parseInt(0);
+  		// var po = parseInt(0);
+  		// 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+  		// kyul = one - ku - po;
+  		$("#one").val($("#first_amount").val());
+  		$("#kyul").val($("#first_amount").val());
   		var startTime = $("#confirm_startTime").text();
   		var endTime = $("#confirm_endTime").text();
   		startTime = startTime.split("");
@@ -47,65 +54,69 @@
   		endTime = endTime[0]+endTime[1]+"."+endTime[2]+endTime[3]+"."+endTime[4]+endTime[5]+" "+endTime[6]+endTime[7]+":"+endTime[8]+endTime[9];
   		$("#confirm_startTime").text(startTime);  		
   		$("#confirm_endTime").text(endTime);
-  		// 예약할 때 설정되어 파라메터로 최초 결제금액을 저장함
-  		var initial_amount = $("#confirm_amount").text();
   		// 쿠폰을 적용 시킬때마다 이벤트 발생
   		$(".coupon_method").change(function(){
+  	  		var one = $("#one").val();
+  			var kyul = $("#kyul").val();
+  	  		var ku = $("#ku").val();
+  	  		var po = $("#po").val();
+  			$("#confirm_amount").text(one-ku-po);
   			// 다른 쿠폰을 선택할 때마다 최초 결제금액으로 돌아옴.(이 부분이 없으면 할인적용된 금액에 추가적으로 또 할인이 적용됨.)
-  			$("#confirm_amount").text(initial_amount);
+  			// kyul = parseInt($("#confirm_amount").text(one - ku - po));
   			// 선택한 option의 value(타입, 할인정도) 가져온다.
 	  		var couponVal = $('select[name=coupon_method]').val();
   			couponVal = couponVal.split(",");
   			// 0번인덱스에는 쿠폰 타입, 1번 인덱스에는 할인정도가 들어가있다.
   			// alert(couponVal[0]);
   			// alert(couponVal[1]);
-  			// 최초 결제금액을 가져온다.
-			var amount = $("#confirm_amount").text();
   			
-  			/*if(couponVal[0] == "basic") {
-  				alert("베이직");
-  				result = amount;
+  			if(couponVal[0] == "basic") {
+  				ku = parseInt(0);
+				kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+  				$("#ku").val(ku);
+				$("#kyul").val(kyul);
+  				
   				$("#discount_label").remove();
   				$("#discount_label2").remove();
   				// 최초 결제금액을 할인 적용한 금액으로 변경
-  				$("#confirm_amount").text(result);
+  				$("#confirm_amount").text(kyul);
   	  			// 할인 적용 안된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
-  		  		amount = parseInt(amount * 0.03);
-  		  		$("#confirm_point").text(amount);
+  		  		result = parseInt(kyul * 0.03);
+  		  		$("#confirm_point").text(result);
   				
-  			} else */
-  			
-  			if(couponVal[0] == "M") { // 쿠폰타입이 금액할인이라면
-				result = amount - couponVal[1]; // result = 결제금액 - 할인금액
-				if(result < 0) { // 결제할 금액이 0원 아래로 내려갈경우 -금액이 아닌 0원으로 대체
-					result = 0;
+  			} else if(couponVal[0] == "M") { // 쿠폰타입이 금액할인이라면
+  				ku = parseInt(couponVal[1]);
+				kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+  				$("#ku").val(ku);
+				$("#kyul").val(kyul);
+				if(kyul < 0) { // 결제할 금액이 0원 아래로 내려갈경우 -금액이 아닌 0원으로 대체
+					kyul = 0;
 				}
 				// 최초 결제금액을 할인 적용한 금액으로 변경
-				$("#confirm_amount").text(result);
+				$("#confirm_amount").text(kyul);
 	  			// (할인적용)이라는 문구가 만들어져 있다면 우선 삭제한 후 다시 append
 				$("#discount_label").remove();
 				$("#discount_label2").remove();
 	  			// 할인이 적용되었다고 알리기 위해 라벨 추가
-				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>할인전금액 : " + amount + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
-	  			// 할인적용된 금액을 가져온다.
-				var amount = parseInt($("#confirm_amount").text());
+				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>최초금액 : " + one + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
 	  			// 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
-		  		amount = parseInt(amount * 0.03);
-		  		$("#confirm_point").text(amount);
+		  		result = parseInt(kyul * 0.03);
+		  		$("#confirm_point").text(result);
   			} else { // 쿠폰타입이 퍼센트 할인이라면 
-  				result = parseInt(amount - (amount * (couponVal[1] * 0.01)));
+  				ku = parseInt(kyul * (parseInt(couponVal[1]) * 0.01));
+  				kyul = one - ku - po;
+  				$("#ku").val(ku);
+  				$("#kyul").val(kyul);
   				// 최초 결제금액을 할인 적용한 금액으로 변경
-  				$("#confirm_amount").text(result);
+  				$("#confirm_amount").text(kyul);
   	  			// (할인적용)이라는 문구가 만들어져 있다면 우선 삭제한 후 다시 append
   				$("#discount_label").remove();
   				$("#discount_label2").remove();
   	  			// 할인이 적용되었다고 알리기 위해 라벨 추가
-  				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>할인전금액 : " + amount + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
-  	  			// 할인적용된 금액을 가져온다.
-  				var amount = parseInt($("#confirm_amount").text());
+  				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>할인전금액 : " + one + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
   	  			// 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
-  		  		amount = parseInt(amount * 0.03);
-  		  		$("#confirm_point").text(amount);
+  		  		result = parseInt(kyul * 0.03);
+  		  		$("#confirm_point").text(result);
   			}
   			
   			$("#couponSeq").val(couponVal[2]);
@@ -122,6 +133,10 @@
   		})
   		// 쿠폰 체크박스가 클릭되거나 클릭 해제될때마다 실행
   		$("#couponCheckBox").change(function(){
+  			var one = $("#one").val();
+  			var kyul = $("#kyul").val();
+  	  		var ku = $("#ku").val();
+  	  		var po = $("#po").val();
   			// 쿠폰 체크박스에 체크가 되어있는 상태라면
   			if ($("input:checkbox[id='couponCheckBox']").is(":checked") == true){
   				// sessionId를 cp_id에 저장
@@ -146,23 +161,82 @@
   				// select를 감싸고있는 div가 쿠폰적용하기를 클릭하면 select를 보이게 함
   				$("#select_couponMethod").show();
   			} else {// 쿠폰 적용하기에 체크박스에 체크가 안되어 있는 상태라면
+  				var couponVal = $('select[name=coupon_method]').val();
+  	  			couponVal = couponVal.split(",");
+  	  			// 0번인덱스에는 쿠폰 타입, 1번 인덱스에는 할인정도가 들어가있다.
+  	  			// alert(couponVal[0]);
+  	  			// alert(couponVal[1]);
+  	  			ku = parseInt(0);
+  	  			$("#ku").val(ku);
+	  	  		kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+				$("#kyul").val(kyul);
+  	  			$("#confirm_amount").text(kyul);
+  				
   				// 빨간색(할인적용)을 div를 삭제
   				$("#discount_label").remove();
-  				// 쿠폰 적용 전 상태로 돌려야 하기 때문에 결제금액 부분을 최초 넘어왔던 기본 금액으로 다시 세팅
-  				$("#confirm_amount").text($("#firsr_amount").val());
+  				$("#discount_label2").remove();
   				// 쿠폰select를 담고있는 div 안보이게 hide
   				$("#select_couponMethod").hide();
   			}
   		})
   		
   		// 쿠폰을 적용하여 할인이 되거나, 할인이 되지 않아도 현재 결제될 금액에 3%를 포인트로 제공.
-  		var amount = parseInt($("#confirm_amount").text());
-  		amount = parseInt(amount * 0.03);
-  		$("#confirm_point").text(amount);
+  		var result = parseInt($("#confirm_amount").text());
+  		result = parseInt(result * 0.03);
+  		$("#confirm_point").text(result);
   		
+  		// 포인트 사용하기 글씨를 클릭 했을 경우
+  		$("#pointUseLabel").click(function() {
+  			// 포인트 사용하기의 체크박스가 클릭됨
+  			$("#pointUseCheckBox").click();
+  		})
   		
+  		$("#pointUseCheckBox").change(function(){
+  			var one = $("#one").val();
+  			var kyul = $("#kyul").val();
+  	  		var ku = $("#ku").val();
+  	  		var po = $("#po").val();
+  			// 포인트 체크박스에 체크가 되어있는 상태라면
+  			if ($("input:checkbox[id='pointUseCheckBox']").is(":checked") == true){
+  				$(".pointUse").append("<div id='pointUseLabelDiv' style='width: 100%; text-align: center;'><input type='text' id='pointUseInput' style='width: 20%; direction:rtl;' placeholder='보유 포인트 - "+$("#memberPoint").val()+"p'><button type=\"button\" class=\"btn btn-outline-success\" id='pointUseBtn' style='margin-left: 2.5%;'>사용하기</button></div>");
+  				$("#pointUseInput").on("propertychange change keyup paste", function() {
+  					$(this).val($(this).val().replace(/[^0-9]/g,""))
+  		  			if(($("#pointUseInput").val() - $("#memberPoint").val()) > 0) {
+  		  				$("#pointUseCheck").remove();
+  		  				$("#pointUseLabelDiv").append("<div id='pointUseCheck' style='color: #f64366;'>보유 포인트를 초과했습니다.</div>");
+  		  			} else{
+  		  				$("#pointUseCheck").remove();
+  		  				$("#pointUseLabelDiv").append("<div id='pointUseCheck' style='color: #2dce89;'>사용가능</div>");
+  		  			}
+  		  		})
+  			} else {// 쿠폰 적용하기에 체크박스에 체크가 안되어 있는 상태라면
+  				po = 0;
+  	  			$("#po").val(po);
+	  	  		kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+				$("#kyul").val(kyul);
+  	  			$("#confirm_amount").text(kyul);
+  				$("#pointUseLabelDiv").remove();
+  				// $("#confirm_amount").text($("#first_amount").val());
+  			}
+  		})
   		
+  		$(document).on('click', '#pointUseBtn', function(){
+  			var one = $("#one").val();
+  			var kyul = $("#kyul").val();
+  	  		var ku = $("#ku").val();
+  	  		var po = $("#po").val();
+  			if($("#pointUseCheck").text() == '사용가능') {
+  				po = $("#pointUseInput").val();
+  				$("#po").val(po);
+  				$("#confirm_amount").text(kyul - ku - po);
+  		  		result = parseInt(kyul * 0.03);
+		  		$("#confirm_point").text(result);
+  			} else {
+  				
+  			}
+  		})
 		
+  		
   		
   	})
   </script>
@@ -454,6 +528,9 @@
           	  			</div>
           	  			<div style="width: 100%;" id="amount_div2">
           	  			</div>
+          	  			<div class="pointUse">
+          	  				<input type="checkbox" id="pointUseCheckBox" name="coupon" value="point" style="opacity: 0;"/><label id="pointUseLabel" style="cursor: pointer; margin-left: 43%; margin-top: 2%;"><img src="https://image.flaticon.com/icons/svg/1722/1722091.svg" style="width: 4%; margin-right: 1.5%;">포인트 사용하기</label>
+          	  			</div>
           	  			<div class="confirm_content_title" style="clear: both;">
           	  				<input type="checkbox" id="couponCheckBox" name="coupon" value="coupon" style="opacity: 0;"/><label id="cpCheckLabel" style="cursor: pointer; margin-left: 43%; margin-top: 2%;"><img src="https://image.flaticon.com/icons/svg/1041/1041894.svg" style="width: 10%; margin-right: 1.5%;">쿠폰 적용하기</label>
           	  			</div>
@@ -483,7 +560,11 @@
           	  			</div>
           	  		</div>
           	  	</div>
-          	  	<input type="hidden" id="firsr_amount" value="${payDTO.buy_amount }"> <!-- confirm페이지에서 처음들어온 금액 -->
+          	  	<input type="hidden" id="one" value="0">
+          	  	<input type="hidden" id="kyul" value="0">
+          	  	<input type="hidden" id="ku" value="0">
+          	  	<input type="hidden" id="po" value="0">
+          	  	<input type="hidden" id="first_amount" value="${payDTO.buy_amount }"> <!-- confirm페이지에서 처음들어온 금액 -->
           	  	<input type="hidden" id="buy_burum" value="${payDTO.buy_burum }"> <!-- 부름서비스 선택여부 y혹은 n이 들어옴 -->
           	  	<input type="hidden" id="couponSeq"> <!-- 선택한 쿠폰의 시퀀스 넘버(결제 완료 됐을때 쿠폰사용여부에 체크해주기 위함) -->
           	  	<form action="couponConfirm.do" id="couponFrm" name="couponFrm">
@@ -524,9 +605,9 @@
           	  	<input type="hidden" id="memberEmail" value="${memberDTO.email_id }@${memberDTO.email_site }">
           	  	<input type="hidden" id="memberPhone" value="${memberDTO.phone1 }-${memberDTO.phone2 }-${memberDTO.phone3 }">
           	  	<input type="hidden" id="memberAddress" value="${memberDTO.address1 } ${memberDTO.address2 }">
+          	  	<input type="hidden" id="memberPoint" value="${memberDTO.point }">
           	  	<script>
 				$("#check_module").click(function () {
-					alert($("#couponSeq").val());
 					var sessionId = '<%=(String)session.getAttribute("sessionId")%>';
 					var coupon_v = $('select[name=coupon_method]').val();
 					var coupon_t = $('#cp_method option:checked').text();
@@ -555,7 +636,6 @@
 					var buy_carModel_data = $("#confirm_carModel").text();
 					var buy_amount_data = $("#confirm_amount").text();
 					
-					alert($("#buy_carIns").val());
 					var IMP = window.IMP; // 생략가능
 					IMP.init('imp74838776');
 					// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -620,14 +700,25 @@
 						if(result == "ok"){
 							var params = $("form[name=payInsert]").serialize();
 							console.log(params);
-							alert("결제완료");
 							if($("#buy_burum").val() == "y") {
-								alert("부름서비스 신청했음");
 								$.ajax({
 								      url:"burumService.do",
 								      data : params,
 								      success:function(data){
 								    	  alert("부름 서비스 신청이 완료 되었습니다.\n요청하신 주소로 차량이 이동 될 예정입니다.");
+								      },
+								      error : function(xhr, status) {
+							              alert(xhr + " : " + status);
+							          }
+								});
+							}
+							if($("#pointUseInput").val() != "") {
+								$.ajax({
+								      url:"pointUse.do",
+								      data : {
+								    	  "point" : $("#pointUseInput").val()
+								      },
+								      success:function(){
 								      },
 								      error : function(xhr, status) {
 							              alert(xhr + " : " + status);
