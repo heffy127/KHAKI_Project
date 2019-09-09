@@ -46,7 +46,6 @@
 		}
 		
 		$('#searchBtn').click(
-<<<<<<< HEAD
 				function() {
 					if($('#search').val() == ''){
 						$('#searchWarn').popover('show')
@@ -60,11 +59,6 @@
 				})
 				
 	
-=======
-			function() {
-				
-			})
->>>>>>> branch 'master' of https://github.com/heffy127/KHAKI_Project.git
 		
 	})
 </script>
@@ -110,7 +104,6 @@ iframe
 </head>
 <body>
 	<div align="center">
-<<<<<<< HEAD
 		<form id="searchF" name="searchF" action="admin_search.do" method="post">
 			<nav class="navbar navbar-horizontal navbar-expand-lg navbar-dark bg-default">
 			    <div class="container">
@@ -134,28 +127,6 @@ iframe
 				    </div>
 				</nav>
 		</form>
-=======
-		<nav class="navbar navbar-horizontal navbar-expand-lg navbar-dark bg-default">
-		    <div class="container">
-		        <a class="navbar-brand" href="admin_memberAll.do"><font size="4">MEMBER MANAGEMENT</font></a>
-		            <div style="width: 40%;">
-		            		<div style="float: left; width: 15%;">
-					            <select style="margin-top:7%; font-size: 22px;">
-					            	<option>ID</option>
-					            	<option>이름</option>
-					            </select>
-				            </div>
-				            <div style="float: left; width: 65%;">
-				            	<input type="text" class="form-control" id="exampleFormControlInput1" placeholder="검색" 
-				            	style="width: 100%; padding: 15px; font-size: 20px;">
-				            </div>
-				            <div style="float: left; width: 20%;">
-				            	<button id="searchBtn" type="button" class="btn btn-outline-secondary" style="margin-top: 1%;">검색</button>
-				            </div>
-		        	</div>
-		    </div>
-		</nav>
->>>>>>> branch 'master' of https://github.com/heffy127/KHAKI_Project.git
 		<div class="table-responsive">
 			<div>
 				<table class="table align-items-center">
@@ -177,55 +148,19 @@ iframe
 						
 						<c:set var="num" value="1"/>
 						 <!-- 회원정보 출력 -->
-<<<<<<< HEAD
 						<c:choose>
 							<c:when test="${fn:length(memberAllList) eq 0}">
 								<tr>
 									<td colspan="11">
 										<div class="alert alert-warning" role="alert">
 										    <strong>검색된 결과가 없습니다.</strong>
-=======
-						<c:forEach var="memberAllDTO" items="${memberAllList}">
-							
-							<tr>
-								<th scope="row" class="name">
-									<div class="media align-items-center" align="left">
-										<img class="avatar rounded-circle mr-3" alt="Image placeholder"
-											src="${memberAllDTO.photo }">
-										<div class="media-body">
-											<span class="mb-0 text-md" style="font-size: 17px;">${memberAllDTO.id }</span>
->>>>>>> branch 'master' of https://github.com/heffy127/KHAKI_Project.git
 										</div>
-<<<<<<< HEAD
 									</td>
 								</tr>
 							</c:when>
 							<c:otherwise>
 								<c:forEach var="memberAllDTO" items="${memberAllList}">
-=======
-									</div>
-								</th>
-								<td>Lv.${memberAllDTO.memberLevel }</td>
-								<td>${memberAllDTO.name }</td>
-								<td>${memberAllDTO.phone1 }-${memberAllDTO.phone2 }-${memberAllDTO.phone3 }</td>
-								<c:choose>
-									<c:when test="${memberAllDTO.email_id == null}">
-										<td>미등록</td>
-									</c:when>
-									<c:otherwise>
-										<td>${memberAllDTO.email_id }@${memberAllDTO.email_site }</td>
-									</c:otherwise>	
-								</c:choose>
-								<td >
-									<a href="#none" id="addressPopover${num}" data-container="body" data-toggle="popover" data-color="warning" 
-									data-placement="top" data-content="${memberAllDTO.postcode } ${memberAllDTO.address1 } ${memberAllDTO.address2 } ${memberAllDTO.address3 }" 
-									onclick="showAddress(this.value)">
-									${fn:split(memberAllDTO.address1,' ')[0]}&nbsp;${fn:split(memberAllDTO.address1,' ')[1]}
-									</a>
-								</td>
->>>>>>> branch 'master' of https://github.com/heffy127/KHAKI_Project.git
 									
-<<<<<<< HEAD
 									<tr>
 										<th scope="row" class="name">
 											<div class="media align-items-center" align="left">
@@ -330,47 +265,7 @@ iframe
 														class="dropdown-item" href="#">Another action</a> <a
 														class="dropdown-item" href="#">Something else here</a>
 												</div>
-=======
-							
-								<c:choose>
-									<c:when test="${memberAllDTO.permission eq null}">
-									<td>
-										<button type="button" class="btn btn-default" disabled="disabled">&nbsp;&nbsp;미등록&nbsp;&nbsp;</button>
-									</td>	
-									</c:when>
-									<c:when test="${memberAllDTO.permission eq '?'}">
-										<td>
-											<button id="licenseBtn${num}" type="button" class="btn btn-warning" 
-											value="?id=${memberAllDTO.id }&name=${memberAllDTO.name}" onclick="modalLicense(this.value)">심사대기</button>
-										</td>	
-									</c:when>
-									<c:when test="${memberAllDTO.permission eq 'x'}">
-										<td>
-											<button id="licenseBtn${num}" type="button" class="btn btn-danger" 
-											value="?id=${memberAllDTO.id }&name=${memberAllDTO.name}" onclick="modalLicense(this.value)">승인거절</button>
-										</td>	
-									</c:when>
-									<c:otherwise>
-										<td>
-											<button id= "licenseBtn${num}" type="button" class="btn btn-success" 
-											value="?id=${memberAllDTO.id }&name=${memberAllDTO.name}" onclick="modalLicense(this.value)">승인완료</button>
-										</td>	
-									</c:otherwise>
-								</c:choose>
-
-								
-								<td>${memberAllDTO.point }&nbsp;pt</td>
-								
-								<!-- jstl을 통해 push 수신 여부에 따라 출력 분기  -->
-								<td class="completion" style="padding: 4px;">
-									<c:choose>
-										<c:when test="${memberAllDTO.smsPush == 1}">
-											<div class="custom-control custom-checkbox mb-3" style="margin-top: 20%;">
-												<input class="custom-control-input" id="customCheck3" type="checkbox" checked="checked" disabled>
-												<label class="custom-control-label" for="customCheck3"><i class="ni ni-mobile-button ni-2x"></i></label>
->>>>>>> branch 'master' of https://github.com/heffy127/KHAKI_Project.git
 											</div>
-<<<<<<< HEAD
 										</td>
 									</tr>
 									
@@ -400,73 +295,6 @@ iframe
 								</c:forEach>
 							</c:otherwise>
 						</c:choose> 
-=======
-										</c:when>
-										<c:otherwise>
-											<div class="custom-control custom-checkbox mb-3" style="margin-top: 20%;">
-												<input class="custom-control-input" id="customCheck3" type="checkbox" disabled>
-												<label class="custom-control-label" for="customCheck3"><i class="ni ni-mobile-button ni-2x"></i></label>
-											</div>
-										</c:otherwise>
-									</c:choose>
-								</td>
-								<td class="completion" style="padding: 4px;">
-									<c:choose>
-										<c:when test="${memberAllDTO.emailPush == 1}">
-											<div class="custom-control custom-checkbox mb-3" style="margin-top: 20%;">
-											  <input class="custom-control-input" id="customCheck3" type="checkbox" checked="checked" disabled>
-											  <label class="custom-control-label" for="customCheck3"><i class="ni ni-email-83 ni-2x"></i></label>
-											</div>
-										</c:when>
-										<c:otherwise>
-											<div class="custom-control custom-checkbox mb-3" style="margin-top: 20%;">
-											  <input class="custom-control-input" id="customCheck3" type="checkbox" disabled>
-											  <label class="custom-control-label" for="customCheck3"><i class="ni ni-email-83 ni-2x"></i></label>
-											</div>
-										</c:otherwise>
-									</c:choose>
-								</td>
-								<td class="text-right">
-									<div class="dropdown">
-										<a class="btn btn-sm btn-icon-only text-light" href="#"
-											role="button" data-toggle="dropdown" aria-haspopup="true"
-											aria-expanded="false"> <i class="fas fa-ellipsis-v"></i>
-										</a>
-										<div
-											class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-											<a class="dropdown-item" href="#">Action</a> <a
-												class="dropdown-item" href="#">Another action</a> <a
-												class="dropdown-item" href="#">Something else here</a>
-										</div>
-									</div>
-								</td>
-							</tr>
-							
-							<!-- 면허심사 창 -->
-							<div class="modal fade" id="modal-license" tabindex="-1" role="dialog" aria-labelledby="modal-license" aria-hidden="true" style="top: -150px;">
-							    <div class="modal-dialog modal-lg modal-dialog-centered modal-" role="document">
-							        <div class="modal-content bg-gradient-primary">
-							        	
-							            <div class="modal-header">
-							                <h2 class="modal-title" id="modal-title-default" style="color: #f5f5f5;">운전면허심사</h2>
-							                <button type="button" class="close" id="modal-close">
-							                    <span><font color="white">x</font></span>
-							                </button>
-							             </div>
-							            
-							            	<iframe id="licenseIframe" src="" width="730px" height="500px" frameborder="0"></iframe>
-							            
-								           <div class="modal-footer" style="padding: 0.5rem;">
-								                &nbsp;
-								            </div>
-            
-							        </div>
-							    </div>
-							  </div>
-							
-							<c:set var="num" value="${num + 1}"/>
-						</c:forEach>
->>>>>>> branch 'master' of https://github.com/heffy127/KHAKI_Project.git
 					</tbody>
 				</table>
 			</div>

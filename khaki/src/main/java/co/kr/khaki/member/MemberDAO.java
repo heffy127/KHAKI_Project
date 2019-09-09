@@ -128,7 +128,6 @@ public class MemberDAO {
 	public List<MemberAllDTO> selectAll_admin() {
 		List<MemberAllDTO> list = my.selectList("memberDAO.selectAll_admin");
 		System.out.println("selectAll_admin 성공");
-<<<<<<< HEAD
 		return list;
 	}
 	
@@ -141,8 +140,6 @@ public class MemberDAO {
 	public List<MemberAllDTO> selectName_admin(String name) {
 		List<MemberAllDTO> list = my.selectList("memberDAO.selectName_admin",name);
 		System.out.println("selectName_admin 성공");
-=======
->>>>>>> branch 'master' of https://github.com/heffy127/KHAKI_Project.git
 		return list;
 	}
 
