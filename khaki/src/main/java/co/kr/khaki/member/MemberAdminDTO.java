@@ -1,6 +1,6 @@
 package co.kr.khaki.member;
 
-public class MemberAllDTO {
+public class MemberAdminDTO {
 	private String id;
 	private String name;
 	private String email_id;
