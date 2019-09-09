@@ -615,8 +615,8 @@
           	  	<input type="hidden" id="memberPoint" value="${memberDTO.point }">
           	  	<script>
 				$("#check_module").click(function () {
-					alert($("#po").val());
-					alert($("#ku").val());
+					alert($("#po").val() + "포인트");
+					alert($("#ku").val() + "쿠폰");
 					var sessionId = '<%=(String)session.getAttribute("sessionId")%>';
 					var coupon_v = $('select[name=coupon_method]').val();
 					var coupon_t = $('#cp_method option:checked').text();
