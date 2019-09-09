@@ -52,7 +52,7 @@
 			$(".row_carlist").click(function(){
 				var data = $(this).children(".car_num").text();
 				alert(data);
-				location.href = "carmanageSelect.do?carnum="+data;
+				location.href = "carmanageSelect.do?car_num="+data;
 				
 			})	
 			
@@ -102,6 +102,7 @@
  	
 </head>
 <body>
+	<!-- aaaa -->
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
       <!-- Toggler -->
@@ -484,19 +485,19 @@
             				<%-- ${status.count }
             				${status.index } --%>
             				<div class="col" style="text-align: center; height:100px; line-height:100px;">
-            					${cmdto.khaki_num }
+            					????
             				</div>
             				<div class="col car_num" style="text-align: center; height:100px; line-height:100px;">
-            					${cmdto.carnum }
+            					${cmdto.car_num }
             				</div>
             				<div class="col" style="text-align: center; height:100px; line-height:100px;">
-            					<img style="position: absolute; top:0; left:0; width: 140px; height:100%;" src="resources/assets/img/car/${cmdto.img }" />
+            					<img style="position: absolute; top:0; left:0; width: 140px; height:100%;" src="${cmdto.car_image }" />
             				</div>
             				<div class="col" style="text-align: center; height:100px; line-height:100px;">
-            					${cmdto.distance }KM
+            					${cmdto.driven }KM
             				</div>
             				<div class="col"  style="text-align: center; height:100px; line-height:100px;">
-            					${cmdto.fuel }
+            					${cmdto.fuel_type }
             				</div>
             				<div class="col" style="text-align: center; height:100px; line-height:100px;">
             					${cmdto.brand }
@@ -505,7 +506,7 @@
             					${cmdto.car_size }
             				</div>
             				<div class="col" style="text-align: center; height:100px; line-height:100px;">
-            					${cmdto.carname }
+            					${cmdto.car_name }
             				</div>
             				<div class="col" style="text-align: center; height:50px; line-height:50px;">
             					<div>

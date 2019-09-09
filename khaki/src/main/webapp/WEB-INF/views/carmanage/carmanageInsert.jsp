@@ -472,7 +472,7 @@
 		            					</div>
 		            					<div class="row">
 		            						<div class="col col-sm-9">
-		            							<input type="text" class="form-control" id="carnum" name="driven" placeholder="총 운행 Km">
+		            							<input type="text" class="form-control" id="total_distance" name="driven" placeholder="총 운행 Km">
 		            						</div>
 		            					</div>
 		            					<!-- 순서 : 브랜드 -> 차량명 -> 연료, 사이즈 저절로 나오게 -->
@@ -554,7 +554,7 @@
 		            					<!-- form에 넘어가는 값들 -->
 	            						<input type="hidden" name="reg_date" value="20190821">	<!-- value값이 의미 없음 -->
 	            						<input type="hidden" name="car_image" id="car_image">
-		            					<input type="hidden" name="carname" id="carname">
+		            					<input type="hidden" name="car_name" id="carname">
 		            					<input type="hidden" class="form-control" name="brand" id="brand">
 		            					<input type="hidden" class="form-control" name="fuel" id="fuel">
 		            					<input type="hidden" class="form-control" name="car_size" id="car_size">

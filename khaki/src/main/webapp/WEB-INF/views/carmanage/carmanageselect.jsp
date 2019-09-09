@@ -354,7 +354,7 @@
             		<div class="col col-sm">
             			<div class="row">
             				<div class="col col-sm-6" style="text-align: center;">
-            					<img style="position: absolute; top:0; left:0; width: 400px; height:100%;" id="car_img" src="resources/assets/img/car/${cmdto.img}" />
+            					<img style="position: absolute; top:0; left:0; width: 400px; height:100%;" id="car_img" src="${cmdto.car_image}" />
             				</div>
             				<div class="col col-sm-6" style="font-family: 'Gugi', cursive;">
 	            					<div class="row">	<!-- row - col - row - 또 분할한 것 -->
@@ -365,7 +365,7 @@
 	            										차량번호 : 
 	            									</td>
 	            									<td>
-	            										${cmdto.carnum}
+	            										${cmdto.car_num}
 	            									</td>
 	            								</tr>
 	            								<tr height="40">
@@ -373,7 +373,7 @@
 	            										총 운행 :
 	            									</td>
 	            									<td>
-	            										${cmdto.distance}Km
+	            										${cmdto.driven}Km
 	            									</td>
 	            								</tr>
 	            								<tr height="40">
@@ -389,7 +389,7 @@
 	            										차량명 :
 	            									</td>
 	            									<td>
-	            										${cmdto.carname}
+	            										${cmdto.car_name}
 	            									</td>
 	            								</tr>
 	            								<tr height="40">
@@ -405,7 +405,7 @@
 	            										연료 :
 	            									</td>
 	            									<td>
-	            										${cmdto.fuel}
+	            										${cmdto.fuel_type}
 	            									</td>
 	            								</tr>
 	            								<tr height="40">
@@ -435,14 +435,14 @@
 						    <div class="modal-dialog modal-lg-min modal- modal-dialog-centered modal-" role="document">
 						        <div class="modal-content">						        	
 						            <div class="modal-header">
-						                <h6 class="modal-title" id="modal-title-default">차량번호 : ${cmdto.carnum} / ${cmdto.carname}</h6>
+						                <h6 class="modal-title" id="modal-title-default">차량번호 : ${cmdto.car_num} / ${cmdto.car_name}</h6>
 						                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						                    <span aria-hidden="true">×</span>
 						                </button>
 						            </div>
 						            
 						            <div class="modal-body">
-						            	<iframe src="car_consumable1.do?distance=${cmdto.distance }&carnum1=${cmdto.carnum}" width="900" height="750"></iframe>
+						            	<iframe src="car_consumable1.do?distance=${cmdto.driven }&carnum1=${cmdto.car_num}" width="900" height="750"></iframe>
 						            </div>
 						            
 						            <div class="modal-footer">
