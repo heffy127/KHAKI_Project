@@ -381,7 +381,7 @@
     		- 
     	aaaabbccdd
      -->
-    
+    <%  %>
     <!-- white 테마 사용 -->
     <div class="container-fluid mt--7">
       <!-- Table -->
@@ -450,35 +450,13 @@
 					<!-- value값이 의미 없이 mapper에서 oracle 내부에서 시퀀스로 들어가게끔 만듦 -->
 					<input type="hidden" name="image" value="empty">	<!-- 이미지 넣는 것은 포토 업로더 작업 시 같이 진행 -->
 					<input type="hidden" name="hit" value="0">	<!-- 조회수(다른 아이디로 접속 시 플러스 되도록), 게시판 메인화면(notice.jsp)에서 확인 되고 나서 작성 -->
-					<input type="hidden" name="write_date" value="sysdate">	
-					
+					<input type="hidden" name="write_date" value="sysdate">
+					<input type="hidden" name="curPage" value="${curPage}">
+					<input type="hidden" name="pageSize" value="${pageSize}">
 					<!-- <input type="hidden" name="write_date" value="null"> -->
             	</form>
             </div>	<!-- card-body End -->
            	<div class="card-footer py-4">
-              <nav aria-label="...">
-                <ul class="pagination justify-content-end mb-0">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">
-                      <i class="fas fa-angle-left"></i>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">
-                      <i class="fas fa-angle-right"></i>
-                      <span class="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
             </div>	<!-- card-footer End -->
           </div>	<!-- card End -->
         </div>	<!-- col End -->

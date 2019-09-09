@@ -350,11 +350,11 @@
             		<div class="col-md-3">
             			<div class="dropdown">
 	                        <a class="btn btn-lg btn-icon-only text-light" id="pagesize_dropDown" style="width: 100px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						            		<b><i class="fas fa-car-side"></i></b>-페이지 수-
+						            		<b><i class="ni ni-bullet-list-67"></i></b>-페이지 수-
 	                          <!-- <i class="ni ni-bus-front-12"></i> -->
 	                        </a>
 	                        <!--  dropdown-menu-arrow -->
-	                        <div class="dropdown-menu dropdown-menu-right " style="overflow-y: scroll;height: 150px;">
+	                        <div class="dropdown-menu dropdown-menu-right" style="overflow-y: scroll;height: 150px;">
                         			<%-- <input type="dropdown-item carname" name="carname" value="${car }" readonly="readonly"> --%>
                         			<div class="dropdown-item">
                         				<a href="#" onclick="change_pagesize(10,${pagination.curPage})">10개</a>
@@ -557,7 +557,7 @@
 	                    </td>
 	                    <!-- 내용이 나오도록(내용 누르면 공지사항 상세페이지로 가도록 or 카드 열리는 형식으로 표시 되도록) -->
 	                    <td style="font-size: 30px;">
-	                      <a href="noticeSelect.do?notice_num=${ndto.notice_num }">${ndto.title }</a>
+	                      <a href="noticeSelect.do?notice_num=${ndto.notice_num }&curPage=<%= pg.getCurPage()%>&pageSize=<%= pg.getPageSize()%>">${ndto.title }</a>
 	                    </td>
 	                    <!-- 조회수 -->
 	                    <td style="font-size: 30px;">
@@ -574,6 +574,8 @@
                 	<tr>
                 		<td colspan="6" align="right">
                 			<form action="noticeInsert.do">
+		                		<input type="hidden" name="curPage" value="<%= pg.getCurPage()%>">
+		                		<input type="hidden" name="pageSize" value="<%= pg.getPageSize()%>">
 		                		<button type="submit" class="btn btn-outline-info">글쓰기</button>
 		                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		                		<input type="button" class="btn btn-outline-info" onclick="history.back(-1);" value="뒤로가기">
@@ -586,54 +588,55 @@
             </div>
             <div class="card-footer py-4" align="center">
             	<!-- 페이지 네이션 구현 -->
-            		<!-- pagenatin 블럭이 1이 아니면 처음 표시가 나오게끔 -->
+           		<nav aria-label="Page navigation example">
+				  <ul class="pagination pagination-lg justify-content-center">
 				 	<c:if test="${pagination.curRange ne 1 }">
+				 	  <li class="page-item">
                         <a href="#" onClick="fn_paging(1)">[처음]</a> 
+                      </li>
                     </c:if>
                     <c:if test="${pagination.curPage ne 1}">
-                        <a href="#" onClick="fn_paging('${pagination.prevPage }')">[이전]</a> 
+                      <li class="page-item">
+                        <a class="page-link" href="#" onClick="fn_paging('${pagination.prevPage }')" aria-label="Previous">
+                        	<i class="fa fa-angle-left"></i>
+					        <span class="sr-only">Previous</span>
+				        </a> 
+			          </li>
                     </c:if>
+                    <!-- 페이지 숫자 표시 부분 -->
                     <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
                         <c:choose>
                             <c:when test="${pageNum eq pagination.curPage}">
-                                <span style="font-weight: bold;"><a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a></span> 
+                            	<li class="page-item active">
+                            		<a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }<span class="sr-only">(current)</span></a>
+                           		</li>
                             </c:when>
                             <c:otherwise>
-                                <a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a> 
+                            	<li class="page-item">
+                            		<a class="page-link" href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+                           		</li>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
                     <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
-                        <a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a> 
+                    	<li class="page-item">
+                       		<a class="page-link" href="#" onClick="fn_paging('${pagination.nextPage }')" aria-label="Next">
+						        <i class="fa fa-angle-right"></i>
+						        <span class="sr-only">Next</span>
+							</a> 
+						</li>
+						
                     </c:if>
                     <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
-                        <a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a> 
+                        <li class="page-item">
+					      <a class="page-link" href="#" onClick="fn_paging('${pagination.pageCnt }')" aria-label="Next">
+					        <i class="fa fa-angle-right"></i>
+					        <span class="sr-only">Next</span>
+					      </a>
+					    </li>
                   	</c:if>
-              <!-- <nav aria-label="...">
-                <ul class="pagination justify-content-end mb-0">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">
-                      <i class="fas fa-angle-left"></i>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  
-                  <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  
-                  <li class="page-item">
-                    <a class="page-link" href="#">
-                      <i class="fas fa-angle-right"></i>
-                      <span class="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav> -->
+                  	</ul>
+				</nav>
             </div>
           </div>
         </div>

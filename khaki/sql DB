@@ -3,8 +3,8 @@ create sequence pay_seq start with 1 increment by 1 maxvalue 10000 cycle nocache
 create sequence couponUse_seq start with 1 increment by 1 maxvalue 10000 cycle nocache; -- 다운로드 받은 쿠폰 시퀀스
 create sequence hb_seq start with 1 increment by 1 maxvalue 10000 cycle nocache; -- 핸들러 게시판글 번호 시퀀스
 
-create sequence khakinum_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
-create sequence notice_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
+create sequence khakinum_seq start with 1 increment by 1 maxvalue 10000 cycle nocache; -- carmanage 차량번호 시퀀스(병호) 지울 예정
+create sequence notice_seq start with 1 increment by 1 maxvalue 10000 cycle nocache; -- 공지사항 글번호 시퀀스(병호)
 
 CREATE SEQUENCE NO_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 MINVALUE 1 NOCYCLE; -- 자유게시판 글번호 시퀀스(다솔)
 CREATE SEQUENCE RE_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 MINVALUE 1 NOCYCLE; -- 댓글 번호 시퀀스(다솔)
@@ -96,6 +96,11 @@ reg_date varchar2(30),
 img varchar2(50) 
 );
 
+	car_board에 컬럼 추가
+	ALTER TABLE CAR_BOARD add(brand varchar2(30))
+	ALTER TABLE CAR_BOARD add(car_size varchar2(30))
+	ALTER TABLE CAR_BOARD add(reg_date varchar2(30))
+
 	차량소모품 DB
 create table consumable(
 carnum1 varchar2(10),
@@ -121,7 +126,7 @@ etc_battery_num number,
 etc_battery_time varchar2(30),
 etc_tire_num number,
 etc_tire_time varchar2(30),
-constraint FK_num foreign key(carnum1) references carManage(carnum) on delete cascade
+constraint FK_num foreign key(carnum1) references car_board(carnum) on delete cascade
 );
 
 
