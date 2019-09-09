@@ -101,6 +101,7 @@
 		where s.id not like 'admin%' and s.name not like '관리자'
 	</select>
 	
+<<<<<<< HEAD
 	<select id="selectId_admin" parameterType="String" resultMap="rsMap_admin">
 		select s.id, s.name, s.email_id, s.email_site, s.phone1, s.phone2, s.phone3, s.postcode, s.address1, 
 		s.address2, s.address3, s.point, s.smspush, s.emailpush, s.photo, s.memberlevel, l.permission from 
@@ -121,6 +122,8 @@
 	
 	
 	
+=======
+>>>>>>> branch 'master' of https://github.com/heffy127/KHAKI_Project.git
 	<!-- 회원가입 정보 주입 -->
 	<insert id="insertMember" parameterType="memberDTO">
 		INSERT INTO member (id, pw, name, email_id, email_site, phone1, phone2, phone3, postcode, address1, address2, address3, smsPush, emailPush, handler)

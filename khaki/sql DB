@@ -162,9 +162,11 @@ create table reservation ( -- 모든 예약정보
    buy_amount varchar2(20),
    buy_addAmount varchar2(20),
    buy_totalAmount varchar2(20),
+   buy_usePoint varchar2(20),
    buy_accident varchar2(20),
    buy_coupon varchar2(50),
    buy_discount varchar2(20),
+   buy_useCoupon varchar2(20),
    buy_burum char(1),
    buy_impUid varchar2(50)
 );
@@ -219,6 +221,20 @@ create table handlerUse ( -- 핸들러 이용 테이블
 	h_point varchar2(20), -- 예상적립포인트
 	h_using char(1) -- 핸들러 이용중 여부
 );
+
+create table refund ( -- 환불신청 테이블
+	impUid varchar2(20), -- 환불신청한 주문번호
+	id varchar2(20), -- 환불신청한 고객아이디
+	name varchar2(20), -- 환불신청한 고객이름
+	refundRequest varchar2(20), -- 환불신청한 날짜 select할때 sysdate로 설정해야 함
+	burum varchar2(20), -- 부름서비스 선택 여부(부름서비스 선택했을 경우 handler DB에서도 해당건 환불 됐을 때 삭제 처리해주어야 함.)
+	amount varchar2(20), -- 총 결제 금액(환불해줘야 할 금액. 할인 적용된 금액임. 환불 해줄 때는 amount + usePoint + pointOrCoupon)
+	usePoint varchar2(20), -- 사용한 포인트(환불 완료 될 경우 사용한 포인트를 다시 되돌려주어야 함)
+	pointOrCoupon varchar2(20), -- 사용한 포인트나 쿠폰 금액(환불 완료 될때 고객에게 환불해줘야 함)
+	couponNum varchar2(20), -- 쿠폰 번호(환불 완료 될 경우 해당 쿠폰 사용여부를 N으로 바꿔서 사용 할 수 있게 처리해야 함)
+	exp varchar2(20) default '500', -- 추가 된 경험치(환불 완료 될 경우 해당 경험치를 차감해야 함)
+	refundYN char(1) default 'N' -- 환불처리 여부 Y/N
+)
 
 
 

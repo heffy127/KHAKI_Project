@@ -27,9 +27,9 @@ public class PayDAO {
       my.delete("pDAO.delete", PayDTO);
    }
    
-   public List<PayDTO> select(PayDTO PayDTO) {
+   public PayDTO select(PayDTO PayDTO) {
       System.out.println("PayDAO select!");
-      return my.selectList("pDAO.select", PayDTO);
+      return my.selectOne("pDAO.select", PayDTO);
    }
    
    public List<PayDTO> select2(PayDTO PayDTO) {

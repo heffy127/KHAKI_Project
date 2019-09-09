@@ -38,35 +38,35 @@
   <script type="text/javascript">
   	$(function() {
   		var sessionId = '<%=(String)session.getAttribute("sessionId")%>';
-  		var seoul = ["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구"
+  		var seoul = ["", "강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구"
 			,"마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
-		var busan = ["강서구", "금정구", "기장군", "남구", "동구", "동래구", "부산진구", "북구", "사상구", "사하구", 
+		var busan = ["", "강서구", "금정구", "기장군", "남구", "동구", "동래구", "부산진구", "북구", "사상구", "사하구", 
 				"서구", "수영구", "연제구", "영도구", "중구", "해운대구"];
-		var daegu = ["중구", "동구", "서구", "남구", "북구", "수성구", "달서구", "달성군"];
-		var incheon = ["중구", "동구", "미추홀구", "연수구", "남동구", "부평구", "계양구", "서구", "강화군", "옹진군"];
-		var gwangju = ["동구", "서구", "남구", "북구", "광산구"];
-		var daejeon = ["동구", "중구", "서구", "유성구", "대덕구"];
-		var ulsan = ["중구", "남구", "동구", "북구", "울주군"];
-		var sejong = ["반곡동", "소담동", "보람동", "대평동", "가람동", "한솔동", "나성동", "새롬동", "다정동", "어진동", "종촌동", "고운동",
+		var daegu = ["", "중구", "동구", "서구", "남구", "북구", "수성구", "달서구", "달성군"];
+		var incheon = ["", "중구", "동구", "미추홀구", "연수구", "남동구", "부평구", "계양구", "서구", "강화군", "옹진군"];
+		var gwangju = ["", "동구", "서구", "남구", "북구", "광산구"];
+		var daejeon = ["", "동구", "중구", "서구", "유성구", "대덕구"];
+		var ulsan = ["", "중구", "남구", "동구", "북구", "울주군"];
+		var sejong = ["", "반곡동", "소담동", "보람동", "대평동", "가람동", "한솔동", "나성동", "새롬동", "다정동", "어진동", "종촌동", "고운동",
 			"아름동", "도담동", "조치원읍", "연기면", "연동면", "부강면", "금남면", "장군면", "연서면", "전의면", "전동면", "소정면"];
-		var gyeonggi = ["수원시", "성남시", "의정부시", "안양시", "부천시", "광명시", "평택시", "동두천시", "안산시", "고양시", "과천시", "구리시", 
+		var gyeonggi = ["", "수원시", "성남시", "의정부시", "안양시", "부천시", "광명시", "평택시", "동두천시", "안산시", "고양시", "과천시", "구리시", 
 			"남양주시", "오산시", "시흥시", "군포시", "의왕시", "하남시", "용인시", "파주시", "이천시", "안성시", "김포시", "화성시", "광주시", "양주시", 
 			"포천시", "여주시", "연천군", "가평군", "양평군"];
-		var gangwon = ["춘천시", "원주시", "강릉시", "동해시", "태백시", "속초시", "삼척시", "홍천군", "횡성군", "영월군", "평창군", "정선군", "철원군", "화천군", "양구군", "인제군", "고성군", "양양군"];
-		var chungbuk = ["청주시", "충주시", "제천시", "보은군", "옥천군", "영동군", "증평군", "진천군", "괴산군", "음성군", "단양군"];
-		var chungnam = ["천안시", "공주시", "보령시", "아산시", "서산시", "논산시", "계룡시", "당진시", "금산군", "부여군", "서천군", "청양군", "홍성군", "예산군", "태안군"];
-		var jeonbuk = ["전주시", "군산시", "익산시", "정읍시", "남원시", "김제시", "완주군", "진안군", "무주군", "장수군", "임실군", "순창군", "고창군", "부안군"];
-		var jeonnam = ["목포시", "여수시", "순천시", "나주시", "광양시", "담양군", "곡성군", "구례군", "고흥군", "보성군", "화순군", "장흥군", "강진군", "해남군", "영암군", "무안군", "함평군", "영광군", "장성군", "완도군", "진도군", "신안군"];
-		var gyeongbuk = ["경산시","경주시","구미시","김천시","문경시","상주시","안동시","영주시","영천시","포항시","고령군","군위군","봉화군","성주군","영덕군","영양군","예천군","울릉군","울진군","의성군","청도군","청송군","칠곡군"];
-		var gyeongnam = ["거제시","김해시","마산시","밀양시","사천시","양산시","진주시","진해시","창원시","통영시","거창군","고성군","남해군","산청군","의령군","창녕군","하동군","함안군","함양군","합천군"];
-		var jeju = ["제주시", "서귀포시"];
+		var gangwon = ["", "춘천시", "원주시", "강릉시", "동해시", "태백시", "속초시", "삼척시", "홍천군", "횡성군", "영월군", "평창군", "정선군", "철원군", "화천군", "양구군", "인제군", "고성군", "양양군"];
+		var chungbuk = ["", "청주시", "충주시", "제천시", "보은군", "옥천군", "영동군", "증평군", "진천군", "괴산군", "음성군", "단양군"];
+		var chungnam = ["", "천안시", "공주시", "보령시", "아산시", "서산시", "논산시", "계룡시", "당진시", "금산군", "부여군", "서천군", "청양군", "홍성군", "예산군", "태안군"];
+		var jeonbuk = ["", "전주시", "군산시", "익산시", "정읍시", "남원시", "김제시", "완주군", "진안군", "무주군", "장수군", "임실군", "순창군", "고창군", "부안군"];
+		var jeonnam = ["", "목포시", "여수시", "순천시", "나주시", "광양시", "담양군", "곡성군", "구례군", "고흥군", "보성군", "화순군", "장흥군", "강진군", "해남군", "영암군", "무안군", "함평군", "영광군", "장성군", "완도군", "진도군", "신안군"];
+		var gyeongbuk = ["", "경산시","경주시","구미시","김천시","문경시","상주시","안동시","영주시","영천시","포항시","고령군","군위군","봉화군","성주군","영덕군","영양군","예천군","울릉군","울진군","의성군","청도군","청송군","칠곡군"];
+		var gyeongnam = ["", "거제시","김해시","마산시","밀양시","사천시","양산시","진주시","진해시","창원시","통영시","거창군","고성군","남해군","산청군","의령군","창녕군","하동군","함안군","함양군","합천군"];
+		var jeju = ["", "제주시", "서귀포시"];
 		
 		$("#region_1_n").change(function(){
 			var result = "";
 			$("#region_2_n").children().remove();
 			var d = $("#region_1_n option:selected").val();
 			switch(d) {
-				case "서울특별시" :
+				case "서울" :
 					for(var i = 0; i < seoul.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -78,7 +78,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "부산광역시" :
+				case "부산" :
 					for(var i = 0; i < busan.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -90,7 +90,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "대구광역시" :
+				case "대구" :
 					for(var i = 0; i < daegu.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -102,7 +102,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "인천광역시" :
+				case "인천" :
 					for(var i = 0; i < incheon.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -114,7 +114,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "광주광역시" :
+				case "광주" :
 					for(var i = 0; i < gwangju.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -126,7 +126,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "대전광역시" :
+				case "대전" :
 					for(var i = 0; i < daejeon.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -138,7 +138,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "울산광역시" :
+				case "울산" :
 					for(var i = 0; i < ulsan.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -150,7 +150,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "세종시" :
+				case "세종특별자치시" :
 					for(var i = 0; i < sejong.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -162,7 +162,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "경기도" :
+				case "경기" :
 					for(var i = 0; i < gyeonggi.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -174,7 +174,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "강원도" :
+				case "강원" :
 					for(var i = 0; i < gangwon.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -186,7 +186,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "충청북도" :
+				case "충북" :
 					for(var i = 0; i < chungbuk.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -198,7 +198,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "충청남도" :
+				case "충남" :
 					for(var i = 0; i < chungnam.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -210,7 +210,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "전라북도" :
+				case "전북" :
 					for(var i = 0; i < jeonbuk.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -222,7 +222,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "전라남도" :
+				case "전남" :
 					for(var i = 0; i < jeonnam.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -234,7 +234,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "경상북도" :
+				case "경북" :
 					for(var i = 0; i < gyeongbuk.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -246,7 +246,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "경상남도" :
+				case "경남" :
 					for(var i = 0; i < gyeongnam.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -258,7 +258,7 @@
 					}
 					$("#region_2_n").append(result);
 					break;
-				case "제주도" :
+				case "제주특별자치도" :
 					for(var i = 0; i < jeju.length; i++) {
 						if(i == 0) {
 							result += "<option value=\"\" selected=\"true\">- 지역 선택 -</option>";
@@ -767,23 +767,23 @@
 							<div class="cl_bo fl_left" id="location1" style="margin-right:20px; width: 100%;">
 								<select name="region_1_n" id="region_1_n" required class="form-control input-sm">
 									<option value="" selected>- 광역 지역 -</option>
-				  					<option value="서울특별시" class="si_do">서울특별시</option>
-				  					<option value="부산광역시" class="si_do">부산광역시</option>
-				  					<option value="대구광역시" class="si_do">대구광역시</option>
-				  					<option value="인천광역시" class="si_do">인천광역시</option>
-				  					<option value="광주광역시" class="si_do">광주광역시</option>
-				  					<option value="대전광역시" class="si_do">대전광역시</option>
-				  					<option value="울산광역시" class="si_do">울산광역시</option>
-				  					<option value="세종시" class="si_do">세종시</option>
-				  					<option value="경기도" class="si_do">경기도</option>
-				  					<option value="강원도" class="si_do">강원도</option>
-				  					<option value="충청북도" class="si_do">충청북도</option>
-				  					<option value="충청남도" class="si_do">충청남도</option>
-				  					<option value="전라북도" class="si_do">전라북도</option>
-				  					<option value="전라남도" class="si_do">전라남도</option>
-				  					<option value="경상북도" class="si_do">경상북도</option>
-				  					<option value="경상남도" class="si_do">경상남도</option>
-				  					<option value="제주도" class="si_do">제주도</option>
+				  					<option value="서울" class="si_do">서울특별시</option>
+				  					<option value="부산" class="si_do">부산광역시</option>
+				  					<option value="대구" class="si_do">대구광역시</option>
+				  					<option value="인천" class="si_do">인천광역시</option>
+				  					<option value="광주" class="si_do">광주광역시</option>
+				  					<option value="대전" class="si_do">대전광역시</option>
+				  					<option value="울산" class="si_do">울산광역시</option>
+				  					<option value="세종특별자치시" class="si_do">세종시</option>
+				  					<option value="경기" class="si_do">경기도</option>
+				  					<option value="강원" class="si_do">강원도</option>
+				  					<option value="충북" class="si_do">충청북도</option>
+				  					<option value="충남" class="si_do">충청남도</option>
+				  					<option value="전북" class="si_do">전라북도</option>
+				  					<option value="전남" class="si_do">전라남도</option>
+				  					<option value="경북" class="si_do">경상북도</option>
+				  					<option value="경남" class="si_do">경상남도</option>
+				  					<option value="제주특별자치도" class="si_do">제주도</option>
 				  				</select>
 							</div>
 							<div class="fl_left" id="location2">

@@ -43,7 +43,7 @@
       INSERT INTO RESERVATION
       VALUES(pay_seq.nextval,#{buy_id},#{buy_carIns},#{buy_startTime},
       #{buy_endTime},#{buy_real_endTime},#{buy_driveDistance},#{buy_startLocation},#{buy_returnLocation},#{buy_real_returnLocation},#{buy_carNum},
-      #{buy_carModel},#{buy_point},#{buy_amount},#{buy_addAmount},#{buy_totalAmount},#{buy_accident},#{buy_coupon},#{buy_discount},#{buy_burum},#{buy_impUid})   <!-- 
+      #{buy_carModel},#{buy_point},#{buy_amount},#{buy_addAmount},#{buy_totalAmount},#{buy_usePoint},#{buy_accident},#{buy_coupon},#{buy_discount},#{buy_useCoupon},#{buy_burum},#{buy_impUid})   <!-- 
          oracle DB의 순서와 일치 시켜주어야한다! -->
    </insert>
 
@@ -67,12 +67,19 @@
       <result property="buy_addAmount" column="buy_addAmount" />
       
       <result property="buy_totalAmount" column="buy_totalAmount" />
+      <result property="buy_usePoint" column="buy_usePoint" />
       <result property="buy_accident" column="buy_accident" />
       <result property="buy_coupon" column="buy_coupon" />
       <result property="buy_discount" column="buy_discount" />
       <result property="buy_burum" column="buy_burum" />
       <result property="buy_impUid" column="buy_impUid" />
    </resultMap>
+   
+   <select id="select" parameterType="pDTO" resultMap="rsMap">
+      SELECT *
+		FROM RESERVATION
+		WHERE buy_impUid = #{buy_impUid}
+   </select>
 
    <select id="selectAll" resultMap="rsMap">
       SELECT * FROM RESERVATION ORDER
