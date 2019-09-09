@@ -600,9 +600,11 @@
           	  		<input type="hidden" id="buy_addAmount" name="buy_addAmount" value="0"> <!-- 추가금액(나중에 추가 됨) -->
           	  		
           	  		<input type="hidden" id="buy_totalAmount" name="buy_totalAmount" value=""> <!-- 총 금액(나중에 추가 됨) -->
+          	  		<input type="hidden" id="buy_usePoint" name="buy_usePoint" value=""> <!-- 총 금액(나중에 추가 됨) -->
           	  		<input type="hidden" id="buy_accident" name="buy_accident" value=""> <!-- 사고정보(나중에 추가 됨) -->
           	  		<input type="hidden" id="buy_coupon" name="buy_coupon" value=""> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_discount" name="buy_discount" value=""> <!-- 할인받은 금액 -->
+          	  		<input type="hidden" id="buy_useCoupon" name="buy_useCoupon" value=""> <!-- 할인받은 금액 -->
           	  		<input type="hidden" id="buy_burum" name="buy_burum" value="${payDTO.buy_burum }"> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_impUid" name="buy_impUid" value=""> <!-- 주문번호(script에서 결제할때 추가 됨) -->
           	  	</form>
@@ -613,6 +615,8 @@
           	  	<input type="hidden" id="memberPoint" value="${memberDTO.point }">
           	  	<script>
 				$("#check_module").click(function () {
+					alert($("#po").val());
+					alert($("#ku").val());
 					var sessionId = '<%=(String)session.getAttribute("sessionId")%>';
 					var coupon_v = $('select[name=coupon_method]').val();
 					var coupon_t = $('#cp_method option:checked').text();
@@ -628,6 +632,8 @@
 					$("#buy_point").val($("#confirm_point").text()); 		
 					$("#buy_amount").val($("#confirm_amount").text()); 
 					$("#buy_totalAmount").val($("#confirm_amount").text()); 
+					$("#buy_usePoint").val($("#po").val());
+					$("#buy_useCoupon").val($("#ku").val());
 					
 					$("#buy_coupon").val(coupon_sp[0]);
 					$("#buy_discount").val(coupon_v);
@@ -720,11 +726,12 @@
 									}
 								});
 							} else {
+								alert("부름 신청안함");
 
 							}
 														
 														
-							if($("#pointUseInput").val() != "") {
+							if($("#po").val() != "0") {
 								alert($("#pointUseInput").val());
 								$.ajax({
 									url:"pointUseInput.do",
@@ -740,11 +747,12 @@
 									}
 								});
 							} else {
+								alert("포인트 적용안함");
 
 							}
 
 
-							if($("#couponSeq").val() == "") {
+							if($("#ku").val() != "0") {
 								$.ajax({
 									url:"couponUsing.do",
 									data : {
@@ -758,6 +766,7 @@
 									}
 								});
 							} else {
+								alert("쿠폰 사용안함");
 
 							}
 
