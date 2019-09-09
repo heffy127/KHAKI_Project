@@ -295,136 +295,71 @@ int endTimeCheck = 0;
        return zero + n;
    }
    
-   
-   function strCheck1() { // 현재년도 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var year0 = String(d.getFullYear());
-      var year = year0.substr(2,3);
-      var strY = $('#startYear').val();
-      if (parseInt(strY)<parseInt(year)) {
-         $('#startYear').val(year);
-      }
-      endCheck5();
-   }
-   
-   function strCheck2() { // 현재월 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var month = String(d.getMonth()+1);
-      month = leadingZeros(month,2);
-      var strY = $('#startMonth').val();
-      if (parseInt(strY)<parseInt(month)) {
-         $('#startMonth').val(month);
-      }
-      endCheck5();
-   }
-   
-   function strCheck3() { // 현재일 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var date = d.getDate();
-      date = leadingZeros(date,2);
-      var strY = $('#startDay').val();
-      if (parseInt(strY)<parseInt(date)) {
-         $('#startDay').val(date);
-      }
-      endCheck5();
-   }
-   
-   function strCheck4() { // 현재 시간 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var hour = d.getHours();
-      hour = leadingZeros(hour,2);
-      var strY = $('#startClock').val();
-      if (parseInt(strY)<parseInt(hour)) {
-         $('#startClock').val(hour);
-      }
-      endCheck5();
-   }
-   
-   function strCheck5() { // 현재 분 보다 이를 경우 얼럿발생
-	   
-	   $('#timeCheck').attr('disabled', true);
-      
-      var allTime = $('#startYear').val() + $('#startMonth').val() + $('#startDay').val() + $('#startClock').val() + $('#startMin').val();
-   
-      var tempY = String(d.getFullYear());
-      tempY = tempY.substr(2,3); // "19"
-      
-      var tempM = d.getMonth()+1;
-      tempM = String(leadingZeros(tempM,2)); // "09"
-      
-      var tempD = d.getDate();
-      tempD = String(leadingZeros(tempD,2)); // "04"
-      
-      var tempH = d.getHours();
-      tempH = String(leadingZeros(tempH,2)); // "13"
+   function startTimeButton() {
+	   var allTimeStr = $('#startYear').val() + $('#startMonth').val() + $('#startDay').val() + $('#startClock').val() + $('#startMin').val();
+	   var tempY = String(d.getFullYear());
+	      tempY = tempY.substr(2,3); // "19"
+	      
+	      var tempM = d.getMonth()+1;
+	      tempM = String(leadingZeros(tempM,2)); // "09"
+	      
+	      var tempD = d.getDate();
+	      tempD = String(leadingZeros(tempD,2)); // "04"
+	      
+	      var tempH = d.getHours();
+	      tempH = String(leadingZeros(tempH,2)); // "13"
 
-      var tempMs = d.getMinutes();
-      tempMs = String(leadingZeros(tempMs,2)); // "35"
-      
-      var allTimePre = tempY + tempM + tempD + tempH + tempMs;
-      
-      if(parseInt(allTimePre) < parseInt(allTime)){
-         
-      } else{
-         $('#startMin').val("00");
-      }
-      endCheck5();
-   }
-   
-   function endCheck1() { // 현재년도 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var year = $('#startYear').val();
-      var strY = $('#endYear').val();
-      if (parseInt(strY)<parseInt(year)) {
-         $('#endYear').val(year);
-      }
-      endCheck5();
-   }
-   
-   function endCheck2() { // 현재년도 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var month = $('#startMonth').val();
-      month = leadingZeros(month,2);
-      var strY = $('#endMonth').val();
-      if (parseInt(strY)<parseInt(month)) {
-         $('#endMonth').val(month);
-      }
-      endCheck5();
-   }
-   function endCheck3() { // 현재년도 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var date = $('#startDay').val();
-      date = leadingZeros(date,2);
-      var strY = $('#endDay').val();
-      if (parseInt(strY)<parseInt(date)) {
-         $('#endDay').val(date);
-      }
-      endCheck5();
-   }
-   function endCheck4() { // 현재시간 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var hour = $('#startClock').val();
-      hour = leadingZeros(parseInt(hour),2);
-      var strY = $('#endClock').val();
-      if (parseInt(strY)<hour) {
-         $('#endClock').val(hour);
-      }
-      endCheck5();
-   }
-   function endCheck5() {
-      var allTimeStr = $('#startYear').val() + $('#startMonth').val() + $('#startDay').val() + $('#startClock').val() + $('#startMin').val();
-      var allTimeEnd = $('#endYear').val() + $('#endMonth').val() + $('#endDay').val() + $('#endClock').val() + $('#endMin').val();
-      var allTime = parseInt(allTimeEnd) - parseInt(allTimeStr);
-      if(allTime <= 0){
-         alert("시간을 다시 설정해주세요. \n (시작시간이 현재보다 빠르거나 \n 반납시간이 시작 시간보다 이르게 입력되었음)");
-         $('#endMin').val("00");
-         $('#timeCheck').attr('disabled', true);
-      } else{
-         $('#timeCheck').attr('disabled', false);
-      }
-   }
-   
-   
+	      var tempMs = d.getMinutes();
+	      tempMs = String(leadingZeros(tempMs,2)); // "35"
+	      
+	      var allTimePre = tempY + tempM + tempD + tempH + tempMs;
+	   if(allTimeStr>=allTimePre){
+		   alert("선택되었습니다.")
+		   $('#endTimeButton').attr('disabled', false);
+		   $('#startTimeButton').attr('disabled', true);
+		   $('#startYear').attr('disabled', true);
+		   $('#startMonth').attr('disabled', true);
+		   $('#startDay').attr('disabled', true);
+		   $('#startClock').attr('disabled', true);
+		   $('#startMin').attr('disabled', true);
+	   } else{
+		   alert("현재시간 이후로 입력해주세요.")
+	   }
+}
+   function endTimeButton() {
+	   var allTimeStr = $('#startYear').val() + $('#startMonth').val() + $('#startDay').val() + $('#startClock').val() + $('#startMin').val();
+	   var allTimeEnd = $('#endYear').val() + $('#endMonth').val() + $('#endDay').val() + $('#endClock').val() + $('#endMin').val();
+	      var allTime = parseInt(allTimeEnd) + 100 - parseInt(allTimeStr);
+	      if(allTime >= 0){
+	         //$('#endMin').val("00");
+	         alert("선택되었습니다.")
+	         $('#endTimeButton').attr('disabled', true);
+		     $('#endYear').attr('disabled', true);
+		     $('#endMonth').attr('disabled', true);
+		     $('#endDay').attr('disabled', true);
+		     $('#endClock').attr('disabled', true);
+		     $('#endMin').attr('disabled', true);
+	         $('#timeCheck').attr('disabled', false);
+	      } else{
+	    	  alert("시작시간 이후로 입력해주세요.")
+	         $('#timeCheck').attr('disabled', true);
+	      }
+}
+   function timeReset() {
+	   $('#endTimeButton').attr('disabled', true);
+	   $('#startTimeButton').attr('disabled', false);
+	   $('#startYear').attr('disabled', false);
+	   $('#startMonth').attr('disabled', false);
+	   $('#startDay').attr('disabled', false);
+	   $('#startClock').attr('disabled', false);
+	   $('#startMin').attr('disabled', false);
+	   $('#endYear').attr('disabled', false);
+	   $('#endMonth').attr('disabled', false);
+	   $('#endDay').attr('disabled', false);     
+	   $('#endClock').attr('disabled', false);
+	   $('#endMin').attr('disabled', false);
+       $('#timeCheck').attr('disabled', true);
+}
    function reset() {
       var zones = "0,1,2,3,4,5,6,7,8,9,";
       var buy_startTime = null;
@@ -659,22 +594,23 @@ function reservation() {
    // buy_endTime  =  1909051320
    var strMin = parseInt(buy_startTime.substr(8,2));
    var endMin = parseInt(buy_endTime.substr(8,2));
+   var strHour = parseInt(buy_startTime.substr(6,2));
+   var endHour = parseInt(buy_endTime.substr(6,2));
+   
    if ((endMin-strMin)>=0){
 	   use_min = endMin-strMin;
    } else {
 	   use_min = 60-(strMin-endMin);
+	   endHour = endHour - 1;
    }
  //------
-   var strHour = parseInt(buy_startTime.substr(6,2));
-   var endHour = parseInt(buy_endTime.substr(6,2));
-   alert(endHour-strHour);
    if ((endHour-strHour)>=0){
 	   use_hour = endHour-strHour;
    } else {
 	   use_hour = 24-(strHour-endHour);
+	   
    }
  //------
-   /*  */
    $.ajax({
          type : "GET",
          url : "carNumSearch.do",
@@ -1019,6 +955,9 @@ function reservation() {
                                                 <option value="30">30</option><option value="40">40</option><option value="50">50</option>
                                              </select>
                                              </td>
+                                             <td>
+                                             <button class="btn btn-outline-default" id="startTimeButton" onclick="startTimeButton()">입력<br>하기</button>
+                                             </td>
                                           </tr>
                                           </div>
                                           <div>
@@ -1074,11 +1013,15 @@ function reservation() {
                                                 <option value="30">30</option><option value="40">40</option><option value="50">50</option>
                                              </select>
                                              </td>
+                                             <td>
+                                             <button class="btn btn-outline-default" id="endTimeButton" disabled="true" onclick="endTimeButton()">시간<br>입력</button>
+                                             </td>
                                           </tr>
                                           </div>
                                        </table>
                                     </div>
                                     <div class="modal-footer">
+                                       <button type="button" class="btn btn-outline-danger" onclick="timeReset()">초기화</button>
                                        <button id="timeCheck" type="button" class="btn btn-primary" data-toggle="modal" data-target="#reservation2" onclick="modalClose1()" disabled="true">다음</button>
                                     </div>
                                  </div>

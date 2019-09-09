@@ -1,6 +1,6 @@
-<%@page import="co.kr.khaki.notice.NoticeDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--
 
 =========================================================
@@ -21,13 +21,11 @@
 
 <head>
   <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
     1등 카셰어링, khaki
   </title>
-  <!-- Jquery CDN -->
-  <script src="https://code.jquery.com/jquery-latest.js"></script>  
-
   <!-- Favicon -->
   <link href="resources/assets/img/brand/favicon.png" rel="icon" type="image/png">
   <!-- Fonts -->
@@ -37,9 +35,47 @@
   <link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
-  <!-- Google font  -->
-  <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Pen+Script&display=swap" rel="stylesheet">
+  <!-- JQuery CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
+  <!-- 스마트 에디터  -->
+  <script src="https://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" src="./resources/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
+  <script type="text/javascript">
+  	$(function(){
+  		// 전역변수
+  		var obj = [];
+  		// 스마트 에디터 프레임 생성
+  		nhn.husky.EZCreator.createInIFrame({
+            oAppRef: obj,
+            elPlaceHolder: "content",
+            sSkinURI: "./resources/smarteditor2/SmartEditor2Skin.html",
+            htParams : {
+                // 툴바 사용 여부
+                bUseToolbar : true,            
+                // 입력창 크기 조절바 사용 여부
+                bUseVerticalResizer : true,    
+                // 모드 탭(Editor | HTML | TEXT) 사용 여부
+                bUseModeChanger : true,
+            }
+        });
+        //전송버튼
+        $("#insertBoard").click(function(){
+            //id가 smarteditor인 textarea에 에디터에서 대입
+            obj.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+            //폼 submit
+            var title = $("#title").text();
+            if(title == null){
+            	alert("제목을 입력해주세요.")
+            }else{
+            	alert("게시글이 등록되었습니다.")
+	            $("#insertBoardFrm").submit();
+            }
 
+        });
+    });
+  	
+  </script>
 </head>
 
 <body class="">
@@ -109,7 +145,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <a href="home.do">
-                <img src="resources/assets/img/brand/khaki_logo.png">
+                <img src="resources/assets/img/brand/khaki2.png">
               </a>
             </div>
             <div class="col-6 collapse-close">
@@ -145,12 +181,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="board.do">
+            <a class="nav-link active" href="board.do">
               <i class="ni ni-bullet-list-67 text-blue"></i> board
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="notice.do">
+            <a class="nav-link " href="notice.do">
               <i class="ni ni-air-baloon text-red"></i> Notice
             </a>
           </li>
@@ -190,7 +226,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Notice</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Board <i class="fas fa-pencil-alt"></i></a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -247,219 +283,61 @@
     </nav>
     <!-- End Navbar -->
     <!-- Header -->
-    <div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+    <div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
       <div class="container-fluid">
         <div class="header-body">
-          <!-- Card stats -->
         </div>
       </div>
     </div>
     
-    <!-- 
-    	넣을 기능들
-    	공지
-	    	- 조회수, 추천, 공지기능(공지로 표시하면 맨 윗단에 표시 되도록 설정)
-    		- 이미지 추가하면 표시 되도록
-    		- 답글 기능(다음 카페 참조하여 답글을 달면 내용에서 조금 밀려서 표시 되도록, 즉 구분되도록!)
-    		- 댓글 기능
-    		- 포토업로더, editor 기능 구현
-    		- 
-    
-     -->
-    <%
-    	NoticeDTO ndto = (NoticeDTO)request.getAttribute("ndto");
-    %>
-    
-	<script type="text/javascript">
-	
-  	$(function(){
-  		$("#deletebtn").click(function(){
-  			location.href = "noticeDelete.do?notice_num="+<%= ndto.getNotice_num()%>+"&curPage="+${curPage}+"&pageSize="+${pageSize};
-  		});	//delete button click end
-  		
-  		$("#updatebtn").click(function(){
-  			location.href = "noticeUpdate1.do?notice_num="+<%= ndto.getNotice_num()%>+"&curPage="+${curPage}+"&pageSize="+${pageSize};
-  		});	//update button click end
-  		
-  	});	//Jquery End
-  
-  	</script>
-    <!-- white 테마 사용 -->
-    <div class="container-fluid mt--7">
-      <!-- Table -->
-      <div class="row">
-        <div class="col">
-          <div class="card shadow">
-            <div class="card-header border-0">
-              <h3 class="mb-0">공지사항</h3>
-            </div>	<!-- card-header border End -->
-            <div class="card-body">
-            	<form action="noticeInsertProcess.do">
-            		<div class="row">
-	            		<div class="col-md-6">
-					      <div class="form-group">
-					      	<%
-					      	if(ndto.getNotice_type().equals("P")){
-				      		%>
-					      	<div class="custom-control custom-radio mb-3">
-							  <input name="notice_type" class="custom-control-input" id="customRadio5" type="radio" value="P" checked="checked">
-							  <label class="custom-control-label" for="customRadio5">공지</label>
-							</div>
-					      	<%
-					      	}else if(ndto.getNotice_type().equals("A")){
-					      		
-			      		 	%>
-							<div class="custom-control custom-radio mb-3">
-							  <input name="notice_type" class="custom-control-input" id="customRadio6" type="radio" value="A" checked="checked">
-							  <label class="custom-control-label" for="customRadio6">광고</label>
-							</div>
-					      	<%
-					      	}else if(ndto.getNotice_type().equals("E")){
-					      		
-			      		 	%>
-							<div class="custom-control custom-radio mb-3">
-							  <input name="notice_type" class="custom-control-input" id="customRadio6" type="radio" value="E" checked="checked">
-							  <label class="custom-control-label" for="customRadio7">이벤트</label>
-							</div>
-							<%
-					      	}else{
-			      		 	%>
-							<div class="custom-control custom-radio mb-3">
-							  <input name="notice_type" class="custom-control-input" id="customRadio8" type="radio" value="G" checked="checked">
-							  <label class="custom-control-label" for="customRadio7">일반</label>
-							</div>
-							<%
-					      	}
-					      	%>
-					      </div>
-					    </div>
-            		</div>
-            		<div class="row" style="font-family: 'Black Han Sans', sans-serif;">
-            			<div class="col-md-9">
-            				<div class="row">
-		            			<div class="col-md-6" align="left">
-		            				글번호 : <%=ndto.getNotice_num() %>
-		            			</div>
-		            			<div class="col-md-6" align="right">
-		            				조회수 : <%=ndto.getHit() %> | 작성일시 : <%=ndto.getWrite_date() %>
-		            			</div>
-            				</div>
-            			</div>
-            		</div>
-            		<div class="row" style="font-family: 'Nanum Pen Script', cursive;"> 	<!-- row는 한 행을 구분 짓는 것 -->
-					    <div class="col-md-9">
-					      <div class="form-group">	
-					        <input style="font-size: 20px;" type="text" class="form-control" name="title" placeholder="" readonly="readonly" value="<%=ndto.getTitle() %>">
-					      </div>
-					    </div>
-				  	</div>
-					<div class="row" style="font-family: 'Nanum Pen Script', cursive;">
-					    <div class="col-md-9">
-					      <div class="form-group">
-					      <!-- 일단은 session에서 id 받아오는 것 대신 test 아이디 넣음 -->
-					        <input style="font-size: 20px;" type="text" class="form-control" value="<%=ndto.getWriter() %>" readonly="readonly" name="writer">
-					      </div>
-					    </div>
-				  	</div>
-					<div class="row" style="font-family: 'Nanum Pen Script', cursive;">
-						<div class="col-md-9">
-							<div class="form-group">
-								<div class="card" style="width: 100%; background-color: #fafafa;">
-									<div style="font-size: 25px;"  class="card-body">
-										<%=ndto.getContent() %>
+    <!-- 게시글 작성  -->
+	    <div class="container-fluid mt--7">
+	      <div class="row">
+	        <div class="col">
+	          <div class="card shadow border-0" style="padding: 5% 10% 5% 10%;">
+			    <div id="board" style="width: 100%; padding: 5% 10% 5% 10%;">
+		    		<div style=" width:800px; height: 30px; ">
+						<div style="repeat-x; text-align:center;">
+							<div ></div> 
+							<div align="center"><h2>자유게시판</h2></div>
+						</div>
+					</div>
+					<form action="claimInsert.do" method="POST" id="insertBoardFrm" enctype="multipart/form-data">
+						<div>
+				   			<div class="form-group">
+			            		<h3>제목 </h3>
+			           			<input type="text" id="title" name="claim_category" placeholder="제목을 입력하세요." style="left:92px; height:27px; width:700px; margin-top: -5px;">
+					   		</div>
+				        	<div>
+				        	<!-- 관리자 권한  -->
+				           		<div style="width: 100px;"><h3>글 카테고리 </h3>
+									<div><input type="radio" id="category" name="category" value="free" checked>일반
+									<input type="radio" id="category" name="category" value="notice">공지 <br>
 									</div>
 								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<button type="button" class="btn btn-outline-success" id="updatebtn">수정</button>
-							<button type="button" class="btn btn-outline-success" id="deletebtn">삭제</button>
-							<input type="button" class="btn btn-outline-success" onclick="history.back(-1);" value="뒤로가기">
-						</div>
-					</div>
-					<input type="hidden" name="notice_num" value="1">	<!-- 게시판 번호 1씩 더해서 들어갈 수 있도록(어떤방식으로? DB에서 가장 높은 수 가져와서 +1 or autoincrement처럼 되는 기능 확인 -->
-					<!-- value값이 의미 없이 mapper에서 oracle 내부에서 시퀀스로 들어가게끔 만듦 -->
-					<input type="hidden" name="image" value="empty">	<!-- 이미지 넣는 것은 포토 업로더 작업 시 같이 진행 -->
-					<input type="hidden" name="hit" value="1">	<!-- 조회수(다른 아이디로 접속 시 플러스 되도록), 게시판 메인화면(notice.jsp)에서 확인 되고 나서 작성 -->
-					<input type="hidden" name="write_date" value="sysdate">	
-					
-					<!-- <input type="hidden" name="write_date" value="null"> -->
-            	</form>
-            </div>	<!-- card-body End -->
-           	<!-- <div class="card-footer py-4">
-              <nav aria-label="...">
-                <ul class="pagination justify-content-end mb-0">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">
-                      <i class="fas fa-angle-left"></i>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">
-                      <i class="fas fa-angle-right"></i>
-                      <span class="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>	card-footer End -->
-          </div>	<!-- card End -->
-        </div>	<!-- col End -->
-      </div>	<!-- row End -->
-    </div>	<!-- container-fluid mt--7 End -->
-      <!-- Footer -->
-      <footer class="footer">
-        <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-              &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-            </div>
-          </div>
-          <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer>
-    </div>	<!-- main-content End -->
-   <!-- </div> -->
-  <!--   Core   -->
-  <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
-  <script src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <!--   Optional JS   -->
-  <!--   Argon JS   -->
-  <script src="resources/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
-  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  <script>
-    window.TrackJS &&
-      TrackJS.install({
-        token: "ee6fab19c5a04ac1a32a645abde4613a",
-        application: "argon-dashboard-free"
-      });
-  </script>
+							<!-- 관리자 권한  END -->
+				        	</div>
+				        		<div>
+					           		<div style="width: 100px;"><h3>글 작성자 </h3></div>
+									<div><input id="writer" name="claim_id" value=${sessionName } readonly="readonly"></div>
+				        		</div>
+				        		<div>
+				        			<div><h3>내용</h3></div>
+				            		<div>
+				    					<textarea class="form-control" name="claim_content" id="content" rows="20" cols="50"></textarea>
+				    				</div>
+				    			</div>
+			    		</div>
+				   			<button type="button" id="insertBoard" class="btn btn-outline-success" style="margin-left:330px;">게시글 등록</button>
+				   			<button type="button" class="btn btn-outline-danger" OnClick="javascript:history.back(-1)">취소</button>
+					</form>
+			   		</div>
+	        	</div>
+	        </div>
+	      </div>
+	   	</div>
+	  	</div>
+  
 </body>
-
 
 </html>

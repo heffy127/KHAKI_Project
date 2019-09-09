@@ -80,6 +80,11 @@ public class MemberDAO {
 		System.out.println("point, 카운트 증가 성공");
 	}
 	
+	public void minusPointCount(PayDTO payDTO) {
+		my.update("memberDAO.minusPointCount", payDTO);
+		System.out.println("point 차감 성공");
+	}
+	
 	public void updatePw(MemberDTO memberDTO) {
 		my.update("memberDAO.updatePw", memberDTO);
 		System.out.println("비밀번호 변경 성공");

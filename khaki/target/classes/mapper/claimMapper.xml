@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="claimDAO">
+
+   <select id="selectCar" parameterType="String" resultMap="rsMap">
+      SELECT car_num, zone_num FROM
+      car_board   WHERE car_name = #{buy_carModel}
+   </select>
+
+   <resultMap type="claimDTO" id="rsMap">
+      <result property="claim_num" column="claim_num" />
+      <result property="claim_id" column="claim_id" />
+      <result property="claim_resNum" column="claim_resNum" />
+      <result property="claim_category" column="claim_category" />
+      <result property="claim_content" column="claim_content" />
+      <result property="claim_result" column="claim_result" />
+      <result property="claim_suspect" column="claim_suspect" />
+      <result property="claim_punishment" column="claim_punishment" />
+   </resultMap>
+
+   <select id="selectAll" resultMap="rsMap">
+      SELECT * FROM car_board
+   </select>
+
+   <insert id="insert" parameterType="claimDTO">
+      INSERT INTO car_board
+      VALUES(
+      claim_seq.NEXTVAL,
+      #{claim_id},#{claim_resNum},
+      #{claim_category},
+      #{claim_content},
+      #{claim_result},
+      #{claim_suspect},
+      #{claim_punishment}
+      )
+      <!--oracle DB의 순서와 일치 시켜주어야한다! -->
+   </insert>
+
+   <update id="update" parameterType="claimDTO">
+      UPDATE car_board
+      SET
+      car_Name=#{car_Name},
+      driven=#{driven},
+      fuel_type=#{fuel_type},
+      fuel_gage=#{fuel_gage},
+      loc_Pre=#{loc_Pre},
+      loc_Zone=#{loc_Zone},
+      time_Pre=#{time_Pre},
+      time_Post=#{time_Post},
+      fee_hour=#{fee_hour},
+      fee_km=#{fee_km}
+      WHERE
+      car_Num = #{car_Num}
+   </update>
+
+   <delete id="delete" parameterType="claimDTO">
+      DELETE FROM car_board WHERE
+      car_Num = #{car_Num}
+   </delete>
+
+</mapper>

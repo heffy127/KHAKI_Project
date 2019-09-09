@@ -38,7 +38,7 @@
  				var num = 0;
  				
  				// 차량번호 입력한 것을 그대로 받아와서 넘겨줌
- 				var carnum_data = $("#carnum").val(); 
+ 				var carnum_data = $("#car_num").val(); 
  				$("#carnum1").val(carnum_data);
  				
  				//배열 순서대로 타이밍벨트, 구동벨트, 엔진오일, 변속기오일, 브레이크 오일, 에어컨필터, 연료필터, 에어클리너, 냉각수, 배터리, 타이어 순서
@@ -124,8 +124,8 @@
 				
 				$("#car_dropDown").text(data2);
 		        $("#carname").val(arr[0]);		// DB에 차량 이름 저장
-		        $("#img").val(arr[0]+".png");	// DB에 저장하기 위해(.png를 붙여서 저장해줌)
-		        $("#car_img").attr("src", "resources/assets/img/car/"+arr[0]+".png");	//차량 이미지 나오게 하는 곳
+		        $("#car_image").val("resources/assets/img/car/"+arr[0]+".png");	// DB에 저장하기 위해(.png를 붙여서 저장해줌)
+		        $("#car_image").attr("src", "resources/assets/img/car/"+arr[0]+".png");	//차량 이미지 나오게 하는 곳
 		        
 		        //form 태그 내의 hidden에 val메소드를 통해 값을 넣어서 넘겨줌
 		        $("#car_size").val(arr[1]);
@@ -467,12 +467,12 @@
 	            					<div class="form-group">
 		            					<div class="row">
 		            						<div class="col col-sm-9">
-		            							<input type="text" class="form-control" id="carnum" name="carnum" placeholder="차량번호">
+		            							<input type="text" class="form-control" id="car_num" name="car_num" placeholder="차량번호">
 		            						</div>
 		            					</div>
 		            					<div class="row">
 		            						<div class="col col-sm-9">
-		            							<input type="text" class="form-control" id="total_distance" name="distance" placeholder="총 운행 Km">
+		            							<input type="text" class="form-control" id="carnum" name="driven" placeholder="총 운행 Km">
 		            						</div>
 		            					</div>
 		            					<!-- 순서 : 브랜드 -> 차량명 -> 연료, 사이즈 저절로 나오게 -->
@@ -552,9 +552,8 @@
 		            					</div>
 		            					
 		            					<!-- form에 넘어가는 값들 -->
-		            					<input type="hidden" name="khaki_num" value="3">	<!-- value값이 의미 없음 -->
 	            						<input type="hidden" name="reg_date" value="20190821">	<!-- value값이 의미 없음 -->
-	            						<input type="hidden" name="img" id="img">
+	            						<input type="hidden" name="car_image" id="car_image">
 		            					<input type="hidden" name="carname" id="carname">
 		            					<input type="hidden" class="form-control" name="brand" id="brand">
 		            					<input type="hidden" class="form-control" name="fuel" id="fuel">

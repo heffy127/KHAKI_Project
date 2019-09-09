@@ -13,13 +13,13 @@
    <select id="search2_1" parameterType="pDTO" resultMap="str">
       SELECT COUNT(*) as cnt FROM
       reservation WHERE
-      buy_carNum=#{buy_carNum} AND buy_endTime>#{buy_startTime} AND #{buy_endTime}>buy_endTime
+      buy_carNum=#{buy_carNum} AND buy_endTime>=#{buy_startTime} AND #{buy_endTime}>=buy_endTime
    </select>
    
    <select id="search2_2" parameterType="pDTO" resultMap="str">
       SELECT COUNT(*) as cnt FROM
       reservation WHERE
-      buy_carNum=#{buy_carNum} AND buy_startTime>#{buy_startTime} AND #{buy_endTime}>buy_startTime
+      buy_carNum=#{buy_carNum} AND buy_startTime>=#{buy_startTime} AND #{buy_endTime}>=buy_startTime
    </select>
    
    <select id="selectEndTime" parameterType="pDTO" resultMap="str">

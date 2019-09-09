@@ -465,8 +465,9 @@
 					<input type="hidden" name="image" value="empty">	<!-- 이미지 넣는 것은 포토 업로더 작업 시 같이 진행 -->
 					<!-- <input type="hidden" name="hit" value="1"> -->	<!-- 조회수(다른 아이디로 접속 시 플러스 되도록), 게시판 메인화면(notice.jsp)에서 확인 되고 나서 작성 -->
 					<!-- <input type="hidden" name="write_date" value="sysdate"> -->	
-					
 					<!-- <input type="hidden" name="write_date" value="null"> -->
+					<input type="hidden" name="curPage" value="${curPage}">
+					<input type="hidden" name="pageSize" value="${pageSize}">
             	</form>
             </div>	<!-- card-body End -->
            	<div class="card-footer py-4">
