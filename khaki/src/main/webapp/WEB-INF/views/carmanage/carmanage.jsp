@@ -19,6 +19,12 @@
 	  		//페이지 넘버 확인
 	  	};
 	
+	  	function change_pagesize(pageSize, curPage){
+	  		alert(pageSize +" / "+ curPage);
+	  		location.href = "notice.do?curPage="+curPage+"&pageSize="+pageSize;
+	  	}
+	  	
+	  	
 		$(function(){
 			
 			// 차량 검색
@@ -486,39 +492,57 @@
             		</div>
             	</div>
             </div>	<!-- cardbody End -->
-          </div>
-          <div class="card-footer">
-          	<div class="row">
-	          	<div class="col col-sm-4">
-	          	</div>
-	          	<div class="col col-sm-4">
-	          		<c:if test="${pagination.curRange ne 1 }">
-                        <a href="#" onClick="fn_paging(1)">[처음]</a> 
-                    </c:if>
-                    <c:if test="${pagination.curPage ne 1}">
-                        <a href="#" onClick="fn_paging('${pagination.prevPage }')">[이전]</a> 
-                    </c:if>
-                    <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
-                        <c:choose>
-                            <c:when test="${pageNum eq pagination.curPage}">
-                                <span style="font-weight: bold;"><a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a></span> 
-                            </c:when>
-                            <c:otherwise>
-                                <a href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a> 
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                    <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
-                        <a href="#" onClick="fn_paging('${pagination.nextPage }')">[다음]</a> 
-                    </c:if>
-                    <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
-                        <a href="#" onClick="fn_paging('${pagination.pageCnt }')">[끝]</a> 
-                  	</c:if>
-	          	</div>
-	          	<div class="col col-sm-4">
-	          	</div>
-          	
-          	</div>
+	          <div class="card-footer py-4" align="center">
+	          	<nav aria-label="Page navigation example">
+				  <ul class="pagination pagination-lg justify-content-center">
+				 	<c:if test="${pagination.curRange ne 1 }">
+				 	  <li class="page-item">
+	                       <a href="#" onClick="fn_paging(1)">[처음]</a> 
+	                     </li>
+	                   </c:if>
+	                   <c:if test="${pagination.curPage ne 1}">
+	                     <li class="page-item">
+	                       <a class="page-link" href="#" onClick="fn_paging('${pagination.prevPage }')" aria-label="Previous">
+	                       	<i class="fa fa-angle-left"></i>
+					        <span class="sr-only">Previous</span>
+				        </a> 
+			          </li>
+	                   </c:if>
+	                   <!-- 페이지 숫자 표시 부분 -->
+	                   <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
+	                       <c:choose>
+	                           <c:when test="${pageNum eq pagination.curPage}">
+	                           	<li class="page-item active">
+	                           		<a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }<span class="sr-only">(current)</span></a>
+	                          		</li>
+	                           </c:when>
+	                           <c:otherwise>
+	                           	<li class="page-item">
+	                           		<a class="page-link" href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+	                          		</li>
+	                           </c:otherwise>
+	                       </c:choose>
+	                   </c:forEach>
+	                   <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
+	                   	<li class="page-item">
+	                      		<a class="page-link" href="#" onClick="fn_paging('${pagination.nextPage }')" aria-label="Next">
+						        <i class="fa fa-angle-right"></i>
+						        <span class="sr-only">Next</span>
+							</a> 
+						</li>
+						
+	                   </c:if>
+	                   <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
+	                       <li class="page-item">
+					      <a class="page-link" href="#" onClick="fn_paging('${pagination.pageCnt }')" aria-label="Next">
+					        <i class="fa fa-angle-right"></i>
+					        <span class="sr-only">Next</span>
+					      </a>
+					    </li>
+	                 	</c:if>
+	                 	</ul>
+				</nav>
+	          </div>
           </div>
         </div>
       </div>

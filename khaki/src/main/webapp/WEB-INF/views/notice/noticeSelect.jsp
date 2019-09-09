@@ -274,11 +274,11 @@
 	
   	$(function(){
   		$("#deletebtn").click(function(){
-  			location.href = "noticeDelete.do?notice_num="+<%= ndto.getNotice_num()%>;
+  			location.href = "noticeDelete.do?notice_num="+<%= ndto.getNotice_num()%>+"&curPage="+${curPage}+"&pageSize="+${pageSize};
   		});	//delete button click end
   		
   		$("#updatebtn").click(function(){
-  			location.href = "noticeUpdate1.do?notice_num="+<%= ndto.getNotice_num()%>;
+  			location.href = "noticeUpdate1.do?notice_num="+<%= ndto.getNotice_num()%>+"&curPage="+${curPage}+"&pageSize="+${pageSize};
   		});	//update button click end
   		
   	});	//Jquery End
