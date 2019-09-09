@@ -74,7 +74,7 @@ public class CarManageController {
 	}
 	
 	@RequestMapping("carmanage.do")
-	public String carmanage(Model model, @RequestParam(defaultValue="1") int curPage){
+	public String carmanage(Model model, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="10") int pageSize){
 		
 		//selectJunggo
 		System.out.println("carmanage select_junggo");
@@ -92,7 +92,7 @@ public class CarManageController {
 		
 		int listCnt = cmlist.size();
 		//pagination 객체 생성
-		pagination pg = new pagination(listCnt, curPage);
+		pagination pg = new pagination(listCnt, curPage, pageSize);
 		
 		
 		// model로 객체 전송
@@ -122,7 +122,7 @@ public class CarManageController {
 	
 	@RequestMapping("carmanageInsertDB.do")
 	public String carmanageInsertDB(CarManageDTO carManageDTO, CarConsumableDTO carConsumableDTO, 
-			@RequestParam(defaultValue="1") int curPage, Model model){
+			@RequestParam(defaultValue="1") int curPage, Model model, @RequestParam(defaultValue="10") int pageSize){
 		
 		System.out.println("CMcontroller Insert!");
 		cmdao.insert(carManageDTO);
@@ -143,7 +143,7 @@ public class CarManageController {
 		List<CarManageDTO> oldlist = cmdao.selectold();
 		
 		int listCnt = cmlist.size();
-		pagination pg = new pagination(listCnt, curPage);
+		pagination pg = new pagination(listCnt, curPage, pageSize);
 		
 		//CarList 객체 생성
 		CarList carList = new CarList();
