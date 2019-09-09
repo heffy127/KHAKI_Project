@@ -158,7 +158,7 @@
             </div>
           </div>
         </form>
-<!-- 왼쪽 공통 메뉴 -->
+		<!-- 왼쪽 공통 메뉴 -->
         <ul class="navbar-nav">
           <li class="nav-item ">
              <a class=" nav-link" href="home.do"> 
@@ -226,7 +226,7 @@
                   <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                        <div class="media align-items-center">
                          <span class="avatar avatar-sm rounded-circle">
-                           <img alt="Image placeholder" src="${sessionPhoto}">
+                           <img alt="Image placeholder" src="${sessionPhoto}" style="width: 40px; height: 40px;">
                          </span>
                          <div class="media-body ml-2 d-none d-lg-block">
                            <span class="mb-0 text-sm  font-weight-bold">${sessionName} 님</span>
@@ -299,8 +299,7 @@
                 <!-- 프로필 이미지 -->
                 <div class="card-profile-image" >
                      <a href="#none" id="profilePhotoBtn">
-                       <img src="${memberDTO.photo}"
-                        class="rounded-circle" id="photoImg"
+                       <img src="${memberDTO.photo}" class="rounded-circle" id="photoImg" style="width: 180px; height: 180px;"
                         data-toggle="tooltip" data-placement="top" title="프로필 사진 변경하기!">
                      </a>
                 </div>
