@@ -11,6 +11,7 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 
 import co.kr.khaki.member.LicenseDAO;
 import co.kr.khaki.member.LicenseDTO;
+import co.kr.khaki.member.MemberAllDTO;
 import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.member.MemberDTO;
 import co.kr.khaki.member.MemberLevelDAO;
@@ -32,15 +33,28 @@ public class AdminController {
 		return "admin/admin";
 	}
 	
+	// 관리자 페이지 검색
+	@RequestMapping("admin_search.do")
+	public String admin_search(MemberDTO memberDTO ,Model model) {	
+		if(memberDTO.getId() != null) {
+			System.out.println(memberDTO.getId());
+			memberDTO = memberDAO.selectId(memberDTO.getId());
+			model.addAttribute("memberDTO", memberDTO);
+		} else if(memberDTO.getName() != null) {
+			System.out.println(memberDTO.getName());
+			memberDTO = memberDAO.selectId(memberDTO.getName());
+			model.addAttribute("memberDTO", memberDTO);
+		}
+		
+		return "member/manage/memberAll";
+	}
+	
 	// 관리자 회원 관리 창
 	@RequestMapping("admin_memberAll.do")
 	public String admin_memberAll(Model model) {	
-		List<MemberDTO> memberList = memberDAO.selectAll();
-		List<MemberLevelDTO> memberLevelList = memberLevelDAO.selectAll();
-		List<LicenseDTO> licenseList = licenseDAO.selectAll();
-		model.addAttribute("memberList", memberList);
-		model.addAttribute("memberLevelList", memberLevelList);
-		model.addAttribute("licenseList", licenseList);
+		List<MemberAllDTO> memberAllList = memberDAO.selectAll_admin(); 
+		model.addAttribute("memberAllList",memberAllList);
+		
 		return "member/manage/memberAll";
 	}
 

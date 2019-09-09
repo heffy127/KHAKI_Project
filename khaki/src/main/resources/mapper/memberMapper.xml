@@ -4,6 +4,26 @@
 
 <mapper namespace="memberDAO">
 
+	<resultMap type="memberAllDTO" id="rsMap_admin">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="email_id" column="email_id" />
+		<result property="email_site" column="email_site" />
+		<result property="phone1" column="phone1" />
+		<result property="phone2" column="phone2" />
+		<result property="phone3" column="phone3" />
+		<result property="postcode" column="postcode" />
+		<result property="address1" column="address1" />
+		<result property="address2" column="address2" />
+		<result property="address3" column="address3" />
+		<result property="point" column="point" />		
+		<result property="smsPush" column="smsPush" />
+		<result property="emailPush" column="emailPush" />
+		<result property="photo" column="photo" />
+		<result property="memberLevel" column="memberLevel" />
+		<result property="permission" column="permission" />
+	</resultMap>
+	
 	<resultMap type="memberDTO" id="rsMap">
 		<result property="id" column="id" />
 		<result property="pw" column="pw" />
@@ -28,6 +48,12 @@
 		SELECT *
 		FROM member
 		WHERE id = #{id}
+	</select>
+	
+	<select id="selectName" parameterType="String" resultMap="rsMap">
+		SELECT *
+		FROM member
+		WHERE name = #{name}
 	</select>
 
 	<select id="selectEmail" parameterType="memberDTO" resultMap="rsMap">
@@ -66,10 +92,15 @@
 		WHERE phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3} and name = #{name} and id = #{id}
 	</select>
 
-	<select id="selectAll" resultMap="rsMap">
-		SELECT * FROM member
+	<select id="selectAll_admin" resultMap="rsMap_admin">
+		select s.id, s.name, s.email_id, s.email_site, s.phone1, s.phone2, s.phone3, s.postcode, s.address1, 
+		s.address2, s.address3, s.point, s.smspush, s.emailpush, s.photo, s.memberlevel, l.permission from 
+		(select m.id, m.name, m.email_id, m.email_site, m.phone1, m.phone2, m.phone3,
+		m.postcode, m.address1, m.address2, m.address3, m.point, m.smspush, m.emailpush, m.photo, ml.memberlevel
+		from member m, memberLevel ml where ml.id = m.id) s Left outer join license l on s.id = l.id 
+		where s.id not like 'admin%' and s.name not like '관리자'
 	</select>
-
+	
 	<!-- 회원가입 정보 주입 -->
 	<insert id="insertMember" parameterType="memberDTO">
 		INSERT INTO member (id, pw, name, email_id, email_site, phone1, phone2, phone3, postcode, address1, address2, address3, smsPush, emailPush, handler)

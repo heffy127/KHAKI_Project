@@ -20,6 +20,12 @@ public class MemberDAO {
 		System.out.println("selectId member 성공");
 		return memberDTO;
 	}
+	
+	public MemberDTO selectName(String name) {
+		MemberDTO memberDTO = my.selectOne("memberDAO.selectName", name);
+		System.out.println("selectName member 성공");
+		return memberDTO;
+	}
 
 	public MemberDTO selectEmail(MemberDTO memberDTO) {
 		MemberDTO result = my.selectOne("memberDAO.selectEmail", memberDTO);
@@ -114,9 +120,9 @@ public class MemberDAO {
 		System.out.println("회원정보 삭제");
 	}
 	
-	public List<MemberDTO> selectAll() {
-		List<MemberDTO> list = my.selectList("memberDAO.selectAll");
-		System.out.println("selectAll 성공");
+	public List<MemberAllDTO> selectAll_admin() {
+		List<MemberAllDTO> list = my.selectList("memberDAO.selectAll_admin");
+		System.out.println("selectAll_admin 성공");
 		return list;
 	}
 

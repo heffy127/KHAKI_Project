@@ -24,12 +24,6 @@
 			$('#modal-license').modal('show') 
 		}
 		
-		// 주소 상세보기
-		showAddress = function(val) {
-			$('#addressPopover').attr("data-content", val)
-			$('#addressPopover').popover('toggle')
-		}
-		
 		// 모달 닫기
 		$('.close').click(
 			function () {
@@ -44,6 +38,17 @@
 					}, 600); // 0.6초뒤 페이지 새로고침
 			}
 		}
+		
+		// 주소 상세보기
+		showAddress = function(val) {
+			$('#addressPopover').attr("data-content", val)
+			$('#addressPopover').popover('toggle')
+		}
+		
+		$('#searchBtn').click(
+			function() {
+				
+			})
 		
 	})
 </script>
@@ -91,8 +96,7 @@ iframe
 	<div align="center">
 		<nav class="navbar navbar-horizontal navbar-expand-lg navbar-dark bg-default">
 		    <div class="container">
-		        <a class="navbar-brand" href="#"><font size="4">MEMBER MANAGEMENT</font></a>
-		            
+		        <a class="navbar-brand" href="admin_memberAll.do"><font size="4">MEMBER MANAGEMENT</font></a>
 		            <div style="width: 40%;">
 		            		<div style="float: left; width: 15%;">
 					            <select style="margin-top:7%; font-size: 22px;">
@@ -105,7 +109,7 @@ iframe
 				            	style="width: 100%; padding: 15px; font-size: 20px;">
 				            </div>
 				            <div style="float: left; width: 20%;">
-				            	<button type="button" class="btn btn-outline-secondary" style="margin-top: 1%;">검색</button>
+				            	<button id="searchBtn" type="button" class="btn btn-outline-secondary" style="margin-top: 1%;">검색</button>
 				            </div>
 		        	</div>
 		    </div>
@@ -131,96 +135,71 @@ iframe
 						
 						<c:set var="num" value="1"/>
 						 <!-- 회원정보 출력 -->
-						<c:forEach var="memberDTO" items="${memberList}">
-							<!-- member id에 맞는 레벨 정보 찾기 -->
-							<c:set var="breaker" value="false"/>
-							<c:forEach var="memberLevelAny" items="${memberLevelList }">
-								<!-- 두 테이블간 일치하는 id찾은 경우 licenseDTO에 집어넣음 -->
-								<c:if test="${memberLevelAny.id eq memberDTO.id }">	
-									<c:set var="memberLevelDTO" value="${memberLevelAny }"/>
-									<!-- for문의 break역할 -->
-									<c:set var="breaker" value="true"/>
-								</c:if>																
-							</c:forEach>
-						
-							<!-- member id에 맞는 운전면허 정보 찾기 -->
-							<c:set var="breaker" value="false"/>
-							<c:set var="licenseDTO" value=""/>
-							<c:forEach var="licenseAny" items="${licenseList }">
-								<c:if test="${not breaker }">
-									<!-- 두 테이블간 일치하는 id찾은 경우 licenseDTO에 집어넣음 -->
-									<c:if test="${licenseAny.id eq memberDTO.id }">
-										<c:set var="licenseDTO" value="${licenseAny }"/>
-										<!-- for문의 break역할 -->
-										<c:set var="breaker" value="true"/>
-									</c:if>
-								</c:if>
-							</c:forEach>
+						<c:forEach var="memberAllDTO" items="${memberAllList}">
+							
 							<tr>
 								<th scope="row" class="name">
 									<div class="media align-items-center" align="left">
 										<img class="avatar rounded-circle mr-3" alt="Image placeholder"
-											src="${memberDTO.photo }">
+											src="${memberAllDTO.photo }">
 										<div class="media-body">
-											<span class="mb-0 text-md" style="font-size: 17px;">${memberDTO.id }</span>
+											<span class="mb-0 text-md" style="font-size: 17px;">${memberAllDTO.id }</span>
 										</div>
 									</div>
 								</th>
-								<td>Lv.${memberLevelDTO.memberLevel }</td>
-								<td>${memberDTO.name }</td>
-								<td>${memberDTO.phone1 }-${memberDTO.phone2 }-${memberDTO.phone3 }</td>
+								<td>Lv.${memberAllDTO.memberLevel }</td>
+								<td>${memberAllDTO.name }</td>
+								<td>${memberAllDTO.phone1 }-${memberAllDTO.phone2 }-${memberAllDTO.phone3 }</td>
 								<c:choose>
-									<c:when test="${memberDTO.email_id == null}">
+									<c:when test="${memberAllDTO.email_id == null}">
 										<td>미등록</td>
 									</c:when>
 									<c:otherwise>
-										<td>${memberDTO.email_id }@${memberDTO.email_site }</td>
+										<td>${memberAllDTO.email_id }@${memberAllDTO.email_site }</td>
 									</c:otherwise>	
 								</c:choose>
 								<td >
 									<a href="#none" id="addressPopover${num}" data-container="body" data-toggle="popover" data-color="warning" 
-									data-placement="top" data-content="${memberDTO.postcode } ${memberDTO.address1 } ${memberDTO.address2 } ${memberDTO.address3 }" 
+									data-placement="top" data-content="${memberAllDTO.postcode } ${memberAllDTO.address1 } ${memberAllDTO.address2 } ${memberAllDTO.address3 }" 
 									onclick="showAddress(this.value)">
-									${fn:split(memberDTO.address1,' ')[0]}&nbsp;${fn:split(memberDTO.address1,' ')[1]}
+									${fn:split(memberAllDTO.address1,' ')[0]}&nbsp;${fn:split(memberAllDTO.address1,' ')[1]}
 									</a>
 								</td>
 									
+							
 								<c:choose>
-									<c:when test="${licenseDTO eq ''}">
+									<c:when test="${memberAllDTO.permission eq null}">
+									<td>
+										<button type="button" class="btn btn-default" disabled="disabled">&nbsp;&nbsp;미등록&nbsp;&nbsp;</button>
+									</td>	
+									</c:when>
+									<c:when test="${memberAllDTO.permission eq '?'}">
 										<td>
-											<button type="button" class="btn btn-default" disabled="disabled">&nbsp;&nbsp;미등록&nbsp;&nbsp;</button>
+											<button id="licenseBtn${num}" type="button" class="btn btn-warning" 
+											value="?id=${memberAllDTO.id }&name=${memberAllDTO.name}" onclick="modalLicense(this.value)">심사대기</button>
+										</td>	
+									</c:when>
+									<c:when test="${memberAllDTO.permission eq 'x'}">
+										<td>
+											<button id="licenseBtn${num}" type="button" class="btn btn-danger" 
+											value="?id=${memberAllDTO.id }&name=${memberAllDTO.name}" onclick="modalLicense(this.value)">승인거절</button>
 										</td>	
 									</c:when>
 									<c:otherwise>
-										<c:choose>
-											<c:when test="${licenseDTO.permission eq '?'}">
-												<td>
-													<button id="licenseBtn${num}" type="button" class="btn btn-warning" 
-													value="?id=${memberDTO.id }&name=${memberDTO.name}" onclick="modalLicense(this.value)">심사대기</button>
-												</td>	
-											</c:when>
-											<c:when test="${licenseDTO.permission eq 'x'}">
-												<td>
-													<button id="licenseBtn${num}" type="button" class="btn btn-danger" 
-													value="?id=${memberDTO.id }&name=${memberDTO.name}" onclick="modalLicense(this.value)">승인거절</button>
-												</td>	
-											</c:when>
-											<c:otherwise>
-												<td>
-													<button id= "licenseBtn${num}" type="button" class="btn btn-success" 
-													value="?id=${memberDTO.id }&name=${memberDTO.name}" onclick="modalLicense(this.value)">승인완료</button>
-												</td>	
-											</c:otherwise>
-										</c:choose>
+										<td>
+											<button id= "licenseBtn${num}" type="button" class="btn btn-success" 
+											value="?id=${memberAllDTO.id }&name=${memberAllDTO.name}" onclick="modalLicense(this.value)">승인완료</button>
+										</td>	
 									</c:otherwise>
 								</c:choose>
+
 								
-								<td>${memberDTO.point }&nbsp;pt</td>
+								<td>${memberAllDTO.point }&nbsp;pt</td>
 								
 								<!-- jstl을 통해 push 수신 여부에 따라 출력 분기  -->
 								<td class="completion" style="padding: 4px;">
 									<c:choose>
-										<c:when test="${memberDTO.smsPush == 1}">
+										<c:when test="${memberAllDTO.smsPush == 1}">
 											<div class="custom-control custom-checkbox mb-3" style="margin-top: 20%;">
 												<input class="custom-control-input" id="customCheck3" type="checkbox" checked="checked" disabled>
 												<label class="custom-control-label" for="customCheck3"><i class="ni ni-mobile-button ni-2x"></i></label>
@@ -236,7 +215,7 @@ iframe
 								</td>
 								<td class="completion" style="padding: 4px;">
 									<c:choose>
-										<c:when test="${memberDTO.emailPush == 1}">
+										<c:when test="${memberAllDTO.emailPush == 1}">
 											<div class="custom-control custom-checkbox mb-3" style="margin-top: 20%;">
 											  <input class="custom-control-input" id="customCheck3" type="checkbox" checked="checked" disabled>
 											  <label class="custom-control-label" for="customCheck3"><i class="ni ni-email-83 ni-2x"></i></label>
