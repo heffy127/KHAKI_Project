@@ -2,45 +2,85 @@ package co.kr.khaki.carmanage;
 
 public class CarManageDTO {
 
-	private int khaki_num;		// 카키 차량 고유 번호 부여
-	private String carnum;		// 차량 번호
-	private int distance;		// 총 운행 km
-	private String fuel;		// 가솔린, 디젤, 하이브리드
-	private String brand;		// 현대, 기아, 삼성 등
-	private String car_size;	// 차량 크기 : 중형, 준중형, 소형, 경차 등
-	private String carname;		// 차량 종류 : 아반떼, 소나타 등
-	private String reg_date;	// 등록일시
-	private String img;			// 차량사진
+	private String car_name; // 차종 > 소나타,아반떼..
+	private String car_num; // 차번호 > 30가1234 , 프라이머리키
+	private int driven; // 주행거리
+	private String fuel_type; // 연료타입 디젤,가솔린,하이브리드,전기
+	private int fuel_gage; // 연료충전량
+	private String loc_pre; // 현재위치 (위도,경도)
+	private int zone_num; // 해당 차량이 소속된 존의 위치 (위도,경도)
+	private int fee_hour; // 1시간당 대여료 (처음 예약시 결제)
+	private int fee_km; // km당 요금 (반납 후 결제)
+	private String car_image; //이미지 경로
+	private String brand;
+	private String car_size;
+	private String reg_date;
 	
-	public int getKhaki_num() {
-		return khaki_num;
+	public String getReg_date() {
+		return reg_date;
 	}
-	public String getCar_size() {
-		return car_size;
+	public void setReg_date(String reg_date) {
+		this.reg_date = reg_date;
 	}
-	public void setCar_size(String car_size) {
-		this.car_size = car_size;
+	public String getCar_name() {
+		return car_name;
 	}
-	public void setKhaki_num(int khaki_num) {
-		this.khaki_num = khaki_num;
+	public void setCar_name(String car_name) {
+		this.car_name = car_name;
 	}
-	public String getCarnum() {
-		return carnum;
+	public String getCar_num() {
+		return car_num;
 	}
-	public void setCarnum(String carnum) {
-		this.carnum = carnum;
+	public void setCar_num(String car_num) {
+		this.car_num = car_num;
 	}
-	public int getDistance() {
-		return distance;
+	public int getDriven() {
+		return driven;
 	}
-	public void setDistance(int distance) {
-		this.distance = distance;
+	public void setDriven(int driven) {
+		this.driven = driven;
 	}
-	public String getFuel() {
-		return fuel;
+	public String getFuel_type() {
+		return fuel_type;
 	}
-	public void setFuel(String fuel) {
-		this.fuel = fuel;
+	public void setFuel_type(String fuel_type) {
+		this.fuel_type = fuel_type;
+	}
+	public int getFuel_gage() {
+		return fuel_gage;
+	}
+	public void setFuel_gage(int fuel_gage) {
+		this.fuel_gage = fuel_gage;
+	}
+	public String getLoc_pre() {
+		return loc_pre;
+	}
+	public void setLoc_pre(String loc_pre) {
+		this.loc_pre = loc_pre;
+	}
+	public int getZone_num() {
+		return zone_num;
+	}
+	public void setZone_num(int zone_num) {
+		this.zone_num = zone_num;
+	}
+	public int getFee_hour() {
+		return fee_hour;
+	}
+	public void setFee_hour(int fee_hour) {
+		this.fee_hour = fee_hour;
+	}
+	public int getFee_km() {
+		return fee_km;
+	}
+	public void setFee_km(int fee_km) {
+		this.fee_km = fee_km;
+	}
+	public String getCar_image() {
+		return car_image;
+	}
+	public void setCar_image(String car_image) {
+		this.car_image = car_image;
 	}
 	public String getBrand() {
 		return brand;
@@ -48,29 +88,11 @@ public class CarManageDTO {
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
-	public String getCarname() {
-		return carname;
+	public String getCar_size() {
+		return car_size;
 	}
-	public void setCarname(String carname) {
-		this.carname = carname;
-	}
-	public String getReg_date() {
-		return reg_date;
-	}
-	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
-	}
-	public String getImg() {
-		return img;
-	}
-	public void setImg(String img) {
-		this.img = img;
-	}
-	@Override
-	public String toString() {
-		return "CarManageDTO [khaki_num=" + khaki_num + ", carnum=" + carnum + ", distance=" + distance + ", fuel="
-				+ fuel + ", brand=" + brand + ", car_size=" + car_size + ", carname=" + carname + ", reg_date="
-				+ reg_date + ", img=" + img + "]";
+	public void setCar_size(String car_size) {
+		this.car_size = car_size;
 	}
 	
 	
