@@ -101,6 +101,26 @@
 		where s.id not like 'admin%' and s.name not like '관리자'
 	</select>
 	
+	<select id="selectId_admin" parameterType="String" resultMap="rsMap_admin">
+		select s.id, s.name, s.email_id, s.email_site, s.phone1, s.phone2, s.phone3, s.postcode, s.address1, 
+		s.address2, s.address3, s.point, s.smspush, s.emailpush, s.photo, s.memberlevel, l.permission from 
+		(select m.id, m.name, m.email_id, m.email_site, m.phone1, m.phone2, m.phone3,
+		m.postcode, m.address1, m.address2, m.address3, m.point, m.smspush, m.emailpush, m.photo, ml.memberlevel
+		from member m, memberLevel ml where ml.id = m.id) s Left outer join license l on s.id = l.id 
+		where s.id like '%'||#{id} or s.id like #{id}||'%' or s.id like '%'||#{id}||'%'
+	</select>
+	
+	<select id="selectName_admin" parameterType="String" resultMap="rsMap_admin">
+		select s.id, s.name, s.email_id, s.email_site, s.phone1, s.phone2, s.phone3, s.postcode, s.address1, 
+		s.address2, s.address3, s.point, s.smspush, s.emailpush, s.photo, s.memberlevel, l.permission from 
+		(select m.id, m.name, m.email_id, m.email_site, m.phone1, m.phone2, m.phone3,
+		m.postcode, m.address1, m.address2, m.address3, m.point, m.smspush, m.emailpush, m.photo, ml.memberlevel
+		from member m, memberLevel ml where ml.id = m.id) s Left outer join license l on s.id = l.id 
+		where s.name = '%'||#{name} or s.name like #{name}||'%' or s.name like  '%'||#{name}||'%'
+	</select>
+	
+	
+	
 	<!-- 회원가입 정보 주입 -->
 	<insert id="insertMember" parameterType="memberDTO">
 		INSERT INTO member (id, pw, name, email_id, email_site, phone1, phone2, phone3, postcode, address1, address2, address3, smsPush, emailPush, handler)

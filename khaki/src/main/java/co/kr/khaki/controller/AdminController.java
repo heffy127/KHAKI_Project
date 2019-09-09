@@ -35,15 +35,13 @@ public class AdminController {
 	
 	// 관리자 페이지 검색
 	@RequestMapping("admin_search.do")
-	public String admin_search(MemberDTO memberDTO ,Model model) {	
-		if(memberDTO.getId() != null) {
-			System.out.println(memberDTO.getId());
-			memberDTO = memberDAO.selectId(memberDTO.getId());
-			model.addAttribute("memberDTO", memberDTO);
-		} else if(memberDTO.getName() != null) {
-			System.out.println(memberDTO.getName());
-			memberDTO = memberDAO.selectId(memberDTO.getName());
-			model.addAttribute("memberDTO", memberDTO);
+	public String admin_search(String searchSelect, String search ,Model model) {	
+		if(searchSelect.equals("id")) {
+			List<MemberAllDTO> memberAllList = memberDAO.selectId_admin(search);
+			model.addAttribute("memberAllList", memberAllList);
+		}else {
+			List<MemberAllDTO> memberAllList = memberDAO.selectName_admin(search);
+			model.addAttribute("memberAllList", memberAllList);
 		}
 		
 		return "member/manage/memberAll";

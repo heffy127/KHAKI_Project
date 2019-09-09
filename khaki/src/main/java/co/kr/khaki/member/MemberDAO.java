@@ -130,5 +130,17 @@ public class MemberDAO {
 		System.out.println("selectAll_admin 성공");
 		return list;
 	}
+	
+	public List<MemberAllDTO> selectId_admin(String id) {
+		List<MemberAllDTO> list = my.selectList("memberDAO.selectId_admin",id);
+		System.out.println("selectId_admin 성공");
+		return list;
+	}
+	
+	public List<MemberAllDTO> selectName_admin(String name) {
+		List<MemberAllDTO> list = my.selectList("memberDAO.selectName_admin",name);
+		System.out.println("selectName_admin 성공");
+		return list;
+	}
 
 }
