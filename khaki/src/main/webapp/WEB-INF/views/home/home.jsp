@@ -209,6 +209,11 @@
               <i class="ni ni-image text-black"></i> CCTV
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link " href="key.do">
+              <i class="ni ni-image text-black"></i> KEY
+            </a>
+          </li>
          </ul>
         <!-- Divider -->
         <hr class="my-3">
