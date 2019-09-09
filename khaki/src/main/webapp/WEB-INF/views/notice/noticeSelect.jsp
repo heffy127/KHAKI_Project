@@ -365,7 +365,7 @@
 						<div class="col-md-9">
 							<div class="form-group">
 								<div class="card" style="width: 100%; background-color: #fafafa;">
-									<div style="font-size: 15px;"  class="card-body">
+									<div style="font-size: 25px;"  class="card-body">
 										<%=ndto.getContent() %>
 									</div>
 								</div>

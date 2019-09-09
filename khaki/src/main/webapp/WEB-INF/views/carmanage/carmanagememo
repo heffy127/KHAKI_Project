@@ -112,7 +112,10 @@ create sequence khakinum_seq start with 1 increment by 1 maxvalue 10000 cycle no
 	
 	9/9(월)
 	- 페이지네이션 기능 구현(notice에 적용하듯이 pageSize와 curPage 값을 controller에 넣어주기)
-	
+		--> 등록, 수정, 삭제 
+	- 검색 기능 구현 : 차량번호, 총 운행거리, 연료, 브랜드, 차 크기, 차량명, 
+	- 눌렀을 때 바탕색이 바뀌고 실행되도록 - 다중 삭제 가능하도록 만들기
+	- select해왔을 때 수정하고 삭제할 수 있도록
 	
 	
 	

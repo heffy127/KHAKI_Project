@@ -21,7 +21,7 @@
 	
 	  	function change_pagesize(pageSize, curPage){
 	  		alert(pageSize +" / "+ curPage);
-	  		location.href = "notice.do?curPage="+curPage+"&pageSize="+pageSize;
+	  		location.href = "carmanage.do?curPage="+curPage+"&pageSize="+pageSize;
 	  	}
 	  	
 	  	
@@ -406,13 +406,38 @@
         <div class="col">
           <div class="card shadow border-0">
           	<div class="card-header">
-          		탭 넣을 곳(임시)
-          		<br><br>
-          		<button id="search" class="btn btn-outline-success">검색</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       			<button id="insert" class="btn btn-outline-info">등록</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       			<button id="update" class="btn btn-outline-primary">수정</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-       			<button id="delete" class="btn btn-outline-danger">삭제</button>
-          	</div>
+	          	<div class="row">
+					<div class="col-md-6">
+		          		<button id="search" class="btn btn-outline-success">검색</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		       			<button id="insert" class="btn btn-outline-info">등록</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		       			<button id="update" class="btn btn-outline-primary">수정</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		       			<button id="delete" class="btn btn-outline-danger">삭제</button>
+					</div>          
+					<div class="col-md-3">
+					</div>	
+					<div class="col-md-3">
+						<div class="dropdown">
+	                        <a class="btn btn-lg btn-icon-only text-light" id="pagesize_dropDown" style="width: 100px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						            		<b><i class="ni ni-bullet-list-67"></i></b>-페이지 수-
+	                          <!-- <i class="ni ni-bus-front-12"></i> -->
+	                        </a>
+	                        <!--  dropdown-menu-arrow -->
+	                        <div class="dropdown-menu dropdown-menu-right" style="overflow-y: scroll;height: 150px;">
+                        			<%-- <input type="dropdown-item carname" name="carname" value="${car }" readonly="readonly"> --%>
+                        			<div class="dropdown-item">
+                        				<a href="#" onclick="change_pagesize(10,${pagination.curPage})">10개</a>
+                        			</div>
+                        			<div class="dropdown-item">
+                        				<a href="#" onclick="change_pagesize(20,'${pagination.curPage}')">20개</a>
+                        			</div>
+                        			<div class="dropdown-item">
+                        				<a href="#" onclick="change_pagesize(30,'${pagination.curPage}')">30개</a>
+                        			</div>
+	                        </div>
+                     	</div>	<!-- dropdown End -->
+					</div>	
+	          	</div>	<!-- row end -->
+          	</div>	<!-- card-header -->
             <div class="card-body">
             	<!-- 관리 차량 리스트 업 -->
             	<div class="row">
@@ -530,7 +555,6 @@
 						        <span class="sr-only">Next</span>
 							</a> 
 						</li>
-						
 	                   </c:if>
 	                   <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
 	                       <li class="page-item">
@@ -539,8 +563,8 @@
 					        <span class="sr-only">Next</span>
 					      </a>
 					    </li>
-	                 	</c:if>
-	                 	</ul>
+                 	   </c:if>
+                 	</ul>
 				</nav>
 	          </div>
           </div>
