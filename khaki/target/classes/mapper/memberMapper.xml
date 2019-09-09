@@ -120,6 +120,11 @@
 		UPDATE member SET point = point + #{buy_point}, useCount = useCount + 1
 		WHERE id=#{buy_id}
 	</update>
+	
+	<update id="minusPointCount" parameterType="pDTO">
+		UPDATE member SET point = point + #{buy_point}
+		WHERE id=#{buy_id}
+	</update>
 
 	<delete id="deleteMember" parameterType="String">
 		DELETE FROM member WHERE
