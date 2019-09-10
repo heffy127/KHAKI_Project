@@ -18,11 +18,66 @@
 <script type="text/javascript">
    $(document).ready(function() {
       
+	  if('${modelPaging}' == 'all'){
+		  // 기본 페이징 세션으로 전체 회원 조회
+		  sessionStorage.setItem("sessionPaging","all")
+	  }
+		if('${searchMethod}' != ''){
+      		$("#searchSelect").val('${searchMethod}').prop('selected', true); // 검색 셀렉트박스 자동 선택
+		}else {
+			$("#searchSelect").val('id').prop('selected', true);
+		}
+		
+      fn_paging = function(curPage){ // 페이징 function 
+    	 	if(sessionStorage.getItem("sessionPaging") == 'all'){ // 전체 보기
+	    		location.href = "admin_memberAll.do?curPage="+curPage;	 		
+    	 	}
+    	 	if(sessionStorage.getItem("sessionPaging") == 'search'){ // 검색
+	    		location.href = "admin_search.do?searchSelect=" + $('#searchSelect').val() + "&search=" + $('#search').val() + "&curPage=" + curPage;	 		
+    	 	}
+    	 	if(sessionStorage.getItem("sessionPaging") == 'license_?'){ // 운전면허 정렬 심사대기
+	    		location.href = "admin_licenseSort.do?permission=?&curPage="+curPage;	 		
+    	 	}
+    	 	if(sessionStorage.getItem("sessionPaging") == 'license_x'){ // 운전면허 정렬 승인거절
+	    		location.href = "admin_licenseSort.do?permission=x&curPage="+curPage;	 		
+    	 	}
+    	 	if(sessionStorage.getItem("sessionPaging") == 'license_o'){ // 운전면허 정렬 승인완료
+	    		location.href = "admin_licenseSort.do?permission=o&curPage="+curPage;	 		
+    	 	}
+    	 	if(sessionStorage.getItem("sessionPaging") == 'license_NULL'){ // 운전면허 정렬 미등록
+	    		location.href = "admin_licenseSort.do?permission=NULL&curPage="+curPage;	 		
+    	 	}
+    	 	if(sessionStorage.getItem("sessionPaging") == 'push'){ // 푸시 정렬
+	    		location.href = "admin_memberAll.do?curPage="+curPage;	 		
+    	 	}
 
-      $("#searchSelect").val('${searchMethod}').prop('selected', true); // 검색 셀렉트박스 자동 선택
+    	 	
+    		/* alert(curPage); //페이지 넘버 확인 aaaaaabb */
+    	};
       
-      
-      // 운전면허 
+    	
+    	// 운전면허 정렬 버튼 눌렀을때 sessionPaging에 페이징 정보를 넣어서 페이지 이동
+    	license_none = function() {
+    		sessionStorage.setItem("sessionPaging","license_?")
+			location.href = "admin_licenseSort.do?permission=?"
+		}
+    	
+    	license_x = function() {
+    		sessionStorage.setItem("sessionPaging","license_x")
+			location.href = "admin_licenseSort.do?permission=x"
+		}
+    	
+    	license_o = function() {
+    		 sessionStorage.setItem("sessionPaging","license_o")
+			 location.href = "admin_licenseSort.do?permission=o"
+		}
+    	
+    	license_NULL = function() {
+    		 sessionStorage.setItem("sessionPaging","license_NULL")
+			 location.href = "admin_licenseSort.do?permission=NULL"
+		}
+    	
+      // 운전면허 	
       modalLicense = function(val) {
          $('#licenseIframe').attr('src','admin_licenseAdmin.do' + val)
          $('#modal-license').modal('show') 
@@ -58,7 +113,7 @@
                      $('#searchWarn').popover('hide')
                   }, 1800); // 1.8초뒤 popover닫기
                }else{
-                  $('#searchF').submit()
+                  location.href = "admin_search.do?searchSelect=" + $('#searchSelect').val() + "&search=" + $('#search').val()
                }
             })
             
@@ -136,27 +191,27 @@ iframe
             <table class="table align-items-center">
                <thead class="thead-light">
                      <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">LEVEL</th>
-                        <th scope="col">NAME</th>
-                        <th scope="col">PHONE</th>
-                        <th scope="col">EMAIL</th>
-                        <th scope="col">ADRRESS</th>
-                        <th scope="col">LICENSE<div class="dropdown">
+                        <th scope="col" style="width: 19%">ID</th>
+                        <th scope="col" style="width: 5%">LEVEL</th>
+                        <th scope="col" style="width: 5%">NAME</th>
+                        <th scope="col" style="width: 15%">PHONE</th>
+                        <th scope="col" style="width: 15%">EMAIL</th>
+                        <th scope="col" style="width: 15%">ADRRESS</th>
+                        <th scope="col" style="width: 10%">LICENSE<div class="dropdown">
                                     <a class="btn btn-sm btn-icon-only text-light" href="#"
                                        role="button" data-toggle="dropdown" aria-haspopup="true"
                                        aria-expanded="false"> <i class="fas fa-ellipsis-v" style="padding-top: 25%;"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow" style="min-width: 95px; width: 95px;">
-                                       <a class="dropdown-item" href="admin_licenseSort.do?permission=?" style="color: #ff9203;">심사대기</a> 
-                                       <a class="dropdown-item" href="admin_licenseSort.do?permission=o" style="color: #17bd3d;">승인완료</a> 
-                                       <a class="dropdown-item" href="admin_licenseSort.do?permission=x" style="color: #ff0055;">승인거절</a>
-                                       <a class="dropdown-item" href="admin_licenseSort.do?permission=NULL" style="color: #525252;">미등록</a>
+                                       <a onclick="license_none()" class="dropdown-item" href="#none" style="color: #ff9203;">심사대기</a> 
+                                       <a onclick="license_o()" class="dropdown-item" href="#none" style="color: #17bd3d;">승인완료</a> 
+                                       <a onclick="license_x()" class="dropdown-item" href="#none" style="color: #ff0055;">승인거절</a>
+                                       <a onclick="license_NULL()" class="dropdown-item" href="#none" style="color: #525252;">미등록</a>
                                     </div>
                                  </div></th>
                                  
-                        <th scope="col">POINT</th>
-                        <th scope="col" colspan="2">PUSH<div class="dropdown">
+                        <th scope="col" style="width: 5%">POINT</th>
+                        <th scope="col" style="width: 15%" colspan="2">PUSH<div class="dropdown">
                                     <a class="btn btn-sm btn-icon-only text-light" href="#"
                                        role="button" data-toggle="dropdown" aria-haspopup="true"
                                        aria-expanded="false"> <i class="fas fa-ellipsis-v" style="padding-top: 25%;"></i>
@@ -166,7 +221,7 @@ iframe
                                        <a class="dropdown-item" href="admin_selectPushSort.do?push=email">Email</a>
                                     </div>
                                  </div></th>
-                        <th scope="col"></th>
+                        <th scope="col" style="width: 1%"></th>
                      </tr>
                   </thead>
                   <tbody class="list">
@@ -184,7 +239,7 @@ iframe
                         </tr>
                      </c:when>
                      <c:otherwise>
-                        <c:forEach var="memberAdminDTO" items="${memberAdminList}">
+                        <c:forEach var="memberAdminDTO" items="${memberAdminList}" begin="${pagination.startIndex }" end="${pagination.endIndex }">
                            
                            <tr>
                               <th scope="row" class="name">
@@ -284,8 +339,7 @@ iframe
                                        role="button" data-toggle="dropdown" aria-haspopup="true"
                                        aria-expanded="false"> <i class="fas fa-ellipsis-v"></i>
                                     </a>
-                                    <div
-                                       class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                        <a class="dropdown-item" href="#">Action</a> <a
                                           class="dropdown-item" href="#">Another action</a> <a
                                           class="dropdown-item" href="#">Something else here</a>
@@ -322,8 +376,62 @@ iframe
                   </c:choose> 
                </tbody>
             </table>
+            
          </div>
-
+		<div>
+			
+				<!-- 페이지 네이션 구현 -->
+           		<nav aria-label="Page navigation example">
+				  <ul class="pagination pagination-lg justify-content-center">
+				 	<c:if test="${pagination.curRange ne 1 }">
+				 	  <li class="page-item">
+                        <a href="#" onClick="fn_paging(1)">[처음]</a> 
+                      </li>
+                    </c:if>
+                    <c:if test="${pagination.curPage ne 1}">
+                      <li class="page-item">
+                        <a class="page-link" href="#" onClick="fn_paging('${pagination.prevPage }')" aria-label="Previous">
+                        	<i class="fa fa-angle-left"></i>
+					        <span class="sr-only">Previous</span>
+				        </a> 
+			          </li>
+                    </c:if>
+                    <!-- 페이지 숫자 표시 부분 -->
+                    <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
+                        <c:choose>
+                            <c:when test="${pageNum eq pagination.curPage}">
+                            	<li class="page-item active">
+                            		<a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }<span class="sr-only">(current)</span></a>
+                           		</li>
+                            </c:when>
+                            <c:otherwise>
+                            	<li class="page-item">
+                            		<a class="page-link" href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+                           		</li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
+                    	<li class="page-item">
+                       		<a class="page-link" href="#" onClick="fn_paging('${pagination.nextPage }')" aria-label="Next">
+						        <i class="fa fa-angle-right"></i>
+						        <span class="sr-only">Next</span>
+							</a> 
+						</li>
+						
+                    </c:if>
+                    <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
+                        <li class="page-item">
+					      <a class="page-link" href="#" onClick="fn_paging('${pagination.pageCnt }')" aria-label="Next">
+					        <i class="fa fa-angle-right"></i>
+					        <span class="sr-only">Next</span>
+					      </a>
+					    </li>
+                  	</c:if>
+                  	</ul>
+				</nav>
+		
+		</div>
       </div>
    </div>
 
