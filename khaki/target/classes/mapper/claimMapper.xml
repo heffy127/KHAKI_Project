@@ -4,9 +4,9 @@
 
 <mapper namespace="claimDAO">
 
-   <select id="selectCar" parameterType="String" resultMap="rsMap">
-      SELECT car_num, zone_num FROM
-      car_board   WHERE car_name = #{buy_carModel}
+   <select id="select" parameterType="String" resultMap="rsMap">
+      SELECT * FROM
+      claim  WHERE claim_num = #{claim_num}
    </select>
 
    <resultMap type="claimDTO" id="rsMap">
@@ -15,25 +15,24 @@
       <result property="claim_resNum" column="claim_resNum" />
       <result property="claim_category" column="claim_category" />
       <result property="claim_content" column="claim_content" />
-      <result property="claim_result" column="claim_result" />
       <result property="claim_suspect" column="claim_suspect" />
-      <result property="claim_punishment" column="claim_punishment" />
+      <result property="claim_result" column="claim_result" />
    </resultMap>
 
    <select id="selectAll" resultMap="rsMap">
-      SELECT * FROM car_board
+      SELECT * FROM claim
    </select>
 
    <insert id="insert" parameterType="claimDTO">
-      INSERT INTO car_board
+      INSERT INTO claim
       VALUES(
       claim_seq.NEXTVAL,
-      #{claim_id},#{claim_resNum},
-      #{claim_category},
-      #{claim_content},
-      #{claim_result},
-      #{claim_suspect},
-      #{claim_punishment}
+      #{claim_id, jdbcType=VARCHAR},
+      #{claim_resNum},
+      #{claim_category, jdbcType=VARCHAR},
+      #{claim_content, jdbcType=VARCHAR},
+      #{claim_suspect, jdbcType=VARCHAR},
+      #{claim_result, jdbcType=VARCHAR}
       )
       <!--oracle DB의 순서와 일치 시켜주어야한다! -->
    </insert>

@@ -299,20 +299,19 @@
 		    		<div style=" width:800px; height: 30px; ">
 						<div style="repeat-x; text-align:center;">
 							<div ></div> 
-							<div align="center"><h2>자유게시판</h2></div>
+							<div align="center"><h2>신고</h2></div>
 						</div>
 					</div>
 					<form action="claimInsert.do" method="POST" id="insertBoardFrm" enctype="multipart/form-data">
 						<div>
-				   			<div class="form-group">
-			            		<h3>제목 </h3>
-			           			<input type="text" id="title" name="claim_category" placeholder="제목을 입력하세요." style="left:92px; height:27px; width:700px; margin-top: -5px;">
-					   		</div>
+				   			
 				        	<div>
 				        	<!-- 관리자 권한  -->
 				           		<div style="width: 100px;"><h3>글 카테고리 </h3>
-									<div><input type="radio" id="category" name="category" value="free" checked>일반
-									<input type="radio" id="category" name="category" value="notice">공지 <br>
+									<div>
+									<input type="radio" id="category" name="claim_category" value="disorder" checked>불편신고<br>
+									<input type="radio" id="category" name="claim_category" value="accident">사고신고 <br>
+									<input type="radio" id="category" name="claim_category" value="etc">기타<br>
 									</div>
 								</div>
 							<!-- 관리자 권한  END -->
@@ -324,7 +323,7 @@
 				        		<div>
 				        			<div><h3>내용</h3></div>
 				            		<div>
-				    					<textarea class="form-control" name="claim_content" id="content" rows="20" cols="50"></textarea>
+				    					<textarea class="form-control" name="claim_content" id="content" rows="20" cols="50" placeholder="ex) 차에 쓰레기가 있어요,시동이 안 걸려요, 이런 점이 있으면 좋겠어요"></textarea>
 				    				</div>
 				    			</div>
 			    		</div>

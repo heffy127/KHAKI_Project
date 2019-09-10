@@ -17,14 +17,18 @@ public class ClaimController {
 	public String key() {
 		return "key/key";
 	}
-	
 	@RequestMapping("claim.do")
 	public String claim() {
 		return "key/claim";
 	}
 	@RequestMapping("claimInsert.do")
 	public String claimInsert(ClaimDTO claimDTO) {
+		claimDTO.setClaim_resNum(1);
+		claimDTO.setClaim_suspect("mos4657");
+		claimDTO.setClaim_id("mos4657");
+		claimDTO.setClaim_result("회초리3대");
 		cdao.insert(claimDTO);
+		
 		return "key/claimView";
 	}
 }

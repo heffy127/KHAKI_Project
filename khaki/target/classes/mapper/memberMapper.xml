@@ -4,133 +4,135 @@
 
 <mapper namespace="memberDAO">
 
-	<resultMap type="memberDTO" id="rsMap">
-		<result property="id" column="id" />
-		<result property="pw" column="pw" />
-		<result property="name" column="name" />
-		<result property="email_id" column="email_id" />
-		<result property="email_site" column="email_site" />
-		<result property="phone1" column="phone1" />
-		<result property="phone2" column="phone2" />
-		<result property="phone3" column="phone3" />
-		<result property="postcode" column="postcode" />
-		<result property="address1" column="address1" />
-		<result property="address2" column="address2" />
-		<result property="address3" column="address3" />
-		<result property="smsPush" column="smsPush" />
-		<result property="emailPush" column="emailPush" />
-		<result property="useCount" column="useCount" />
-		<result property="handler" column="handler" />
-		<result property="photo" column="photo" />
-	</resultMap>
-	
-	<select id="selectId" parameterType="String" resultMap="rsMap">
-		SELECT *
-		FROM member
-		WHERE id = #{id}
-	</select>
+   <resultMap type="memberDTO" id="rsMap">
+      <result property="id" column="id" />
+      <result property="pw" column="pw" />
+      <result property="name" column="name" />
+      <result property="email_id" column="email_id" />
+      <result property="email_site" column="email_site" />
+      <result property="phone1" column="phone1" />
+      <result property="phone2" column="phone2" />
+      <result property="phone3" column="phone3" />
+      <result property="postcode" column="postcode" />
+      <result property="address1" column="address1" />
+      <result property="address2" column="address2" />
+      <result property="address3" column="address3" />
+      <result property="smsPush" column="smsPush" />
+      <result property="emailPush" column="emailPush" />
+      <result property="useCount" column="useCount" />
+      <result property="handler" column="handler" />
+      <result property="photo" column="photo" />
+   </resultMap>
+   
+   <select id="selectId" parameterType="String" resultMap="rsMap">
+      SELECT *
+      FROM member
+      WHERE id = #{id}
+   </select>
+   
+   <select id="selectName" parameterType="String" resultMap="rsMap">
+      SELECT *
+      FROM member
+      WHERE name = #{name}
+   </select>
 
-	<select id="selectEmail" parameterType="memberDTO" resultMap="rsMap">
-		SELECT *
-		FROM member
-		WHERE email_id = #{email_id} and email_site = #{email_site}
-	</select>
-	
-	<select id="emailNameCheck" parameterType="memberDTO" resultType="String">
-		SELECT email_id
-		FROM member
-		WHERE email_id = #{email_id} and email_site = #{email_site} and name = #{name}
-	</select>
-	
-	<select id="emailIdNameCheck" parameterType="memberDTO" resultType="String">
-		SELECT email_id
-		FROM member
-		WHERE email_id = #{email_id} and email_site = #{email_site} and name = #{name} and id = #{id}
-	</select>
-	
-	<select id="selectPhone" parameterType="memberDTO" resultMap="rsMap">
-		SELECT *
-		FROM member
-		WHERE phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3}
-	</select>
-	
-	<select id="phoneNameCheck" parameterType="memberDTO" resultType="String">
-		SELECT phone3
-		FROM member
-		WHERE phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3} and name = #{name}
-	</select>
-	
-	<select id="phoneIdNameCheck" parameterType="memberDTO" resultType="String">
-		SELECT phone3
-		FROM member
-		WHERE phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3} and name = #{name} and id = #{id}
-	</select>
+   <select id="selectEmail" parameterType="memberDTO" resultMap="rsMap">
+      SELECT *
+      FROM member
+      WHERE email_id = #{email_id} and email_site = #{email_site}
+   </select>
+   
+   <select id="emailNameCheck" parameterType="memberDTO" resultType="String">
+      SELECT email_id
+      FROM member
+      WHERE email_id = #{email_id} and email_site = #{email_site} and name = #{name}
+   </select>
+   
+   <select id="emailIdNameCheck" parameterType="memberDTO" resultType="String">
+      SELECT email_id
+      FROM member
+      WHERE email_id = #{email_id} and email_site = #{email_site} and name = #{name} and id = #{id}
+   </select>
+   
+   <select id="selectPhone" parameterType="memberDTO" resultMap="rsMap">
+      SELECT *
+      FROM member
+      WHERE phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3}
+   </select>
+   
+   <select id="phoneNameCheck" parameterType="memberDTO" resultType="String">
+      SELECT phone3
+      FROM member
+      WHERE phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3} and name = #{name}
+   </select>
+   
+   <select id="phoneIdNameCheck" parameterType="memberDTO" resultType="String">
+      SELECT phone3
+      FROM member
+      WHERE phone1 = #{phone1} and phone2 = #{phone2} and phone3 = #{phone3} and name = #{name} and id = #{id}
+   </select>
 
-	<select id="selectAll" resultMap="rsMap">
-		SELECT * FROM member
-	</select>
+   <!-- 회원가입 정보 주입 -->
+   <insert id="insertMember" parameterType="memberDTO">
+      INSERT INTO member (id, pw, name, email_id, email_site, phone1, phone2, phone3, postcode, address1, address2, address3, smsPush, emailPush, handler)
+      VALUES(#{id}, #{pw}, #{name},#{email_id}, #{email_site},#{phone1}, #{phone2}, #{phone3},#{postcode}, #{address1}, #{address2}, #{address3},#{smsPush}, #{emailPush}, #{handler})
+   </insert>
 
-	<!-- 회원가입 정보 주입 -->
-	<insert id="insertMember" parameterType="memberDTO">
-		INSERT INTO member (id, pw, name, email_id, email_site, phone1, phone2, phone3, postcode, address1, address2, address3, smsPush, emailPush, handler)
-		VALUES(#{id}, #{pw}, #{name},#{email_id}, #{email_site},#{phone1}, #{phone2}, #{phone3},#{postcode}, #{address1}, #{address2}, #{address3},#{smsPush}, #{emailPush}, #{handler})
-	</insert>
+   <update id="updatePoint" parameterType="insertPointDTO">
+      UPDATE member SET point = point + #{point}
+      WHERE id=#{id}
+   </update>
+   
+   <update id="updatePw" parameterType="memberDTO">
+      UPDATE member SET pw = #{pw}
+      WHERE id=#{id}
+   </update>
+   
+   <update id="updateEmail" parameterType="memberDTO">
+      UPDATE member SET email_id = #{email_id}, email_site = #{email_site}
+      WHERE id=#{id}
+   </update>
+   
+   <update id="updatePhone" parameterType="memberDTO">
+      UPDATE member SET phone1 = #{phone1}, phone2 = #{phone2}, phone3 = #{phone3}
+      WHERE id=#{id}
+   </update>
+   
+   <update id="updateAddress" parameterType="memberDTO">
+      UPDATE member SET postcode = #{postcode}, address1 = #{address1}, address2 = #{address2}, address3 = #{address3}
+      WHERE id=#{id}
+   </update>
+   
+   <update id="updatePush" parameterType="memberDTO">
+      UPDATE member SET smsPush = #{smsPush}, emailPush = #{emailPush}
+      WHERE id=#{id}
+   </update>
+   
+   <update id="updatePhoto" parameterType="memberDTO">
+      UPDATE member SET photo = #{photo}
+      WHERE id=#{id}
+   </update>
+   
+   <update id="updateHandler" parameterType="hsDTO">
+      UPDATE member SET handler = #{handler}
+      WHERE id=#{id}
+   </update>
+   
+   <update id="updatePointCount" parameterType="pDTO">
+      UPDATE member SET point = point + #{buy_point}, useCount = useCount + 1
+      WHERE id=#{buy_id}
+   </update>
+   
+   <update id="minusPointCount" parameterType="pDTO">
+      UPDATE member SET point = point + #{buy_point}
+      WHERE id=#{buy_id}
+   </update>
 
-	<update id="updatePoint" parameterType="insertPointDTO">
-		UPDATE member SET point = point + #{point}
-		WHERE id=#{id}
-	</update>
-	
-	<update id="updatePw" parameterType="memberDTO">
-		UPDATE member SET pw = #{pw}
-		WHERE id=#{id}
-	</update>
-	
-	<update id="updateEmail" parameterType="memberDTO">
-		UPDATE member SET email_id = #{email_id}, email_site = #{email_site}
-		WHERE id=#{id}
-	</update>
-	
-	<update id="updatePhone" parameterType="memberDTO">
-		UPDATE member SET phone1 = #{phone1}, phone2 = #{phone2}, phone3 = #{phone3}
-		WHERE id=#{id}
-	</update>
-	
-	<update id="updateAddress" parameterType="memberDTO">
-		UPDATE member SET postcode = #{postcode}, address1 = #{address1}, address2 = #{address2}, address3 = #{address3}
-		WHERE id=#{id}
-	</update>
-	
-	<update id="updatePush" parameterType="memberDTO">
-		UPDATE member SET smsPush = #{smsPush}, emailPush = #{emailPush}
-		WHERE id=#{id}
-	</update>
-	
-	<update id="updatePhoto" parameterType="memberDTO">
-		UPDATE member SET photo = #{photo}
-		WHERE id=#{id}
-	</update>
-	
-	<update id="updateHandler" parameterType="hsDTO">
-		UPDATE member SET handler = #{handler}
-		WHERE id=#{id}
-	</update>
-	
-	<update id="updatePointCount" parameterType="pDTO">
-		UPDATE member SET point = point + #{buy_point}, useCount = useCount + 1
-		WHERE id=#{buy_id}
-	</update>
-	
-	<update id="minusPointCount" parameterType="pDTO">
-		UPDATE member SET point = point + #{buy_point}
-		WHERE id=#{buy_id}
-	</update>
+   <delete id="deleteMember" parameterType="String">
+      DELETE FROM member WHERE
+      id = #{id}
+   </delete>
 
-	<delete id="deleteMember" parameterType="String">
-		DELETE FROM member WHERE
-		id = #{id}
-	</delete>
-
-	
+   
 
  </mapper>
