@@ -2,21 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!--
-
-=========================================================
-* Argon Dashboard - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -165,9 +150,18 @@
             </a>
           </li>
           <li class="nav-item">
+          <% 
+          if (session.getAttribute("sessionId")==null){ %>
+            <a class="nav-link">
+              <i class="ni ni-square-pin text-orange"></i> Map (로그인 필요)
+            </a>
+          <%
+          } else {
+          %>
             <a class="nav-link" href="map.do">
               <i class="ni ni-square-pin text-orange"></i> Map
             </a>
+          <%}%>
           </li>
           <li class="nav-item">
             <a class="nav-link a" href="board.do">
@@ -217,6 +211,11 @@
           <li class="nav-item">
             <a class="nav-link " href="">
               <i class="ni ni-image text-black"></i> 환불신청처리(관리자)
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="claimView.do">
+              <i class="ni ni-image text-black"></i> 접수신고처리(관리자)
             </a>
           </li>
          </ul>

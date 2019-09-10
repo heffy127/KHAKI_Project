@@ -247,7 +247,9 @@ public class NoticeController {
             String oldName = request.getHeader("file-name");
             // 파일 기본경로 _ 상세경로
             //String filePath = "D:/min/project3/khaki/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/khaki/resources/photoUpload/";	//종합본에서의 filepath
-            String filePath = "D:/projectKHAKI/egit/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/khaki/resources/photoUpload/";	//노트북시 서버경로
+            //String filePath = "D:/projectKHAKI/egit/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/khaki/resources/photoUpload/";	//노트북시 서버경로
+            String filePath = "C:/Users/mos46/Desktop/PJ/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/khaki/resources/photoUpload/";	//노트북시 서버경로 (정경일)
+            
             
             //서버경로로 설정
             String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss")

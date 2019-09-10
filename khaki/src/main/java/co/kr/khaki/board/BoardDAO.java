@@ -30,7 +30,6 @@ public class BoardDAO {
 		myBatis.update("bDAO.updateHit", boardDTO);
 		System.out.println("Hit update 완료");
 	}
-	
 	public void delete(BoardDTO boardDTO) {
 		myBatis.delete("bDAO.delete", boardDTO);
 		System.out.println("delete 완료");

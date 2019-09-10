@@ -930,11 +930,11 @@ function reservation() {
                                                    }
                                                   
                                                 %>
-                                             <select id="startYear" onchange="strCheck1()">
+                                             <select id="startYear">
                                                 <option value="19">19</option>
                                                 <option value="20">20</option>
                                              </select>
-                                             <select id="startMonth" onchange="strCheck2()">
+                                             <select id="startMonth">
                                                 
                                                 <option value=<%=month%>><%=month%></option>
                                                 <option value="01">01</option>
@@ -950,7 +950,7 @@ function reservation() {
                                                 <option value="11">11</option>
                                                 <option value="12">12</option>
                                              </select>
-                                             <select id="startDay" onchange="strCheck3()">
+                                             <select id="startDay">
                                                 <option value=<%=date%>><%=date%></option>
                                                 <option value="01">01</option><option value="02">02</option><option value="03">03</option>
                                                 <option value="04">04</option><option value="05">05</option><option value="06">06</option>
@@ -964,7 +964,7 @@ function reservation() {
                                                 <option value="28">28</option><option value="29">29</option><option value="30">30</option>
                                                 <option value="31">31</option>
                                              </select>
-                                             <select id="startClock" onchange="strCheck4()">
+                                             <select id="startClock">
                                                 <option value=<%=hour%>><%=hour%></option>
                                                 <option value="00">00</option><option value="01">01</option><option value="02">02</option>
                                                 <option value="03">03</option><option value="04">04</option><option value="05">05</option>
@@ -975,25 +975,25 @@ function reservation() {
                                                 <option value="18">18</option><option value="19">19</option><option value="20">20</option>
                                                 <option value="21">21</option><option value="22">22</option><option value="23">23</option>
                                              </select>
-                                             <select id="startMin" onchange="strCheck5()">
+                                             <select id="startMin">
                                                 <option value=<%=min%>><%=min%></option>
                                                 <option value="00">00</option><option value="10">10</option><option value="20">20</option>
                                                 <option value="30">30</option><option value="40">40</option><option value="50">50</option>
                                              </select>
                                              </td>
                                              <td>
-                                             <button class="btn btn-outline-default" id="startTimeButton" onclick="startTimeButton()">입력<br>하기</button>
+                                             <button class="btn btn-outline-default" id="startTimeButton" onclick="startTimeButton()">시간<br>입력</button>
                                              </td>
                                           </tr>
                                           </div>
                                           <div>
                                              <tr>
                                              <td>
-                                             <select id="endYear" onchange="endCheck1()">
+                                             <select id="endYear">
                                                 <option value="19">19</option>
                                                 <option value="20">20</option>
                                              </select>
-                                             <select id="endMonth" onchange="endCheck2()">
+                                             <select id="endMonth">
                                                 <option value=<%=month%>><%=month%></option>
                                                 <option value="01">01</option>
                                                 <option value="02">02</option>
@@ -1008,7 +1008,7 @@ function reservation() {
                                                 <option value="11">11</option>
                                                 <option value="12">12</option>
                                              </select>
-                                             <select id="endDay" onchange="endCheck3()">
+                                             <select id="endDay">
                                                 <option value=<%=date%>><%=date%></option>
                                                 <option value="01">01</option><option value="02">02</option><option value="03">03</option>
                                                 <option value="04">04</option><option value="05">05</option><option value="06">06</option>
@@ -1022,7 +1022,7 @@ function reservation() {
                                                 <option value="28">28</option><option value="29">29</option><option value="30">30</option>
                                                 <option value="31">31</option>
                                              </select>
-                                             <select id="endClock" onchange="endCheck4()">
+                                             <select id="endClock">
                                                 <option value=<%=Integer.parseInt(hour) + 1%>><%=Integer.parseInt(hour) + 1%></option>
                                                 <option value="00">00</option><option value="01">01</option><option value="02">02</option>
                                                 <option value="03">03</option><option value="04">04</option><option value="05">05</option>
@@ -1033,7 +1033,7 @@ function reservation() {
                                                 <option value="18">18</option><option value="19">19</option><option value="20">20</option>
                                                 <option value="21">21</option><option value="22">22</option><option value="23">23</option>
                                              </select>
-                                             <select id="endMin" onchange="endCheck5()">
+                                             <select id="endMin">
                                                 <option value=<%=min%>><%=min%></option>
                                                 <option value="00">00</option><option value="10">10</option><option value="20">20</option>
                                                 <option value="30">30</option><option value="40">40</option><option value="50">50</option>

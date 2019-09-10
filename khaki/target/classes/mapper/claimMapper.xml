@@ -24,16 +24,8 @@
    </select>
 
    <insert id="insert" parameterType="claimDTO">
-      INSERT INTO claim
-      VALUES(
-      claim_seq.NEXTVAL,
-      #{claim_id, jdbcType=VARCHAR},
-      #{claim_resNum},
-      #{claim_category, jdbcType=VARCHAR},
-      #{claim_content, jdbcType=VARCHAR},
-      #{claim_suspect, jdbcType=VARCHAR},
-      #{claim_result, jdbcType=VARCHAR}
-      )
+      INSERT INTO claim(claim_num, claim_id, claim_resNum, claim_category, claim_content)
+      VALUES(claim_seq.NEXTVAL, #{claim_id, jdbcType=VARCHAR},#{claim_resNum},#{claim_category, jdbcType=VARCHAR},#{claim_content, jdbcType=VARCHAR})
       <!--oracle DB의 순서와 일치 시켜주어야한다! -->
    </insert>
 

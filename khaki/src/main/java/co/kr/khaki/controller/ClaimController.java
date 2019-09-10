@@ -23,12 +23,7 @@ public class ClaimController {
 	}
 	@RequestMapping("claimInsert.do")
 	public String claimInsert(ClaimDTO claimDTO) {
-		claimDTO.setClaim_resNum(1);
-		claimDTO.setClaim_suspect("mos4657");
-		claimDTO.setClaim_id("mos4657");
-		claimDTO.setClaim_result("회초리3대");
 		cdao.insert(claimDTO);
-		
-		return "key/claimView";
+		return "member/profile.do";
 	}
 }
