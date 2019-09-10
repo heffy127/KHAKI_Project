@@ -13,20 +13,12 @@
 	<script type="text/javascript">
 		$(function(){
 			
-			// 차량 검색
-			$("#search").click(function(){
-				
-			});	// search end
 			
 			// 차량 수정
 			$("#update").click(function(){
 				
 			});	// update end
 
-			// 차량 삭제
-			$("#delete").click(function(){
-				
-			});	// delete end
 			
 			// 차량 등록
  			$("#insert").click(function(){
@@ -39,7 +31,7 @@
  				// 차량번호 입력한 것을 그대로 받아와서 넘겨줌
  				var carnum_data = $("#car_num").val(); 
  				$("#carnum1").val(carnum_data);
- 				alert(carnum_data)
+ 				//alert(carnum_data)
  				
  				//배열 순서대로 타이밍벨트, 구동벨트, 엔진오일, 변속기오일, 브레이크 오일, 에어컨필터, 연료필터, 에어클리너, 냉각수, 배터리, 타이어 순서
 				var arr = new Array(100000, 30000, 10000, 30000, 40000, 15000, 30000, 20000, 50000, 60000, 30000);
@@ -47,7 +39,7 @@
 				for(var i=0; i<arr.length;i++){
 					var change_num = Math.floor(distance1 / arr[i]);		//distance에 따른 차량 소모품 교체 횟수(기준으로 나눈 것)
 					$("#consumable"+(i+1)).val(change_num);
-					alert(change_num)
+					//alert(change_num)
 				};
 				
  				$("#car_insert").submit();
@@ -128,10 +120,9 @@
 		        $("#car_img_view").attr("src", "resources/assets/img/car/"+arr[0]+".png");	//차량 이미지 나오게 하는 곳
 		        
 		        //form 태그 내의 hidden에 val메소드를 통해 값을 넣어서 넘겨줌
-		        $("#car_size").val(arr[1]);
-		        $("#size_dropDown").text(arr[1]);
-		        $("#fuel").val(arr[2]);
-		        $("#fuel_dropDown").text(arr[2]);
+		        $("#car_size").val(arr[1]);		//차량 크기 form에 넣어줌
+		        $("#fuel").val(arr[2]);			//연료 form에 넣어줌
+		        
 		        if("소형" == arr[1].trim()){
 			        $("#fee_km_dropDown").text(160+"원");
 			        $("#fee_km").val(160)
@@ -157,6 +148,7 @@
 		        // fee_km : 드롭다운 메뉴 class : fee_km_dropDown id : fee_km_drop
 		        
 			});	//차량명 dropdown End
+			
 			
 			
 		});	//Jquery End
@@ -477,31 +469,41 @@
           	<div class="card-header">
           		탭 넣을 곳(임시)
           	</div>
-            <div class="card-body">
+            <div class="card-body" align="center">
             	<!-- 관리 차량 리스트 업 -->
             	<form id="car_insert" action="carmanageInsertDB.do">
 	            	<div class="row">
 	            		<div class="col col-sm">
 	            			<div class="row">
-	            				<div class="col col-sm-5">
-	            					<img id="car_img_view" src="http://placehold.it/400x300" />
+	            				<div class="col col-sm-6">
+	            					<img id="car_img_view" src="http://placehold.it/500x400" />
 	            				</div>
-	            				<div class="col col-sm-5">
+	            				<div class="col col-sm-6">
 	            					<div class="form-group">
 		            					<div class="row">
-		            						<div class="col col-sm-9">
+		            						<div class="col col-sm-10">
 		            							<input type="text" class="form-control" id="car_num" name="car_num" placeholder="차량번호">
 		            							<!-- 차량번호 keyup으로 제한사항 두기 -->
 		            						</div>
 		            					</div>
 		            					<div class="row">
-		            						<div class="col col-sm-9">
+		            						<div class="col col-sm-10">
 		            							<input type="text" class="form-control" id="total_distance" name="driven" placeholder="총 운행 Km">
+		            						</div>
+		            					</div>
+		            					<div class="row" style="vertical-align: middle;">
+		            						<div class="col col-sm-10" style="height: 50px; line-height: 50px; vertical-align: middle;">
+		            							카키존 지정 : 
+		            							<select name="zone_num">
+		            								<option value="1">1번</option>
+		            								<option value="2">2번</option>
+		            								<option value="3">3번</option>
+		            							</select>
 		            						</div>
 		            					</div>
 		            					<!-- 순서 : 브랜드 -> 차량명 -> 연료, 사이즈 저절로 나오게 -->
 		            					<div class="row">
-		            						<div class="col col-sm-9">
+		            						<div class="col col-sm-10">
 		            							<div class="dropdown">
 							                        <a class="btn btn-lg btn-icon-only text-light" id="brand_dropDown" style="width: 330px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 												            		<b><i class="fas fa-car-side"></i></b>-제조사 선택-
@@ -524,7 +526,7 @@
 		            						<!-- <div class="col col-sm-9">
 		            							<input type="text" class="form-control" name="carname" value="차량명">
 		            						</div> -->
-		            						<div class="col col-sm-9">
+		            						<div class="col col-sm-10">
 	            								<div class="dropdown">
 							                        <a class="btn btn-lg btn-icon-only text-light" id="car_dropDown" style="width: 330px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 												            		<b><i class="fas fa-car-side"></i></b>-차량 선택-
@@ -540,7 +542,7 @@
 						                     	</div>	<!-- dropdown End -->
 									        </div>
 		            					</div>
-		            					<div class="row">
+		            					<%-- <div class="row">
 		            						<div class="col col-sm-9">
 		            							<div class="dropdown">
 							                        <a class="btn btn-lg btn-icon-only text-light" id="fuel_dropDown" style="width: 330px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -550,7 +552,7 @@
 							                        <!--  dropdown-menu-arrow -->
 							                        <div class="dropdown-menu dropdown-menu-right" style="overflow-y: scroll;height: 150px;">
 						                        		<div class="dropdown-min-menu3">
-						                        			<%-- <input type="dropdown-item carname" name="carname" value="${car }" readonly="readonly"> --%>
+						                        			<input type="dropdown-item carname" name="carname" value="${car }" readonly="readonly">
 						                        			<div class="dropdown-item carfuel">의미없어~</div>
 						                        		</div>
 							                        </div>
@@ -567,15 +569,15 @@
 							                        <!--  dropdown-menu-arrow -->
 							                        <div class="dropdown-menu dropdown-menu-right" style="overflow-y: scroll;height: 150px;">
 						                        		<div class="dropdown-min-menu4">
-						                        			<%-- <input type="dropdown-item carname" name="carname" value="${car }" readonly="readonly"> --%>
+						                        			<input type="dropdown-item carname" name="carname" value="${car }" readonly="readonly">
 						                        			<div class="dropdown-item carsize" id="carsize">의미없다~</div>
 						                        		</div>
 							                        </div>
 						                     	</div>	<!-- dropdown End -->
 		            						</div>
-		            					</div>
+		            					</div> --%>
 		            					<div class="row">
-		            						<div class="col col-sm-9">
+		            						<div class="col col-sm-10">
 		            							<div class="dropdown">
 							                        <a class="btn btn-lg btn-icon-only text-light" id="fee_km_dropDown" style="width: 330px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 												            		<b><i class="fas fa-car-side"></i></b>- km당 가격 -
@@ -590,7 +592,7 @@
 		            						</div>
 		            					</div>
 		            					<div class="row">
-		            						<div class="col col-sm-9">
+		            						<div class="col col-sm-10">
 		            							<div class="dropdown">
 							                        <a class="btn btn-lg btn-icon-only text-light" id="fee_hour_dropDown" style="width: 330px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 												            		<b><i class="fas fa-car-side"></i></b>- 시간당 가격 -
@@ -614,7 +616,7 @@
 		            					<input type="hidden" name="fuel_gage" id="fuel_gage" value="90">
 		            					<input type="hidden" name="fee_hour" id="fee_hour" value="">
 		            					<input type="hidden" name="fee_km" id="fee_km" value="">
-		            					<input type="hidden" name="zone_num" id="zone_num" value="1">	<!-- 카키존 구현 후 연결 -->
+		            					<!-- <input type="hidden" name="zone_num" id="zone_num" value="1"> -->	<!-- 카키존 구현 후 연결 select박스 -->
 		            					
 		            					<input type="hidden" class="form-control" name="brand" id="brand">
 		            					<input type="hidden" class="form-control" name="fuel_type" id="fuel">
@@ -648,7 +650,7 @@
 	          	<div class="col col-sm-6">
           			<button id="insert" class="btn btn-outline-info">등록</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           			<!-- <button id="update">수정</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-          			<button id="delete" class="btn btn-outline-danger">삭제</button>
+          			<button id="delete" class="btn btn-outline-danger" onclick="history.back(-1)">뒤로가기</button>
 	          	</div>
           	</div>
           </div>

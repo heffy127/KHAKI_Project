@@ -32,15 +32,6 @@
 				
 			});	// search end
 			
-			// 차량 수정
-			$("#update").click(function(){
-				
-			});	// update end
-
-			// 차량 삭제
-			$("#delete").click(function(){
-				
-			});	// delete end
 			
 			// 차량 등록
  			$("#insert").click(function(){
@@ -407,16 +398,26 @@
         <div class="col">
           <div class="card shadow border-0">
           	<div class="card-header">
-	          	<div class="row">
-					<div class="col-md-6">
-		          		<button id="search" class="btn btn-outline-success">검색</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	          	<div class="row" align="center">
+					<div class="col-md-4" style="height: 50px; line-height: 50px;">
 		       			<button id="insert" class="btn btn-outline-info">등록</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		       			<button id="update" class="btn btn-outline-primary">수정</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		       			<button id="delete" class="btn btn-outline-danger">삭제</button>
+		       			<button id="delete" class="btn btn-outline-danger">선택삭제</button>
 					</div>          
-					<div class="col-md-3">
+					<div class="col-md-4" style="height: 50px; line-height: 50px;">
+						<form id="" action="">
+							<select name="">
+								<option id="form_car_num" value="">차량번호</option>
+								<option id="form_car_name" value="">차량명</option>
+								<option id="form_car_brand" value="">브랜드</option>
+								<option id="form_car_fuel" value="">연료종류</option>
+							</select>
+							<input type="text" placeholder="검색어 입력" name="search_obj" value="">
+							<input type="hidden" name="">	<!-- 현재 페이지 -->
+							<input type="hidden" name="">	<!-- 페이지 사이즈 -->
+							
+						</form>
 					</div>	
-					<div class="col-md-3">
+					<div class="col-md-4" style="height: 50px; line-height: 50px;">
 						<div class="dropdown">
 	                        <a class="btn btn-lg btn-icon-only text-light" id="pagesize_dropDown" style="width: 100px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						            		<b><i class="ni ni-bullet-list-67"></i></b>-페이지 수-
@@ -448,7 +449,7 @@
             			 border-top-style: solid; border-top-color: #158c68; border-top-width: 3px;
             			vertical-align: middle; height: 50px; line-height:50px; font-family: 'Black Han Sans', sans-serif;">
             				<div class="col" align="center">
-            					카키차량번호
+            					카키존번호
             				</div>
             				<div class="col" align="center">
             					차량번호
@@ -480,40 +481,112 @@
             			<!-- 현재는 전체 리스트를 다 뽑아오게끔 되어 있음 -->
             			<% pagination pg = (pagination)request.getAttribute("pagination"); %>
             			<c:forEach var="cmdto" items="${cmlist}" varStatus="status" begin="<%= pg.getStartIndex() %>" end="<%= pg.getEndIndex() %>">
-            			<div class="row row_carlist" style="border-bottom-style: ridge; border-bottom-color: #158c68; border-bottom-width: 3px; vertical-align: middle;
-            			font-family: 'Gugi', cursive;">
-            				<%-- ${status.count }
-            				${status.index } --%>
-            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
-            					????
-            				</div>
-            				<div class="col car_num" style="text-align: center; height:100px; line-height:100px;">
-            					${cmdto.car_num }
-            				</div>
-            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
-            					<img style="position: absolute; top:0; left:0; width: 140px; height:100%;" src="${cmdto.car_image }" />
-            				</div>
-            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
-            					${cmdto.driven }KM
-            				</div>
-            				<div class="col"  style="text-align: center; height:100px; line-height:100px;">
-            					${cmdto.fuel_type }
-            				</div>
-            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
-            					${cmdto.brand }
-            				</div>
-            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
-            					${cmdto.car_size }
-            				</div>
-            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
-            					${cmdto.car_name }
-            				</div>
-            				<div class="col" style="text-align: center; height:50px; line-height:50px;">
-            					<div>
-            						${cmdto.reg_date }
-            					</div>
-            				</div>
-            			</div>
+            				<c:choose>
+	            				<c:when test="${cmdto.driven >= 250000 }">
+		            			<div class="row row_carlist" style="border-bottom-style: ridge; border-bottom-color: #158c68; border-bottom-width: 3px; vertical-align: middle;
+		            			font-family: 'Gugi', cursive; background-color: #ffd4d4">
+		            				<%-- ${status.count }
+		            				${status.index } --%>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.zone_num }
+		            				</div>
+		            				<div class="col car_num" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.car_num }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					<img style="position: absolute; top:0; left:0; width: 140px; height:100%;" src="${cmdto.car_image }" />
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.driven }KM
+		            				</div>
+		            				<div class="col"  style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.fuel_type }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.brand }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.car_size }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.car_name }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:50px; line-height:50px;">
+		            					<div>
+		            						${cmdto.reg_date }
+		            					</div>
+		            				</div>
+		            			</div>
+		            			</c:when>
+	            				<c:when test="${cmdto.driven >= 100000 and cmdto.driven < 250000 }">
+	            				<div class="row row_carlist" style="border-bottom-style: ridge; border-bottom-color: #158c68; border-bottom-width: 3px; vertical-align: middle;
+		            			font-family: 'Gugi', cursive; background-color: #fae7e1">
+	            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.zone_num }
+		            				</div>
+		            				<div class="col car_num" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.car_num }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					<img style="position: absolute; top:0; left:0; width: 140px; height:100%;" src="${cmdto.car_image }" />
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.driven }KM
+		            				</div>
+		            				<div class="col"  style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.fuel_type }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.brand }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.car_size }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.car_name }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:50px; line-height:50px;">
+		            					<div>
+		            						${cmdto.reg_date }
+		            					</div>
+		            				</div>
+		            			</div>
+	            				</c:when>
+	            				<c:otherwise>
+	            				<div class="row row_carlist" style="border-bottom-style: ridge; border-bottom-color: #158c68; border-bottom-width: 3px; vertical-align: middle;
+		            			font-family: 'Gugi', cursive;">
+	            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.zone_num }
+		            				</div>
+		            				<div class="col car_num" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.car_num }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					<img style="position: absolute; top:0; left:0; width: 140px; height:100%;" src="${cmdto.car_image }" />
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.driven }KM
+		            				</div>
+		            				<div class="col"  style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.fuel_type }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.brand }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.car_size }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+		            					${cmdto.car_name }
+		            				</div>
+		            				<div class="col" style="text-align: center; height:50px; line-height:50px;">
+		            					<div>
+		            						${cmdto.reg_date }
+		            					</div>
+		            				</div>
+		            			</div>
+	            				</c:otherwise>
+	            			</c:choose>
             			</c:forEach>
             		</div>
             	</div>
