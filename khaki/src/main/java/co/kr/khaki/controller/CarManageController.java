@@ -24,6 +24,40 @@ public class CarManageController {
 	@Autowired
 	CarConsumableDAO ccdao;
 	
+	@RequestMapping("carmanageDelete.do")
+	public String carmanageDelete(String car_num, Model model, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="10") int pageSize){
+		// 페이지수 조절하는 것 연결하려면 curPage, pageSize를 가지고 다닐 수 있도록
+		
+		System.out.println("carmanage Controller Delete!");
+		cmdao.delete(car_num);
+		
+		//selectJunggo
+		System.out.println("carmanage select_junggo");
+		List<CarManageDTO> junggolist = cmdao.selectjunggo();
+		
+		//selectOld
+		System.out.println("carmanage select_old");
+		List<CarManageDTO> oldlist = cmdao.selectold();
+
+		//selectAll
+		System.out.println("carmanage selectAll");
+		List<CarManageDTO> cmlist = cmdao.selectAll();	
+		
+		int listCnt = cmlist.size();
+		//pagination 객체 생성
+		pagination pg = new pagination(listCnt, curPage, pageSize);
+		
+		
+		// model로 객체 전송
+		model.addAttribute("cmlist", cmlist);
+		model.addAttribute("junggolist", junggolist);
+		model.addAttribute("oldlist", oldlist);
+		model.addAttribute("listCnt", listCnt);
+		model.addAttribute("pagination", pg);
+		
+		return "carmanage/carmanage";
+	}
+	
 	@RequestMapping("car_consumable2.do")
 	public String car_consumable2(CarConsumableDTO carConsumableDTO, String change_data, String change_index) {
 		

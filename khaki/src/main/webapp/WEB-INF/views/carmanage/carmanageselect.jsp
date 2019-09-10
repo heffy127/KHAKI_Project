@@ -24,7 +24,11 @@
 
 			// 차량 삭제
 			$("#delete").click(function(){
-				alert("삭제!")
+				var td_car_num = $("#td_car_num").text().trim();
+				
+				//alert(td_car_num+"차량 삭제!")
+				
+				location.href = "carmanageDelete.do?car_num="+td_car_num;
 			});	// delete end
 			
 		});	//Jquery End

@@ -49,6 +49,11 @@
 		VALUES(#{car_name},#{car_num},#{driven},#{fuel_type},#{fuel_gage},#{zone_num},#{fee_hour},#{fee_km},#{car_image},#{brand},#{car_size},#{reg_date})
 	</insert>
 
+	<delete id="delete" parameterType="String">
+		DELETE FROM car_board WHERE
+		car_num = #{car_num}
+	</delete>
+	
 	<!-- <update id="updateSomething" parameterType="#modelname">
 		UPDATE tablename1
 		SET
@@ -57,9 +62,6 @@
 		columnname2 = #{param2}
 	</update>
 
-	<delete id="deleteSomething" parameterType="int">
-		DELETE FROM tablename1 WHERE
-		columnname1 = #{param1}
-	</delete> -->
+	 -->
 
 </mapper>

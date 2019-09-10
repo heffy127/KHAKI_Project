@@ -20,7 +20,7 @@
 	  	};
 	
 	  	function change_pagesize(pageSize, curPage){
-	  		alert(pageSize +" / "+ curPage);
+	  		//alert(pageSize +" / "+ curPage);
 	  		location.href = "carmanage.do?curPage="+curPage+"&pageSize="+pageSize;
 	  	}
 	  	
@@ -29,7 +29,19 @@
 			
 			// 차량 검색
 			$("#search").click(function(){
-				
+				/* $.ajax({
+					url: ,
+					type: ,
+					data: ,
+					success: function(result){
+						alert("ajax 동작 완료!")
+						// success되면 result에 반환이 됨
+					}, error: function(err){
+						alert("에러발생!!!")
+					}
+					
+					
+				});	//ajax end */
 			});	// search end
 			
 			
@@ -42,7 +54,7 @@
 			// 차량번호를 가지고 넘어가도록 설정
 			$(".row_carlist").click(function(){
 				var data = $(this).children(".car_num").text();
-				alert(data);
+				//alert(data);
 				location.href = "carmanageSelect.do?car_num="+data;
 				
 			})	
@@ -60,10 +72,11 @@
 			
 			var oldlist_percentage = oldlist_size / cmlist_size * 100;
 			
-			alert(normal_percentage + " / "+junggolist_percentage + " / "+oldlist_percentage);
-			alert(cmlist_size +"/"+junggolist_size +"/"+oldlist_size + "/" + normal);
-			alert(junggolist_percentage.toFixed(2));
+			//alert(normal_percentage + " / "+junggolist_percentage + " / "+oldlist_percentage);
+			//alert(cmlist_size +"/"+junggolist_size +"/"+oldlist_size + "/" + normal);
+			//alert(junggolist_percentage.toFixed(2));
 			
+			// .toFixed(x) : x자리만큼 소수점 반올림
 			//정상운행
 			$(".normal").children(".row").children(".col").children("span").text(normal+"대");
 			$(".normal").children("p").children(".mr-2").text(normal_percentage.toFixed(2)+"%");
@@ -403,24 +416,25 @@
 		       			<button id="insert" class="btn btn-outline-info">등록</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		       			<button id="delete" class="btn btn-outline-danger">선택삭제</button>
 					</div>          
-					<div class="col-md-4" style="height: 50px; line-height: 50px;">
-						<form id="" action="">
-							<select name="">
-								<option id="form_car_num" value="">차량번호</option>
-								<option id="form_car_name" value="">차량명</option>
-								<option id="form_car_brand" value="">브랜드</option>
-								<option id="form_car_fuel" value="">연료종류</option>
-							</select>
-							<input type="text" placeholder="검색어 입력" name="search_obj" value="">
-							<input type="hidden" name="">	<!-- 현재 페이지 -->
-							<input type="hidden" name="">	<!-- 페이지 사이즈 -->
-							
-						</form>
+					<!-- aaa -->
+					<div class="col-md-4" style="height: 40px; line-height: 40px;">
+						<form id="search_form" action="search_carmanage.do">
+							<div class="row" align="center">
+									<select name="">
+										<option id="form_car_num" value="">차량번호</option>
+										<option id="form_car_name" value="">차량명</option>
+										<option id="form_car_brand" value="">브랜드</option>
+										<option id="form_car_fuel" value="">연료종류</option>
+									</select>
+									<input type="text" placeholder="검색어 입력" name="search_obj" value="" style="width: ">&nbsp;&nbsp;
+									<button class="btn btn-outline-success" id="search">검색</button>
+							</div>	<!-- row end -->
+						</form>	
 					</div>	
-					<div class="col-md-4" style="height: 50px; line-height: 50px;">
+					<div class="col-md-4">
 						<div class="dropdown">
 	                        <a class="btn btn-lg btn-icon-only text-light" id="pagesize_dropDown" style="width: 100px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						            		<b><i class="ni ni-bullet-list-67"></i></b>-페이지 수-
+						            		<b><i class="ni ni-bullet-list-67"></i></b> - 페이지 수 -
 	                          <!-- <i class="ni ni-bus-front-12"></i> -->
 	                        </a>
 	                        <!--  dropdown-menu-arrow -->
@@ -439,7 +453,7 @@
                      	</div>	<!-- dropdown End -->
 					</div>	
 	          	</div>	<!-- row end -->
-          	</div>	<!-- card-header -->
+          	</div>	<!-- card-header end -->
             <div class="card-body">
             	<!-- 관리 차량 리스트 업 -->
             	<div class="row">
