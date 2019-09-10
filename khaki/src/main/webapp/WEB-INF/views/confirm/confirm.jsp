@@ -118,7 +118,6 @@
   		  		result = parseInt(kyul * 0.03);
   		  		$("#confirm_point").text(result);
   			}
-  			
   			$("#couponSeq").val(couponVal[2]);
   			
   			
@@ -171,12 +170,14 @@
 	  	  		kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
 				$("#kyul").val(kyul);
   	  			$("#confirm_amount").text(kyul);
-  				
+	  	  		result = parseInt(kyul * 0.03);
+		  		$("#confirm_point").text(result);
   				// 빨간색(할인적용)을 div를 삭제
   				$("#discount_label").remove();
   				$("#discount_label2").remove();
   				// 쿠폰select를 담고있는 div 안보이게 hide
   				$("#select_couponMethod").hide();
+  				$("#couponSeq").val("");
   			}
   		})
   		
@@ -216,7 +217,8 @@
 				$("#kyul").val(kyul);
   	  			$("#confirm_amount").text(kyul);
   				$("#pointUseLabelDiv").remove();
-  				// $("#confirm_amount").text($("#first_amount").val());
+  				result = parseInt(kyul * 0.03);
+		  		$("#confirm_point").text(result);
   			}
   		})
   		
@@ -226,10 +228,13 @@
   	  		var ku = $("#ku").val();
   	  		var po = $("#po").val();
   			if($("#pointUseCheck").text() == '사용가능') {
-  				po = $("#pointUseInput").val();
-  				$("#po").val(po);
-  				$("#confirm_amount").text(kyul - ku - po);
-  		  		result = parseInt(kyul * 0.03);
+  				po = $("#pointUseInput").val(); // 입력한 포인트 금액을 po에 저장
+  				$("#po").val(po); // po hidden에 입력한 포인트 금액이 저장
+  				$("#confirm_amount").text(kyul - ku - po); // 결제금액에는 현재결제금액 - 쿠폰할인금액 - 포인트적용금액
+  				kyul = $("#confirm_amount").text();
+  				$("#kyul").val(kyul);
+  				kyul = $("#kyul").val();
+  				result = parseInt(kyul * 0.03);
 		  		$("#confirm_point").text(result);
   			} else {
   				
@@ -595,9 +600,11 @@
           	  		<input type="hidden" id="buy_addAmount" name="buy_addAmount" value="0"> <!-- 추가금액(나중에 추가 됨) -->
           	  		
           	  		<input type="hidden" id="buy_totalAmount" name="buy_totalAmount" value=""> <!-- 총 금액(나중에 추가 됨) -->
+          	  		<input type="hidden" id="buy_usePoint" name="buy_usePoint" value=""> <!-- 총 금액(나중에 추가 됨) -->
           	  		<input type="hidden" id="buy_accident" name="buy_accident" value=""> <!-- 사고정보(나중에 추가 됨) -->
           	  		<input type="hidden" id="buy_coupon" name="buy_coupon" value=""> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_discount" name="buy_discount" value=""> <!-- 할인받은 금액 -->
+          	  		<input type="hidden" id="buy_useCoupon" name="buy_useCoupon" value=""> <!-- 할인받은 금액 -->
           	  		<input type="hidden" id="buy_burum" name="buy_burum" value="${payDTO.buy_burum }"> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_impUid" name="buy_impUid" value=""> <!-- 주문번호(script에서 결제할때 추가 됨) -->
           	  	</form>
@@ -608,6 +615,8 @@
           	  	<input type="hidden" id="memberPoint" value="${memberDTO.point }">
           	  	<script>
 				$("#check_module").click(function () {
+					alert($("#po").val() + "포인트");
+					alert($("#ku").val() + "쿠폰");
 					var sessionId = '<%=(String)session.getAttribute("sessionId")%>';
 					var coupon_v = $('select[name=coupon_method]').val();
 					var coupon_t = $('#cp_method option:checked').text();
@@ -623,6 +632,8 @@
 					$("#buy_point").val($("#confirm_point").text()); 		
 					$("#buy_amount").val($("#confirm_amount").text()); 
 					$("#buy_totalAmount").val($("#confirm_amount").text()); 
+					$("#buy_usePoint").val($("#po").val());
+					$("#buy_useCoupon").val($("#ku").val());
 					
 					$("#buy_coupon").val(coupon_sp[0]);
 					$("#buy_discount").val(coupon_v);
@@ -700,53 +711,81 @@
 						if(result == "ok"){
 							var params = $("form[name=payInsert]").serialize();
 							console.log(params);
+							
+
 							if($("#buy_burum").val() == "y") {
 								$.ajax({
-								      url:"burumService.do",
-								      data : params,
-								      success:function(data){
-								    	  alert("부름 서비스 신청이 완료 되었습니다.\n요청하신 주소로 차량이 이동 될 예정입니다.");
-								      },
-								      error : function(xhr, status) {
-							              alert(xhr + " : " + status);
-							          }
+									url:"burumService.do",
+									data : params,
+									success:function(data){
+										alert("부름성공");
+										alert("부름 서비스 신청이 완료 되었습니다.\n요청하신 주소로 차량이 이동 될 예정입니다.");
+									},
+									error : function(xhr, status) {
+										alert(xhr + " : " + status);
+									}
 								});
+							} else {
+								alert("부름 신청안함");
+
 							}
-							if($("#pointUseInput").val() != "") {
+														
+														
+							if($("#po").val() != "0") {
+								alert($("#pointUseInput").val());
 								$.ajax({
-								      url:"pointUse.do",
-								      data : {
-								    	  "point" : $("#pointUseInput").val()
-								      },
-								      success:function(){
-								      },
-								      error : function(xhr, status) {
-							              alert(xhr + " : " + status);
-							          }
+									url:"pointUseInput.do",
+									data : {
+										"id" : $("#buy_id").val(),
+										"point" : $("#pointUseInput").val()
+									},
+									success:function(){
+										alert("포인트성공");
+									},
+									error : function(xhr, status) {
+										alert(xhr + " : " + status);
+									}
 								});
+							} else {
+								alert("포인트 적용안함");
+
 							}
-							$.ajax({
-							      url:"couponUsing.do",
-							      data : {
-							    	  "num" : $("#couponSeq").val()
-							      },
-							      success:function(){
-							      },
-							      error : function(xhr, status) {
-						              alert(xhr + " : " + status);
-						          }
-							});
-							$.ajax({
-							      url:"payResult.do",
-							      data : params,
-							      success:function(data){
-							    	  alert("결제가 완료 되었습니다.\n예약페이지로 이동합니다.");
-							    	  location.href="map.do";
-							      },
-							      error : function(xhr, status) {
-						              alert(xhr + " : " + status);
-						          }
-							});
+
+
+							if($("#ku").val() != "0") {
+								$.ajax({
+									url:"couponUsing.do",
+									data : {
+										"num" : $("#couponSeq").val()
+									},
+									success:function(){
+										alert("쿠폰사용처리성공")
+									},
+									error : function(xhr, status) {
+										alert(xhr + " : " + status);
+									}
+								});
+							} else {
+								alert("쿠폰 사용안함");
+
+							}
+
+
+							$(document).ready(function(){
+								$.ajax({
+									url:"payResult.do",
+									data : params,
+									success:function(data){
+										alert("결제성공");
+										alert("결제가 완료 되었습니다.\n예약페이지로 이동합니다.");
+										location.href="map.do";
+									},
+									error : function(xhr, status) {
+										alert(xhr + " : " + status);
+									}
+								})
+							})			
+							
 						}else{
 							alert("실패");
 						}

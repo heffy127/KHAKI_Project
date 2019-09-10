@@ -113,7 +113,22 @@
 		
 		$(".c_content_payBtn").click(function(){
 			if($(this).text() == "환불신청하기"){
-				alert("db처리");
+				var result = confirm("환불 신청 하시겠습니까?");
+				if(result == true) {
+					$.ajax({
+		  			      url:"refund.do",
+		  			      data : {
+		  			    	  "buy_impUid" : $(this).val()
+		  			      },
+		  			      success:function(data){
+		  			    	  alert("환불신청이 완료 되었습니다.\n영업일 기준 3일 이내 처리 될 예정입니다.");
+		  			      },
+		  			      error : function(xhr, status) {
+		  		              alert(xhr + " : " + status);
+		  		          }
+		  			});
+				} 
+				
 			} else{
 				alert("고객센터로 문의해주세요\nKHAKI 고객센터 : 1577-1577");
 			}
@@ -162,7 +177,7 @@
           	  					<tr style="padding: 1%">
           	  						<td class="checkREservationTd" style="width: 25%;">보험종류</td>
           	  						<td style="width: 25%;" id="confirm_carIns">${pdto.buy_carIns }</td>
-          	  						<td class="checkREservationTd" style="width: 25%;">예상적립포인트</td>
+          	  						<td class="checkREservationTd" style="width: 25%;">적립포인트</td>
           	  						<td style="width: 25%;" id="confirm_point">${pdto.buy_point }</td>
           	  					</tr>
           	  					<tr>
@@ -182,7 +197,7 @@
           	  					<tr>
           	  						<td class="checkREservationTd" style="font-size: 28px;">총 금액</td>
           	  						<td style="font-size: 28px;"><img style="width: 15%; margin-right: 5%; margin-top: 2%; float: left;" src="https://image.flaticon.com/icons/svg/211/211054.svg"><div id="confirm_totalAmount<%= i %>" style="float: left;">${pdto.buy_totalAmount }</div>원</td>
-          	  						<td colspan="2"><button type="button" class="btn btn-outline-danger c_content_payBtn" value="<%= i %>" id="refund_btn<%= i %>">환불신청하기</button></td>
+          	  						<td colspan="2"><button type="button" class="btn btn-outline-danger c_content_payBtn" value="${pdto.buy_impUid }" id="refund_btn<%= i %>">환불신청하기</button></td>
           	  					</tr>
           	  				</table>
           					 <input type="hidden" id="db_discount<%= i %>" value="${pdto.buy_discount }">

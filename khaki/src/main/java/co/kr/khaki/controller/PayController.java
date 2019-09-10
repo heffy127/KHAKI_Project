@@ -76,14 +76,17 @@ public class PayController {
          }
       
       @RequestMapping("pointUseInput.do")
-      public String payResult(String getPoint) {
+      public String payResult(String id, String point) {
+    	  System.out.println(point + "넘어온 point!!");
     	 // 결제화면에서 포인트 사용을 했을 경우 입력한 포인트만큼 memberDB에서 포인트 차감
     	 // ex) 100포인트 사용시 100 * (-1) = -100
     	 // 현재 포인트가 500포인트라면 500 + (-100) = 400
     	 PayDTO payDTO = new PayDTO();
-    	 getPoint = Integer.toString(Integer.parseInt(getPoint) * (-1));
-    	 payDTO.setBuy_point(getPoint);
-         memberDAO.updatePointCount(payDTO);
+    	 point = Integer.toString(Integer.parseInt(point) * (-1));
+    	 System.out.println(point + "넘겨야 할 point!!");
+    	 payDTO.setBuy_id(id);
+    	 payDTO.setBuy_point(point);
+         memberDAO.minusPointCount(payDTO);
          return "pay/payResult";
       }
       
@@ -114,5 +117,7 @@ public class PayController {
     	  cpuDAO.update(cpuDTO);
   		  return "pay/payResult";
   	  }
+      
+      
    
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="refundDAO">
+
+	<insert id="insert" parameterType="refundDTO">
+      INSERT INTO refund (impUid, id, name, refundRequest, burum, amount, usePoint, pointOrCoupon, couponNum)
+      VALUES(#{impUid}, #{id}, #{name}, #{refundRequest}, #{burum}, #{amount}, #{usePoint}, #{pointOrCoupon}, #{couponNum})   <!-- 
+         oracle DB의 순서와 일치 시켜주어야한다! -->
+   </insert>
+
+   <resultMap type="refundDTO" id="rsMap">
+      <result property="impUid" column="impUid" />
+      <result property="id" column="id" />
+      <result property="name" column="name" />
+      <result property="refundRequest" column="refundRequest" />
+      <result property="burum" column="burum" />
+      
+      <result property="amount" column="amount" />
+      <result property="usePoint" column="usePoint" />
+      <result property="pointOrCoupon" column="pointOrCoupon" />
+      <result property="couponNum" column="couponNum" />
+      <result property="exp" column="exp" />
+      
+      <result property="refundYN" column="refundYN" />
+   </resultMap>
+	
+
+</mapper>

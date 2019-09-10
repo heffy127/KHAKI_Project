@@ -16,7 +16,6 @@ public class CarManageDAO {
 	@Autowired
 	SqlSessionTemplate my;
 	
-	
 	public void insert(CarManageDTO carManageDTO) {
 		System.out.println("CarManageDAO Insert!");
 		
@@ -60,9 +59,5 @@ public class CarManageDAO {
 		System.out.println("NoticeDAO delete!");
 		my.delete("nDAO.delete", noticeDTO);
 	}*/
-	
-	
-	
-	
 	
 }

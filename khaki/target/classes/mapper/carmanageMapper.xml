@@ -7,43 +7,46 @@
 	<select id="select" parameterType="cmDTO" resultMap="rsMap">
 		SELECT
 		*
-		FROM carmanage
-		WHERE carnum = #{carnum}
+		FROM car_board
+		WHERE car_num = #{car_num}
 	</select>
 	
 	<select id="selectjunggo" resultMap="rsMap">
 		SELECT
 		*
-		FROM carmanage
-		WHERE distance>=30000 and 50000>distance
+		FROM car_board
+		WHERE driven>=100000 and 250000>driven
 	</select>
 	
 	<select id="selectold" resultMap="rsMap">
-		SELECT * FROM carmanage
-		WHERE distance>=60000
+		SELECT * FROM car_board
+		WHERE driven>=250000
 	</select>
 	
 	<resultMap type="cmDTO" id="rsMap">
-		<result property="khaki_num" column="kahki_num" />
-		<result property="carnum" column="carnum" />
-		<result property="distance" column="distance" />
-		<result property="fuel" column="fuel" />
+		<result property="car_name" column="car_name" />
+		<result property="car_num" column="car_num" />
+		<result property="driven" column="driven" />
+		<result property="fuel_type" column="fuel_type" />
+		<result property="fuel_gage" column="fuel_gage" />
+		<result property="zone_num" column="zone_num" />
+		<result property="fee_hour" column="fee_hour" />
+		<result property="fee_km" column="fee_km" />
+		<result property="car_image" column="car_image" />
 		<result property="brand" column="brand" />
 		<result property="car_size" column="car_size" />
-		<result property="carname" column="carname" />
 		<result property="reg_date" column="reg_date" />
-		<result property="img" column="img" />
 	</resultMap>
 
 	<select id="selectAll" resultMap="rsMap">
-		SELECT * FROM carmanage order by khaki_num desc
+		SELECT * FROM car_board order by car_num desc
 	</select>
-	
+	<!-- selectAll부분 수정 필요(등록된 것 역순으로 나오게끔) -->
 	
 
 	<insert id="insert" parameterType="cmDTO">
-		INSERT INTO carmanage (khaki_num, carnum, distance, fuel, brand, car_size, carname, reg_date, img)
-		VALUES(khakinum_seq.nextval,#{carnum},#{distance},#{fuel},#{brand},#{car_size},#{carname},#{reg_date},#{img})
+		INSERT INTO car_board (car_name, car_num, driven, fuel_type, fuel_gage, zone_num, fee_hour, fee_km, car_image, brand, car_size, reg_date)
+		VALUES(#{car_name},#{car_num},#{driven},#{fuel_type},#{fuel_gage},#{zone_num},#{fee_hour},#{fee_km},#{car_image},#{brand},#{car_size},#{reg_date})
 	</insert>
 
 	<!-- <update id="updateSomething" parameterType="#modelname">

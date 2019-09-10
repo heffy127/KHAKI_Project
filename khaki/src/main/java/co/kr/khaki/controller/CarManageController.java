@@ -58,11 +58,11 @@ public class CarManageController {
 	public String carmanageSelect(Model model, CarManageDTO carManageDTO){
 		
 		//차량번호 넘어오는지 확인(OK)
-		System.out.println(carManageDTO.getCarnum().trim());
+		System.out.println(carManageDTO.getCar_num().trim());
 		// 차량번호를 넘겨받아서 select해오는 sql문 작성
 		
 		// 넘어올 때 이상한 띄어쓰기가 들어간 것을 제거하고 다시 넣어줌
-		carManageDTO.setCarnum(carManageDTO.getCarnum().trim());
+		carManageDTO.setCar_num(carManageDTO.getCar_num().trim());
 		carManageDTO = cmdao.select(carManageDTO);
 		//select 완료
 		

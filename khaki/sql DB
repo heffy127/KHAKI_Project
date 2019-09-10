@@ -3,8 +3,8 @@ create sequence pay_seq start with 1 increment by 1 maxvalue 10000 cycle nocache
 create sequence couponUse_seq start with 1 increment by 1 maxvalue 10000 cycle nocache; -- 다운로드 받은 쿠폰 시퀀스
 create sequence hb_seq start with 1 increment by 1 maxvalue 10000 cycle nocache; -- 핸들러 게시판글 번호 시퀀스
 
-create sequence khakinum_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
-create sequence notice_seq start with 1 increment by 1 maxvalue 10000 cycle nocache;
+create sequence khakinum_seq start with 1 increment by 1 maxvalue 10000 cycle nocache; -- carmanage 차량번호 시퀀스(병호) 지울 예정
+create sequence notice_seq start with 1 increment by 1 maxvalue 10000 cycle nocache; -- 공지사항 글번호 시퀀스(병호)
 
 CREATE SEQUENCE NO_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 MINVALUE 1 NOCYCLE; -- 자유게시판 글번호 시퀀스(다솔)
 CREATE SEQUENCE RE_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 MINVALUE 1 NOCYCLE; -- 댓글 번호 시퀀스(다솔)
@@ -96,6 +96,11 @@ reg_date varchar2(30),
 img varchar2(50) 
 );
 
+	car_board에 컬럼 추가
+	ALTER TABLE CAR_BOARD add(brand varchar2(30))
+	ALTER TABLE CAR_BOARD add(car_size varchar2(30))
+	ALTER TABLE CAR_BOARD add(reg_date varchar2(30))
+
 	차량소모품 DB
 create table consumable(
 carnum1 varchar2(10),
@@ -121,7 +126,7 @@ etc_battery_num number,
 etc_battery_time varchar2(30),
 etc_tire_num number,
 etc_tire_time varchar2(30),
-constraint FK_num foreign key(carnum1) references carManage(carnum) on delete cascade
+constraint FK_num foreign key(carnum1) references car_board(carnum) on delete cascade
 );
 
 
@@ -157,9 +162,11 @@ create table reservation ( -- 모든 예약정보
    buy_amount varchar2(20),
    buy_addAmount varchar2(20),
    buy_totalAmount varchar2(20),
+   buy_usePoint varchar2(20),
    buy_accident varchar2(20),
    buy_coupon varchar2(50),
    buy_discount varchar2(20),
+   buy_useCoupon varchar2(20),
    buy_burum char(1),
    buy_impUid varchar2(50)
 );
@@ -214,6 +221,20 @@ create table handlerUse ( -- 핸들러 이용 테이블
 	h_point varchar2(20), -- 예상적립포인트
 	h_using char(1) -- 핸들러 이용중 여부
 );
+
+create table refund ( -- 환불신청 테이블
+	impUid varchar2(20), -- 환불신청한 주문번호
+	id varchar2(20), -- 환불신청한 고객아이디
+	name varchar2(20), -- 환불신청한 고객이름
+	refundRequest varchar2(20), -- 환불신청한 날짜 select할때 sysdate로 설정해야 함
+	burum varchar2(20), -- 부름서비스 선택 여부(부름서비스 선택했을 경우 handler DB에서도 해당건 환불 됐을 때 삭제 처리해주어야 함.)
+	amount varchar2(20), -- 총 결제 금액(환불해줘야 할 금액. 할인 적용된 금액임. 환불 해줄 때는 amount + usePoint + pointOrCoupon)
+	usePoint varchar2(20), -- 사용한 포인트(환불 완료 될 경우 사용한 포인트를 다시 되돌려주어야 함)
+	pointOrCoupon varchar2(20), -- 사용한 포인트나 쿠폰 금액(환불 완료 될때 고객에게 환불해줘야 함)
+	couponNum varchar2(20), -- 쿠폰 번호(환불 완료 될 경우 해당 쿠폰 사용여부를 N으로 바꿔서 사용 할 수 있게 처리해야 함)
+	exp varchar2(20) default '500', -- 추가 된 경험치(환불 완료 될 경우 해당 경험치를 차감해야 함)
+	refundYN char(1) default 'N' -- 환불처리 여부 Y/N
+)
 
 
 

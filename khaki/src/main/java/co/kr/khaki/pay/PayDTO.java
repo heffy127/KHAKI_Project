@@ -20,15 +20,29 @@ public class PayDTO {
 	private String buy_amount; // 최초 구매금액(최초 결제시 부름서비스 신청, 존이 아닌곳에서 반납하는 등에 대한
 								// 추가금액이 포함되는 총 금액)
 	private String buy_addAmount; // 추가금액(이용시간 연장, 반납장소 변경 등으로 인한 추가금액 발생시 추가금액)
-	
 	private String buy_totalAmount; // 총 이용금액(최초금액과 추가금액의 합산금액)
+	private String buy_usePoint; // 사용한 포인트
 	private String buy_accident; // 고객 이용 중 사고 접수내용
 	private String buy_coupon; // 고객이 사용한 쿠폰
-	private String buy_discount; // 쿠폰으로 할인 받은 금액
+	private String buy_discount; // 쿠폰타입, 할인받은 금액, 쿠폰번호
+	private String buy_useCoupon; // 쿠폰으로 할인받은 금액
 	private String buy_burum; // 부름서비스 이용여부
 	private String buy_impUid; // 아임포트 거래고유번호(주문번호)
 	
 	
+	
+	public String getBuy_useCoupon() {
+		return buy_useCoupon;
+	}
+	public void setBuy_useCoupon(String buy_useCoupon) {
+		this.buy_useCoupon = buy_useCoupon;
+	}
+	public String getBuy_usePoint() {
+		return buy_usePoint;
+	}
+	public void setBuy_usePoint(String buy_usePoint) {
+		this.buy_usePoint = buy_usePoint;
+	}
 	public int getBuy_num() {
 		return buy_num;
 	}

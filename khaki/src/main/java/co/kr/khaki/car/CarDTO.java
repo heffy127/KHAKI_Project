@@ -7,12 +7,14 @@ public class CarDTO {
    private int driven; // 주행거리
    private String fuel_type; // 연료타입 디젤,가솔린,하이브리드,전기
    private int fuel_gage; // 연료충전량
-   private String loc_pre; // 현재위치 (위도,경도)
    private int zone_num; // 해당 차량이 소속된 존의 위치 (위도,경도)
    private int fee_hour; // 1시간당 대여료 (처음 예약시 결제)
    private int fee_km; // km당 요금 (반납 후 결제)
    private String car_image; //이미지 경로
-   
+   private String brand; //차량 브랜드
+   private String car_size; // 차급
+   private String reg_date; // 등록일자
+	
    public String getCar_name() {
       return car_name;
    }
@@ -43,12 +45,6 @@ public class CarDTO {
    public void setFuel_gage(int fuel_gage) {
       this.fuel_gage = fuel_gage;
    }
-   public String getLoc_pre() {
-      return loc_pre;
-   }
-   public void setLoc_pre(String loc_pre) {
-      this.loc_pre = loc_pre;
-   }
    public int getZone_num() {
       return zone_num;
    }
@@ -73,6 +69,24 @@ public class CarDTO {
    public void setCar_image(String car_image) {
       this.car_image = car_image;
    }
+public String getBrand() {
+	return brand;
+}
+public void setBrand(String brand) {
+	this.brand = brand;
+}
+public String getCar_size() {
+	return car_size;
+}
+public void setCar_size(String car_size) {
+	this.car_size = car_size;
+}
+public String getReg_date() {
+	return reg_date;
+}
+public void setReg_date(String reg_date) {
+	this.reg_date = reg_date;
+}
    
    
    

@@ -1,5 +1,6 @@
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -295,136 +296,70 @@ int endTimeCheck = 0;
        return zero + n;
    }
    
-   
-   function strCheck1() { // 현재년도 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var year0 = String(d.getFullYear());
-      var year = year0.substr(2,3);
-      var strY = $('#startYear').val();
-      if (parseInt(strY)<parseInt(year)) {
-         $('#startYear').val(year);
-      }
-      endCheck5();
-   }
-   
-   function strCheck2() { // 현재월 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var month = String(d.getMonth()+1);
-      month = leadingZeros(month,2);
-      var strY = $('#startMonth').val();
-      if (parseInt(strY)<parseInt(month)) {
-         $('#startMonth').val(month);
-      }
-      endCheck5();
-   }
-   
-   function strCheck3() { // 현재일 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var date = d.getDate();
-      date = leadingZeros(date,2);
-      var strY = $('#startDay').val();
-      if (parseInt(strY)<parseInt(date)) {
-         $('#startDay').val(date);
-      }
-      endCheck5();
-   }
-   
-   function strCheck4() { // 현재 시간 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var hour = d.getHours();
-      hour = leadingZeros(hour,2);
-      var strY = $('#startClock').val();
-      if (parseInt(strY)<parseInt(hour)) {
-         $('#startClock').val(hour);
-      }
-      endCheck5();
-   }
-   
-   function strCheck5() { // 현재 분 보다 이를 경우 얼럿발생
-	   
-	   $('#timeCheck').attr('disabled', true);
-      
-      var allTime = $('#startYear').val() + $('#startMonth').val() + $('#startDay').val() + $('#startClock').val() + $('#startMin').val();
-   
-      var tempY = String(d.getFullYear());
-      tempY = tempY.substr(2,3); // "19"
-      
-      var tempM = d.getMonth()+1;
-      tempM = String(leadingZeros(tempM,2)); // "09"
-      
-      var tempD = d.getDate();
-      tempD = String(leadingZeros(tempD,2)); // "04"
-      
-      var tempH = d.getHours();
-      tempH = String(leadingZeros(tempH,2)); // "13"
+   function startTimeButton() {
+	   var allTimeStr = $('#startYear').val() + $('#startMonth').val() + $('#startDay').val() + $('#startClock').val() + $('#startMin').val();
+	   var tempY = String(d.getFullYear());
+	      tempY = tempY.substr(2,3); // "19"
+	      
+	      var tempM = d.getMonth()+1;
+	      tempM = String(leadingZeros(tempM,2)); // "09"
+	      
+	      var tempD = d.getDate();
+	      tempD = String(leadingZeros(tempD,2)); // "04"
+	      
+	      var tempH = d.getHours();
+	      tempH = String(leadingZeros(tempH,2)); // "13"
 
-      var tempMs = d.getMinutes();
-      tempMs = String(leadingZeros(tempMs,2)); // "35"
-      
-      var allTimePre = tempY + tempM + tempD + tempH + tempMs;
-      
-      if(parseInt(allTimePre) < parseInt(allTime)){
-         
-      } else{
-         $('#startMin').val("00");
-      }
-      endCheck5();
-   }
-   
-   function endCheck1() { // 현재년도 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var year = $('#startYear').val();
-      var strY = $('#endYear').val();
-      if (parseInt(strY)<parseInt(year)) {
-         $('#endYear').val(year);
-      }
-      endCheck5();
-   }
-   
-   function endCheck2() { // 현재년도 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var month = $('#startMonth').val();
-      month = leadingZeros(month,2);
-      var strY = $('#endMonth').val();
-      if (parseInt(strY)<parseInt(month)) {
-         $('#endMonth').val(month);
-      }
-      endCheck5();
-   }
-   function endCheck3() { // 현재년도 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var date = $('#startDay').val();
-      date = leadingZeros(date,2);
-      var strY = $('#endDay').val();
-      if (parseInt(strY)<parseInt(date)) {
-         $('#endDay').val(date);
-      }
-      endCheck5();
-   }
-   function endCheck4() { // 현재시간 보다 이를 경우 얼럿발생
-	   $('#timeCheck').attr('disabled', true);
-      var hour = $('#startClock').val();
-      hour = leadingZeros(parseInt(hour),2);
-      var strY = $('#endClock').val();
-      if (parseInt(strY)<hour) {
-         $('#endClock').val(hour);
-      }
-      endCheck5();
-   }
-   function endCheck5() {
-      var allTimeStr = $('#startYear').val() + $('#startMonth').val() + $('#startDay').val() + $('#startClock').val() + $('#startMin').val();
-      var allTimeEnd = $('#endYear').val() + $('#endMonth').val() + $('#endDay').val() + $('#endClock').val() + $('#endMin').val();
-      var allTime = parseInt(allTimeEnd) - parseInt(allTimeStr);
-      if(allTime <= 0){
-         alert("시간을 다시 설정해주세요. \n (시작시간이 현재보다 빠르거나 \n 반납시간이 시작 시간보다 이르게 입력되었음)");
-         $('#endMin').val("00");
-         $('#timeCheck').attr('disabled', true);
-      } else{
-         $('#timeCheck').attr('disabled', false);
-      }
-   }
-   
-   
+	      var tempMs = d.getMinutes();
+	      tempMs = String(leadingZeros(tempMs,2)); // "35"
+	      
+	      var allTimePre = tempY + tempM + tempD + tempH + tempMs;
+	   if(allTimeStr>=allTimePre){
+		   alert("선택되었습니다.")
+		   $('#endTimeButton').attr('disabled', false);
+		   $('#startTimeButton').attr('disabled', true);
+		   $('#startYear').attr('disabled', true);
+		   $('#startMonth').attr('disabled', true);
+		   $('#startDay').attr('disabled', true);
+		   $('#startClock').attr('disabled', true);
+		   $('#startMin').attr('disabled', true);
+	   } else{
+		   alert("현재시간 이후로 입력해주세요.")
+	   }
+}
+   function endTimeButton() {
+	   var allTimeStr = $('#startYear').val() + $('#startMonth').val() + $('#startDay').val() + $('#startClock').val() + $('#startMin').val();
+	   var allTimeEnd = $('#endYear').val() + $('#endMonth').val() + $('#endDay').val() + $('#endClock').val() + $('#endMin').val();
+	      var allTime = parseInt(allTimeEnd) + 100 - parseInt(allTimeStr);
+	      if(allTime >= 0){
+	         alert("선택되었습니다.")
+	         $('#endTimeButton').attr('disabled', true);
+		     $('#endYear').attr('disabled', true);
+		     $('#endMonth').attr('disabled', true);
+		     $('#endDay').attr('disabled', true);
+		     $('#endClock').attr('disabled', true);
+		     $('#endMin').attr('disabled', true);
+	         $('#timeCheck').attr('disabled', false);
+	      } else{
+	    	  alert("시작시간 이후로 입력해주세요.")
+	         $('#timeCheck').attr('disabled', true);
+	      }
+}
+   function timeReset() {
+	   $('#endTimeButton').attr('disabled', true);
+	   $('#startTimeButton').attr('disabled', false);
+	   $('#startYear').attr('disabled', false);
+	   $('#startMonth').attr('disabled', false);
+	   $('#startDay').attr('disabled', false);
+	   $('#startClock').attr('disabled', false);
+	   $('#startMin').attr('disabled', false);
+	   $('#endYear').attr('disabled', false);
+	   $('#endMonth').attr('disabled', false);
+	   $('#endDay').attr('disabled', false);     
+	   $('#endClock').attr('disabled', false);
+	   $('#endMin').attr('disabled', false);
+       $('#timeCheck').attr('disabled', true);
+}
    function reset() {
       var zones = "0,1,2,3,4,5,6,7,8,9,";
       var buy_startTime = null;
@@ -568,14 +503,14 @@ function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모�
 	     	            '<tr><td width="30%"><img alt="" src="'+x2[2]+'" width="80%"></td>'
 	     	            +'<td width="30%"><strong>'+x2[0]+'</strong></td>'
 	     	            +'<td width="30%">'+x2[4]+" / "+x2[1]+'% </td>'
-	     	            +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-danger" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'" disabled>'+x2[3]+'</button></td></tr>'
+	     	            +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-danger" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'" disabled>'+x2[6]+'</button></td></tr>'
 	     	         );	 
 	         } else {
 				$("#carList").append( // 마커클릭 후 오른쪽에 추가되는 내용들
 	        	          '<tr><td width="30%"><img alt="" src="'+x2[2]+'" width="80%"></td>'
 	        	          +'<td width="30%"><strong>'+x2[0]+'</strong></td>'
 	        	          +'<td width="30%">'+x2[4]+" / "+x2[1]+'% </td>'
-	        	          +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-info" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'">'+x2[3]+'</button></td></tr>'
+	        	          +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-info" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'">'+x2[6]+'</button></td></tr>'
 	        	      );	 
 	        	 
 	         }
@@ -659,22 +594,24 @@ function reservation() {
    // buy_endTime  =  1909051320
    var strMin = parseInt(buy_startTime.substr(8,2));
    var endMin = parseInt(buy_endTime.substr(8,2));
+   var strHour = parseInt(buy_startTime.substr(6,2));
+   var endHour = parseInt(buy_endTime.substr(6,2));
+   
    if ((endMin-strMin)>=0){
 	   use_min = endMin-strMin;
    } else {
 	   use_min = 60-(strMin-endMin);
+	   endHour = endHour - 1;
    }
- //------
-   var strHour = parseInt(buy_startTime.substr(6,2));
-   var endHour = parseInt(buy_endTime.substr(6,2));
-   alert(endHour-strHour);
-   if ((endHour-strHour)>=0){
+ //----------
+   if ((endHour-strHour)>= 0){
 	   use_hour = endHour-strHour;
+	   alert(endHour-strHour)
    } else {
 	   use_hour = 24-(strHour-endHour);
+	   alert(endHour-strHour)
    }
- //------
-   /*  */
+ //----------
    $.ajax({
          type : "GET",
          url : "carNumSearch.do",
@@ -836,29 +773,54 @@ function reservation() {
          </form>
          <!-- User -->
          <ul class="navbar-nav align-items-center d-none d-md-flex">
-            <li class="nav-item dropdown"><a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <div class="media align-items-center">
-                     <span class="avatar avatar-sm rounded-circle"> <img alt="Image placeholder" src="resources/assets/img/theme/team-4-800x800.jpg">
-                     </span>
-                     <div class="media-body ml-2 d-none d-lg-block">
-                        <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
-                     </div>
-                  </div>
-            </a>
-               <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-                  <div class=" dropdown-header noti-title">
-                     <h6 class="text-overflow m-0">Welcome!</h6>
-                  </div>
-                  <a href="profile.do" class="dropdown-item"> <i class="ni ni-single-02"></i> <span>My profile</span>
-                  </a> <a href="profile.do" class="dropdown-item"> <i class="ni ni-settings-gear-65"></i> <span>Settings</span>
-                  </a> <a href="profile.do" class="dropdown-item"> <i class="ni ni-calendar-grid-58"></i> <span>Activity</span>
-                  </a> <a href="profile.do" class="dropdown-item"> <i class="ni ni-support-16"></i> <span>Support</span>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#!" class="dropdown-item"> <i class="ni ni-user-run"></i> <span>Logout</span>
-                  </a>
-               </div></li>
-         </ul>
+          <li class="nav-item dropdown">
+				<c:choose>
+						<c:when test="${sessionName != null }">
+            		<a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			              <div class="media align-items-center">
+			                <span class="avatar avatar-sm rounded-circle">
+			                  <img alt="Image placeholder" src="${sessionPhoto}" style="width: 40px; height: 40px;">
+			                </span>
+			                <div class="media-body ml-2 d-none d-lg-block">
+			                  <span class="mb-0 text-sm  font-weight-bold">${sessionName} 님</span>
+			                </div>
+			              </div>
+		            </a>
+		             	 </c:when>
+	              <c:when test="${sessionName == null }">
+					<div>
+						<a href="login.do" style="color: white; font-weight: bold;">&nbsp;&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;</a>
+					</div>
+	              </c:when>
+				</c:choose>
+            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+              <div class=" dropdown-header noti-title">
+                <h6 class="text-overflow m-0">Welcome!</h6>
+              </div>
+              <a href="profile.do" class="dropdown-item">
+                <i class="ni ni-single-02"></i>
+                <span>My profile</span>
+              </a>
+              <a href="profile.jsp" class="dropdown-item">
+                <i class="ni ni-settings-gear-65"></i>
+                <span>Settings</span>
+              </a>
+              <a href="profile.jsp" class="dropdown-item">
+                <i class="ni ni-calendar-grid-58"></i>
+                <span>Activity</span>
+              </a>
+              <a href="profile.jsp" class="dropdown-item">
+                <i class="ni ni-support-16"></i>
+                <span>Support</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="sessionLogout.do" class="dropdown-item">
+                <i class="ni ni-user-run"></i>
+                <span>Logout</span>
+              </a>
+            </div>
+          </li>
+        </ul>
       </div>
    </nav>
    <!-- End Navbar -->
@@ -968,11 +930,11 @@ function reservation() {
                                                    }
                                                   
                                                 %>
-                                             <select id="startYear" onchange="strCheck1()">
+                                             <select id="startYear">
                                                 <option value="19">19</option>
                                                 <option value="20">20</option>
                                              </select>
-                                             <select id="startMonth" onchange="strCheck2()">
+                                             <select id="startMonth">
                                                 
                                                 <option value=<%=month%>><%=month%></option>
                                                 <option value="01">01</option>
@@ -988,7 +950,7 @@ function reservation() {
                                                 <option value="11">11</option>
                                                 <option value="12">12</option>
                                              </select>
-                                             <select id="startDay" onchange="strCheck3()">
+                                             <select id="startDay">
                                                 <option value=<%=date%>><%=date%></option>
                                                 <option value="01">01</option><option value="02">02</option><option value="03">03</option>
                                                 <option value="04">04</option><option value="05">05</option><option value="06">06</option>
@@ -1002,7 +964,7 @@ function reservation() {
                                                 <option value="28">28</option><option value="29">29</option><option value="30">30</option>
                                                 <option value="31">31</option>
                                              </select>
-                                             <select id="startClock" onchange="strCheck4()">
+                                             <select id="startClock">
                                                 <option value=<%=hour%>><%=hour%></option>
                                                 <option value="00">00</option><option value="01">01</option><option value="02">02</option>
                                                 <option value="03">03</option><option value="04">04</option><option value="05">05</option>
@@ -1013,22 +975,25 @@ function reservation() {
                                                 <option value="18">18</option><option value="19">19</option><option value="20">20</option>
                                                 <option value="21">21</option><option value="22">22</option><option value="23">23</option>
                                              </select>
-                                             <select id="startMin" onchange="strCheck5()">
+                                             <select id="startMin">
                                                 <option value=<%=min%>><%=min%></option>
                                                 <option value="00">00</option><option value="10">10</option><option value="20">20</option>
                                                 <option value="30">30</option><option value="40">40</option><option value="50">50</option>
                                              </select>
+                                             </td>
+                                             <td>
+                                             <button class="btn btn-outline-default" id="startTimeButton" onclick="startTimeButton()">시간<br>입력</button>
                                              </td>
                                           </tr>
                                           </div>
                                           <div>
                                              <tr>
                                              <td>
-                                             <select id="endYear" onchange="endCheck1()">
+                                             <select id="endYear">
                                                 <option value="19">19</option>
                                                 <option value="20">20</option>
                                              </select>
-                                             <select id="endMonth" onchange="endCheck2()">
+                                             <select id="endMonth">
                                                 <option value=<%=month%>><%=month%></option>
                                                 <option value="01">01</option>
                                                 <option value="02">02</option>
@@ -1043,7 +1008,7 @@ function reservation() {
                                                 <option value="11">11</option>
                                                 <option value="12">12</option>
                                              </select>
-                                             <select id="endDay" onchange="endCheck3()">
+                                             <select id="endDay">
                                                 <option value=<%=date%>><%=date%></option>
                                                 <option value="01">01</option><option value="02">02</option><option value="03">03</option>
                                                 <option value="04">04</option><option value="05">05</option><option value="06">06</option>
@@ -1057,8 +1022,8 @@ function reservation() {
                                                 <option value="28">28</option><option value="29">29</option><option value="30">30</option>
                                                 <option value="31">31</option>
                                              </select>
-                                             <select id="endClock" onchange="endCheck4()">
-                                                <option value=<%=hour%>><%=hour%></option>
+                                             <select id="endClock">
+                                                <option value=<%=Integer.parseInt(hour) + 1%>><%=Integer.parseInt(hour) + 1%></option>
                                                 <option value="00">00</option><option value="01">01</option><option value="02">02</option>
                                                 <option value="03">03</option><option value="04">04</option><option value="05">05</option>
                                                 <option value="06">06</option><option value="07">07</option><option value="08">08</option>
@@ -1068,17 +1033,21 @@ function reservation() {
                                                 <option value="18">18</option><option value="19">19</option><option value="20">20</option>
                                                 <option value="21">21</option><option value="22">22</option><option value="23">23</option>
                                              </select>
-                                             <select id="endMin" onchange="endCheck5()">
+                                             <select id="endMin">
                                                 <option value=<%=min%>><%=min%></option>
                                                 <option value="00">00</option><option value="10">10</option><option value="20">20</option>
                                                 <option value="30">30</option><option value="40">40</option><option value="50">50</option>
                                              </select>
+                                             </td>
+                                             <td>
+                                             <button class="btn btn-outline-default" id="endTimeButton" disabled="true" onclick="endTimeButton()">시간<br>입력</button>
                                              </td>
                                           </tr>
                                           </div>
                                        </table>
                                     </div>
                                     <div class="modal-footer">
+                                       <button type="button" class="btn btn-outline-danger" onclick="timeReset()">초기화</button>
                                        <button id="timeCheck" type="button" class="btn btn-primary" data-toggle="modal" data-target="#reservation2" onclick="modalClose1()" disabled="true">다음</button>
                                     </div>
                                  </div>
