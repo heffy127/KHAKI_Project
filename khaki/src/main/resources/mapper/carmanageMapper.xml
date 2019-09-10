@@ -29,7 +29,6 @@
 		<result property="driven" column="driven" />
 		<result property="fuel_type" column="fuel_type" />
 		<result property="fuel_gage" column="fuel_gage" />
-		<result property="loc_pre" column="loc_pre" />
 		<result property="zone_num" column="zone_num" />
 		<result property="fee_hour" column="fee_hour" />
 		<result property="fee_km" column="fee_km" />
@@ -46,8 +45,8 @@
 	
 
 	<insert id="insert" parameterType="cmDTO">
-		INSERT INTO car_board (car_name, car_num, driven, fuel_type, fuel_gage, loc_pre, zone_num, fee_hour, fee_km, car_image, brand, car_size, reg_date)
-		VALUES(#{car_name},#{car_num},#{driven},#{fuel_type},#{fuel_gage},#{loc_pre},#{zone_num},#{fee_hour},#{fee_km},#{car_image},#{brand},#{car_size},#{reg_date})
+		INSERT INTO car_board (car_name, car_num, driven, fuel_type, fuel_gage, zone_num, fee_hour, fee_km, car_image, brand, car_size, reg_date)
+		VALUES(#{car_name},#{car_num},#{driven},#{fuel_type},#{fuel_gage},#{zone_num},#{fee_hour},#{fee_km},#{car_image},#{brand},#{car_size},#{reg_date})
 	</insert>
 
 	<!-- <update id="updateSomething" parameterType="#modelname">

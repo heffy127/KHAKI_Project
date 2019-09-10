@@ -456,7 +456,7 @@
           			
           			<!-- <button id="update">수정</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
           			<button id="delete" class="btn btn-outline-danger">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          			<button id="cansel" class="btn btn-outline-warning" onclick="history.back(-1);">뒤로</button>
+          			<button id="cancel" class="btn btn-outline-warning" onclick="history.back(-1);">뒤로</button>
 	          	</div>
           	</div>
           </div>

@@ -1,6 +1,8 @@
 package co.kr.khaki.carmanage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CarList {
 
@@ -11,41 +13,42 @@ public class CarList {
 
 	private String[] fuels = {"가솔린", "디젤", "하이브리드"};
 	
-	private String[] sizes = {"small", "compact", "midsize", "compact_SUV", "SUV"};
-	// 경형 = compact, 소형 = small, 준중형 = semi-midsize, 중형 = midsize, 소형SUV = compact_SUV, SUV = SUV
+	private String[] sizes = {"소형", "준중형", "중형", "준중형_SUV", "SUV"};
+	// 경형 = 준중형, 소형 = 소형, 준중형 = semi-중형, 중형 = 중형, 소형SUV = 준중형_SUV, SUV = SUV
 	
-	private String[] brands = {"Hyundai", "RenaultSamsung", "Kia", "Chevrolet", "Ssangyong"};
+	private String[] brands = {"현대", "르노삼성", "기아", "쉐보레", "쌍용"};
 
+	/*
+	 * 해쉬맵을 사용하고자 했으나 기각;;
+	 * private Map<String, Integer> fee_kms = new HashMap<String, Integer>() {{
+		put("소형",150);
+		put("준중형",160);
+		put("중형",170);
+		put("SUV",180);
+	}};*/
+	
 	// 제조사/차량명/사이즈/연료 순으로 정리
 	private String[] carsList = {
-			"Hyundai/avante/compact/가솔린", "Hyundai/grandeur/midesize/가솔린",
-			"Hyundai/grandeur/midesize/하이브리드",
-			"Hyundai/sonata/midesize/가솔린", "Hyundai/santafe/SUV/디젤",
-			"Hyundai/santafe/SUV/가솔린", "Hyundai/tucson/SUV/가솔린",
-			"Hyundai/tucson/SUV/디젤", "RenaultSamsung/sm3/compact/가솔린",
-			"RenaultSamsung/sm5/midsize/가솔린", "RenaultSamsung/sm7/midsize/가솔린",
-			"Kia/k3/compact/가솔린", "Kia/k5/midsize/가솔린", "Kia/k7/midsize/가솔린",
-			"Kia/pride/small/가솔린", "Kia/ray/small/가솔린", "Kia/soranto/SUV/디젤",
-			"Kia/stinger/midsize/가솔린", "Chevrolet/malibu/midsize/가솔린",
-			"Chevrolet/olando/SUV/디젤", "Chevrolet/spark/small/가솔린",
-			"Ssangyong/tivoli/SUV/디젤", "Ssangyong/tivoli/SUV/가솔린",
-			"Ssangyong/tivoli_air/SUV/디젤", "Ssangyong/tivoli_air/SUV/가솔린" 
+			"현대/avante/준중형/가솔린", "현대/grandeur/중형/가솔린",
+			"현대/grandeur/중형/하이브리드",
+			"현대/sonata/중형/가솔린", "현대/santafe/SUV/디젤",
+			"현대/santafe/SUV/가솔린", "현대/tucson/SUV/가솔린",
+			"현대/tucson/SUV/디젤", "르노삼성/sm3/준중형/가솔린",
+			"르노삼성/sm5/중형/가솔린", "르노삼성/sm7/중형/가솔린",
+			"기아/k3/준중형/가솔린", "기아/k5/중형/가솔린", "기아/k7/중형/가솔린",
+			"기아/pride/소형/가솔린", "기아/ray/소형/가솔린", "기아/soranto/SUV/디젤",
+			"기아/stinger/중형/가솔린", "쉐보레/malibu/중형/가솔린",
+			"쉐보레/olando/SUV/디젤", "쉐보레/spark/소형/가솔린",
+			"쌍용/tivoli/SUV/디젤", "쌍용/tivoli/SUV/가솔린",
+			"쌍용/tivoli_air/SUV/디젤", "쌍용/tivoli_air/SUV/가솔린" 
 	};
-	
-	/*
-	private String[] Hyundai = {"avante", "grandeur", "sonata", "santafe", "tucson"};	
-	private String[] RenaultSamsung = {"sm3", "sm5", "sm7"};	
-	private String[] Kia = {"k3", "k5", "k7", "pride", "ray", "soranto", "stinger"};	
-	private String[] Chevrolet = {"malibu", "olando", "spark"};	
-	private String[] Ssangyong = {"tivoli", "tivoli_air"};
-	*/
 	
 	public static void main(String[] args) {
 		CarList name = new CarList();
 		System.out.println(name.getCarsList()[0]);
 		
 	}
-	
+
 	public String[] getBrands() {
 		return brands;
 	}

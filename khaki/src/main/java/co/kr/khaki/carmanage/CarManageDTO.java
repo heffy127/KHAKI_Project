@@ -6,13 +6,12 @@ public class CarManageDTO {
 	private String car_num; // 차번호 > 30가1234 , 프라이머리키
 	private int driven; // 주행거리
 	private String fuel_type; // 연료타입 디젤,가솔린,하이브리드,전기
-	private int fuel_gage; // 연료충전량
-	private String loc_pre; // 현재위치 (위도,경도)
-	private int zone_num; // 해당 차량이 소속된 존의 위치 (위도,경도)
-	private int fee_hour; // 1시간당 대여료 (처음 예약시 결제)
-	private int fee_km; // km당 요금 (반납 후 결제)
-	private String car_image; //이미지 경로
-	private String brand;
+	private int fuel_gage; // 연료충전량		-- 90 고정으로 넣는 것(일단)
+	private int zone_num; // 해당 차량이 소속된 존의 번호(위도,경도)	-- 
+	private int fee_hour; // 1시간당 대여료 (처음 예약시 결제)		-- 기준 7000
+	private int fee_km; // km당 요금 (반납 후 결제)		-- 기준 150
+	private String car_image; //이미지 경로		-- 
+	private String brand;	//제조사 
 	private String car_size;
 	private String reg_date;
 	
@@ -51,12 +50,6 @@ public class CarManageDTO {
 	}
 	public void setFuel_gage(int fuel_gage) {
 		this.fuel_gage = fuel_gage;
-	}
-	public String getLoc_pre() {
-		return loc_pre;
-	}
-	public void setLoc_pre(String loc_pre) {
-		this.loc_pre = loc_pre;
 	}
 	public int getZone_num() {
 		return zone_num;

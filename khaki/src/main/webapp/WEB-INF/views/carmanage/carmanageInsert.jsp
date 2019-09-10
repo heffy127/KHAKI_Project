@@ -31,15 +31,15 @@
 			// 차량 등록
  			$("#insert").click(function(){
  				
- 				
  				// 차량 등록시 소모품들 교체는 다 된 것으로 하고 수치를 넣도록 구현
  				// jquery에서 text()는 그 안의 text값을 가져오는것, val()은 value값을 가져오는 것(구분 잘하기)
- 				var distance1 = $("#total_distance").val();		//parseInt가 필요한지는 아직 모름
+ 				var distance1 = $("#total_distance").val()		//parseInt가 필요한지는 아직 모름
  				var num = 0;
  				
  				// 차량번호 입력한 것을 그대로 받아와서 넘겨줌
  				var carnum_data = $("#car_num").val(); 
  				$("#carnum1").val(carnum_data);
+ 				alert(carnum_data)
  				
  				//배열 순서대로 타이밍벨트, 구동벨트, 엔진오일, 변속기오일, 브레이크 오일, 에어컨필터, 연료필터, 에어클리너, 냉각수, 배터리, 타이어 순서
 				var arr = new Array(100000, 30000, 10000, 30000, 40000, 15000, 30000, 20000, 50000, 60000, 30000);
@@ -47,7 +47,7 @@
 				for(var i=0; i<arr.length;i++){
 					var change_num = Math.floor(distance1 / arr[i]);		//distance에 따른 차량 소모품 교체 횟수(기준으로 나눈 것)
 					$("#consumable"+(i+1)).val(change_num);
-					
+					alert(change_num)
 				};
 				
  				$("#car_insert").submit();
@@ -110,28 +110,51 @@
 			*/
 			$(document).on("click",".dropdown-min-menu2",function(){
 				// 하나로 특정지어야함(모두 carname의 class를 가짐, 여기서 쓰는 메소드 this인데..)
-				// jstl의 for문으로 뿌려진 것을 this로 가져오는 것과 내부에서 append해서 만들어진 dorpdown에서 가져오는 것의 차이??
+				// jstl의 for문으로 뿌려진 것을 this로 가져오는 것과 내부에서 append해서 만들어진 dropdown에서 가져오는 것의 차이??
 				var data2 = $(this).children(".carname").text();
 				//여기서 this는 dropdown-min-menu2를 의미함
 				alert(data2);	
 				var arr = new Array();
 				arr = data2.split("/");
 				// split 테스트
-				//alert(arr[0]);
-				//alert(arr[1]);
+				alert(arr[0]);
+				alert(arr[1]);
 				
 				//$("#car_dropDown").children().children("i").remove();
 				
 				$("#car_dropDown").text(data2);
-		        $("#carname").val(arr[0]);		// DB에 차량 이름 저장
+		        $("#carname").val(arr[0]);		// DB에 차량 이름 저장하기 위해서 form양식에 넣어줌
 		        $("#car_image").val("resources/assets/img/car/"+arr[0]+".png");	// DB에 저장하기 위해(.png를 붙여서 저장해줌)
-		        $("#car_image").attr("src", "resources/assets/img/car/"+arr[0]+".png");	//차량 이미지 나오게 하는 곳
+		        $("#car_img_view").attr("src", "resources/assets/img/car/"+arr[0]+".png");	//차량 이미지 나오게 하는 곳
 		        
 		        //form 태그 내의 hidden에 val메소드를 통해 값을 넣어서 넘겨줌
 		        $("#car_size").val(arr[1]);
 		        $("#size_dropDown").text(arr[1]);
 		        $("#fuel").val(arr[2]);
 		        $("#fuel_dropDown").text(arr[2]);
+		        if("소형" == arr[1].trim()){
+			        $("#fee_km_dropDown").text(160+"원");
+			        $("#fee_km").val(160)
+			        $("#fee_hour_dropDown").text(6000+"원");
+			        $("#fee_hour").val(6000)
+		        }else if("준중형" == arr[1].trim()){
+			        $("#fee_km_dropDown").text(170+"원");
+			        $("#fee_km").val(170)
+			        $("#fee_hour_dropDown").text(7000+"원");
+			        $("#fee_hour").val(7000)
+		        }else if("중형" == arr[1].trim()){
+			        $("#fee_km_dropDown").text(180+"원");
+			        $("#fee_km").val(180)
+			        $("#fee_hour_dropDown").text(7500+"원");
+			        $("#fee_hour").val(7500)
+		        }else{
+		        	$("#fee_km_dropDown").text(190+"원");
+			        $("#fee_km").val(190)
+			        $("#fee_hour_dropDown").text(8000+"원");
+			        $("#fee_hour").val(8000)
+		        }
+		        
+		        // fee_km : 드롭다운 메뉴 class : fee_km_dropDown id : fee_km_drop
 		        
 			});	//차량명 dropdown End
 			
@@ -461,13 +484,14 @@
 	            		<div class="col col-sm">
 	            			<div class="row">
 	            				<div class="col col-sm-5">
-	            					<img id="car_img" src="http://placehold.it/400x300" />
+	            					<img id="car_img_view" src="http://placehold.it/400x300" />
 	            				</div>
 	            				<div class="col col-sm-5">
 	            					<div class="form-group">
 		            					<div class="row">
 		            						<div class="col col-sm-9">
 		            							<input type="text" class="form-control" id="car_num" name="car_num" placeholder="차량번호">
+		            							<!-- 차량번호 keyup으로 제한사항 두기 -->
 		            						</div>
 		            					</div>
 		            					<div class="row">
@@ -537,7 +561,7 @@
 		            						<div class="col col-sm-9">
 		            							<div class="dropdown">
 							                        <a class="btn btn-lg btn-icon-only text-light" id="size_dropDown" style="width: 330px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-												            		<b><i class="fas fa-car-side"></i></b>-연료 선택-
+												            		<b><i class="fas fa-car-side"></i></b>-차량크기 선택-
 							                          <!-- <i class="ni ni-bus-front-12"></i> -->
 							                        </a>
 							                        <!--  dropdown-menu-arrow -->
@@ -550,14 +574,52 @@
 						                     	</div>	<!-- dropdown End -->
 		            						</div>
 		            					</div>
+		            					<div class="row">
+		            						<div class="col col-sm-9">
+		            							<div class="dropdown">
+							                        <a class="btn btn-lg btn-icon-only text-light" id="fee_km_dropDown" style="width: 330px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												            		<b><i class="fas fa-car-side"></i></b>- km당 가격 -
+							                        </a>
+							                        <!--  dropdown-menu-arrow -->
+							                        <div class="dropdown-menu dropdown-menu-right" style="overflow-y: scroll;height: 150px;">
+						                        		<div class="dropdown-min-menu5">
+						                        			<div class="dropdown-item fee_km_drop" id="fee_km_drop">km당 가격</div>
+						                        		</div>
+							                        </div>
+						                     	</div>	<!-- dropdown End -->
+		            						</div>
+		            					</div>
+		            					<div class="row">
+		            						<div class="col col-sm-9">
+		            							<div class="dropdown">
+							                        <a class="btn btn-lg btn-icon-only text-light" id="fee_hour_dropDown" style="width: 330px;" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												            		<b><i class="fas fa-car-side"></i></b>- 시간당 가격 -
+							                        </a>
+							                        <!--  dropdown-menu-arrow -->
+							                        <div class="dropdown-menu dropdown-menu-right" style="overflow-y: scroll;height: 150px;">
+						                        		<div class="dropdown-min-menu6">
+						                        			<div class="dropdown-item fee_hour_drop" id="fee_hour_drop">시간당 가격</div>
+						                        		</div>
+							                        </div>
+						                     	</div>	<!-- dropdown End -->
+		            						</div>
+		            					</div>
 		            					
 		            					<!-- form에 넘어가는 값들 -->
 	            						<input type="hidden" name="reg_date" value="20190821">	<!-- value값이 의미 없음 -->
 	            						<input type="hidden" name="car_image" id="car_image">
 		            					<input type="hidden" name="car_name" id="carname">
+		            					
+		            						<!-- DB 통합후 새로 Insert할 내용들 aaa -->
+		            					<input type="hidden" name="fuel_gage" id="fuel_gage" value="90">
+		            					<input type="hidden" name="fee_hour" id="fee_hour" value="">
+		            					<input type="hidden" name="fee_km" id="fee_km" value="">
+		            					<input type="hidden" name="zone_num" id="zone_num" value="1">	<!-- 카키존 구현 후 연결 -->
+		            					
 		            					<input type="hidden" class="form-control" name="brand" id="brand">
-		            					<input type="hidden" class="form-control" name="fuel" id="fuel">
+		            					<input type="hidden" class="form-control" name="fuel_type" id="fuel">
 		            					<input type="hidden" class="form-control" name="car_size" id="car_size">
+		            					
 		            					
 		            					<!-- 소모품DB에 들어가는 값들 -->
 		            					<input type="hidden" name="carnum1" id="carnum1">
