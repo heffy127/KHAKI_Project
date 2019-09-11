@@ -24,6 +24,7 @@ public class CarManageController {
 	@Autowired
 	CarConsumableDAO ccdao;
 	
+	
 	@RequestMapping("carmanageDelete.do")
 	public String carmanageDelete(String car_num, Model model, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="10") int pageSize){
 		// 페이지수 조절하는 것 연결하려면 curPage, pageSize를 가지고 다닐 수 있도록
@@ -108,7 +109,8 @@ public class CarManageController {
 	}
 	
 	@RequestMapping("carmanage.do")
-	public String carmanage(Model model, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="10") int pageSize){
+	public String carmanage(Model model, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="10") int pageSize,
+			@RequestParam(defaultValue="검색어없음") String search_list, @RequestParam(defaultValue="검색어없음") String search_obj){
 		
 		//selectJunggo
 		System.out.println("carmanage select_junggo");
@@ -119,8 +121,9 @@ public class CarManageController {
 		List<CarManageDTO> oldlist = cmdao.selectold();
 
 		//selectAll
-		System.out.println("carmanage selectAll");
-		List<CarManageDTO> cmlist = cmdao.selectAll();
+		System.out.println("carmanage select, Search 분기");
+		System.out.println("search_list : "+search_list+" / search_obj : "+search_obj);
+		List<CarManageDTO> cmlist = cmdao.search(search_list, search_obj);
 		
 		System.out.println("junggosize : "+junggolist.size() +" / " + "oldsize : "+oldlist.size());
 		

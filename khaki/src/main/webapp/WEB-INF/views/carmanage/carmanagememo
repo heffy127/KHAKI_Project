@@ -125,6 +125,22 @@ create sequence khakinum_seq start with 1 increment by 1 maxvalue 10000 cycle no
 	- 페이지네이션 curpage, pagesize값을 넘기지 않아도 되도록 고민
 	- cctv jsp부분 버튼 및 css, 맵 : 클러스터러 기능, cctv 서울 지역 안되는 것 확인
 	
+	// search_list와 search_obj
+	//var search_form_data = $("#search_form").serialize();	//serialize() : form의 문자열의 데이터에 serialize 한다
+	//alert(search_form_data);
 	
-	
+	//ajax 틀
+	/* $.ajax({
+		url: 'carmanageSearch.do',
+		type: 'GET',
+		data: search_form_data,
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8",	//ajax 한글 깨짐 현상
+		success: function(result){
+			alert("ajax 동작 완료!");
+			alert(result);
+			// success되면 result에 반환이 됨
+		}, error: function(err){
+			alert("에러발생!!!");
+		}
+	});	//ajax end */
 	

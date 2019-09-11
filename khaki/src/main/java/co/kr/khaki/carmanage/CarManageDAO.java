@@ -16,6 +16,36 @@ public class CarManageDAO {
 	@Autowired
 	SqlSessionTemplate my;
 	
+	public List<CarManageDTO> search(String search_list, String search_obj) {
+		
+		List<CarManageDTO> selectlist;
+		
+		if("차량번호".equals(search_list)) {
+			System.out.println("차량번호 검색!");
+			selectlist = my.selectList("cmDAO.select_car_num", search_obj);
+		}else if("차량명".equals(search_list)) {
+			System.out.println("차량명 검색!");
+			selectlist = my.selectList("cmDAO.select_car_name", search_obj);
+		}else if("브랜드".equals(search_list)) {
+			System.out.println("브랜드 검색!");
+			selectlist = my.selectList("cmDAO.select_car_brand", search_obj);
+		}else if("연료종류".equals(search_list)) {	//연료 종류가 넘어옴
+			System.out.println("연료종류 검색!");
+			selectlist = my.selectList("cmDAO.select_car_fuel", search_obj);
+		}else {
+			System.out.println("전체 검색!");
+			// 검색어 종류가 없는 것은 전체를 가져옴
+			selectlist = my.selectList("cmDAO.selectAll");
+		}
+		
+		return selectlist;
+	}
+
+	public List<CarManageDTO> selectAll() {
+		System.out.println("carManageDAO selectAll!");
+		return my.selectList("cmDAO.selectAll");
+	}
+	
 	public void insert(CarManageDTO carManageDTO) {
 		System.out.println("CarManageDAO Insert!");
 		
@@ -27,11 +57,6 @@ public class CarManageDAO {
 		// write_date의 value에 상관없이 오늘날짜가 들어가도록 설계(DB상에서 바로 넣는 방법 찾아보기...)
 		System.out.println(carManageDTO);
 		my.insert("cmDAO.insert", carManageDTO);
-	}
-	
-	public List<CarManageDTO> selectAll() {
-		System.out.println("carManageDAO selectAll!");
-		return my.selectList("cmDAO.selectAll");
 	}
 	
 	public CarManageDTO select(CarManageDTO carManageDTO) {
@@ -58,6 +83,8 @@ public class CarManageDAO {
 	/*public void update(NoticeDTO noticeDTO) {
 		System.out.println("NoticeDAO Update!");
 		my.update("nDAO.update", noticeDTO);
-	}*/
+	}
+	
+	*/
 	
 }
