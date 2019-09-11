@@ -3,6 +3,7 @@ package co.kr.khaki.pay;
 public class PayDTO {
 	private int buy_num; // 구매개수를 확인 할 번호
 	private String buy_id; // 구매자 id
+	private String buy_name; // 구매자 이름
 	private String buy_carIns; // 선택한 보험
 	private String buy_startTime; // 출발시간
 	private String buy_endTime; // 도착시간(도착시간은 시간연장을 하는 경우가 있기 때문에 반납시 변경 됨.
@@ -22,7 +23,7 @@ public class PayDTO {
 	private String buy_addAmount; // 추가금액(이용시간 연장, 반납장소 변경 등으로 인한 추가금액 발생시 추가금액)
 	private String buy_totalAmount; // 총 이용금액(최초금액과 추가금액의 합산금액)
 	private String buy_usePoint; // 사용한 포인트
-	private String buy_accident; // 고객 이용 중 사고 접수내용
+	private String buy_accident; // 고객 이용 중 사고 접수여부
 	private String buy_coupon; // 고객이 사용한 쿠폰
 	private String buy_discount; // 쿠폰타입, 할인받은 금액, 쿠폰번호
 	private String buy_useCoupon; // 쿠폰으로 할인받은 금액
@@ -31,6 +32,12 @@ public class PayDTO {
 	
 	
 	
+	public String getBuy_name() {
+		return buy_name;
+	}
+	public void setBuy_name(String buy_name) {
+		this.buy_name = buy_name;
+	}
 	public String getBuy_useCoupon() {
 		return buy_useCoupon;
 	}

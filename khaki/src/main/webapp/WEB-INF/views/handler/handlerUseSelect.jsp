@@ -54,6 +54,12 @@
 					+ "<label id='craLabel2'>아래 링크를 클릭하여 핸들러 신청 후 이용 해주세요.</label><br>"
 					+ "<div id='craDiv' style='width: 100%; text-align: center; margin-top: 15%; margin-bottom: 3%;'>핸들러 신청하러 가기</div>"
 					+ "</div>");
+  			$("#handlerUseArea").remove();
+  			$("#handlerUseLabel").remove();
+  			$("#handlerUseTable1").remove();
+  			$("#handlerUseArea2").remove();
+  			$("#handlerUseLabel2").remove();
+  			$("#handlerUseTable2").remove();
   		} else if(a == "" && b != "") { // a는 비었는데 b는 내용이 있을 경우
   			$("#handlerUseArea").remove();
   			$("#handlerUseLabel").remove();

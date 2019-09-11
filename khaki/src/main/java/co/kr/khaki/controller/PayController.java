@@ -11,7 +11,10 @@ import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
 import co.kr.khaki.handler.HandlerDAO;
 import co.kr.khaki.handler.HandlerDTO;
+import co.kr.khaki.member.CalculateMemberLevel;
 import co.kr.khaki.member.MemberDAO;
+import co.kr.khaki.member.MemberLevelDAO;
+import co.kr.khaki.member.MemberLevelDTO;
 import co.kr.khaki.pay.PayDAO;
 import co.kr.khaki.pay.PayDTO;
 
@@ -29,6 +32,9 @@ public class PayController {
       
       @Autowired
   	  CouponUseDAO cpuDAO;
+      
+      @Autowired 
+  	  MemberLevelDAO memberLevelDAO;
 
       String cnt;
 
@@ -68,12 +74,15 @@ public class PayController {
       }
       
       @RequestMapping("payResult.do")
-         public String payResult(PayDTO payDTO) {
+         public String payResult(PayDTO payDTO, CalculateMemberLevel cal) {
             System.out.println("PayDAO Insert~");
             System.out.println(payDTO.getBuy_startTime() + "aaaaaaaaaaa");
             System.out.println(payDTO.getBuy_endTime() + "aaaaaaaaaaa");
             pdao.insert(payDTO);
             memberDAO.updatePointCount(payDTO);
+            MemberLevelDTO memberlevelDTO = memberLevelDAO.selectId(payDTO.getBuy_id());
+    		MemberLevelDTO memberlevelDTO2 = cal.setLevel(memberlevelDTO, 500);  // 결제가 완료 될 때마다 500씩 증가
+    		memberLevelDAO.update(memberlevelDTO2); // 등급 DB 업데이트
             return "pay/payResult";
          }
       
@@ -120,12 +129,7 @@ public class PayController {
   		  return "pay/payResult";
   	  }
       
-      @RequestMapping("admin_reservation.do")
-  	  public String admin_reservation(Model model) {
-    	  List<PayDTO> pdto = pdao.selectAll();
-    	  model.addAttribute("pdto", pdto);
-    	  return "checkReservation/admin_reservation";
-      }
+      
       
       
    

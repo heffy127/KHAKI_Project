@@ -29,6 +29,10 @@
 	<delete id="update" parameterType="cpuDTO">
 		UPDATE couponUse SET cp_using = 'Y' WHERE num = #{num}
 	</delete>
+	
+	<delete id="updateN" parameterType="cpuDTO">
+		UPDATE couponUse SET cp_using = 'N' WHERE num = #{num}
+	</delete>
 
 </mapper>
 

@@ -148,6 +148,7 @@ write_date varchar2(30)
 create table reservation ( -- 모든 예약정보
    buy_num number(20),
    buy_id varchar2(20),
+   buy_name varchar2(20),
    buy_carIns varchar2(20),
    buy_startTime varchar2(20),
    buy_endTime varchar2(20),

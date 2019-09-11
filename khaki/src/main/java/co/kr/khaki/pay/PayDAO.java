@@ -2,6 +2,7 @@ package co.kr.khaki.pay;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,6 +37,25 @@ public class PayDAO {
       System.out.println("PayDAO select!");
       return my.selectList("pDAO.select2", PayDTO);
    }
+   
+   public List<PayDTO> selectImpUid(String buy_impUid) {
+	   System.out.println("PayDAO selectImpUid!");
+	   return my.selectList("pDAO.selectImpUid", buy_impUid);
+   }
+   public List<PayDTO> selectId(String buy_id) {
+	   System.out.println("PayDAO selectId!");
+	   return my.selectList("pDAO.selectId", buy_id);
+   }
+   public List<PayDTO> selectName(String buy_name) {
+	   System.out.println("PayDAO selectName!");
+	   return my.selectList("pDAO.selectName", buy_name);
+   }
+   public List<PayDTO> selectCarNum(String buy_carNum) {
+	   System.out.println("PayDAO selectCarNum!");
+	   return my.selectList("pDAO.selectCarNum", buy_carNum);
+   }
+   
+   
    
    public List<PayDTO> selectAll() {
       System.out.println("PayDAO selectAll!");

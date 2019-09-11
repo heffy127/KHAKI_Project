@@ -583,6 +583,7 @@
           	  	<form action="payResult.do" id="payInsert" name="payInsert">
           	  		<input type="hidden" id="buy_num" name="buy_num" value="1">
           	  		<input type="hidden" id="buy_id" name="buy_id" value=""> <!-- session에서 가져온 id -->
+          	  		<input type="hidden" id="buy_name" name="buy_name" value="${memberDTO.name }">
           	  		<input type="hidden" id="buy_carIns" name="buy_carIns" value=""> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_startTime" name="buy_startTime" value=""> <!-- table과 동일한 데이터 -->
           	  		<input type="hidden" id="buy_endTime" name="buy_endTime" value=""> <!-- table과 동일한 데이터 -->
@@ -630,11 +631,11 @@
 					$("#buy_carNum").val($("#confirm_carNum").text()); 		
 					$("#buy_carModel").val($("#confirm_carModel").text()); 		
 					$("#buy_point").val($("#confirm_point").text()); 		
-					$("#buy_amount").val($("#confirm_amount").text()); 
+					$("#buy_amount").val(parseInt($("#confirm_amount").text()) + parseInt($("#po").val()) + parseInt($("#ku").val())); 
 					$("#buy_totalAmount").val($("#confirm_amount").text()); 
 					$("#buy_usePoint").val($("#po").val());
 					$("#buy_useCoupon").val($("#ku").val());
-					
+					alert($("#buy_amount").val());
 					$("#buy_coupon").val(coupon_sp[0]);
 					$("#buy_discount").val(coupon_v);
 					// 결제 필수파라미터 부분
@@ -645,7 +646,7 @@
 					var buy_phone = $("#memberPhone").val(); // session id로 db조회했을 때 회원 휴대폰번호
 					var buy_addr = $("#memberAddress").val(); // session id로 db조회했을 때 회원 주소
 					var buy_carModel_data = $("#confirm_carModel").text();
-					var buy_amount_data = $("#confirm_amount").text();
+					var buy_amount_data = $("#buy_totalAmount").val();
 					
 					var IMP = window.IMP; // 생략가능
 					IMP.init('imp74838776');

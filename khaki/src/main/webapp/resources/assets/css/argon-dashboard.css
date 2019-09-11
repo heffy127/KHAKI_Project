@@ -21422,7 +21422,7 @@ pre>code.highlight {
 	font-size: 18px;
 	font-weight: bold;
 	text-align: center;
-	padding-right: 16%;
+	padding-right: 4%;
 }
 
 #member_inpo_select {
@@ -21436,7 +21436,11 @@ pre>code.highlight {
 }
 
 #admin_reservation_search_btn {
-	width: 15%;
+	width: 5%;
+}
+
+#admin_reservation_refund {
+	width: 10%;
 	text-align: center;
 }
 
@@ -21446,6 +21450,19 @@ pre>code.highlight {
 
 .admin_reservation_content {
 	width: 100%;
+	font-family: Open Sans, sans-serif;
+}
+
+.admin_reservation_thead {
+	font-size: 16px;
+	font-weight: 600;
+	background-color: #f6f9fc;
+	color: #8898aa;
+	
+}
+
+.admin_reservation_tbody:hover {
+	background-color: #f6f6f6;
 }
 
 

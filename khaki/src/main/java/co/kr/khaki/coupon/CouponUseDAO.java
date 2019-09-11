@@ -30,5 +30,10 @@ public class CouponUseDAO {
 		my.update("cpuDAO.update", cpuDTO);
 	}
 	
+	public void updateN(CouponUseDTO cpuDTO) {
+		System.out.println("CouponUseDTO UpdateN!");
+		my.update("cpuDAO.updateN", cpuDTO);
+	}
+	
 }
 
