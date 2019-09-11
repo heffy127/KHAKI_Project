@@ -43,9 +43,14 @@ public class BoardDAO {
 		return myBatis.selectList("bDAO.selectAll");
 	}
 	
-	public List<BoardDTO> selectId(String writer) {
-		System.out.println("selectId 완료");
-		return myBatis.selectList("bDAO.selectId",writer);
+	public List<BoardDTO> selectWriter(String writer) {
+		System.out.println("selectWriter 완료");
+		return myBatis.selectList("bDAO.selectWriter",writer);
+	}
+	
+	public int countWrite(String writer) {
+		System.out.println("countWrite 완료");
+		return myBatis.selectOne("bDAO.countWrite",writer);
 	}
 	
 }

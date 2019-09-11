@@ -49,7 +49,7 @@ public class BoardController {
 	// 내글 보기 리스트 불러오기
 	@RequestMapping("mypage_myBoard.do")
 	public String mypage_boardList(String writer, Model model) {
-		List<BoardDTO> list = dao.selectId(writer);
+		List<BoardDTO> list = dao.selectWriter(writer);
 		model.addAttribute("list", list);
 		return "mypage/myBoard";
 	}

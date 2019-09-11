@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import co.kr.khaki.board.BoardDAO;
 import co.kr.khaki.member.AuthNumber;
 import co.kr.khaki.member.CalculateMemberLevel;
 import co.kr.khaki.member.HashingPw;
@@ -31,6 +32,7 @@ import co.kr.khaki.member.MemberLevelDTO;
 import co.kr.khaki.member.SocialDAO;
 import co.kr.khaki.member.SocialDTO;
 import co.kr.khaki.member.TempPw;
+import co.kr.khaki.pay.PayDAO;
 
 @Controller
 public class MemberController {
@@ -43,6 +45,10 @@ public class MemberController {
 	SocialDAO socialDAO;
 	@Autowired 
 	MemberLevelDAO memberLevelDAO;
+	@Autowired
+	BoardDAO boardDAO;
+	@Autowired
+	PayDAO payDAO;
 	
 	@RequestMapping("profile.do")
 	public String member(MemberDTO memberDTO, MemberLevelDTO memberLevelDTO, Model model, HttpSession session, CalculateMemberLevel cal) {
@@ -57,6 +63,9 @@ public class MemberController {
 		model.addAttribute("expLimit", arr[0]); // 요구 경험치
 		model.addAttribute("expPer", arr[1]); // 레벨업까지의 퍼센트
 		//
+		model.addAttribute("countWrite", boardDAO.countWrite(memberDTO.getId())); // 내가 쓴 글 count
+		model.addAttribute("countReservation", payDAO.countReservation(memberDTO.getId())); // 내 현재 예약 count
+		
 		return "member/profile";
 	}
 	

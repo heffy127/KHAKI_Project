@@ -80,8 +80,7 @@
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="resources/assets/img/theme/team-1-800x800.jpg
-">
+                <img alt="Image placeholder" src="${sessionPhoto}" style="width: 40px; height: 40px;">
               </span>
             </div>
           </a>

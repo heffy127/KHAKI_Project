@@ -85,6 +85,11 @@ public class PayDAO {
       return cnt;
    }
    
+   public int countReservation(String buy_id) {
+	      System.out.println("pDAO countReservation");
+	      return my.selectOne("pDAO.countReservation", buy_id);
+	   }
+   
     public String search2(String buy_endTime, String buy_carNum, String buy_startTime) {
          //입력한 시간,차량으로 예약가능한지 여부 계산
          PayDTO pDTO = new PayDTO();

@@ -318,11 +318,11 @@
                          <span class="description">포인트</span>
                        </div>
                        <div class="infoDiv" style="margin: 0px 0px 0px 8px;">
-                         <span class="heading">10</span>
+                         <span class="heading">${countWrite }</span>
                          <span class="description">내가 쓴 글</span>
                        </div>
                        <div class="infoDiv" style="margin: 0px 0px 0px 8px;">
-                         <span class="heading">89</span>
+                         <span class="heading">${countReservation }</span>
                          <span class="description">현재 예약</span>
                        </div>
                        <!-- 이미지 파일 선택창 숨김 -->

@@ -34,6 +34,12 @@
       reservation WHERE
       buy_carModel=#{buy_carModel} AND buy_endTime>#{buy_startTime}
    </select>
+   
+   <select id="countReservation" parameterType="String" resultType="int">
+      SELECT COUNT(*) FROM
+      reservation WHERE
+      buy_id= #{buy_id} AND buy_real_endtime is null
+   </select>
 
    <resultMap type="String" id="str">
       <result property="cnt" column="cnt" />
