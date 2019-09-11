@@ -47,8 +47,11 @@
     	 	if(sessionStorage.getItem("sessionPaging") == 'license_NULL'){ // 운전면허 정렬 미등록
 	    		location.href = "admin_licenseSort.do?permission=NULL&curPage="+curPage;	 		
     	 	}
-    	 	if(sessionStorage.getItem("sessionPaging") == 'push'){ // 푸시 정렬
-	    		location.href = "admin_memberAll.do?curPage="+curPage;	 		
+    	 	if(sessionStorage.getItem("sessionPaging") == 'push_sms'){ // SMS 푸시 정렬
+	    		location.href = "admin_selectPushSort.do?push=sms&curPage="+curPage;	 		
+    	 	}
+    	 	if(sessionStorage.getItem("sessionPaging") == 'push_email'){ // Email 푸시 정렬
+	    		location.href = "admin_selectPushSort.do?push=email&curPage="+curPage;	 		
     	 	}
 
     	 	
@@ -75,6 +78,16 @@
     	license_NULL = function() {
     		 sessionStorage.setItem("sessionPaging","license_NULL")
 			 location.href = "admin_licenseSort.do?permission=NULL"
+		}
+    	
+    	push_sms = function() {
+    		 sessionStorage.setItem("sessionPaging","push_sms")
+			 location.href = "admin_selectPushSort.do?push=sms"
+		}
+    	
+    	push_email = function() {
+    		 sessionStorage.setItem("sessionPaging","push_email")
+			 location.href = "admin_selectPushSort.do?push=email"
 		}
     	
       // 운전면허 	
@@ -217,8 +230,8 @@ iframe
                                        aria-expanded="false"> <i class="fas fa-ellipsis-v" style="padding-top: 25%;"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow" style="min-width: 95px; width: 95px;">
-                                       <a class="dropdown-item" href="admin_selectPushSort.do?push=sms">SMS</a> 
-                                       <a class="dropdown-item" href="admin_selectPushSort.do?push=email">Email</a>
+                                       <a onclick="push_sms()" class="dropdown-item" href="#none">SMS</a> 
+                                       <a onclick="push_email()" class="dropdown-item" href="#none">Email</a>
                                     </div>
                                  </div></th>
                         <th scope="col" style="width: 1%"></th>

@@ -124,9 +124,11 @@ public class AdminController {
 	   int listCnt = 0;
       if(push.equals("sms")) { // 휴대전화 푸시 조회
     	 List<MemberAdminDTO> memberAdminList = memberAdminDAO.selectPushSort_smsPush();
+    	 listCnt = memberAdminList.size();
          model.addAttribute("memberAdminList",memberAdminList);
       }else { // 그 외 조회
     	 List<MemberAdminDTO> memberAdminList = memberAdminDAO.selectPushSort_emailPush();
+    	 listCnt = memberAdminList.size();
          model.addAttribute("memberAdminList",memberAdminList);
       }
       
