@@ -27,6 +27,7 @@
 		<typeAlias type="co.kr.khaki.carmanage.CarConsumableDTO" alias="ccDTO"></typeAlias>
 		<typeAlias type="co.kr.khaki.coupon.CouponUseDTO" alias="cpuDTO"></typeAlias>
 		<typeAlias type="co.kr.khaki.refund.RefundDTO" alias="refundDTO"></typeAlias>
+		<typeAlias type="co.kr.khaki.key.ClaimDTO" alias="claimDTO"></typeAlias>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/boardMapper.xml" />
@@ -45,5 +46,6 @@
 		<mapper resource="mapper/consumableMapper.xml" />
 		<mapper resource="mapper/couponMapper.xml" />
 		<mapper resource="mapper/refundMapper.xml" />
+		<mapper resource="mapper/claimMapper.xml" />
 	</mappers>
 </configuration>

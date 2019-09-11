@@ -24,7 +24,11 @@
 
 			// 차량 삭제
 			$("#delete").click(function(){
-				alert("삭제!")
+				var td_car_num = $("#td_car_num").text().trim();
+				
+				//alert(td_car_num+"차량 삭제!")
+				
+				location.href = "carmanageDelete.do?car_num="+td_car_num;
 			});	// delete end
 			
 		});	//Jquery End
@@ -456,7 +460,7 @@
           			
           			<!-- <button id="update">수정</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
           			<button id="delete" class="btn btn-outline-danger">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          			<button id="cansel" class="btn btn-outline-warning" onclick="history.back(-1);">뒤로</button>
+          			<button id="cancel" class="btn btn-outline-warning" onclick="history.back(-1);">뒤로</button>
 	          	</div>
           	</div>
           </div>

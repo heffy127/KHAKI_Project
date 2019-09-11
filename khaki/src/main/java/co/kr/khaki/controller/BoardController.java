@@ -37,7 +37,6 @@ public class BoardController {
 		model.addAttribute("list", list);
 		return "board/board";
 	}
-
 	
 	// 게시판 리스트 불러오기
 	@RequestMapping("board.do")
@@ -45,6 +44,14 @@ public class BoardController {
 		List<BoardDTO> list = dao.selectAll();
 		model.addAttribute("list", list);
 		return "board/board";
+	}
+	
+	// 내글 보기 리스트 불러오기
+	@RequestMapping("mypage_myBoard.do")
+	public String mypage_boardList(String writer, Model model) {
+		List<BoardDTO> list = dao.selectId(writer);
+		model.addAttribute("list", list);
+		return "mypage/myBoard";
 	}
 
 	// 게시판 제목 클릭시 view page로 넘김

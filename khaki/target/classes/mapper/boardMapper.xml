@@ -26,6 +26,11 @@
 		SELECT * FROM board ORDER BY bNum DESC
 	</select>
 	
+	<!-- 내가 쓴글 select -->
+	<select id="selectId" resultMap="rsMap">
+		SELECT * FROM board where writer = #{writer} ORDER BY bNum DESC 
+	</select>
+	
 	<!-- 게시글 등록 쿼리문 -->
 	<insert id="insert" parameterType="bDTO">
 		INSERT INTO board(bNum,title,writer,content,image,views,hit,category,write_date) 

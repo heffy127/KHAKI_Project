@@ -6,25 +6,25 @@
 
    <select id="selectCar" parameterType="String" resultMap="rsMap">
       SELECT car_num, zone_num FROM
-      car_board   WHERE car_name = #{buy_carModel}
+      car_board  WHERE car_name = #{buy_carModel}
    </select>
    
    <select id="carListInfo" parameterType="Integer" resultMap="rsMap">
    <!-- 존 번호로 해당 존에있는 차량정보 모두 가져옴 -->
       SELECT * FROM
-      car_board   WHERE zone_num = #{zoneNum}
+      car_board  WHERE zone_num = #{zoneNum}
    </select>
    
    <select id="carNumSearch" parameterType="String" resultMap="rsMap">
    <!-- 차량번호로 해당 차량정보 가져옴-->
       SELECT * FROM
-      car_board   WHERE car_num = #{car_num}
+      car_board  WHERE car_num = #{car_num}
    </select>
    
    <select id="search1" parameterType="String" resultMap="rsMap">
    <!-- 차종으로 해당하는 차량정보 가져옴 -->
       SELECT * FROM
-      car_board   WHERE car_name = #{buy_carModel}
+      car_board  WHERE car_name = #{buy_carModel}
    </select>
 
    <resultMap type="cDTO" id="rsMap">
@@ -33,11 +33,13 @@
       <result property="driven" column="driven" />
       <result property="fuel_type" column="fuel_type" />
       <result property="fuel_gage" column="fuel_gage" />
-      <result property="loc_pre" column="loc_pre" />
       <result property="zone_num" column="zone_num" />
       <result property="fee_hour" column="fee_hour" />
       <result property="fee_km" column="fee_km" />
       <result property="car_image" column="car_image" />
+      <result property="brand" column="brand" />
+	  <result property="car_size" column="car_size" />
+	  <result property="reg_date" column="reg_date" />
    </resultMap>
 
    <select id="selectAll" resultMap="rsMap">
@@ -46,7 +48,18 @@
 
    <insert id="insert" parameterType="cDTO">
       INSERT INTO car_board
-      VALUES(#{car_Name},#{car_Num},#{driven},#{fuel_type},#{fuel_gage},#{loc_Pre},#{zone_num},#{time_Pre},#{time_Post},#{fee_hour},#{fee_km},#{car_image});   
+      VALUES(
+      #{car_Name},
+      #{car_Num},#{driven},
+      #{fuel_type},
+      #{fuel_gage},
+      #{zone_num},
+      #{time_Pre},
+      #{time_Post},
+      #{fee_hour},
+      #{fee_km},
+      #{car_image}
+      );   
       <!--oracle DB의 순서와 일치 시켜주어야한다! -->
    </insert>
 

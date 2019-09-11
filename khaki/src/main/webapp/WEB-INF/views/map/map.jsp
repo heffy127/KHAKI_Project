@@ -1,5 +1,6 @@
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -331,7 +332,6 @@ int endTimeCheck = 0;
 	   var allTimeEnd = $('#endYear').val() + $('#endMonth').val() + $('#endDay').val() + $('#endClock').val() + $('#endMin').val();
 	      var allTime = parseInt(allTimeEnd) + 100 - parseInt(allTimeStr);
 	      if(allTime >= 0){
-	         //$('#endMin').val("00");
 	         alert("선택되었습니다.")
 	         $('#endTimeButton').attr('disabled', true);
 		     $('#endYear').attr('disabled', true);
@@ -503,14 +503,14 @@ function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모�
 	     	            '<tr><td width="30%"><img alt="" src="'+x2[2]+'" width="80%"></td>'
 	     	            +'<td width="30%"><strong>'+x2[0]+'</strong></td>'
 	     	            +'<td width="30%">'+x2[4]+" / "+x2[1]+'% </td>'
-	     	            +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-danger" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'" disabled>'+x2[3]+'</button></td></tr>'
+	     	            +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-danger" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'" disabled>'+x2[6]+'</button></td></tr>'
 	     	         );	 
 	         } else {
 				$("#carList").append( // 마커클릭 후 오른쪽에 추가되는 내용들
 	        	          '<tr><td width="30%"><img alt="" src="'+x2[2]+'" width="80%"></td>'
 	        	          +'<td width="30%"><strong>'+x2[0]+'</strong></td>'
 	        	          +'<td width="30%">'+x2[4]+" / "+x2[1]+'% </td>'
-	        	          +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-info" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'">'+x2[3]+'</button></td></tr>'
+	        	          +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-info" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'">'+x2[6]+'</button></td></tr>'
 	        	      );	 
 	        	 
 	         }
@@ -603,14 +603,15 @@ function reservation() {
 	   use_min = 60-(strMin-endMin);
 	   endHour = endHour - 1;
    }
- //------
-   if ((endHour-strHour)>=0){
+ //----------
+   if ((endHour-strHour)>= 0){
 	   use_hour = endHour-strHour;
+	   alert(endHour-strHour)
    } else {
 	   use_hour = 24-(strHour-endHour);
-	   
+	   alert(endHour-strHour)
    }
- //------
+ //----------
    $.ajax({
          type : "GET",
          url : "carNumSearch.do",
@@ -772,29 +773,54 @@ function reservation() {
          </form>
          <!-- User -->
          <ul class="navbar-nav align-items-center d-none d-md-flex">
-            <li class="nav-item dropdown"><a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <div class="media align-items-center">
-                     <span class="avatar avatar-sm rounded-circle"> <img alt="Image placeholder" src="resources/assets/img/theme/team-4-800x800.jpg">
-                     </span>
-                     <div class="media-body ml-2 d-none d-lg-block">
-                        <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
-                     </div>
-                  </div>
-            </a>
-               <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
-                  <div class=" dropdown-header noti-title">
-                     <h6 class="text-overflow m-0">Welcome!</h6>
-                  </div>
-                  <a href="profile.do" class="dropdown-item"> <i class="ni ni-single-02"></i> <span>My profile</span>
-                  </a> <a href="profile.do" class="dropdown-item"> <i class="ni ni-settings-gear-65"></i> <span>Settings</span>
-                  </a> <a href="profile.do" class="dropdown-item"> <i class="ni ni-calendar-grid-58"></i> <span>Activity</span>
-                  </a> <a href="profile.do" class="dropdown-item"> <i class="ni ni-support-16"></i> <span>Support</span>
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="#!" class="dropdown-item"> <i class="ni ni-user-run"></i> <span>Logout</span>
-                  </a>
-               </div></li>
-         </ul>
+          <li class="nav-item dropdown">
+				<c:choose>
+						<c:when test="${sessionName != null }">
+            		<a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			              <div class="media align-items-center">
+			                <span class="avatar avatar-sm rounded-circle">
+			                  <img alt="Image placeholder" src="${sessionPhoto}" style="width: 40px; height: 40px;">
+			                </span>
+			                <div class="media-body ml-2 d-none d-lg-block">
+			                  <span class="mb-0 text-sm  font-weight-bold">${sessionName} 님</span>
+			                </div>
+			              </div>
+		            </a>
+		             	 </c:when>
+	              <c:when test="${sessionName == null }">
+					<div>
+						<a href="login.do" style="color: white; font-weight: bold;">&nbsp;&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;</a>
+					</div>
+	              </c:when>
+				</c:choose>
+            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+              <div class=" dropdown-header noti-title">
+                <h6 class="text-overflow m-0">Welcome!</h6>
+              </div>
+              <a href="profile.do" class="dropdown-item">
+                <i class="ni ni-single-02"></i>
+                <span>My profile</span>
+              </a>
+              <a href="profile.jsp" class="dropdown-item">
+                <i class="ni ni-settings-gear-65"></i>
+                <span>Settings</span>
+              </a>
+              <a href="profile.jsp" class="dropdown-item">
+                <i class="ni ni-calendar-grid-58"></i>
+                <span>Activity</span>
+              </a>
+              <a href="profile.jsp" class="dropdown-item">
+                <i class="ni ni-support-16"></i>
+                <span>Support</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="sessionLogout.do" class="dropdown-item">
+                <i class="ni ni-user-run"></i>
+                <span>Logout</span>
+              </a>
+            </div>
+          </li>
+        </ul>
       </div>
    </nav>
    <!-- End Navbar -->
@@ -904,11 +930,11 @@ function reservation() {
                                                    }
                                                   
                                                 %>
-                                             <select id="startYear" onchange="strCheck1()">
+                                             <select id="startYear">
                                                 <option value="19">19</option>
                                                 <option value="20">20</option>
                                              </select>
-                                             <select id="startMonth" onchange="strCheck2()">
+                                             <select id="startMonth">
                                                 
                                                 <option value=<%=month%>><%=month%></option>
                                                 <option value="01">01</option>
@@ -924,7 +950,7 @@ function reservation() {
                                                 <option value="11">11</option>
                                                 <option value="12">12</option>
                                              </select>
-                                             <select id="startDay" onchange="strCheck3()">
+                                             <select id="startDay">
                                                 <option value=<%=date%>><%=date%></option>
                                                 <option value="01">01</option><option value="02">02</option><option value="03">03</option>
                                                 <option value="04">04</option><option value="05">05</option><option value="06">06</option>
@@ -938,7 +964,7 @@ function reservation() {
                                                 <option value="28">28</option><option value="29">29</option><option value="30">30</option>
                                                 <option value="31">31</option>
                                              </select>
-                                             <select id="startClock" onchange="strCheck4()">
+                                             <select id="startClock">
                                                 <option value=<%=hour%>><%=hour%></option>
                                                 <option value="00">00</option><option value="01">01</option><option value="02">02</option>
                                                 <option value="03">03</option><option value="04">04</option><option value="05">05</option>
@@ -949,25 +975,25 @@ function reservation() {
                                                 <option value="18">18</option><option value="19">19</option><option value="20">20</option>
                                                 <option value="21">21</option><option value="22">22</option><option value="23">23</option>
                                              </select>
-                                             <select id="startMin" onchange="strCheck5()">
+                                             <select id="startMin">
                                                 <option value=<%=min%>><%=min%></option>
                                                 <option value="00">00</option><option value="10">10</option><option value="20">20</option>
                                                 <option value="30">30</option><option value="40">40</option><option value="50">50</option>
                                              </select>
                                              </td>
                                              <td>
-                                             <button class="btn btn-outline-default" id="startTimeButton" onclick="startTimeButton()">입력<br>하기</button>
+                                             <button class="btn btn-outline-default" id="startTimeButton" onclick="startTimeButton()">시간<br>입력</button>
                                              </td>
                                           </tr>
                                           </div>
                                           <div>
                                              <tr>
                                              <td>
-                                             <select id="endYear" onchange="endCheck1()">
+                                             <select id="endYear">
                                                 <option value="19">19</option>
                                                 <option value="20">20</option>
                                              </select>
-                                             <select id="endMonth" onchange="endCheck2()">
+                                             <select id="endMonth">
                                                 <option value=<%=month%>><%=month%></option>
                                                 <option value="01">01</option>
                                                 <option value="02">02</option>
@@ -982,7 +1008,7 @@ function reservation() {
                                                 <option value="11">11</option>
                                                 <option value="12">12</option>
                                              </select>
-                                             <select id="endDay" onchange="endCheck3()">
+                                             <select id="endDay">
                                                 <option value=<%=date%>><%=date%></option>
                                                 <option value="01">01</option><option value="02">02</option><option value="03">03</option>
                                                 <option value="04">04</option><option value="05">05</option><option value="06">06</option>
@@ -996,8 +1022,8 @@ function reservation() {
                                                 <option value="28">28</option><option value="29">29</option><option value="30">30</option>
                                                 <option value="31">31</option>
                                              </select>
-                                             <select id="endClock" onchange="endCheck4()">
-                                                <option value=<%=hour%>><%=hour%></option>
+                                             <select id="endClock">
+                                                <option value=<%=Integer.parseInt(hour) + 1%>><%=Integer.parseInt(hour) + 1%></option>
                                                 <option value="00">00</option><option value="01">01</option><option value="02">02</option>
                                                 <option value="03">03</option><option value="04">04</option><option value="05">05</option>
                                                 <option value="06">06</option><option value="07">07</option><option value="08">08</option>
@@ -1007,7 +1033,7 @@ function reservation() {
                                                 <option value="18">18</option><option value="19">19</option><option value="20">20</option>
                                                 <option value="21">21</option><option value="22">22</option><option value="23">23</option>
                                              </select>
-                                             <select id="endMin" onchange="endCheck5()">
+                                             <select id="endMin">
                                                 <option value=<%=min%>><%=min%></option>
                                                 <option value="00">00</option><option value="10">10</option><option value="20">20</option>
                                                 <option value="30">30</option><option value="40">40</option><option value="50">50</option>

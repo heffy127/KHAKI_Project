@@ -30,7 +30,6 @@ public class BoardDAO {
 		myBatis.update("bDAO.updateHit", boardDTO);
 		System.out.println("Hit update 완료");
 	}
-	
 	public void delete(BoardDTO boardDTO) {
 		myBatis.delete("bDAO.delete", boardDTO);
 		System.out.println("delete 완료");
@@ -42,6 +41,11 @@ public class BoardDAO {
 	public List<BoardDTO> selectAll() {
 		System.out.println("selectAll 완료");
 		return myBatis.selectList("bDAO.selectAll");
+	}
+	
+	public List<BoardDTO> selectId(String writer) {
+		System.out.println("selectId 완료");
+		return myBatis.selectList("bDAO.selectId",writer);
 	}
 	
 }

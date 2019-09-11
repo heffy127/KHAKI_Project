@@ -117,6 +117,14 @@ create sequence khakinum_seq start with 1 increment by 1 maxvalue 10000 cycle no
 	- 눌렀을 때 바탕색이 바뀌고 실행되도록 - 다중 삭제 가능하도록 만들기
 	- select해왔을 때 수정하고 삭제할 수 있도록
 	
+	9/10(화)
+	- carmanageselect부분 delete기능 구현
+	
+	9/11(수) 예정
+	- carmanage에 검색 기능 및 다중 삭제 기능 구현
+	- 페이지네이션 curpage, pagesize값을 넘기지 않아도 되도록 고민
+	- cctv jsp부분 버튼 및 css, 맵 : 클러스터러 기능, cctv 서울 지역 안되는 것 확인
+	
 	
 	
 	

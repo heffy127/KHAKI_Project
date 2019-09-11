@@ -17,7 +17,6 @@ public class ClaimController {
 	public String key() {
 		return "key/key";
 	}
-	
 	@RequestMapping("claim.do")
 	public String claim() {
 		return "key/claim";
@@ -25,6 +24,6 @@ public class ClaimController {
 	@RequestMapping("claimInsert.do")
 	public String claimInsert(ClaimDTO claimDTO) {
 		cdao.insert(claimDTO);
-		return "key/claimView";
+		return "member/profile.do";
 	}
 }

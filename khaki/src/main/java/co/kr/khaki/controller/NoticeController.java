@@ -75,27 +75,17 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("noticeInsert.do")
-	public String noticeInsert(int curPage, int pageSize, Model model) {
-		
-		System.out.println("-------------------");
-		System.out.println("noticeInsert");
-		System.out.println("페이지네이션 테스트");
-		System.out.println("현재 페이지 : " + curPage+" / 페이지당 게시글 수 : "+ pageSize);
-		System.out.println("-------------------");
-		
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("curPage", curPage);
-		
+	public String noticeInsert() {
 		return "notice/noticeInsert";
 	}
 	
 	@RequestMapping(value="noticeInsertProcess.do", method = RequestMethod.POST)
 	   public String noticeInsertProcess(NoticeDTO noticeDTO, Model model, @RequestParam(defaultValue="1") int curPage, 
 				@RequestParam(defaultValue="10") int pageSize) {
-	      //System.out.println(noticeDTO);
+	      System.out.println(noticeDTO);
 	      System.out.println("NoticeController InsertProcess!");
 	      ndao.insert(noticeDTO);
-			
+	      
 	      System.err.println("저장할 내용 : " + noticeDTO.getContent());
 	      List<NoticeDTO> notice_list = ndao.selectAll();
 	      int listCnt = notice_list.size();
@@ -122,21 +112,11 @@ public class NoticeController {
 	   }
 
 	@RequestMapping("noticeUpdate1.do")
-	public String noticeUpdate(NoticeDTO noticeDTO, Model model, @RequestParam(defaultValue="1") int curPage, 
-			@RequestParam(defaultValue="10") int pageSize){
-		
-		System.out.println("-------------------");
-        System.out.println("NoticeUpdate1");
-        System.out.println("페이지네이션 테스트");
-        System.out.println("현재 페이지 : " + curPage+" / 페이지당 게시글 수 : "+ pageSize);
-        System.out.println("-------------------");
-		
+	public String noticeUpdate(NoticeDTO noticeDTO, Model model){
 		
 		System.out.println("NoticeController Update1!");
 		noticeDTO = ndao.select(noticeDTO);
 		model.addAttribute("ndto", noticeDTO);
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("curPage", curPage);
 		
 		return "notice/noticeUpdate";
 	}
@@ -146,13 +126,6 @@ public class NoticeController {
 			@RequestParam(defaultValue="10") int pageSize){
 		System.out.println("NoticeController Update2!");
 		ndao.update(noticeDTO);
-		
-		System.out.println("-------------------");
-        System.out.println("NoticeUpdate2");
-        System.out.println("페이지네이션 테스트");
-        System.out.println("현재 페이지 : " + curPage+" / 페이지당 게시글 수 : "+ pageSize);
-        System.out.println("-------------------");
-		
 		
 		List<NoticeDTO> notice_list = ndao.selectAll();
 		int listCnt = notice_list.size();
@@ -178,14 +151,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("noticeSelect.do")
-	public String noticeSelect(NoticeDTO noticeDTO, Model model, @RequestParam(defaultValue="1") int curPage, 
-			@RequestParam(defaultValue="10") int pageSize){
-		
-		System.out.println("-------------------");
-        System.out.println("NoticeSelect");
-        System.out.println("페이지네이션 테스트");
-        System.out.println("현재 페이지 : " + curPage+" / 페이지당 게시글 수 : "+ pageSize);
-        System.out.println("-------------------");
+	public String noticeSelect(NoticeDTO noticeDTO, Model model){
 		
 		noticeDTO = ndao.select(noticeDTO);
 		// 조회수 1증가 후 update
@@ -193,21 +159,12 @@ public class NoticeController {
 		ndao.update(noticeDTO);
 		model.addAttribute("ndto", noticeDTO);
 		
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("curPage", curPage);
-		
 		return "notice/noticeSelect";
 	}
 	
 	@RequestMapping("noticeDelete.do")
 	public String noticeDelete(NoticeDTO noticeDTO, Model model, @RequestParam(defaultValue="1") int curPage, 
 			@RequestParam(defaultValue="10") int pageSize){
-		
-		System.out.println("-------------------");
-        System.out.println("NoticeDelete");
-        System.out.println("페이지네이션 테스트");
-        System.out.println("현재 페이지 : " + curPage+" / 페이지당 게시글 수 : "+ pageSize);
-        System.out.println("-------------------");
 		
 		System.out.println("NoticeController Delete!");
 		ndao.delete(noticeDTO);
@@ -247,7 +204,8 @@ public class NoticeController {
             String oldName = request.getHeader("file-name");
             // 파일 기본경로 _ 상세경로
             //String filePath = "D:/min/project3/khaki/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/khaki/resources/photoUpload/";	//종합본에서의 filepath
-            String filePath = "D:/projectKHAKI/egit/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/khaki/resources/photoUpload/";	//노트북시 서버경로
+            //String filePath = "D:/projectKHAKI/egit/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/khaki/resources/photoUpload/";	//노트북시 서버경로
+            String filePath = "D:/jeongds/final/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/khaki/resources/photoUpload/";	// 다솔 파일 업로더
             
             //서버경로로 설정
             String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss")

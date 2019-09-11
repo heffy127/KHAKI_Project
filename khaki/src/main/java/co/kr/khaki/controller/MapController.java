@@ -21,7 +21,11 @@ public class MapController {
 		String selectZoneNum = "0,1,2,3,4,5,6,7,8,9,";
 		model.addAttribute("selectZoneNum", selectZoneNum);
 		model.addAttribute("selectCarNum", null);
-		return "map/map";
+		if(session.getAttribute("sessionId")!=null) {
+			return "map/map";
+		} else {
+			return "home/home";
+		}
 	}
 
 	@RequestMapping("mapReset.do")

@@ -1,14 +1,14 @@
 package co.kr.khaki.key;
 
 public class ClaimDTO {
-	private int claim_num;
-	private String claim_id;
-	private int claim_resNum;
-	private String claim_category;
-	private String claim_content;
-	private String claim_result;
-	private String claim_suspect;
-	private String claim_punishment;
+	private int claim_num; // 신고번호
+	private String claim_id; // 신고자 id
+	private int claim_resNum; // 신고자 예약번호
+	private String claim_category; // 신고유형
+	private String claim_content; // 신고내용
+	private String claim_suspect; // 용의자 (이전 사용자)
+	private String claim_result; // 처리결과
+	
 	public int getClaim_num() {
 		return claim_num;
 	}
@@ -51,12 +51,5 @@ public class ClaimDTO {
 	public void setClaim_suspect(String claim_suspect) {
 		this.claim_suspect = claim_suspect;
 	}
-	public String getClaim_punishment() {
-		return claim_punishment;
-	}
-	public void setClaim_punishment(String claim_punishment) {
-		this.claim_punishment = claim_punishment;
-	}
-	
 	
 }
