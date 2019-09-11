@@ -420,7 +420,7 @@
                      </div>
                      <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
                      
-                         <iframe src="checkReservation.do?id=${sessionId }" style="width: 100%; height: 1000px;" frameborder="0"></iframe>
+                         <iframe src="checkReservation.do?id=${sessionId }" name="checkReservationIframe" style="width: 100%; height: 1000px;" frameborder="0"></iframe>
                      </div>
                      
                      <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">

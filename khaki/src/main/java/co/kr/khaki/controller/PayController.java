@@ -1,5 +1,7 @@
 package co.kr.khaki.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -117,6 +119,13 @@ public class PayController {
     	  cpuDAO.update(cpuDTO);
   		  return "pay/payResult";
   	  }
+      
+      @RequestMapping("admin_reservation.do")
+  	  public String admin_reservation(Model model) {
+    	  List<PayDTO> pdto = pdao.selectAll();
+    	  model.addAttribute("pdto", pdto);
+    	  return "checkReservation/admin_reservation";
+      }
       
       
    

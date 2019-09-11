@@ -50,6 +50,8 @@
 	    now *= 1;
 	    var index = $("#i_storage").val();
 	    index *= 1;
+
+	    
 	    for (var i = 0; i < index; i++) {
 	    	var confirm_endTime = $("#confirm_endTime"+i).text();
 	    	confirm_endTime *= 1;
@@ -71,9 +73,33 @@
 		    	    $("#refund_btn"+i).css("opacity", "0.5");
 		    	    $("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
 	    		}
-	    	}
+        	}
+	    }
 	    	
-        }
+	    for (var i = 0; i < index; i++) {
+	    	$.ajax({
+			      url:"refundSelectYN.do",
+			      data : {
+			    	  "impUid" : $("#refund_btn"+i).val()
+			      },
+			      async: false,
+			      success:function(data){
+			    	  if(data == "N") {
+			    		  $("#refund_btn"+i).text("환불 신청 접수 된 주문");
+			    	  } else if (data == "Y") {
+			    		  $("#refund_btn"+i).text("환불 완료 된 주문입니다.");
+			    		  $("#refund_btn"+i).attr("disabled", "disabled");
+			    	  } else {
+			    		  
+			    	  }
+			      },
+			      error : function(xhr, status) {
+		              alert(xhr + " : " + status);
+		          }
+			});
+	    	
+	    }
+	    
 		for (var i = 0; i < parseInt(index); i++) {
 			$("#amount_div"+i).append("  <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
 	    	if($("#db_discount"+i).val() == ""){
@@ -111,6 +137,7 @@
 			window.parent.location.href = "map.do";
 		})
 		
+		var sessionUId = "<%=session.getAttribute("sessionId") %>";
 		$(".c_content_payBtn").click(function(){
 			if($(this).text() == "환불신청하기"){
 				var result = confirm("환불 신청 하시겠습니까?");
@@ -122,6 +149,7 @@
 		  			      },
 		  			      success:function(data){
 		  			    	  alert("환불신청이 완료 되었습니다.\n영업일 기준 3일 이내 처리 될 예정입니다.");
+		  			    	  location.href="checkReservation.do?id="+sessionUId;
 		  			      },
 		  			      error : function(xhr, status) {
 		  		              alert(xhr + " : " + status);
@@ -145,6 +173,7 @@
 
 <body class="">
           <div class="card shadow border-0" id="checkReservationArea">
+<input type="hidden" id="sessionId" val="${id }">
           	<!-- checkReservation -->
           	<div class="c_content_title" style="margin-top: 3%; margin-left: 3%;">
           		<img src="https://image.flaticon.com/icons/svg/179/179372.svg" style="width: 2.777%; margin-left: 1%; margin-right: 1%;">나의 결제 내역 확인

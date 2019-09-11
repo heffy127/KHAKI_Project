@@ -21411,5 +21411,42 @@ pre>code.highlight {
 	color: #3fb49f;
 }
 
+.admin_reservation_title {
+	width: 100%;
+	background-color: #172b4d;	
+}
+
+.admin_reservation_titleLabel{
+	width: 55%;
+	color: #a7aebb;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+	padding-right: 16%;
+}
+
+#member_inpo_select {
+	width: 15%;
+	text-align: center;
+}
+
+#admin_reservation_search {
+	width: 15%;
+	text-align: center;
+}
+
+#admin_reservation_search_btn {
+	width: 15%;
+	text-align: center;
+}
+
+.admin_reservation_area {
+	width: 100%;
+}
+
+.admin_reservation_content {
+	width: 100%;
+}
+
 
 /*# sourceMappingURL=dashboard-free.css.map */

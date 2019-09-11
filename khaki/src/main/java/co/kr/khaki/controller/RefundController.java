@@ -87,5 +87,19 @@ public class RefundController {
     	  
     	  return "pay/payResult";
   	  }
+      
+      @RequestMapping("refundSelectYN.do")
+  	  public String refundSelectYN(String impUid, Model model) {
+    	  System.out.println(impUid + " : 넘어온 주문번호 확인");
+    	  RefundDTO refundDTO = refundDAO.select(impUid);
+    	  if(refundDTO != null) {
+    		  System.out.println(refundDTO.getRefundYN() + " : 넘길 값 확인");
+    		  model.addAttribute("refundDTO", refundDTO);
+    	  }
+    	  return "checkReservation/refundSelectYN";
+      }
+      
+      
+      
    
 }

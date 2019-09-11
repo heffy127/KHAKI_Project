@@ -25,6 +25,12 @@
       
       <result property="refundYN" column="refundYN" />
    </resultMap>
+   
+   <select id="select" parameterType="refundDTO" resultMap="rsMap">
+		SELECT *
+		FROM refund
+		WHERE impUid = #{impUid}
+	</select>
 	
 
 </mapper>

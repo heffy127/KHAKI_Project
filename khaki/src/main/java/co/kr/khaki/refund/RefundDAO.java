@@ -1,10 +1,9 @@
 package co.kr.khaki.refund;
-
+	
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import co.kr.khaki.pay.PayDTO;
 
 @Repository
 public class RefundDAO {
@@ -15,6 +14,11 @@ public class RefundDAO {
 	public void insert(RefundDTO RefundDTO) {
 		System.out.println("RefundDAO Insert!");
 		my.insert("refundDAO.insert", RefundDTO);
+	}
+	
+	public RefundDTO select(String impUid) {
+		System.out.println("RefundDTO select!");
+		return my.selectOne("refundDAO.select", impUid);
 	}
 
 }
