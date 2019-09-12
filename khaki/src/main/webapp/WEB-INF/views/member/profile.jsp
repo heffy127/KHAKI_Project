@@ -374,8 +374,8 @@
                 </div>
                 <hr class="my-4" />
                	
-               		<iframe src="chat.do" frameborder="1" width="300px" height="400px"></iframe>
-               	
+               		<iframe src="counselingChat.do" frameborder="1" width="320px" height="400px"></iframe>
+               
               </div>
             </div>
           </div>

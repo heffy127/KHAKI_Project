@@ -180,7 +180,7 @@ iframe
          <nav class="navbar navbar-horizontal navbar-expand-lg navbar-dark bg-default">
              <div class="container">
                  <a class="navbar-brand" href="admin_memberAll.do"><font size="4">MEMBER MANAGEMENT</font></a>
-                        <div style="width: 40%;">
+                        <div style="width: 50%;">
                               <div style="float: left; width: 15%;">
                                  <select id = "searchSelect" name="searchSelect" style="margin-top:7%; font-size: 22px;">
                                     <option value="id">ID</option>
