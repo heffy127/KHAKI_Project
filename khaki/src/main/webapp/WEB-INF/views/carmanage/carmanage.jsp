@@ -29,7 +29,7 @@
 			
 			// 차량 검색
 			$("#search").click(function(){
-				// 페이지 이동 식으로aaaaaabbcccdddeeee
+				// 페이지 이동 식으로
 				//alert("검색!!")
 				var search_obj_check = $("#search_obj").val()
 				alert("과연 : " + search_obj_check)
@@ -420,7 +420,7 @@
 	          	<div class="row" align="center">
 					<div class="col-md-4" style="height: 50px; line-height: 50px;">
 		       			<button id="insert" class="btn btn-outline-info">등록</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		       			<button id="delete" class="btn btn-outline-danger">선택삭제</button>
+		       			<button id="delete" class="btn btn-outline-danger">선택삭제</button>	<!-- 구현하지말까ㅠㅠ -->
 					</div>          
 					<!-- aaa -->
 					<div class="col-md-4" style="height: 40px; line-height: 40px;">
@@ -505,7 +505,7 @@
             			<% pagination pg = (pagination)request.getAttribute("pagination"); %>
             			<c:choose>
             				<c:when test="${listCnt eq 0 }">
-            					<div class="row row_carlist">검색결과가 없습니다.</div>
+            					<div class="row row_carlist" align="center">검색결과가 없습니다.</div>
             				</c:when>
             				<c:otherwise>
 		            			<c:forEach var="cmdto" items="${cmlist}" varStatus="status" begin="<%= pg.getStartIndex() %>" end="<%= pg.getEndIndex() %>">
@@ -549,7 +549,7 @@
 			            				<c:when test="${cmdto.driven >= 100000 and cmdto.driven < 250000 }">
 			            				<div class="row row_carlist" style="border-bottom-style: ridge; border-bottom-color: #158c68; border-bottom-width: 3px; vertical-align: middle;
 				            			font-family: 'Gugi', cursive; background-color: #fae7e1">
-			            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+			            					<div class="col" style="text-align: center; height:100px; line-height:100px;">
 				            					${cmdto.zone_num }
 				            				</div>
 				            				<div class="col car_num" style="text-align: center; height:100px; line-height:100px;">
@@ -583,7 +583,7 @@
 			            				<c:otherwise>
 			            				<div class="row row_carlist" style="border-bottom-style: ridge; border-bottom-color: #158c68; border-bottom-width: 3px; vertical-align: middle;
 				            			font-family: 'Gugi', cursive;">
-			            				<div class="col" style="text-align: center; height:100px; line-height:100px;">
+			            					<div class="col" style="text-align: center; height:100px; line-height:100px;">
 				            					${cmdto.zone_num }
 				            				</div>
 				            				<div class="col car_num" style="text-align: center; height:100px; line-height:100px;">
