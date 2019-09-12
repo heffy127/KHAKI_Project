@@ -27,13 +27,18 @@
  	<script type="text/javascript" src="http://openapi.its.go.kr/javascript/openapi.cctv.js"></script>
  	<!-- kakao map api javascript -->
  	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cf7aa5c76b385f7270d308f67a145b"></script>
+ 	<!-- kakao map clusterer libraries -->
+ 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cf7aa5c76b385f7270d308f67a145b&libraries=clusterer"></script>
+ 	
  	<!-- aaabbb -->
 	<!-- 맵과 cctv script -->
 	<script type="text/javascript">
+		// 맵과 cctv에서 둘다 jquery를 사용하고 있어서 충돌이 나기 때문에 jb로 따로 설정해줌
 		var jb = jQuery.noConflict();
 		var key = '1566268087863';
-		var url = 'http://openapi.its.go.kr:8081/api/NCCTVInfo?key='+key+'&ReqType=2&MinX=127.100000&MaxX=128.890000&MinY=34.100000 &MaxY=39.100000&type=ex&CctvType=1';
+		var url = 'http://openapi.its.go.kr:8081/api/NCCTVInfo?key='+key+'&ReqType=2&MinX=125.900000&MaxX=129.500000&MinY=33.100000 &MaxY=39.100000&type=ex&CctvType=1';
 		//http://openapi.its.go.kr:8081/api/NCCTVInfo?key=1566268087863&ReqType=2&MinX=127.100000&MaxX=128.890000&MinY=34.100000 &MaxY=39.100000&type=ex&CctvType=1
+													/* 서울쪽 cctv 테스트(cctv 정보를 안주는 듯...?) : MinX=126.970000&MaxX=127.000000&MinY=37.500000 &MaxY=37.000000  */
 		
 		var data;
 		jb.get(url, {}
