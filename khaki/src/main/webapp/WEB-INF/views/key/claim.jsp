@@ -93,7 +93,7 @@
 				        		<div>
 				        			<div><h3>내용</h3></div>
 				            		<div>
-				    					<textarea class="form-control" name="claim_content" id="content" rows="20" cols="50" placeholder="ex) 차에 쓰레기가 있어요,시동이 안 걸려요, 이런 점이 있으면 좋겠어요" style="width: 70%"></textarea>
+				    					<textarea class="form-control" name="claim_content" id="content" rows="20" cols="50" placeholder="<h1>ex) 차에 쓰레기가 있어요,시동이 안 걸려요, 이런 점이 있으면 좋겠어요</h1>" style="width: 70%"></textarea>
 				    				</div>
 				    			</div>
 			    		</div>

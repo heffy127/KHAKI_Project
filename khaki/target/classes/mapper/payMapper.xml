@@ -34,6 +34,12 @@
       reservation WHERE
       buy_carModel=#{buy_carModel} AND buy_endTime>#{buy_startTime}
    </select>
+   
+   <select id="countReservation" parameterType="String" resultType="int">
+      SELECT COUNT(*) FROM
+      reservation WHERE
+      buy_id= #{buy_id} AND buy_real_endtime is null
+   </select>
 
    <resultMap type="String" id="str">
       <result property="cnt" column="cnt" />
@@ -41,7 +47,7 @@
 
    <insert id="insert" parameterType="pDTO">
       INSERT INTO RESERVATION
-      VALUES(pay_seq.nextval,#{buy_id},#{buy_carIns},#{buy_startTime},
+      VALUES(pay_seq.nextval,#{buy_id},#{buy_name},#{buy_carIns},#{buy_startTime},
       #{buy_endTime},#{buy_real_endTime},#{buy_driveDistance},#{buy_startLocation},#{buy_returnLocation},#{buy_real_returnLocation},#{buy_carNum},
       #{buy_carModel},#{buy_point},#{buy_amount},#{buy_addAmount},#{buy_totalAmount},#{buy_usePoint},#{buy_accident},#{buy_coupon},#{buy_discount},#{buy_useCoupon},#{buy_burum},#{buy_impUid})   <!-- 
          oracle DB의 순서와 일치 시켜주어야한다! -->
@@ -79,6 +85,27 @@
       SELECT *
 		FROM RESERVATION
 		WHERE buy_impUid = #{buy_impUid}
+   </select>
+   
+   <select id="selectImpUid" parameterType="String" resultMap="rsMap">
+      SELECT *
+		FROM RESERVATION
+		WHERE buy_impUid like '%'||#{buy_impUid} or buy_impUid like #{buy_impUid}||'%' or buy_impUid like '%'||#{buy_impUid}||'%'
+   </select>
+   <select id="selectId" parameterType="String" resultMap="rsMap">
+      SELECT *
+		FROM RESERVATION
+		WHERE buy_id like '%'||#{buy_id} or buy_id like #{buy_id}||'%' or buy_id like '%'||#{buy_id}||'%'
+   </select>
+   <select id="selectName" parameterType="String" resultMap="rsMap">
+      SELECT *
+		FROM RESERVATION
+		WHERE buy_name like '%'||#{buy_name} or buy_name like #{buy_name}||'%' or buy_name like '%'||#{buy_name}||'%'
+   </select>
+   <select id="selectCarNum" parameterType="String" resultMap="rsMap">
+      SELECT *
+		FROM RESERVATION
+		WHERE buy_carNum like '%'||#{buy_carNum} or buy_carNum like #{buy_carNum}||'%' or buy_carNum like '%'||#{buy_carNum}||'%'
    </select>
 
    <select id="selectAll" resultMap="rsMap">

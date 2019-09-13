@@ -1,4 +1,3 @@
-<%@page import="co.kr.khaki.key.ClaimDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="co.kr.khaki.board.BoardDTO"%>
@@ -6,6 +5,21 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!--
+
+=========================================================
+* Argon Dashboard - v1.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md)
+
+* Coded by Creative Tim
+
+=\========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
 <html>
 
@@ -35,26 +49,6 @@
   			location.href= 'insertPage.do';
   		});
   	});
-  	function claimModal(content,id,num) {
-  		
-		$('#claim_answer').empty();
-		$('#claim_num').text(num);
-		$('#claim_answer').append(content);
-		$('#claim_answer').append("처리내용 : <input class='form-control' id='claim_result' name='claim_result'>");
-		
-	}
-  	function claimInput() {
-		var num = $('#claim_num').text();
-		var result = $('#claim_result').val();
-		
-		location.href="claimResult.do?claim_num="+num+"&claim_result="+result;
-	}
-  	function resultView(content,result) {
-  		$('#claim_answer').empty();
-		$('#claim_num').text(num);
-		$('#claim_answer').append(content);
-		$('#claim_answer').append("처리내용 : <input class='form-control' id='claim_result' name='claim_result' value="+result+">");
-	}
   </script>
 </head>
 
@@ -279,7 +273,7 @@
       <div class="container-fluid d-flex align-items-center">
         <div class="row">
           <div class="col-lg-12 col-md-12">
-            <h3 class="display-2 text-white">신고내역</h3>
+            <h3 class="display-2 text-white">자유게시판</h3>
           </div>
         </div>
       </div>
@@ -291,115 +285,82 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header border-0">
-              <h3 class="mb-0" style="font-family: 'Hi Melody', cursive; font-size: 20px;">신고내역</h3>
+              <h3 class="mb-0" style="font-family: 'Hi Melody', cursive; font-size: 20px;">자유게시판</h3>
             </div>
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th class="bodyList" scope="col" width="10%">번호</th>
-                    <th class="bodyList" scope="col" width="10%">신고유형</th>
-                    <th class="bodyList" scope="col" width="30%">내용</th>
-                    <th class="bodyList" scope="col" width="10%">작성자</th>
-                    <th class="bodyList" scope="col" width="10%">진행상황</th>
-                    <th class="bodyList" scope="col" width="10%">작성시간</th>
-                    <th class="bodyList" scope="col" width="20%">답변시간</th>
+                    <th class="bodyList" scope="col" width="10%">N   U   M</th>
+                    <th class="bodyList" scope="col" width="10%">C A T E</th>
+                    <th class="bodyList" scope="col" width="30%">S U B J E C T</th>
+                    <th class="bodyList" scope="col" width="10%">W R I T E R</th>
+                    <th class="bodyList" scope="col" width="10%">V I E W S</th>
+                    <th class="bodyList" scope="col" width="10%">H   I   T</th>
+                    <th class="bodyList" scope="col" width="20%">D  A  T  E</th>
                   </tr>
                 </thead>
                 
                
-                <c:forEach var="claimDTO" items="${list}">
+                <c:forEach var="bDTO" items="${list}">
                 <tbody class="listBody">
                 
                   <tr>
                   <!-- num -->
                     <td scope="row">
                       <div id="num">
-                      	${claimDTO.claim_num}
+                      	${bDTO.bNum}
                       </div>
                   	</td>
                     <!-- category -->
                     <td >
                     	<c:set var="category" value="category" />
                     	<c:choose>
-							<c:when test="${claimDTO.claim_category eq 'disorder'}">
-								<font style="color: navy; font-weight: bold;">불편신고</font>
+							<c:when test="${bDTO.category eq 'free'}">
+								<font style="color: navy; font-weight: bold;">일반</font>
 							</c:when>  
 							                  	
-							<c:when test="${claimDTO.claim_category eq 'accident'}">
-								<font style="color: red; font-weight: bold;">사고신고</font>
-							</c:when>                    	
-							
-							<c:when test="${claimDTO.claim_category eq 'etc'}">
-								<font style="color: red; font-weight: bold;">기타</font>
+							<c:when test="${bDTO.category eq 'notice'}">
+								<font style="color: red; font-weight: bold;">공지</font>
 							</c:when>                    	
                     	</c:choose>
                     </td>
                     <!-- subject -->
                     <td >
-                    	<b>${claimDTO.claim_content}</b>
+                    	<a href="select.do?bNum=${bDTO.bNum}"><b>${bDTO.title}</b></a>
                     </td>
                   	<!-- writer -->
                     <td>
-						${claimDTO.claim_id}
+						${bDTO.writer}
                     </td>
                     <!-- views -->
                     <td>
                       <div>
-                      <c:set var="category" value="category" />
-                      <c:choose>
-                      
-	                      <c:when test="${claimDTO.claim_result eq null}">
-	                        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal" onclick="claimModal('${claimDTO.claim_content}','${claimDTO.claim_id}','${claimDTO.claim_num}')">확인중</button>
-					      </c:when>    
-					      
-	                      <c:when test="${claimDTO.claim_result ne null}">
-	                        <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal" onclick="resultView('${claimDTO.claim_content}','${claimDTO.claim_result}')">완료</button>
-					      </c:when>    
-					      
-				      </c:choose>
+                        ${bDTO.views}
                       </div>
                     </td>
                     
-                    <!-- result -->
+                    <!-- hit -->
                    	<td>
-						${fn:substring(claimDTO.claim_subTime,0,14)}
+                     	${bDTO.hit}
                    	</td>
-                   
+                    
                     <!-- time -->
                     <td>
                     	<!-- timestamp로 등록한 값을 분까지만 자름 -->
-						${fn:substring(claimDTO.claim_ansTime,0,14)}
+						${fn:substring(bDTO.write_date,0,14)}
                     </td>
+                 
              	 </c:forEach>
-             	 
                 	<tr>
+                		<td colspan="6" style="margin-right: 500px;" >
+                			<form action="insertPage.do">
+		                		<button type="button" class="btn btn-secondary" id="writeButton">글쓰기</button>
+                			</form>
+                		</td>
                 	</tr>
               </table>
             </div>
-            <!-- Modal -->
-			<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
-			<div>
-			  <div class="modal-dialog modal-dialog-centered" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 id="claim_num" hidden=""></h5>
-			        <h5 class="modal-title" id="exampleModalLabel">신고처리</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div class="modal-body" id="claim_answer">
-			       
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-			        <button type="button" class="btn btn-primary" onclick="claimInput()">저장</button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			
             <div class="card-footer py-4">
              <nav aria-label="Page navigation example">
 			  <ul class="pagination justify-content-center">
