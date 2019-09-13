@@ -249,7 +249,7 @@
       <div class="container-fluid">
         <!-- 관리자 분기점 -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="home.do">KHAKI</a>
-        <c:if test="${sessionId == 'admin1' }">
+        <c:if test="${sessionId == 'admin1' || sessionId == 'admin2'}">
 	        <div align="center">
 	        	<table>
 	        		<tr>

@@ -160,4 +160,11 @@ public class AdminController {
       licenseDAO.updatePermission(licenseDTO);
       return "mypage/allCheck"; // ajax용
    }
+   
+	// 관리자 채팅창
+	@RequestMapping("counselingChatAdmin.do")
+	public String chat() {	
+	
+		return "chat/counselingChatAdmin";
+	}
 }

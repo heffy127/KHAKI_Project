@@ -414,5 +414,13 @@ public class MemberController {
 		session.setAttribute("sessionPhoto", memberDTO.getPhoto()); // 프로필 사진 세션 교체
 		return "member/profile"; // ajax용
 	}
+	
+	// 회원 채팅창
+	@RequestMapping("counselingChat.do")
+	public String chat() {	
+	
+		return "chat/counselingChat";
+	}
+
 
 }
