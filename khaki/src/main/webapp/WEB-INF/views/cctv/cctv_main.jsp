@@ -55,13 +55,26 @@
 			//console.log(typeof arr_length);
 			
 		// 카카오톡 지도 코드
-			// 카카오 맵 생성
+			// 카카오 맵 생성(클러스터러 적용)
+			/* var map = new kakao.maps.Map(document.getElementById('map'), { // 지도를 표시할 div
+		        center : new kakao.maps.LatLng(36.759448, 127.991945), // 지도의 중심좌표 
+		        level : 14 // 지도의 확대 레벨 
+		    });
+			
+			// 마커 클러스터러를 생성합니다 
+		    var clusterer = new kakao.maps.MarkerClusterer({
+		        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+		        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+		        minLevel: 10 // 클러스터 할 최소 지도 레벨 
+		    }); */
+		
+		    //클러스터러 적용 전 코드
 			var container = document.getElementById('map');
 			var options = {
 				center: new kakao.maps.LatLng(36.759448, 127.991945),
 				// sample 좌표 : 33.450701, 126.570667
 				level: 13
-			};
+			}; 
 			
 			var map = new kakao.maps.Map(container, options);
 			
