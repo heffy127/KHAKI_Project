@@ -66,15 +66,6 @@
 	    			+ '<b>나</b><br>' + message[1] + '</div></div>'
 	    		  );
 	    	  } else if(message == '채팅이 연결되었습니다.'){ // 채팅이 잘 연결 되었음을 띄움
-	    		  
-	    		  setTimeout(function() {
-	    				alert('채팅창 강제 새로고침까지 5분 남았습니다.')
-	    				parent.document.location.reload()
-	    				}, 1500000); // 25분 뒤 강제 페이지 새로고침 알림
-	    		  setTimeout(function() {
-	    				alert('채팅창이 30분 이상 켜져있습니다.\n계속 상담을 원하시면 다시 접속해주세요.')
-	    				parent.document.location.reload()
-	    				}, 1800000); // 30분 뒤 강제 페이지 새로고침
 	    				
 	    		  $('#chatContent').append(message)
 	    		  

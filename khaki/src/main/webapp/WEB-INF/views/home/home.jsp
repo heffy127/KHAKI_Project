@@ -217,6 +217,11 @@
               <i class="ni ni-image text-black"></i> 접수신고처리(관리자)
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link " href="survey1.do">
+              <i class="ni ni-image text-black"></i> 차량 이용 설문지 예비
+            </a>
+          </li>
          </ul>
         <!-- Divider -->
         <hr class="my-3">
