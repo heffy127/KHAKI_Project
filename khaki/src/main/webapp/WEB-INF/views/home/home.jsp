@@ -178,11 +178,6 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="carmanage.do">
-              <i class="ni ni-collection text-green"></i> carmanage
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link " id="handler_a" style="cursor: pointer;">
               <i class="ni ni-collection text-green"></i> Handler
             </a>
@@ -205,16 +200,6 @@
           <li class="nav-item">
             <a class="nav-link " href="key.do">
               <i class="ni ni-image text-black"></i> KEY
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="">
-              <i class="ni ni-image text-black"></i> 환불신청처리(관리자)
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " href="claimView.do">
-              <i class="ni ni-image text-black"></i> 접수신고처리(관리자)
             </a>
           </li>
           <li class="nav-item">
