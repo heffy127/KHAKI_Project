@@ -348,7 +348,7 @@
                      </div>
                      <div class="tab-pane fade" id="tabs-icons-text-8" role="tabpanel" aria-labelledby="tabs-icons-text-8-tab">
                      
-                         <p class="description">회원 설문조사 관리 iframe 자리</p>
+                         <iframe id="surveyResult" src="admin_surveyResult.do" style="width: 100%; height: 1300px;" frameborder="0"></iframe>
                   
                      </div>
                  </div>

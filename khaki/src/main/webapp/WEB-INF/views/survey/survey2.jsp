@@ -132,21 +132,21 @@ hr
 						<td style="width: 200px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q1" class="custom-control-input" id="q1_1"
-									type="radio" value="5"> <label
+									type="radio" value="6"> <label
 									class="custom-control-label" for="q1_1">혼자 드라이브</label>
 							</div>
 						</td>
 						<td style="width: 200px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q1" class="custom-control-input" id="q1_2"
-									type="radio" value="4"> <label
+									type="radio" value="5"> <label
 									class="custom-control-label" for="q1_2">친구와 드라이브</label>
 							</div>
 						</td>
 						<td style="width: 200px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q1" class="custom-control-input" id="q1_3"
-									type="radio" value="3"> <label
+									type="radio" value="4"> <label
 									class="custom-control-label" for="q1_3">가족과 드라이브</label>
 							</div>
 						</td>
@@ -155,21 +155,21 @@ hr
 						<td style="width: 200px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q1" class="custom-control-input" id="q1_4"
-									type="radio" value="2"> <label
+									type="radio" value="3"> <label
 									class="custom-control-label" for="q1_4">출퇴근</label>
 							</div>
 						</td>
 						<td style="width: 200px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q1" class="custom-control-input" id="q1_5"
-									type="radio" value="1"> <label
+									type="radio" value="2"> <label
 									class="custom-control-label" for="q1_5">짐 나르기</label>
 							</div>
 						</td>
 						<td style="width: 200px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q1" class="custom-control-input" id="q1_6"
-									type="radio" value="0"> <label
+									type="radio" value="1"> <label
 									class="custom-control-label" for="q1_6">기타</label>
 							</div>
 						</td>
@@ -337,14 +337,14 @@ hr
 						<td style="width: 150px; text-align: center;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q5" class="custom-control-input" id="q5_1"
-									type="radio" value="1"> <label
+									type="radio" value="2"> <label
 									class="custom-control-label" for="q5_1">그렇다</label>
 							</div>
 						</td>
 						<td style="width: 150px; text-align: center;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q5" class="custom-control-input" id="q5_2"
-									type="radio" value="0"> <label
+									type="radio" value="1"> <label
 									class="custom-control-label" for="q5_2">아니다</label>
 							</div>
 						</td>
