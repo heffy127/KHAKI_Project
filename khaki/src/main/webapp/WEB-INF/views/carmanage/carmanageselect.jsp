@@ -67,7 +67,7 @@
 	            									<td width="150">
 	            										차량번호 : 
 	            									</td>
-	            									<td>
+	            									<td id="td_car_num">
 	            										${cmdto.car_num}
 	            									</td>
 	            								</tr>
