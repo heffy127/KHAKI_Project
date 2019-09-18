@@ -1,5 +1,11 @@
+<%@page import="co.kr.khaki.notice.pagination"%>
+<%@page import="co.kr.khaki.notice.NoticeDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <!-- jstl 사용 태그 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!--
 
 =========================================================
@@ -17,12 +23,15 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
     1등 카셰어링, khaki
   </title>
+    <!-- Jquery CDN -->
+  <script src="https://code.jquery.com/jquery-latest.js"></script>
   <!-- Favicon -->
   <link href="resources/assets/img/brand/favicon.png" rel="icon" type="image/png">
   <!-- Fonts -->
@@ -32,43 +41,31 @@
   <link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script type="text/javascript">
-  	$(function() {
-  		// handler_btn(핸들러 신청하기) 버튼 클릭 시 신청자의 useCount(카키 이용 횟수)를 확인하여 5회 이상일 경우 신청 가능
-  		$("#handler_btn").click(function(){ // handler_btn(핸들러 신청하기) 버튼 클릭 시
-  			var id = '<%=(String)session.getAttribute("sessionId")%>';  // sessionId를 [id]라는 변수에 담아서
-  			if(id == "null") {
-  				alert("로그인이 필요한 서비스 입니다.\n 로그인 후 이용 해주세요.");
-  				location.href="login.do";
-  			} else {
-  				$.ajax({ // ajax 실행
-  	  		      url:"handlerUseCountCheck.do", // session id의 useCount(이용횟수)를 확인하기 위해 handlerUseCountCheck.do를 실행
-  	  		      data : {
-  	  		    	  "id" : id // data는 위에서 변수로 저장한 sessionId
-  	  		      },
-  	  		      success:function(data){ // ajax가 성공했을 때
-  	  		    	  if(data == "Y") { // handler/handlerUseCountCheck에 데이터가 Y일 경우 핸들러 신청 가능.
-  	  		    	  	  $("#exampleModal").modal({}) // data == Y 일 경우 modal 나타남
-  	  		    	  } else { // handler/handlerIdCheck에 데이터가 N이거나 NULL일 경우 핸들러 신청 불가.
-  	  		    		  alert("핸들러 신청 조건이 맞지 않아 신청이 불가합니다.\n다시 한 번 확인 후 이용해 주세요.");
-  	  		    	  }
-  	  		      },
-  	  		      error : function(xhr, status) { // ajax가 실패했을 때
-  	  	              alert(xhr + " : " + status); // 실패 내용 확인
-  	  	          }
-  				}) // ajax end
-  			
-  			} // session else end
-  		}) // handler_btn click function end
-  		
-  	
-  		
-  	}) // ajax function end
+  <!-- Google font  -->
+  <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Pen+Script&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+  <script>
+	$(function() {
+		var color = new Array("#ffffff", '#FFF5F5', '#FFEDED', '#FEE4E4', '#FEDDDD', '#FED3D3', '#FFCCCC', '#FEC3C3', '#FEBBBB', '#FFB4B4', '#FEADAD', '#FEA5A5', '#FF9E9E', '#FE9797', '#FE8F8F', '#FE8787', '#FE8181', '#FF7B7B', '#FF7474', '#FE6D6D', '#FF6767', '#FE5F5F', '#FF6767', '#FE6D6D', '#FF7474', '#FF7B7B', '#FE8181', '#FE8787', '#FE8F8F', '#FE9797', '#FF9E9E', '#FEA5A5', '#FEADAD', '#FFB4B4', '#FEBBBB', '#FEC3C3', '#FFCCCC', '#FED3D3', '#FEDDDD', '#FEE4E4', '#FFEDED', '#FFF5F5');
+		var x = 0;
+		setInterval(function() {
+			if(x == 42) {
+				colorCountReset(x);
+			}
+			$("#neonText").css("color", color[x]);
+			colorCount(x);
+		}, 40);
+		
+		function colorCount(){
+			x += 1;
+		}
+		function colorCountReset(){
+			x = 0;
+		}
+	})
   </script>
 </head>
-
+<!-- aaabb -->
 <body class="">
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
@@ -135,8 +132,8 @@
         <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
-              <a href="../index.html">
-                <img src="resources/assets/img/brand/blue.png">
+              <a href="home.do">
+                <img src="resources/assets/img/brand/khaki2.png">
               </a>
             </div>
             <div class="col-6 collapse-close">
@@ -158,6 +155,7 @@
             </div>
           </div>
         </form>
+        <!-- Navigation -->
        <!-- 왼쪽 공통 메뉴 -->
         <ul class="navbar-nav">
           <li class="nav-item ">
@@ -166,7 +164,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="map.do">
+            <a class="nav-link" href="map.do">
               <i class="ni ni-square-pin text-orange"></i> Map
             </a>
           </li>
@@ -176,7 +174,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="notice.do">
+            <a class="nav-link active" href="notice.do">
               <i class="ni ni-air-baloon text-red"></i> Notice
             </a>
           </li>
@@ -216,7 +214,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Map</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Notice</a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">
@@ -278,207 +276,120 @@
         <div class="header-body">
           <!-- Card stats -->
           <div class="row">
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
-                      <span class="h2 font-weight-bold mb-0">350,897</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                        <i class="fas fa-chart-bar"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                      <span class="h2 font-weight-bold mb-0">2,356</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="fas fa-chart-pie"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last week</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                      <span class="h2 font-weight-bold mb-0">924</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                        <i class="fas fa-users"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                    <span class="text-nowrap">Since yesterday</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                      <span class="h2 font-weight-bold mb-0">49,65%</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
+          	<div class="col">
+          	</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- aaaabbcccddeeffee -->
+    <!-- white 테마 사용 -->
+    <div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-footer py-4" align="center">
+            	<div class="nanum_main_area">
+            		<div class="nanum_main_title">
+            			<label style="display: table-cell; vertical-align: middle;"><b id="neonText" style="font-size: 80px;">소중한 내차,</b><br>간편한 상담 신청을 통해<br>쉽고 빠르게 판매할 수 있습니다.</label>
+            		</div>
+            		<div class="nanum_content_area1">
+            			<label style="font-size: 35px;">중고차 매매를 KHAKI에서 해야 하는 <img src="https://image.flaticon.com/icons/svg/91/91611.svg" style="width: 8%; margin-bottom: 4%;">가지 이유!</label><br><br>
+            			<div style="width: 33%; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/1910/1910054.svg" style="width: 40%; float: left;">
+            				<div style="width: 60%; float: left; padding: 3% 3% 3% 6%; font-size: 25px; color: #ff7e7e;">
+            					간편하고 편리한 과정
+            				</div>
+            				<div style="width: 60%; float: left; padding: 3% 3% 3% 6%;">
+            					기본정보 입력만으로 신청 끝!<br>전화기
+            					원하는 장소와 시간에 맞춰<br>매입 상담사가 무료 방문하여 <br>견적 상담을 해드립니다.
+            				</div>
+            			</div>
+            			<div style="width: 33%; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/1972/1972874.svg" style="width: 40%; float: left;">
+            				<div style="width: 60%; float: left; padding: 3% 3% 3% 6%; font-size: 25px; color: #53a253;">
+            					차를 팔아도 내 차처럼
+            				</div>
+            				<div style="width: 60%; float: left; padding: 3% 3% 3% 6%;">
+            					차량 판매 후 카키 이용을 대비해<br>원하는 지역으로 차량 배치를<br>해드립니다.
+            				</div>
+            			</div>
+            			<div style="width: 33%; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/2072/2072739.svg" style="width: 40%; float: left;">
+            				<div style="width: 60%; float: left; padding: 3% 3% 3% 6%; font-size: 25px; color: #7979f9;">
+            					믿음직한 가격
+            				</div>
+            				<div style="width: 60%; float: left; padding: 3% 3% 3% 6%;">
+            					카키가 보증하는 전문가와 상담하여 <br>만족스러운 견적산출이 가능합니다.
+            				</div>
+            			</div>
+            		</div>
+            		<div class="nanum_content_area2" style="background-color: #f9f9f9;">
+            			<label style="font-size: 35px; margin-left: 2%;">중고차 매입 절차</label><br>
+            			<div style="width: 10%; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/130/130258.svg" style="width: 100%;">
+            				<div style="text-align: center; width: 100%; font-size: 35px; color: red;">신청서 작성</div>
+            			</div>
+            			<div style="width: 20%; height: 250px; text-align: center; line-height: 250px; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/126/126490.svg" style="width: 20%;">
+            			</div>
+            			<div style="width: 10%; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/149/149384.svg" style="width: 100%;">
+            				<div style="text-align: center; width: 100%; font-size: 35px; color: red;">유선 상담</div>
+            			</div>
+            			<div style="width: 20%; height: 250px; text-align: center; line-height: 250px; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/126/126490.svg" style="width: 20%;">
+            			</div>
+            			<div style="width: 10%; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/1581/1581978.svg" style="width: 100%;">
+            				<div style="text-align: center; width: 100%; font-size: 35px; color: red;">현장 방문</div>
+            			</div>
+            			<div style="width: 20%; height: 250px; text-align: center; line-height: 250px; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/126/126490.svg" style="width: 20%;">
+            			</div>
+            			<div style="width: 10%; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/1721/1721936.svg" style="width: 100%;">
+            				<div style="text-align: center; width: 100%; font-size: 35px; color: red;">차량 점검/평가</div>
+            			</div>
+            			
+            			<div style="width: 100%; text-align: right; padding-right: 4%; line-height: 250px;">
+            				<img src="https://image.flaticon.com/icons/svg/118/118738.svg" style="width: 5%;">
+            			</div>
+            				
+            			<div style="width: 10%; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/130/130258.svg" style="width: 100%;">
+            				<div style="text-align: center; width: 100%; font-size: 35px; color: red;">명의 이전 완료 안내</div>
+            			</div>
+            			<div style="width: 20%; height: 250px; text-align: center; line-height: 250px; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/126/126492.svg" style="width: 20%;">
+            			</div>
+            			<div style="width: 10%; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/149/149384.svg" style="width: 100%;">
+            				<div style="text-align: center; width: 100%; font-size: 35px; color: red;">대금 송금</div>
+            			</div>
+            			<div style="width: 20%; height: 250px; text-align: center; line-height: 250px; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/126/126492.svg" style="width: 20%;">
+            			</div>
+            			<div style="width: 10%; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/1581/1581978.svg" style="width: 100%;">
+            				<div style="text-align: center; width: 100%; font-size: 35px; color: red;">서류 및 차량 인도</div>
+            			</div>
+            			<div style="width: 20%; height: 250px; text-align: center; line-height: 250px; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/126/126492.svg" style="width: 20%;">
+            			</div>
+            			<div style="width: 10%; float: left;">
+            				<img src="https://image.flaticon.com/icons/svg/1721/1721936.svg" style="width: 100%;">
+            				<div style="text-align: center; width: 100%; font-size: 35px; color: red;">가격산정/협의</div>
+            			</div>
+            		</div>
+            	</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="container-fluid mt--7">
-      <div class="row">
-        <div class="col">
-          <div class="card shadow border-0" style="padding: 40px;">
-          	<div class="h_head">
-				<label>언제 어디서든 핸들로 부가 수입을 올리는, 핸들러 서비스</label>
-			</div>
-			<div class="h_head2">
-				핸들러 서비스에서 차량이동, 주차, 세차 등<br>다양한 미션을 수행하고 수입을 올려보세요.
-			</div>
-			<div class="h_head3">
-				'핸들러 서비스'에 가입하면, 내가 원하는 시간에 언제든 핸들이 가능합니다!
-			</div>
-			<div class="h_c">
-				<div class="h_content">
-					<img src="resources/assets/img/brand/h_content1.jpg" style="width: 100%;">
-					<label class="h_c_label">재밌고,<br> 다양한 미션!</label><br>
-					<label class="h_c_label2">차량을 활용한 다양한 미션을<br>
-						수행하면서 또 다른 드라이빙의 재미를
-						느껴보세요.</label>
-				</div>
-				<div class="h_content">
-					<img src="resources/assets/img/brand/h_content2.jpg" style="width:100%;">
-					<label class="h_c_label">언제나,<br>원하는 시간에!</label><br>
-					<label class="h_c_label2">주중 뿐만 아니라, 저녁, 심야시간에도! <br>
-						내가 편한시간에 언제든지
-						핸들할 수 있어요.</label>
-				</div>
-				<div class="h_content">
-					<img src="resources/assets/img/brand/h_content3.jpg" style="width: 100%">
-					<label class="h_c_label">추가로,<br>원하는 만큼!</label><br>
-					<label class="h_c_label2">완료일 이후 정해진 기간에 맞춰 입금되는
-						핸들 리워드, 성공적인 투잡을 위해 
-						핸들러 서비스와 함께해요.</label>
-				</div>
-			</div>
-			<div class="h_u">
-				<div class="h_u_head">핸들러 이용 방법</div>
-				<div class="h_u_use1">
-					<img src="resources/assets/img/brand/h_use1.png" style="width: 100%;">
-					<label class="h_u_use1_h">가입하기</label>
-					<label class="h_u_use1_c">카키 이용 5회 이상 이용자에 한해 가입이 가능합니다!</label>
-				</div>
-				<div class="h_u_use_arrow">
-					<img src="resources/assets/img/brand/h_use_arrow.png" style="width: 100%;">
-				</div>
-				<div class="h_u_use1">
-				<img src="resources/assets/img/brand/h_use2.png" style="width: 100%;">
-					<label class="h_u_use1_h">핸들잡기</label>
-					<label class="h_u_use1_c">다양한 미션을 수행하여 포인트를 적립하세요!</label>
-				</div>
-				<div class="h_u_use_arrow">
-					<img src="resources/assets/img/brand/h_use_arrow.png" style="width: 100%;">
-				</div>
-				<div class="h_u_use1">
-					<img src="resources/assets/img/brand/h_use3.png" style="width: 100%;">
-					<label class="h_u_use1_h">포인트받기</label>
-					<label class="h_u_use1_c">미션 완료 후, 미션에 따라 포인트를 차등 지급해 드려요.</label>
-				</div>
-				<div class="h_u_info">
-				<nav id="h_u_nav1">
-					<label class="h_u_info_h">이용안내 / 가입대상</label>
-				</nav>
-					<label class="h_u_info_c">핸들러 서비스는 전국으로 확대 될 예정입니다.<br>
-							운전면허 취득 만 1년 이상, 카키 차량예약 이용 횟수 5회 이상의 조건을 동시에 만족하는 분들은 핸들러를 신청할 수 있습니다.<br></label>
-				</div>
-				<div class="h_u_info">
-				<nav id="h_u_nav2">
-					<label class="h_u_info_h">혜택</label>
-				</nav>
-					<label class="h_u_info_c">
-							1.핸들러의 안전을 위하여 모든 핸들에 자차면책보험이 적용됩니다. <br>
-							2.보험은 KHAKI 보험약관을 준수합니다.</label>
-				</div>
-			</div>
-			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary btn-lg btn-block" id="handler_btn" style="margin-top: 5%; margin-bottom: 5%; font-size: 35px; font-family: 'Nanum Gothic Coding', monospace;">핸들러 신청하기</button>
-			
-			<!-- 지역선택 Modal -->
-			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			  <div class="modal-dialog modal-dialog-centered" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalLabel">핸들러 신청 완료</h5>
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          <span aria-hidden="true">&times;</span>
-			        </button>
-			      </div>
-			      <div class="modal-body">
-			      	<div class="form-group">
-						<div class="col-sm-3_jkh">
-							<div id="association_out" style="width: 100%; height:auto; text-align: center;">
-								<label id="handler_label1"><img src="https://image.flaticon.com/icons/svg/762/762048.svg" style="width: 9%; margin-right: 3%;">환영합니다!<img src="https://image.flaticon.com/icons/svg/762/762048.svg" style="width: 9%; margin-left: 3%;"></label>
-								<label id="handler_label2"><b id="handler_label3">원하는 </b>시간에! <b id="handler_label3">원하는 </b> 만큼!</label><br>
-								<label id="handler_label2">핸들러 서비스를 통하여 더 많은 <b id="handler_label3">혜택</b>을 누려보세요!</label>
-								<label id="handler_label2"><b style="color: #7ea07c; font-size: 25px; text-shadow: 2px 1px 1px #10450c;">KHAKI</b> HANDLER SERVICE</label>
-							</div>
-						</div>
-					</div>
-			      </div>
-			      <div class="modal-footer">
-			        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-			        <button type="button" class="btn btn-outline-default" style="width: 100%; font-size: 20px;" id="hanlderToMoveBtn" onclick="location.href='handlerBoard.do'" data-dismiss="modal">이용하러 가기<img src="https://image.flaticon.com/icons/svg/1879/1879039.svg" style="width: 10%; margin-top: 5%; margin-left: 2%;"></button>
-			      </div>
-			    </div>
-			  </div>
-			</div> <!-- modal End -->
-			
-			
-		  </div>
-        </div>
-      </div>
-      <!-- Footer -->
       <!-- Footer -->
       <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">

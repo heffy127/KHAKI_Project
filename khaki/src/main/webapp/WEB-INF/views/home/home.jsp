@@ -198,8 +198,28 @@
             </a>
           </li>
           <li class="nav-item">
+<<<<<<< HEAD
+            <a class="nav-link " href="key.do">
+              <i class="ni ni-image text-black"></i> KEY
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="nanumCar.do">
+              <i class="ni ni-delivery-fast text-blue"></i> 나눔카
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="calender.do">
+              <i class="ni ni-delivery-fast text-blue"></i> My Calender
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="claimView.do">
+              <i class="ni ni-image text-black"></i> 접수신고처리(관리자)
+=======
             <a class="nav-link " href="survey1.do">
               <i class="ni ni-image text-black"></i> 차량 이용 설문지 예비
+>>>>>>> branch 'master' of https://github.com/heffy127/KHAKI_Project.git
             </a>
           </li>
          </ul>

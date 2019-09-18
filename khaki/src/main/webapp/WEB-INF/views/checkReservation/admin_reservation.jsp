@@ -102,6 +102,17 @@
 		 		
 	 		}
 	 		
+	 		var st = $("#startTime"+i).text().split("");
+	 		$("#startTime"+i).text(st[0]+st[1]+"."+st[2]+st[3]+"."+st[4]+st[5]+" "+st[6]+st[7]+":"+st[8]+st[9]);
+	 		var et = $("#endTime"+i).text().split("");
+	 		$("#endTime"+i).text(et[0]+et[1]+"."+et[2]+et[3]+"."+et[4]+et[5]+" "+et[6]+et[7]+":"+et[8]+et[9]);
+	 		var cp = $("#admin_reservation_coupon"+i).text();
+	 		if(cp == "- 쿠폰 선택 -") {
+	 			$("#admin_reservation_coupon"+i).text("-");
+	 		} else if(cp == "") {
+	 			$("#admin_reservation_coupon"+i).text("-");
+	 		}
+	 		
         }
         
         
@@ -297,14 +308,14 @@
 			   			</tr>
 			   			<tr id="admin_reservation_empty${status.index }" style="border-top: 4px dotted #0000001c; height: 50px;" value="0">
 			   				<td><b>대여시간</b></td>
-			   				<td>${pdto.buy_startTime }</td>
+			   				<td id="startTime${status.index }">${pdto.buy_startTime }</td>
 			   				<td><b>반납시간</b></td>
 			   				<td><c:choose>
 							    <c:when test="${not empty pdto.buy_real_endTime}">
-							        ${pdto.buy_real_endTime }
+							        <label id="endTime${status.index }">${pdto.buy_real_endTime }</label>
 							    </c:when>
 							    <c:when test="${empty pdto.buy_real_endTime}">
-							    	${pdto.buy_endTime }
+							    	<label id="endTime${status.index }">${pdto.buy_endTime }</label>
 							    </c:when>
 							</c:choose></td>
 			   				<td><b>주행거리</b></td>
@@ -339,12 +350,12 @@
 			   			</tr>
 			   			<tr id="admin_reservation_emptyyyyy${status.index }" style="height: 50px;">
 			   				<td><b>사용한 쿠폰 이름</b></td>
-			   				<td>${pdto.buy_coupon }</td>
+			   				<td id="admin_reservation_coupon${status.index }">${pdto.buy_coupon }</td>
 			   				<td><b>쿠폰 적용 금액</b></td>
 			   				<td>${pdto.buy_useCoupon }</td>
 			   				<td><b>부름서비스 여부</b></td>
 			   				<td>
-							    <c:if test="${pdto.buy_burum eq 'n'}">
+							    <c:if test="${pdto.buy_burum eq null}">
 								    N
 								</c:if>
 							    <c:if test="${pdto.buy_burum eq 'y'}">

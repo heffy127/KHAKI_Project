@@ -56,6 +56,7 @@
    <resultMap type="pDTO" id="rsMap">
       <result property="buy_num" column="buy_num" />
       <result property="buy_id" column="buy_id" />
+      <result property="buy_name" column="buy_name" />
       <result property="buy_carIns" column="buy_carIns" />
       <result property="buy_startTime" column="buy_startTime" />
       <result property="buy_endTime" column="buy_endTime" />
