@@ -207,6 +207,11 @@
               <i class="ni ni-image text-black"></i> 차량 이용 설문지 예비
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link " href="claimView.do">
+              <i class="ni ni-image text-black"></i> 신고 접수 내용 (관리자)
+            </a>
+          </li>
          </ul>
         <!-- Divider -->
         <hr class="my-3">

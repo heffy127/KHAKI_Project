@@ -17,6 +17,8 @@
 		<typeAlias type="co.kr.khaki.member.LicenseDTO" alias="licenseDTO"></typeAlias>
 		<typeAlias type="co.kr.khaki.member.MemberAdminDTO" alias="memberAdminDTO"></typeAlias>
 		<typeAlias type="co.kr.khaki.member.InsertPointDTO" alias="insertPointDTO"></typeAlias>
+		<typeAlias type="co.kr.khaki.survey.Car_surveyDTO" alias="car_surveyDTO"></typeAlias>
+		<typeAlias type="co.kr.khaki.survey.Car_surveyResultDTO" alias="car_surveyResultDTO"></typeAlias>
 		<typeAlias type="co.kr.khaki.notice.NoticeDTO" alias="nDTO"></typeAlias>
 		<typeAlias type="co.kr.khaki.carmanage.CarManageDTO" alias="cmDTO"></typeAlias>
 		<typeAlias type="co.kr.khaki.handler.HandlerDTO" alias="hDTO"></typeAlias>
@@ -34,6 +36,7 @@
 		<mapper resource="mapper/boardReplyMapper.xml" />
 		<mapper resource="mapper/memberMapper.xml" />
 		<mapper resource="mapper/memberAdminMapper.xml" />
+		<mapper resource="mapper/surveyMapper.xml" />
 		<mapper resource="mapper/memberLevelMapper.xml" />
 		<mapper resource="mapper/licenseMapper.xml" />
 		<mapper resource="mapper/socialMapper.xml" />
