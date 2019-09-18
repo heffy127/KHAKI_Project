@@ -168,27 +168,8 @@
           </li>
          </ul>
         <!-- Divider -->
-        <hr class="my-3">
-        <!-- Heading -->
-        <h6 class="navbar-heading text-muted">Documentation</h6>
-        <!-- Navigation -->
-        <ul class="navbar-nav mb-md-3">
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-              <i class="ni ni-spaceship"></i> Getting started
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
-              <i class="ni ni-palette"></i> Foundation
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-              <i class="ni ni-ui-04"></i> Components
-            </a>
-          </li>
-        </ul>
+        <hr class="my-3"> <!-- 관리자 채팅 -->
+       	<iframe src="counselingChatAdmin.do" height="400px;"></iframe>
       </div>
     </div>
   </nav>
@@ -335,7 +316,7 @@
                      </div>
                      <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
                      
-                     	<p class="description">차량 관리 iframe 자리</p>
+                     	<iframe id="memberAll" src="carmanage.do" style="width: 100%; height: 1300px;" frameborder="0"></iframe>
                      
                      </div>
                      
@@ -347,7 +328,7 @@
                      
                      <div class="tab-pane fade" id="tabs-icons-text-4" role="tabpanel" aria-labelledby="tabs-icons-text-4-tab">
                      
-                         <p class="description">신고 게시판 iframe 자리</p>
+                        <iframe id="memberAll" src="claimView.do" style="width: 100%; height: 1300px;" frameborder="0"></iframe>
                     
                      </div>
                      <div class="tab-pane fade" id="tabs-icons-text-5" role="tabpanel" aria-labelledby="tabs-icons-text-5-tab">
@@ -367,7 +348,7 @@
                      </div>
                      <div class="tab-pane fade" id="tabs-icons-text-8" role="tabpanel" aria-labelledby="tabs-icons-text-8-tab">
                      
-                         <p class="description">회원 설문조사 관리 iframe 자리</p>
+                         <iframe id="surveyResult" src="admin_surveyResult.do" style="width: 100%; height: 1300px;" frameborder="0"></iframe>
                   
                      </div>
                  </div>

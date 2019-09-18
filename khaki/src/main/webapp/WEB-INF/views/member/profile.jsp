@@ -374,8 +374,8 @@
                 </div>
                 <hr class="my-4" />
                	
-               		<iframe src="chat.do" frameborder="1" width="300px" height="400px"></iframe>
-               	
+               		<iframe src="counselingChat.do" frameborder="1" width="320px" height="400px"></iframe>
+               
               </div>
             </div>
           </div>
@@ -439,7 +439,7 @@
                    
                      </div>
                      <div class="tab-pane fade" id="tabs-icons-text-6" role="tabpanel" aria-labelledby="tabs-icons-text-6-tab">
-                         <iframe src="" style="width: 100%; height: 1000px;" frameborder="0"></iframe>
+                         <iframe src="key.do" style="width: 100%; height: 1000px;" frameborder="0"></iframe>
                      </div>
                  </div>
              </div>

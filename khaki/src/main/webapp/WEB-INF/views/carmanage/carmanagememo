@@ -120,10 +120,8 @@ create sequence khakinum_seq start with 1 increment by 1 maxvalue 10000 cycle no
 	9/10(화)
 	- carmanageselect부분 delete기능 구현
 	
-	9/11(수) 예정
-	- carmanage에 검색 기능 및 다중 삭제 기능 구현
-	- 페이지네이션 curpage, pagesize값을 넘기지 않아도 되도록 고민
-	- cctv jsp부분 버튼 및 css, 맵 : 클러스터러 기능, cctv 서울 지역 안되는 것 확인
+	9/11(수)
+	- carmanage에 검색 기능 구현 완료
 	
 	// search_list와 search_obj
 	//var search_form_data = $("#search_form").serialize();	//serialize() : form의 문자열의 데이터에 serialize 한다
@@ -143,4 +141,11 @@ create sequence khakinum_seq start with 1 increment by 1 maxvalue 10000 cycle no
 			alert("에러발생!!!");
 		}
 	});	//ajax end */
+	
+	9/12(목) 예정
+	- carmanage에 다중 삭제 기능 구현(보류...)
+	- 페이지네이션 curpage, pagesize값을 넘기지 않아도 되도록 고민
+	- cctv jsp부분 버튼 및 css, 맵 : 클러스터러 기능, cctv 서울 지역 안되는 것 확인
+	
+	
 	

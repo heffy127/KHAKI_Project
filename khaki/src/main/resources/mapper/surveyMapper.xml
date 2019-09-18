@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="surveyDAO">
+
+   <resultMap type="car_surveyDTO" id="rsMap">
+      <result property="num" column="num" />
+      <result property="q1" column="q1" />
+      <result property="q2" column="q2" />
+      <result property="q3" column="q3" />
+      <result property="q4" column="q4" />
+      <result property="q5" column="q5" />
+      <result property="opinion" column="opinion" />
+   </resultMap>
+   
+   <resultMap type="car_surveyResultDTO" id="rsMap_result">
+      <result property="checked6" column="checked6" />
+      <result property="checked5" column="checked5" />
+      <result property="checked4" column="checked4" />
+      <result property="checked3" column="checked3" />
+      <result property="checked2" column="checked2" />
+      <result property="checked1" column="checked1" />
+   </resultMap>
+   
+   <!-- 1번문항 -->
+   <select id="selectQ1" resultMap="rsMap_result">
+      select
+      count(case when q1 = 6 then 1 end) as checked6, 
+      count(case when q1 = 5 then 1 end) as checked5,
+      count(case when q1 = 4 then 1 end) as checked4,
+      count(case when q1 = 3 then 1 end) as checked3,
+      count(case when q1 = 2 then 1 end) as checked2,
+      count(case when q1 = 1 then 1 end) as checked1
+      from car_survey
+   </select>
+   
+   <!-- 2번문항 -->
+   <select id="selectQ2" resultMap="rsMap_result">
+      select
+      count(case when q2 = 5 then 1 end) as checked5,
+      count(case when q2 = 4 then 1 end) as checked4,
+      count(case when q2 = 3 then 1 end) as checked3,
+      count(case when q2 = 2 then 1 end) as checked2,
+      count(case when q2 = 1 then 1 end) as checked1
+      from car_survey
+   </select>
+   
+   <!-- 3번문항 -->
+   <select id="selectQ3" resultMap="rsMap_result">
+      select
+      count(case when q3 = 5 then 1 end) as checked5,
+      count(case when q3 = 4 then 1 end) as checked4,
+      count(case when q3 = 3 then 1 end) as checked3,
+      count(case when q3 = 2 then 1 end) as checked2,
+      count(case when q3 = 1 then 1 end) as checked1
+      from car_survey
+   </select>
+   
+   <!-- 4번문항 -->
+   <select id="selectQ4" resultMap="rsMap_result">
+      select
+      count(case when q4 = 5 then 1 end) as checked5,
+      count(case when q4 = 4 then 1 end) as checked4,
+      count(case when q4 = 3 then 1 end) as checked3,
+      count(case when q4 = 2 then 1 end) as checked2,
+      count(case when q4 = 1 then 1 end) as checked1
+      from car_survey
+   </select>
+   
+   <!-- 5번문항 -->
+   <select id="selectQ5" resultMap="rsMap_result">
+      select
+      count(case when q5 = 2 then 1 end) as checked2,
+      count(case when q5 = 1 then 1 end) as checked1
+      from car_survey
+   </select>
+
+
+   <select id="selectOpinion" resultType="String">
+      select opinion from car_survey 
+      where opinion is not null
+   </select>
+
+   <insert id="insert" parameterType="car_surveyDTO">
+      INSERT INTO car_survey
+      VALUES(car_survey_seq.nextval, #{q1}, #{q2}, #{q3}, #{q4}, #{q5}, #{opinion})
+   </insert>
+
+<!-- 
+   <delete id="deleteSomething" parameterType="int">
+      DELETE FROM tablename1 WHERE
+      columnname1 = #{param1}
+   </delete> -->
+
+</mapper>

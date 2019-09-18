@@ -9,6 +9,10 @@ create sequence notice_seq start with 1 increment by 1 maxvalue 10000 cycle noca
 CREATE SEQUENCE NO_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 MINVALUE 1 NOCYCLE; -- 자유게시판 글번호 시퀀스(다솔)
 CREATE SEQUENCE RE_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 MINVALUE 1 NOCYCLE; -- 댓글 번호 시퀀스(다솔)
 
+CREATE SEQUENCE car_survey_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 MINVALUE 1 NOCYCLE; -- 차량 설문지 번호 시퀀스(준영)
+
+
+
 
 @ 박준영
 
@@ -75,6 +79,17 @@ memberLevel number default 1,
 exp number default 0,
 constraint FK_levelId foreign key(id) references member(id) on delete cascade
 );
+
+// 차량 이용 설문조사 테이블
+create table car_survey (
+num number primary key,
+q1 char(1) not null,
+q2 char(1) not null,
+q3 char(1) not null,
+q4 char(1) not null,
+q5 char(1) not null,
+opinion varchar2(60)
+)
 
 @ 민병호
 

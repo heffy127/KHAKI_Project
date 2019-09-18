@@ -21,116 +21,6 @@
  	<link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
  	<!-- CSS Font -->
  	<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Gugi&display=swap&subset=korean" rel="stylesheet">
- 	<!-- Jquery, cctv api javascript -->
- 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script type="text/javascript" src="http://openapi.its.go.kr/javascript/jquery.xml2json.js"></script>
- 	<script type="text/javascript" src="http://openapi.its.go.kr/javascript/openapi.cctv.js"></script>
- 	<!-- kakao map api javascript -->
- 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cf7aa5c76b385f7270d308f67a145b"></script>
- 	<!-- aaabbb -->
-	<!-- 맵과 cctv script -->
-	<script type="text/javascript">
-		var jb = jQuery.noConflict();
-		var key = '1566268087863';
-		var url = 'http://openapi.its.go.kr:8081/api/NCCTVInfo?key='+key+'&ReqType=2&MinX=127.100000&MaxX=128.890000&MinY=34.100000 &MaxY=39.100000&type=ex&CctvType=1';
-		//http://openapi.its.go.kr:8081/api/NCCTVInfo?key=1566268087863&ReqType=2&MinX=127.100000&MaxX=128.890000&MinY=34.100000 &MaxY=39.100000&type=ex&CctvType=1
-		
-		var data;
-		jb.get(url, {}
-		, function(result) {	//data에는 xml파일이 받아져 있을 것
-			var json = jb.xml2json(result);	//xml -> json파일로 변경해주는 것이 xml2json.js파일의 역할
-			//if (! json.results.response) return false;
-			//json = json.results.response;
-			//if (! json.data) return false;
-			var data = json.data
-			
-			// data는 배열로 되어 있으므로 인덱스로 가져올 수 있다 
-			console.log(data);
-			//var arr_length = data.length;
-			//console.log(typeof arr_length);
-			
-		// 카카오톡 지도 코드
-			// 카카오 맵 생성
-			var container = document.getElementById('map');
-			var options = {
-				center: new kakao.maps.LatLng(36.759448, 127.991945),
-				// sample 좌표 : 33.450701, 126.570667
-				level: 13
-			};
-			
-			var map = new kakao.maps.Map(container, options);
-			
-			// data에서 필요한 내용(좌표와 cctv이름)을 marker객체 생성하며 찍는 식으로
-				for (var i = 0; i < data.length; i++) {
-					// 마커를 생성합니다.
-					var marker = new kakao.maps.Marker({
-						map: map,
-					    position: new kakao.maps.LatLng(data[i].coordy, data[i].coordx),
-					    title: data[i].cctvname
-					});
-					
-					/*
-					'<div style="width: 352px; height: 302px; position: absolute; z-index: 1; left: 8px; top: 40px;">'
-			        +'<div>'
-			        +data[i].cctvname
-			        +'<br>'
-			        +'<iframe id="cctv_frame" src='+data[i].cctvurl +' frameborder="0" style="width:350px; height:250px;"></iframe>'
-			        +'</div>'
-			        +'</div>'
-					*/
-					
-					
-						var iwContent =
-						'<div style="width: 350px;height:300px;">'
-						+'<div>'
-				        +data[i].cctvname
-				        +'<br>'
-				        +'<iframe id="cctv_frame" src='+data[i].cctvurl +' frameborder="0" style="width:350px; height:250px;"></iframe>'
-				        +'</div>'
-				        +'</div>',
-				        iwRemoveable = true;
-				    
-					
-					// 마커에 표시할 인포윈도우를 생성합니다 
-				    var infowindow = new kakao.maps.InfoWindow({
-				    	// 인포윈도우에 표시할 내용
-				    	content: iwContent,
-				    	removable: iwRemoveable
-				    });
-					
-				 	// 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저를 만듭니다
-				    // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-				    (function(marker, infowindow) {
-				        // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다 
-				        kakao.maps.event.addListener(marker, 'click', function() {
-				            infowindow.open(map, marker);
-				        });
-				        
-					     // 마커에 click 이벤트를 등록하고 마우스 클릭 시 cctv_frame에 표시합니다
-				        /* kakao.maps.event.addListener(marker, 'click', function() {
-				        	$("#cctv_frame").children().remove();
-				            $("#cctv_frame").append(content1);
-				        }); */
-	
-				        // 마커에 mouseout 이벤트를 등록하고 마우스 아웃 시 인포윈도우를 닫습니다
-				        /* kakao.maps.event.addListener(marker, 'mouseout', function() {
-				            infowindow.close();
-				        }); */
-				    })(marker, infowindow);
-	
-				}
-			
-			/* for (var i = 0; i < data.length; i++) {
-				console.log("cctvname : "+data[i].cctvname + " / cctvurl : "  + data[i].cctvurl)
-			} */
-			//$("#test").text("cctvname : "+data[0].cctvname + " / cctvurl : " +data[0].cctvurl);
-		}	// function end(ajax에서 success와 같은 느낌)
-		, 'xml'
-		).fail(function() {
-			//alert('[Error] not get cctv list');
-		});
-		
-	</script>
  	
 </head>
 <body>
@@ -343,7 +233,7 @@
       <div class="container-fluid">
         <div class="header-body">
           <!-- Card stats -->
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
@@ -359,10 +249,10 @@
                     </div>
                     <p></p>
                   </div>
-                  <!-- <p class="mt-3 mb-0 text-muted text-sm">
+                  <p class="mt-3 mb-0 text-muted text-sm">
                     <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                     <span class="text-nowrap">Since last month</span>
-                  </p> -->
+                  </p>
                 </div>
               </div>
             </div>
@@ -429,7 +319,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -441,7 +331,81 @@
           		<img src="https://image.flaticon.com/icons/svg/2035/2035524.svg" style="width: 3%; margin-right: 2%;">교통상황 CCTV
           	</div>	<!-- card-header end -->
             <div class="card-body">	<!-- id에 map을 주어 위의 script 실행되도록 함 -->
-            	<div id="map" style="width: 1000px;height: 1000px; background-image: url('https://thumbs.gfycat.com/DeficientBareDalmatian-size_restricted.gif'); background-size: 100%; background-repeat: no-repeat; background-position: center top;"></div>
+            	<!-- aaabbb -->
+            	<div class="row">
+	            	<!-- map 표시되는 div -->
+	            	<div class="col-md-9" id="map" style="width: 1000px;height: 1000px; background-image: url('https://thumbs.gfycat.com/DeficientBareDalmatian-size_restricted.gif'); background-size: 100%; background-repeat: no-repeat; background-position: center top;"></div>
+            		<!-- 메뉴 놓을 div -->
+            		<div class="col-md-3" align="center">
+            			<div class="row">
+            				지도 확대 / 축소
+            			</div>
+            			<div class="row">
+            				<button class="btn btn-info" onclick="zoomOut()">지도레벨 + 1(축소)</button>
+            				<button class="btn btn-danger" onclick="zoomIn()">지도레벨 - 1(확대)</button>
+            			</div>
+            			<div class="row">
+            				지역별(광역시)
+            			</div>
+            			<div class="row">
+            				<button class="btn btn-outline-secondary" onclick="panTo(37.563928, 126.997477)">서울특별시</button>
+            				<button class="btn btn-outline-secondary" onclick="panTo(35.176476, 129.079631)">부산광역시</button>
+            				<button class="btn btn-outline-secondary" onclick="panTo(35.869516, 128.606184)">대구광역시</button>
+            			</div>
+            			<div class="row">
+            				<button class="btn btn-outline-secondary" onclick="panTo(37.449180, 126.731477)">인천광역시</button>
+            				<button class="btn btn-outline-secondary" onclick="panTo(35.154573, 126.889890)">광주광역시</button>
+            				<button class="btn btn-outline-secondary" onclick="panTo(36.356850, 127.384213)">대전광역시</button>
+            			</div>
+            			<div class="row">
+            				<button class="btn btn-outline-secondary" onclick="panTo(35.547520, 129.330644)">울산광역시</button>
+            				<button class="btn btn-outline-secondary" onclick="panTo(36.480262, 127.289035)">세종특별자치시</button>
+            			</div>
+            			
+            			<div class="row">
+            				지역별(도별)
+            			</div>
+            			<div class="row">
+            			<!-- 비슷해 보이는 것들끼리 버튼 색깔 통일해서 표현하면 좋을듯 -->
+            			<!-- 경기도, 강원도 btn btn-outline-primary / 충청남도, 충청북도 btn btn-outline-success / 
+            				경상남도, 경상북도 btn btn-outline-info / 전라북도, 전라남도 btn btn-outline-warning -->
+            				
+            				<!-- 광역시
+서울특별시 - 중구청(37.563928, 126.997477)
+부산광역시 - 연제구청(35.176476, 129.079631)
+대구광역시 - 대구중구청(35.869516, 128.606184)
+인천광역시 - 남동구청(37.449180, 126.731477)
+광주광역시 - 서구청(35.154573, 126.889890)
+대전광역시 - 서구청(36.356850, 127.384213)
+울산광역시 - 남구청(35.547520, 129.330644)
+세종특별자치시 - 시청(36.480262, 127.289035)
+도
+경기도 - 수원시청(37.264685, 127.031270)
+강원도 - 춘천시청(37.881437, 127.730108)
+충청북도 - 청주시청(36.642323, 127.488833)
+충청남도 - 홍성군청(36.601518, 126.660837)
+전라북도 - 전주시청(35.824437, 127.148022)
+전라남도 - 무안군청(34.990623, 126.481728)
+경상북도 - 안동시청(36.586488, 128.727215)
+경상남도 - 창원시청(35.228223, 128.681825)
+ -->
+            				<button class="btn btn-outline-primary" onclick="panTo(37.264685, 127.031270)">경기도</button>
+            				<button class="btn btn-outline-primary" onclick="panTo(37.881437, 127.730108)">강원도</button>
+            			</div>
+            			<div class="row">
+            				<button class="btn btn-outline-success" onclick="panTo(36.642323, 127.488833)">충청북도</button>
+            				<button class="btn btn-outline-success" onclick="panTo(36.601518, 126.660837)">충청남도</button>
+            			</div>
+            			<div class="row">
+            				<button class="btn btn-outline-info" onclick="panTo(36.586488, 128.727215)">경상북도</button>
+            				<button class="btn btn-outline-info" onclick="panTo(35.228223, 128.681825)">경상남도</button>
+            			</div>
+            			<div class="row">
+            				<button class="btn btn-outline-warning" onclick="panTo(35.824437, 127.148022)">전라북도</button>
+            				<button class="btn btn-outline-warning" onclick="panTo(34.990623, 126.481728)">전라남도</button>
+            			</div>
+            		</div>
+            	</div>
             </div>	<!-- cardbody End -->
           </div>
           <div class="card-footer">
@@ -478,6 +442,137 @@
       </footer>
     </div>
   </div>
+  	<!-- aaaa -->
+ 	<!-- Jquery, cctv api javascript -->
+ 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="http://openapi.its.go.kr/javascript/jquery.xml2json.js"></script>
+ 	<script type="text/javascript" src="http://openapi.its.go.kr/javascript/openapi.cctv.js"></script>
+ 	
+	<!-- kakao map api javascript -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cf7aa5c76b385f7270d308f67a145b&libraries=clusterer"></script>
+	<!-- 맵과 cctv script -->
+	<script>
+	    var map = new kakao.maps.Map(document.getElementById('map'), { // 지도를 표시할 div
+	        center : new kakao.maps.LatLng(36.2683, 127.6358), // 지도의 중심좌표
+	        level : 12 // 지도의 확대 레벨
+	    });
+	
+	    // 마커 클러스터러를 생성합니다
+	    // 마커 클러스터러를 생성할 때 disableClickZoom 값을 true로 지정하지 않은 경우
+	    // 클러스터 마커를 클릭했을 때 클러스터 객체가 포함하는 마커들이 모두 잘 보이도록 지도의 레벨과 영역을 변경합니다
+	    // 이 예제에서는 disableClickZoom 값을 true로 설정하여 기본 클릭 동작을 막고
+	    // 클러스터 마커를 클릭했을 때 클릭된 클러스터 마커의 위치를 기준으로 지도를 1레벨씩 확대합니다
+	    var clusterer = new kakao.maps.MarkerClusterer({
+	        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+	        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+	        minLevel: 10, // 클러스터 할 최소 지도 레벨
+	        disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
+	    });
+	
+	    jQuery.noConflict();
+	    
+	    jQuery( document ).ready(function( $ ) {
+	        // You can use the locally-scoped $ in here as an alias to jQuery.
+	   		// 출처: https://yubylab.tistory.com/entry/다른-라이브러리로부터-jQuery-보호하기 [Yuby's Lab.]
+	    var key = '1566268087863';
+		var url = 'http://openapi.its.go.kr:8081/api/NCCTVInfo?key='+key+'&ReqType=2&MinX=125.900000&MaxX=129.500000&MinY=33.100000 &MaxY=39.100000&type=ex&CctvType=1';
+	    
+	    // 데이터를 가져오기 위해 jQuery를 사용합니다
+	    // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
+	    $.get(url, function(result) {
+	        // 데이터에서 좌표 값을 가지고 마커를 표시합니다
+	        // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
+	        // aaaaa
+	        var json = $.xml2json(result);
+	        console.log(json.data);
+	        var markers = $(json.data).map(function(i, data) {
+	            var marker = new kakao.maps.Marker({
+	                position : new kakao.maps.LatLng(data.coordy, data.coordx),
+	                title : data.cctvname
+	            });
+	        	
+	            
+	            var iwContent =
+					'<div style="width: 350px;height:300px;">'
+					+'<div>'
+			        +data.cctvname
+			        +'<br>'
+			        +'<iframe id="cctv_frame" src='+data.cctvurl +' frameborder="0" style="width:350px; height:250px;"></iframe>'
+			        +'</div>'
+			        +'</div>',
+			        iwRemoveable = true;
+			    
+			    // 마커에 표시할 인포윈도우를 생성합니다 
+	            var infowindow = new kakao.maps.InfoWindow({
+			    	// 인포윈도우에 표시할 내용
+			    	content: iwContent,
+			    	removable: iwRemoveable
+			    });
+	            
+	        	 // 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저를 만듭니다
+			    // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+			    (function(marker, infowindow) {
+			        // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다 
+			        kakao.maps.event.addListener(marker, 'click', function() {
+			            infowindow.open(map, marker);
+			        });
+			    })(marker, infowindow);
+			    
+	            return marker;
+	            
+	        });
+	
+	        // 클러스터러에 마커들을 추가합니다
+	        clusterer.addMarkers(markers);
+	    });
+	
+	    // 마커 클러스터러에 클릭이벤트를 등록합니다
+	    // 마커 클러스터러를 생성할 때 disableClickZoom을 true로 설정하지 않은 경우
+	    // 이벤트 헨들러로 cluster 객체가 넘어오지 않을 수도 있습니다
+	    kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
+	
+	        // 현재 지도 레벨에서 1레벨 확대한 레벨
+	        var level = map.getLevel()-1;
+	
+	        // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
+	        map.setLevel(level, {anchor: cluster.getCenter()});
+	    });
+	    
+	    }); // jquery conflict prevent
+	    
+	    // 지도 중심좌표 이동 시키기
+	    // 파라미터를 받아서 좌표 값이 들어가도록 구현
+	    function panTo(x, y) {
+	        // 이동할 위도 경도 위치를 생성합니다 
+	        var moveLatLon = new kakao.maps.LatLng(x, y);
+	        //	33.450580, 126.574942
+	        // 지도 중심을 부드럽게 이동시킵니다
+	        // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+	        map.panTo(moveLatLon);            
+	    }
+	    
+	    // zoom in / out 기능 구현?
+	    // 지도 레벨은 지도의 확대 수준을 의미합니다
+		// 지도 레벨은 1부터 14레벨이 있으며 숫자가 작을수록 지도 확대 수준이 높습니다
+		function zoomIn() {        
+		    // 현재 지도의 레벨을 얻어옵니다
+		    var level = map.getLevel();
+		    
+		    // 지도를 1레벨 내립니다 (지도가 확대됩니다)
+		    map.setLevel(level - 1);
+		}
+	    
+		function zoomOut() {    
+		    // 현재 지도의 레벨을 얻어옵니다
+		    var level = map.getLevel(); 
+		    
+		    // 지도를 1레벨 올립니다 (지도가 축소됩니다)
+		    map.setLevel(level + 1);
+		}    
+		
+		
+	    
+	</script>
   <!--   Core   -->
   <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -8,6 +8,8 @@ public class ClaimDTO {
 	private String claim_content; // 신고내용
 	private String claim_suspect; // 용의자 (이전 사용자)
 	private String claim_result; // 처리결과
+	private String claim_subTime; // 처리결과
+	private String claim_ansTime; // 처리결과
 	
 	public int getClaim_num() {
 		return claim_num;
@@ -50,6 +52,18 @@ public class ClaimDTO {
 	}
 	public void setClaim_suspect(String claim_suspect) {
 		this.claim_suspect = claim_suspect;
+	}
+	public String getClaim_subTime() {
+		return claim_subTime;
+	}
+	public void setClaim_subTime(String claim_subTime) {
+		this.claim_subTime = claim_subTime;
+	}
+	public String getClaim_ansTime() {
+		return claim_ansTime;
+	}
+	public void setClaim_ansTime(String claim_ansTime) {
+		this.claim_ansTime = claim_ansTime;
 	}
 	
 }

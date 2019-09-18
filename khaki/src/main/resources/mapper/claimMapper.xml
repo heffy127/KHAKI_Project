@@ -8,6 +8,11 @@
       SELECT * FROM
       claim  WHERE claim_num = #{claim_num}
    </select>
+   
+   <select id="selectCate" parameterType="String" resultMap="rsMap">
+      SELECT * FROM
+      claim  WHERE claim_category = #{category} ORDER BY claim_num DESC
+   </select>
 
    <resultMap type="claimDTO" id="rsMap">
       <result property="claim_num" column="claim_num" />
@@ -20,30 +25,22 @@
    </resultMap>
 
    <select id="selectAll" resultMap="rsMap">
-      SELECT * FROM claim
+      SELECT * FROM claim order by claim_num desc
    </select>
 
    <insert id="insert" parameterType="claimDTO">
-      INSERT INTO claim(claim_num, claim_id, claim_resNum, claim_category, claim_content)
-      VALUES(claim_seq.NEXTVAL, #{claim_id, jdbcType=VARCHAR},#{claim_resNum},#{claim_category, jdbcType=VARCHAR},#{claim_content, jdbcType=VARCHAR})
+      INSERT INTO claim(claim_num, claim_id, claim_resNum, claim_category, claim_content, claim_subTime)
+      VALUES(claim_seq.NEXTVAL, #{claim_id, jdbcType=VARCHAR},#{claim_resNum},#{claim_category, jdbcType=VARCHAR},#{claim_content, jdbcType=VARCHAR}, systimestamp)
       <!--oracle DB의 순서와 일치 시켜주어야한다! -->
    </insert>
-
+   
    <update id="update" parameterType="claimDTO">
-      UPDATE car_board
+      UPDATE claim
       SET
-      car_Name=#{car_Name},
-      driven=#{driven},
-      fuel_type=#{fuel_type},
-      fuel_gage=#{fuel_gage},
-      loc_Pre=#{loc_Pre},
-      loc_Zone=#{loc_Zone},
-      time_Pre=#{time_Pre},
-      time_Post=#{time_Post},
-      fee_hour=#{fee_hour},
-      fee_km=#{fee_km}
+      claim_result=#{claim_result, jdbcType=VARCHAR},
+      claim_ansTime=systimestamp
       WHERE
-      car_Num = #{car_Num}
+      claim_num = #{claim_num, jdbcType=VARCHAR}
    </update>
 
    <delete id="delete" parameterType="claimDTO">
