@@ -4,6 +4,34 @@
 
 <mapper namespace="cmDAO">
 
+	<select id="select_car_name" parameterType="String" resultMap="rsMap">
+		SELECT
+		*
+		FROM car_board
+		WHERE car_name like '%'||#{search_obj} or car_name like #{search_obj}||'%' or car_name like '%'||#{search_obj}||'%'
+	</select>
+	
+	<select id="select_car_num" parameterType="String" resultMap="rsMap">
+		SELECT
+		*
+		FROM car_board
+		WHERE car_num like '%'||#{search_obj} or car_num like #{search_obj}||'%' or car_num like '%'||#{search_obj}||'%'
+	</select>
+
+	<select id="select_car_brand" parameterType="String" resultMap="rsMap">
+		SELECT
+		*
+		FROM car_board
+		WHERE brand like '%'||#{search_obj} or brand like #{search_obj}||'%' or brand like '%'||#{search_obj}||'%'
+	</select>
+	
+	<select id="select_car_fuel" parameterType="String" resultMap="rsMap">
+		SELECT
+		*
+		FROM car_board
+		WHERE fuel_type like '%'||#{search_obj} or fuel_type like #{search_obj}||'%' or fuel_type like '%'||#{search_obj}||'%'
+	</select>
+
 	<select id="select" parameterType="cmDTO" resultMap="rsMap">
 		SELECT
 		*

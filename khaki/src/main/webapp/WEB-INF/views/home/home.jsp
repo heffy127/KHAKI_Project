@@ -208,8 +208,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="">
-              <i class="ni ni-image text-black"></i> 환불신청처리(관리자)
+            <a class="nav-link " href="nanumCar.do">
+              <i class="ni ni-delivery-fast text-blue"></i> 나눔카
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="calender.do">
+              <i class="ni ni-delivery-fast text-blue"></i> My Calender
             </a>
           </li>
           <li class="nav-item">

@@ -18,6 +18,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap&subset=korean');
 @import url('https://fonts.googleapis.com/css?family=Black+Han+Sans&display=swap&subset=korean');
+@import url('https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean');
 
 :root {
   --blue: #5e72e4;
@@ -21465,5 +21466,75 @@ pre>code.highlight {
 	background-color: #f6f6f6;
 }
 
+.nanum_main_area {
+	width: 100%;
+	
+}
+
+.nanum_main_title {
+	background-image: url("https://org3-www.hyundai.com/content/dam/hyundai/kr/ko/data/vehicles/pip-features/accent/bg_pip_features01_01.png");
+	background-size: cover;
+	width: 100%;
+	height: 1100px;
+	display: table;
+	text-align: left;
+	padding-left: 5%;
+	font-family: 'Do Hyeon', sans-serif;
+	text-shadow: 5px 5px 5px #312f2f;
+	color: white;
+	font-size: 75px;
+	font-weight: bold;
+}
+
+.nanum_content_area1 {
+	padding: 10%;
+	width: 100%;
+	text-align: left;
+	font-family: 'Do Hyeon', sans-serif;
+	overflow: auto;
+}
+
+.nanum_content_area2 {
+	padding: 10%;
+	width: 100%;
+	text-align: left;
+	font-family: 'Do Hyeon', sans-serif;
+	overflow: auto;
+}
+
+.calender_area {
+	width: 100%;
+}
+
+.cal_td {
+	border: 1px solid black;
+}
+
+.cal_tr {
+	height: 200px;
+}
+
+.cal_tr label {
+	font-weight: bold;
+	vertical-align: text-top;
+}
+
+#cal_day_week {
+	height: 80px;
+	text-align: center;
+}
+
+#cal_day_week td {
+	background-color: #eefff0;
+}
+
+.cal_dayDay {
+	box-shadow: 
+    1px 0 0 0 #888, 
+    0 1px 0 0 #888, 
+    1px 1px 0 0 #888,
+    1px 0 0 0 #888 inset, 
+    0 1px 0 0 #888 inset;
+}
 
 /*# sourceMappingURL=dashboard-free.css.map */

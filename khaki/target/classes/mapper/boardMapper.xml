@@ -27,8 +27,13 @@
 	</select>
 	
 	<!-- 내가 쓴글 select -->
-	<select id="selectId" resultMap="rsMap">
+	<select id="selectWriter" resultMap="rsMap">
 		SELECT * FROM board where writer = #{writer} ORDER BY bNum DESC 
+	</select>
+	
+	<!-- 내가 쓴글 count -->
+	<select id="countWrite" parameterType="String" resultType="int">
+		SELECT count(*) FROM board where writer = #{writer}
 	</select>
 	
 	<!-- 게시글 등록 쿼리문 -->
