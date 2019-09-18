@@ -65,11 +65,10 @@
 </head>
 
 <body class="">
-<div id="board" style="width: 100%; padding: 5% 10% 5% 10%;">
+					<div id="board" style="width: 100%; padding: 5% 10% 5% 10%;">
 		    		<div style=" width:800px; height: 30px; ">
 						<div style="repeat-x; text-align:center;">
 							<div ></div> 
-							<div align="center"><h2>신고</h2></div>
 						</div>
 					</div>
 					<form action="claimInsert.do" method="POST" id="insertBoardFrm" enctype="multipart/form-data">
@@ -77,8 +76,8 @@
 				   			
 				        	<div>
 				        	<!-- 관리자 권한  -->
-				           		<div style="width: 100px;"><h3>글 카테고리 </h3>
-									<div>
+				           		<div style="width: 50%;" ><h3>글 카테고리 </h3>
+									<div style="width: 100%">
 									<input type="radio" id="category" name="claim_category" value="disorder" checked>불편신고<br>
 									<input type="radio" id="category" name="claim_category" value="accident">사고신고 <br>
 									<input type="radio" id="category" name="claim_category" value="etc">기타<br>
@@ -88,7 +87,7 @@
 				        	</div>
 				        		<div>
 					           		<div style="width: 100px;"><h3>글 작성자 </h3></div>
-									<div><input id="writer" name="claim_id" readonly="readonly" value=${sessionName } ></div>
+									<div><input id="writer" name="claim_id" readonly="readonly" value=${sessionId } style="width: 10%"></div>
 				        		</div>
 				        		<div>
 				        			<div><h3>내용</h3></div>

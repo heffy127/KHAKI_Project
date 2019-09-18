@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -137,7 +138,6 @@ int endTimeCheck = 0;
 <input id="buy_carModel" type ="hidden">
 <input id="buy_startTime" type ="hidden" value='${buy_startTime}'>
 <input id="buy_endTime" type ="hidden" value='${buy_endTime}'>
-
 <!-- ajax  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- 주소 api -->
@@ -1458,6 +1458,16 @@ function reservation() {
                         SPRITE_HEIGHT); // 스프라이트 이미지의 크기
                   //----------------------------------------------------------------------------------------------------------------------
                   var positionsAll = [ // 마커의 위치
+                	  <%
+                	  // 파라메터로 넘어온 좌표값 넣기
+                	  // List<zoneDTO> list = request.getParameter("list");
+                	  // for(int i =0; i < list.size(); i++){
+                		 // zoneDTO zdto= list.get(i);
+                		  %>
+                		  <%-- new kakao.maps.LatLng(<%= zdto.get위도%>, <%= zdto.get경도%>), --%>
+                		  <%
+                	  // }
+                	  %>
                         new kakao.maps.LatLng(37.61094, 126.92267),
                         new kakao.maps.LatLng(37.61361, 126.93490),
                         new kakao.maps.LatLng(37.62247, 126.92701),

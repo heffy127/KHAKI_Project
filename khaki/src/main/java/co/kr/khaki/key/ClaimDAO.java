@@ -20,8 +20,13 @@ public class ClaimDAO {
 		List<ClaimDTO> list = my.selectList("claimDAO.selectAll");
 		return list;
 	}
+	public List<ClaimDTO> selectCate(String category) {
+		List<ClaimDTO> list = my.selectList("claimDAO.selectCate",category);
+		return list;
+	}
 	
 	public void result(ClaimDTO claimDTO) {
 		my.update("claimDAO.update", claimDTO);
 	}
+	
 }

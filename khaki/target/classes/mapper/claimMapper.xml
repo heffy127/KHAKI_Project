@@ -8,6 +8,11 @@
       SELECT * FROM
       claim  WHERE claim_num = #{claim_num}
    </select>
+   
+   <select id="selectCate" parameterType="String" resultMap="rsMap">
+      SELECT * FROM
+      claim  WHERE claim_category = #{category} ORDER BY claim_num DESC
+   </select>
 
    <resultMap type="claimDTO" id="rsMap">
       <result property="claim_num" column="claim_num" />

@@ -27,7 +27,7 @@ public class ClaimController {
 	@RequestMapping("claimInsert.do")
 	public String claimInsert(ClaimDTO claimDTO) {
 		cdao.insert(claimDTO);
-		return "member/profile";
+		return "key/key";
 	}
 	@RequestMapping("claimView.do")
 	public String claimView(Model model) {
@@ -35,6 +35,14 @@ public class ClaimController {
 		model.addAttribute("list", list);
 		return "key/claimView";	
 	}
+	
+	@RequestMapping("claimView1.do")
+	public String claimView1(Model model,String category) {
+		List<ClaimDTO> list = cdao.selectCate(category);
+		model.addAttribute("list", list);
+		return "key/claimView";	
+	}
+	
 	@RequestMapping("claimResult.do")
 	public String claimResult(Model model,ClaimDTO claimDTO) {
 		cdao.result(claimDTO);

@@ -328,7 +328,7 @@
                      
                      <div class="tab-pane fade" id="tabs-icons-text-4" role="tabpanel" aria-labelledby="tabs-icons-text-4-tab">
                      
-                         <p class="description">신고 게시판 iframe 자리</p>
+                        <iframe id="memberAll" src="claimView.do" style="width: 100%; height: 1300px;" frameborder="0"></iframe>
                     
                      </div>
                      <div class="tab-pane fade" id="tabs-icons-text-5" role="tabpanel" aria-labelledby="tabs-icons-text-5-tab">
