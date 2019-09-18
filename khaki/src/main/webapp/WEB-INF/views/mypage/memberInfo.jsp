@@ -64,6 +64,12 @@ $(document).ready(
 				$('#emailPush_chk').attr('value','1')
 			}
 			
+			// 새로고침
+			$('#refreshBtn').click(
+				function() {
+					location.reload(true);
+				})
+			
 			// 비밀번호 변경 버튼 클릭
 			$('#pwCheckBtn').click(
 					function() {
@@ -569,7 +575,14 @@ input[type="text"]
    <div class="card-body">
      <form id="mypageF" name="mypageF" action="" method="post">   
       <div class="col-9" style="margin: 0 auto;">
-            <h6 class="heading-small text-muted mb-4">USER INFORMATION</h6>
+      	   <div class="row">
+	      		<div style="width: 50%; float: left;">
+	            	<h6 class="heading-small text-muted mb-4">USER INFORMATION</h6>
+	            </div>
+	            <div style="width: 50%; height: 55px; float: left;" align="right">
+	            	<button id="refreshBtn" type="button" class="btn btn-outline-info">새로고침</button>
+	            </div>
+			</div>
             <div class="pl-lg-4" style="padding-left: 14px; padding-right: 14px;">
                <div class="row">
                   <div class="col-lg-6">

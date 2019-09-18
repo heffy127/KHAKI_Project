@@ -82,7 +82,7 @@ function drawChart() {
       slices: {
          0: { color: '#005be3'},
          1: { color: '#04d186'},
-         2: { color: '#f0e400'},
+         2: { color: '#858585'},
          3: { color: '#ffa200'},
          4: { color: '#f72f39'}
       }
@@ -106,7 +106,7 @@ function drawChart() {
       slices: {
          0: { color: '#005be3'},
          1: { color: '#04d186'},
-         2: { color: '#f0e400'},
+         2: { color: '#858585'},
          3: { color: '#ffa200'},
          4: { color: '#f72f39'}
       }
@@ -130,7 +130,7 @@ function drawChart() {
       slices: {
          0: { color: '#005be3'},
          1: { color: '#04d186'},
-         2: { color: '#f0e400'},
+         2: { color: '#858585'},
          3: { color: '#ffa200'},
          4: { color: '#f72f39'}
       }
