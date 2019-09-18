@@ -18,79 +18,79 @@
 <script type="text/javascript">
    $(document).ready(function() {
       
-	  if('${modelPaging}' == 'all'){
-		  // 기본 페이징 세션으로 전체 회원 조회
-		  sessionStorage.setItem("sessionPaging","all")
-	  }
-		if('${searchMethod}' != ''){
-      		$("#searchSelect").val('${searchMethod}').prop('selected', true); // 검색 셀렉트박스 자동 선택
-		}else {
-			$("#searchSelect").val('id').prop('selected', true);
-		}
-		
-      fn_paging = function(curPage){ // 페이징 function 
-    	 	if(sessionStorage.getItem("sessionPaging") == 'all'){ // 전체 보기
-	    		location.href = "admin_memberAll.do?curPage="+curPage;	 		
-    	 	}
-    	 	if(sessionStorage.getItem("sessionPaging") == 'search'){ // 검색
-	    		location.href = "admin_search.do?searchSelect=" + $('#searchSelect').val() + "&search=" + $('#search').val() + "&curPage=" + curPage;	 		
-    	 	}
-    	 	if(sessionStorage.getItem("sessionPaging") == 'license_?'){ // 운전면허 정렬 심사대기
-	    		location.href = "admin_licenseSort.do?permission=?&curPage="+curPage;	 		
-    	 	}
-    	 	if(sessionStorage.getItem("sessionPaging") == 'license_x'){ // 운전면허 정렬 승인거절
-	    		location.href = "admin_licenseSort.do?permission=x&curPage="+curPage;	 		
-    	 	}
-    	 	if(sessionStorage.getItem("sessionPaging") == 'license_o'){ // 운전면허 정렬 승인완료
-	    		location.href = "admin_licenseSort.do?permission=o&curPage="+curPage;	 		
-    	 	}
-    	 	if(sessionStorage.getItem("sessionPaging") == 'license_NULL'){ // 운전면허 정렬 미등록
-	    		location.href = "admin_licenseSort.do?permission=NULL&curPage="+curPage;	 		
-    	 	}
-    	 	if(sessionStorage.getItem("sessionPaging") == 'push_sms'){ // SMS 푸시 정렬
-	    		location.href = "admin_selectPushSort.do?push=sms&curPage="+curPage;	 		
-    	 	}
-    	 	if(sessionStorage.getItem("sessionPaging") == 'push_email'){ // Email 푸시 정렬
-	    		location.href = "admin_selectPushSort.do?push=email&curPage="+curPage;	 		
-    	 	}
-
-    	 	
-    		/* alert(curPage); //페이지 넘버 확인 aaaaaabb */
-    	};
+     if('${modelPaging}' == 'all'){
+        // 기본 페이징 세션으로 전체 회원 조회
+        sessionStorage.setItem("sessionPaging","all")
+     }
+      if('${searchMethod}' != ''){
+            $("#searchSelect").val('${searchMethod}').prop('selected', true); // 검색 셀렉트박스 자동 선택
+      }else {
+         $("#searchSelect").val('id').prop('selected', true);
+      }
       
-    	
-    	// 운전면허 정렬 버튼 눌렀을때 sessionPaging에 페이징 정보를 넣어서 페이지 이동
-    	license_none = function() {
-    		sessionStorage.setItem("sessionPaging","license_?")
-			location.href = "admin_licenseSort.do?permission=?"
-		}
-    	
-    	license_x = function() {
-    		sessionStorage.setItem("sessionPaging","license_x")
-			location.href = "admin_licenseSort.do?permission=x"
-		}
-    	
-    	license_o = function() {
-    		 sessionStorage.setItem("sessionPaging","license_o")
-			 location.href = "admin_licenseSort.do?permission=o"
-		}
-    	
-    	license_NULL = function() {
-    		 sessionStorage.setItem("sessionPaging","license_NULL")
-			 location.href = "admin_licenseSort.do?permission=NULL"
-		}
-    	
-    	push_sms = function() {
-    		 sessionStorage.setItem("sessionPaging","push_sms")
-			 location.href = "admin_selectPushSort.do?push=sms"
-		}
-    	
-    	push_email = function() {
-    		 sessionStorage.setItem("sessionPaging","push_email")
-			 location.href = "admin_selectPushSort.do?push=email"
-		}
-    	
-      // 운전면허 	
+      fn_paging = function(curPage){ // 페이징 function 
+           if(sessionStorage.getItem("sessionPaging") == 'all'){ // 전체 보기
+             location.href = "admin_memberAll.do?curPage="+curPage;          
+           }
+           if(sessionStorage.getItem("sessionPaging") == 'search'){ // 검색
+             location.href = "admin_search.do?searchSelect=" + $('#searchSelect').val() + "&search=" + $('#search').val() + "&curPage=" + curPage;          
+           }
+           if(sessionStorage.getItem("sessionPaging") == 'license_?'){ // 운전면허 정렬 심사대기
+             location.href = "admin_licenseSort.do?permission=?&curPage="+curPage;          
+           }
+           if(sessionStorage.getItem("sessionPaging") == 'license_x'){ // 운전면허 정렬 승인거절
+             location.href = "admin_licenseSort.do?permission=x&curPage="+curPage;          
+           }
+           if(sessionStorage.getItem("sessionPaging") == 'license_o'){ // 운전면허 정렬 승인완료
+             location.href = "admin_licenseSort.do?permission=o&curPage="+curPage;          
+           }
+           if(sessionStorage.getItem("sessionPaging") == 'license_NULL'){ // 운전면허 정렬 미등록
+             location.href = "admin_licenseSort.do?permission=NULL&curPage="+curPage;          
+           }
+           if(sessionStorage.getItem("sessionPaging") == 'push_sms'){ // SMS 푸시 정렬
+             location.href = "admin_selectPushSort.do?push=sms&curPage="+curPage;          
+           }
+           if(sessionStorage.getItem("sessionPaging") == 'push_email'){ // Email 푸시 정렬
+             location.href = "admin_selectPushSort.do?push=email&curPage="+curPage;          
+           }
+
+           
+          /* alert(curPage); //페이지 넘버 확인 aaaaaabb */
+       };
+      
+       
+       // 운전면허 정렬 버튼 눌렀을때 sessionPaging에 페이징 정보를 넣어서 페이지 이동
+       license_none = function() {
+          sessionStorage.setItem("sessionPaging","license_?")
+         location.href = "admin_licenseSort.do?permission=?"
+      }
+       
+       license_x = function() {
+          sessionStorage.setItem("sessionPaging","license_x")
+         location.href = "admin_licenseSort.do?permission=x"
+      }
+       
+       license_o = function() {
+           sessionStorage.setItem("sessionPaging","license_o")
+          location.href = "admin_licenseSort.do?permission=o"
+      }
+       
+       license_NULL = function() {
+           sessionStorage.setItem("sessionPaging","license_NULL")
+          location.href = "admin_licenseSort.do?permission=NULL"
+      }
+       
+       push_sms = function() {
+           sessionStorage.setItem("sessionPaging","push_sms")
+          location.href = "admin_selectPushSort.do?push=sms"
+      }
+       
+       push_email = function() {
+           sessionStorage.setItem("sessionPaging","push_email")
+          location.href = "admin_selectPushSort.do?push=email"
+      }
+       
+      // 운전면허    
       modalLicense = function(val) {
          $('#licenseIframe').attr('src','admin_licenseAdmin.do' + val)
          $('#modal-license').modal('show') 
@@ -391,60 +391,60 @@ iframe
             </table>
             
          </div>
-		<div>
-			
-				<!-- 페이지 네이션 구현 -->
-           		<nav aria-label="Page navigation example">
-				  <ul class="pagination pagination-lg justify-content-center">
-				 	<c:if test="${pagination.curRange ne 1 }">
-				 	  <li class="page-item">
+      <div>
+         
+            <!-- 페이지 네이션 구현 -->
+                 <nav aria-label="Page navigation example">
+              <ul class="pagination pagination-lg justify-content-center">
+                <c:if test="${pagination.curRange ne 1 }">
+                  <li class="page-item">
                         <a href="#" onClick="fn_paging(1)">[처음]</a> 
                       </li>
                     </c:if>
                     <c:if test="${pagination.curPage ne 1}">
                       <li class="page-item">
                         <a class="page-link" href="#" onClick="fn_paging('${pagination.prevPage }')" aria-label="Previous">
-                        	<i class="fa fa-angle-left"></i>
-					        <span class="sr-only">Previous</span>
-				        </a> 
-			          </li>
+                           <i class="fa fa-angle-left"></i>
+                       <span class="sr-only">Previous</span>
+                    </a> 
+                   </li>
                     </c:if>
                     <!-- 페이지 숫자 표시 부분 -->
                     <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
                         <c:choose>
                             <c:when test="${pageNum eq pagination.curPage}">
-                            	<li class="page-item active">
-                            		<a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }<span class="sr-only">(current)</span></a>
-                           		</li>
+                               <li class="page-item active">
+                                  <a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }<span class="sr-only">(current)</span></a>
+                                 </li>
                             </c:when>
                             <c:otherwise>
-                            	<li class="page-item">
-                            		<a class="page-link" href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
-                           		</li>
+                               <li class="page-item">
+                                  <a class="page-link" href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+                                 </li>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
                     <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
-                    	<li class="page-item">
-                       		<a class="page-link" href="#" onClick="fn_paging('${pagination.nextPage }')" aria-label="Next">
-						        <i class="fa fa-angle-right"></i>
-						        <span class="sr-only">Next</span>
-							</a> 
-						</li>
-						
+                       <li class="page-item">
+                             <a class="page-link" href="#" onClick="fn_paging('${pagination.nextPage }')" aria-label="Next">
+                          <i class="fa fa-angle-right"></i>
+                          <span class="sr-only">Next</span>
+                     </a> 
+                  </li>
+                  
                     </c:if>
                     <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
                         <li class="page-item">
-					      <a class="page-link" href="#" onClick="fn_paging('${pagination.pageCnt }')" aria-label="Next">
-					        <i class="fa fa-angle-right"></i>
-					        <span class="sr-only">Next</span>
-					      </a>
-					    </li>
-                  	</c:if>
-                  	</ul>
-				</nav>
-		
-		</div>
+                     <a class="page-link" href="#" onClick="fn_paging('${pagination.pageCnt }')" aria-label="Next">
+                       <i class="fa fa-angle-right"></i>
+                       <span class="sr-only">Next</span>
+                     </a>
+                   </li>
+                     </c:if>
+                     </ul>
+            </nav>
+      
+      </div>
       </div>
    </div>
 
