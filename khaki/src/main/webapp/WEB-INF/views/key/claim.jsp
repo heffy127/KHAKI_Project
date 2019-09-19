@@ -76,7 +76,7 @@
 				   			
 				        	<div>
 				        	<!-- 관리자 권한  -->
-				           		<div style="width: 50%;" ><h3>글 카테고리 </h3>
+				           		<div style="width: 50%;" ><h3 class="c_content_title">글 카테고리 </h3>
 									<div style="width: 100%">
 									<input type="radio" id="category" name="claim_category" value="disorder" checked>불편신고<br>
 									<input type="radio" id="category" name="claim_category" value="accident">사고신고 <br>
@@ -85,12 +85,9 @@
 								</div>
 							<!-- 관리자 권한  END -->
 				        	</div>
+									<div><input id="writer" type="hidden" name="claim_id" readonly="readonly" value=${sessionId } style="width: 10%"></div>
 				        		<div>
-					           		<div style="width: 100px;"><h3>글 작성자 </h3></div>
-									<div><input id="writer" name="claim_id" readonly="readonly" value=${sessionId } style="width: 10%"></div>
-				        		</div>
-				        		<div>
-				        			<div><h3>내용</h3></div>
+				        			<div><h3 class="c_content_title">내용</h3></div>
 				            		<div>
 				    					<textarea class="form-control" name="claim_content" id="content" rows="20" cols="50" placeholder="<h1>ex) 차에 쓰레기가 있어요,시동이 안 걸려요, 이런 점이 있으면 좋겠어요</h1>" style="width: 70%"></textarea>
 				    				</div>
