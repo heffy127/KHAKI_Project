@@ -319,7 +319,7 @@
                      
                      <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
                      
-						<p class="description">카키존 관리 iframe 자리</p>
+						<iframe id="memberAll" src="khakizone_main.do" style="width: 100%; height: 1300px;" frameborder="0"></iframe>
 						                    
                      </div>
                      

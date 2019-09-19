@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class KhakiZoneController {
 
-	@RequestMapping("khakizone.do")
+	@RequestMapping("khakizone_main.do")
 	public String khakizone() {
-		
+		System.out.println("khakizone_main 소환!");
 		
 		return "khakizone/khakizone_main";
 	}

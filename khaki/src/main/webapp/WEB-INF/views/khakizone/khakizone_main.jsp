@@ -130,6 +130,8 @@
 	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
 	    // 클릭한 위치에 마커를 표시합니다 
 	    addMarker(mouseEvent.latLng);
+	    
+	    // 내가 코딩한 곳
 	    var lastpoint = markers[markers.length-1].getPosition();	//index이므로 -1
 		alert("가장 최근지점 : "+lastpoint);
 	    
@@ -138,10 +140,12 @@
 	    alert(typeof lastpoint.toString());
 	    
 	    //toString은 String으로 형변환, parseInt는 int로 형변환
-	    var x = lastpoint.toString().split(',')[0].split('(')[1].trim();
-	    var y = lastpoint.toString().split(',')[1].split(')')[0].trim();
+	    var x = parseFloat(lastpoint.toString().split(',')[0].split('(')[1].trim());
+	    var y = parseFloat(lastpoint.toString().split(',')[1].split(')')[0].trim());
+	    //var x = parseInt(lastpoint.toString().split(',')[0].split('(')[1].trim());
+	    //var y = parseInt(lastpoint.toString().split(',')[1].split(')')[0].trim());
 	    
-	   	alert(parseInt(x) + " / "+ parseInt(y));
+	   	alert(x + " / "+ y);
 	    
 	    // toFixed(소수점자리) : 소수점자리까지만 남기고 반올림해서 반환
 	    $("#location_x").val(x.toFixed(5));
