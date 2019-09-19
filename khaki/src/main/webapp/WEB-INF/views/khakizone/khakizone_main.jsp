@@ -128,36 +128,57 @@
 	
 	// 지도를 클릭했을때 클릭한 위치에 마커를 추가하도록 지도에 클릭이벤트를 등록합니다
 	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-	    // 클릭한 위치에 마커를 표시합니다 
+		// 클릭한 위치에 마커를 표시합니다 
+		// mouseEvent.latLng는 지도 좌표를 가지고 온다.
+		
+		if(markers.length != 0){
+			var a;
+			for (var i = 0; i < markers.length; i++) {
+				a += " / "+ markers[i].getPosition();
+			}
+			alert(a);
+			markers[markers.length-1].getMap();
+			markers.pop();	// 1개씩만 들어있게 해놓아기 때문에 하나를 빼면 다 빠지게 됨, 배열에서만 빠짐
+		}		
+		
+		// 마커를 추가하기 전에 markers배열의 내용을 다 지워준다. 
 	    addMarker(mouseEvent.latLng);
+	    
+	    //---------------------------------------
+	   	alert("마커 배열의 길이 : " +markers.length);	//1만 나올 것
 	    
 	    // 내가 코딩한 곳
 	    var lastpoint = markers[markers.length-1].getPosition();	//index이므로 -1
 		alert("가장 최근지점 : "+lastpoint);
 	    
+
 	    // typeof는 현재 그 변수의 형태를 알려줌
 	    alert(typeof lastpoint);
 	    alert(typeof lastpoint.toString());
 	    
 	    //toString은 String으로 형변환, parseInt는 int로 형변환
+	    // parseInt는 말그대로 int형으로 반환(소수점이 없음...), parseFloat를 사용하여 실수형 파싱
 	    var x = parseFloat(lastpoint.toString().split(',')[0].split('(')[1].trim());
 	    var y = parseFloat(lastpoint.toString().split(',')[1].split(')')[0].trim());
-	    //var x = parseInt(lastpoint.toString().split(',')[0].split('(')[1].trim());
-	    //var y = parseInt(lastpoint.toString().split(',')[1].split(')')[0].trim());
 	    
 	   	alert(x + " / "+ y);
 	    
 	    // toFixed(소수점자리) : 소수점자리까지만 남기고 반올림해서 반환
 	    $("#location_x").val(x.toFixed(5));
 	    $("#location_y").val(y.toFixed(5));
-	
+	    
+	  	//---------------------------------------
 	});
 	
 	// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
 	var markers = [];
 	
 	// 마커 하나를 지도위에 표시합니다 
-	addMarker(new kakao.maps.LatLng(33.450701, 126.570667));
+	//addMarker(new kakao.maps.LatLng(33.450701, 126.570667));
+	
+	/* function removeMarker(position){
+		marker.getMap(map);
+	} */
 	
 	// 마커를 생성하고 지도위에 표시하는 함수입니다
 	function addMarker(position) {
