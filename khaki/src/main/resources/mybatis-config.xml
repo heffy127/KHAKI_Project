@@ -30,6 +30,9 @@
 		<typeAlias type="co.kr.khaki.coupon.CouponUseDTO" alias="cpuDTO"></typeAlias>
 		<typeAlias type="co.kr.khaki.refund.RefundDTO" alias="refundDTO"></typeAlias>
 		<typeAlias type="co.kr.khaki.key.ClaimDTO" alias="claimDTO"></typeAlias>
+		<typeAlias type="co.kr.khaki.key.ClaimDTO" alias="claimDTO"></typeAlias>
+		<typeAlias type="co.kr.khaki.zone.KhakiZoneDTO" alias="zoneDTO"></typeAlias>
+		
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/boardMapper.xml" />
@@ -50,5 +53,6 @@
 		<mapper resource="mapper/couponMapper.xml" />
 		<mapper resource="mapper/refundMapper.xml" />
 		<mapper resource="mapper/claimMapper.xml" />
+		<mapper resource="mapper/khakizoneMapper.xml" />
 	</mappers>
 </configuration>
