@@ -46,6 +46,12 @@ public class NoticeDAO {
 		return my.selectList("nDAO.selectAll");
 	}
 	
+	// 메인페이지에 최근 글 5개만 가져옴
+	public List<NoticeDTO> selectFive() {
+		System.out.println("NoticeDAO selectFive!");
+		return my.selectList("nDAO.selectFive");
+	}
+	
 	public List<NoticeDTO> select_notice(){
 		System.out.println("NoticeDAO select_notice");
 		return my.selectList("nDAO.select_notice");
