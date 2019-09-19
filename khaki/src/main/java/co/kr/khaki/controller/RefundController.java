@@ -133,6 +133,7 @@ public class RefundController {
 	@RequestMapping("refundUpdate.do")
 	public String refundUpdate(String impUid) {
 		RefundDTO refundDTO = new RefundDTO();
+		System.out.println(impUid + "주문번호@@@");
 		refundDTO.setImpUid(impUid);
 		refundDTO.setRefundYN("Y");
 		refundDAO.update(refundDTO); // 환불 테이블에 환불완료(Y)표시
@@ -142,10 +143,11 @@ public class RefundController {
 		insertPointDTO.setPoint(Integer.parseInt(refundDTO2.getUsePoint()));
 		memberDAO.updatePoint(insertPointDTO); // 고객이 사용한 포인트만큼 다시 환불
 		CouponUseDTO cpuDTO = new CouponUseDTO();
-
-		if (refundDTO.equals("")) {
+		System.out.println(refundDTO.getCouponNum() + "ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ@@");
+		if (refundDTO.getCouponNum() == null) {
 
 		} else {
+			System.out.println(refundDTO2.getCouponNum()+"adafadfsdfsdaf");
 			cpuDTO.setNum(Integer.parseInt(refundDTO2.getCouponNum()));
 			cpuDAO.update(cpuDTO); // 고객이 사용한 쿠폰또한 다시 원상복구(유효기간이 이미 지난 쿠폰의 경우 어차피 사용은 못함)
 		}

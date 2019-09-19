@@ -202,6 +202,16 @@ create table handler ( -- 핸들러 게시판
 
 drop table handler
 
+create table usedCar ( -- 중고차 판매 게시판
+	name varchar2(20),
+	location1 varchar2(20),
+	location2 varchar2(20),
+	carNum varchar2(20),
+	phone varchar2(20),
+	visitDay varchar2(20),
+	distance varchar2(20),
+)
+
 -- 샘플데이터
 insert into handler values (1, '91부 2547', '마세라티', '서울특별시 강동구', '서울특별시 관악구', 'rlgus1231', 2001, '19.08.30 19:30');
 insert into handler values (2, '53이 2477', '벤츠', '서울특별시 강북구', '서울특별시 광진구', 'rlgus1232', 2002, '19.08.30 20:50');
