@@ -342,7 +342,7 @@
       	
       	<!-- 유튜브 -->
         <div class="col-xl-7 mb-5 mb-xl-0">
-        	<iframe width="100%" height="549px" src="https://www.youtube.com/embed/cqaLSuqzoIc?rel=0&mute=1;amp;autoplay=1;playlist=cqaLSuqzoIc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        	<iframe width="100%" height="549px" src="https://www.youtube.com/embed/cqaLSuqzoIc?rel=1&version=2&autoplay=1&loop=1&mute=1&playlist=cqaLSuqzoIc;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         
         <div class="col-xl-5">
