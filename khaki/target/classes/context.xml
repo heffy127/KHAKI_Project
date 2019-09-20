@@ -6,7 +6,7 @@
       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
    <!-- 1. 싱글턴으로 만들 빈을 스캔할 곳 설정 -->
    <context:component-scan
-      base-package="co.kr.khaki.member, co.kr.khaki.notice, co.kr.khaki.carmanage, co.kr.khaki.handler, co.kr.khaki.pay, co.kr.khaki.car, co.kr.khaki.map, co.kr.khaki.coupon, co.kr.khaki.board, co.kr.khaki.key, co.kr.khaki.refund, co.kr.khaki.survey, co.kr.khaki.usedCar" />
+      base-package="co.kr.khaki.member, co.kr.khaki.notice, co.kr.khaki.carmanage, co.kr.khaki.handler, co.kr.khaki.pay, co.kr.khaki.car, co.kr.khaki.map, co.kr.khaki.coupon, co.kr.khaki.board, co.kr.khaki.key, co.kr.khaki.refund, co.kr.khaki.survey, co.kr.khaki.usedCar, co.kr.khaki.zone" />
 
    <!-- 4. mybatis 생성 -->
    <!-- 핵심적인 역할을 하며 SQL실행이나 트랜잭션 관리를 실행 -->
