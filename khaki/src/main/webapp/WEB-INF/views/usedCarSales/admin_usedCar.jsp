@@ -92,6 +92,12 @@
 	        	$("#admin_reservation_tbody"+i).css("background-color", "#ffdcd4");
 	        	$("#admin_reservation_tbodyy"+i).remove();
 	        }
+        	
+        	var phone = $("#phoneTd"+i).text();
+        	phone = phone.split("");
+        	
+        	
+        	
 	        
 		}
 		
@@ -158,7 +164,7 @@
 			   				<td>${usedCarDTO.name }</td>
 			   				<td>${usedCarDTO.location1 } ${usedCarDTO.location2 }</td>
 			   				<td id="carNumTd${status.index }">${usedCarDTO.carNum }</td>
-			   				<td>${usedCarDTO.phone }</td>
+			   				<td id="phoneTd${status.index }">${usedCarDTO.phone }</td>
 			   				<td>${usedCarDTO.visitDay }</td>
 			   				<td>${usedCarDTO.distance }</td>
 			   				<td id="processingStatus${status.index }">${usedCarDTO.processingStatus }</td>
