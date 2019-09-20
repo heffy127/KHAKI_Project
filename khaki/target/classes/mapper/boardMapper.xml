@@ -26,6 +26,11 @@
 		SELECT * FROM board ORDER BY bNum DESC
 	</select>
 	
+	<!-- 메인페이지 추천 내림차순 5개 select -->
+	<select id="selectFive" resultMap="rsMap">
+		SELECT * FROM board where 5 >= rownum and category is null ORDER BY hit DESC
+	</select>
+	
 	<!-- 내가 쓴글 select -->
 	<select id="selectWriter" resultMap="rsMap">
 		SELECT * FROM board where writer = #{writer} ORDER BY bNum DESC 
