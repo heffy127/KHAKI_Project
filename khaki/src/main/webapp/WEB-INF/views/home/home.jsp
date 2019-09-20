@@ -321,10 +321,10 @@
     </nav>
     <!-- End Navbar -->
     <!-- Header -->
-    <div class="header bg-gradient-default pb-8 pt-5 pt-lg-8 d-flex align-items-center">
+    <div class="header bg-gradient-default pb-8 pt-1 pt-lg-6 d-flex align-items-center">
   <!--   	 style="min-height: 400px; background-image: url(resources/assets/img/theme/home-cover.JPG); background-size: cover; background-position: center top;" -->
     	<!-- mask -->
-    	<span class="mask bg-gradient-default opacity-7"></span>
+    	<!-- <span class="mask bg-gradient-default opacity-7"></span> -->
     
       <div class="container-fluid">
         <div class="header-body">
@@ -342,7 +342,7 @@
       	
       	<!-- 유튜브 -->
         <div class="col-xl-7 mb-5 mb-xl-0">
-        	<iframe width="100%" height="549px" src="https://www.youtube.com/embed/cqaLSuqzoIc?rel=1&version=2&autoplay=1&loop=1&mute=1&playlist=cqaLSuqzoIc;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        	<iframe width="100%" height="510px" src="https://www.youtube.com/embed/cqaLSuqzoIc?rel=1&version=2&autoplay=1&loop=1&mute=1&playlist=cqaLSuqzoIc;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
         
         <div class="col-xl-5">
