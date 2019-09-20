@@ -27,7 +27,7 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cf7aa5c76b385f7270d308f67a145b"></script>
 
-	<!-- aaa -->
+	<!-- aaabbbccc -->
 	<div class="row">
 	
 		<div class="col-md-6" id="map">map 이용 표현</div>
