@@ -27,13 +27,13 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cf7aa5c76b385f7270d308f67a145b"></script>
 
-
+	<!-- aaa -->
 	<div class="row">
 	
 		<div class="col-md-6" id="map">map 이용 표현</div>
 		
 		<div class="col-md-6">
-			<form>
+			<form action="khakizone_insert.do">
 				<div class="row">
 					<div class="col">
 						<div class="row">
@@ -60,6 +60,7 @@
 					</div>	<!-- col end -->
 				</div>	<!-- row end -->
 			</form>
+			
 			<br><br>
 			
 			<!-- table -->
