@@ -4,8 +4,8 @@ public class KhakiZoneDTO {
 
 	private int zone_num;			//카키존 넘버
 	private String zone_name;		//카키존 이름
-	private int zone_location_x;	//카키존 위도
-	private int zone_location_y;	//카키존 경도
+	private double zone_location_x;	//카키존 위도
+	private double zone_location_y;	//카키존 경도
 	private String zone_comment;	//카키존 세부설명
 	
 	public int getZone_num() {
@@ -20,13 +20,13 @@ public class KhakiZoneDTO {
 	public void setZone_name(String zone_name) {
 		this.zone_name = zone_name;
 	}
-	public int getZone_location_x() {
+	public double getZone_location_x() {
 		return zone_location_x;
 	}
 	public void setZone_location_x(int zone_location_x) {
 		this.zone_location_x = zone_location_x;
 	}
-	public int getZone_location_y() {
+	public double getZone_location_y() {
 		return zone_location_y;
 	}
 	public void setZone_location_y(int zone_location_y) {
@@ -39,7 +39,11 @@ public class KhakiZoneDTO {
 		this.zone_comment = zone_comment;
 	}
 	
-	
-	
+	// DTO 확인용, 프로젝트 완료 후 삭제
+	@Override
+	public String toString() {
+		return "KhakiZoneDTO [zone_num=" + zone_num + ", zone_name=" + zone_name + ", zone_location_x="
+				+ zone_location_x + ", zone_location_y=" + zone_location_y + ", zone_comment=" + zone_comment + "]";
+	}
 	
 }
