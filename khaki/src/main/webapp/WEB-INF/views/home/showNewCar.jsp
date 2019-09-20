@@ -17,6 +17,20 @@
 <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
 <!-- jquery -->
 <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+<style type="text/css">
+.topDiv
+{
+	float: left; 
+	width: 33%; 
+	font-weight: bold;
+}
+
+.otherDiv
+{
+	float: left; 
+	width: 50%;
+}
+</style>
 </head>
 <body>
 <div>
@@ -39,13 +53,13 @@
             <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
                 
                 <div>
-                   <div style="float: left; width: 33%; font-size: 17px; font-weight: bold;" align="left" >
+                   <div class="topDiv" align="left" >
                   ${list[0].zone_name }                   
                    </div>
-                   <div style="float: left; width: 33%" align="center">
+                   <div class="topDiv" align="center">
                       ${list[0].car_name }        
                    </div>
-                   <div style="float: left; width: 33%;" align="right">
+                   <div class="topDiv" align="right">
                       ${fn:split(list[0].reg_date,' ')[0]}
                    </div>
                 </div>
@@ -53,20 +67,90 @@
                    <img src=${list[0].car_image} width="400px" height="300px"/> 
                 </div>
                 <div>
-                   <div style="float: left; width: 50%;" align="center">
-                      <span class="badge badge-primary"><font size="6">주행거리</font></span> ${list[0].driven }      
+                   <div class="otherDiv" align="center">
+                      <span class="badge badge-primary"><font size="4">주행거리</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[0].driven }km</b></font>
                    </div>
-                   <div style="float: left; width: 50%" align="center">
-                      연료 : ${list[0].fuel_type } 
+                   <div class="otherDiv" align="center">
+                      <span class="badge badge-primary"><font size="4">연료</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[0].fuel_type }</b></font> 
+                   </div>
+                </div>
+                <div style="margin-top: 40px;">
+                   <div class="otherDiv" align="center">
+                      <span class="badge badge-warning"><font size="4">시간당 요금(1h)</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[0].fee_hour }원</b></font>
+                   </div>
+                   <div class="otherDiv" align="center">
+                      <span class="badge badge-warning"><font size="4">거리당 요금(1km)</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[0].fee_km }원</b></font> 
                    </div>
                 </div>
                 
             </div>
             <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                <p class="description">Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+				
+                <div>
+                   <div class="topDiv" align="left" >
+                  ${list[1].zone_name }                   
+                   </div>
+                   <div class="topDiv" align="center">
+                      ${list[1].car_name }        
+                   </div>
+                   <div class="topDiv" align="right">
+                      ${fn:split(list[1].reg_date,' ')[0]}
+                   </div>
+                </div>
+                <div align="center">
+                   <img src=${list[1].car_image} width="400px" height="300px"/> 
+                </div>
+                <div>
+                   <div class="otherDiv" align="center">
+                      <span class="badge badge-primary"><font size="4">주행거리</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[1].driven }km</b></font>
+                   </div>
+                   <div class="otherDiv" align="center">
+                      <span class="badge badge-primary"><font size="4">연료</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[1].fuel_type }</b></font> 
+                   </div>
+                </div>
+                <div style="margin-top: 40px;">
+                   <div class="otherDiv" align="center">
+                      <span class="badge badge-warning"><font size="4">시간당 요금(1h)</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[1].fee_hour }원</b></font>
+                   </div>
+                   <div class="otherDiv" align="center">
+                      <span class="badge badge-warning"><font size="4">거리당 요금(1km)</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[1].fee_km }원</b></font> 
+                   </div>
+                </div>
+                
             </div>
             <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
-                <p class="description">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
+				
+                <div>
+                   <div class="topDiv" align="left" >
+                  ${list[2].zone_name }                   
+                   </div>
+                   <div class="topDiv" align="center">
+                      ${list[2].car_name }        
+                   </div>
+                   <div class="topDiv" align="right">
+                      ${fn:split(list[2].reg_date,' ')[0]}
+                   </div>
+                </div>
+                <div align="center">
+                   <img src=${list[2].car_image} width="400px" height="300px"/> 
+                </div>
+                <div>
+                   <div class="otherDiv" align="center">
+                      <span class="badge badge-primary"><font size="4">주행거리</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[2].driven }km</b></font>
+                   </div>
+                   <div class="otherDiv" align="center">
+                      <span class="badge badge-primary"><font size="4">연료</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[2].fuel_type }</b></font> 
+                   </div>
+                </div>
+                <div style="margin-top: 40px;">
+                   <div class="otherDiv" align="center">
+                      <span class="badge badge-warning"><font size="4">시간당 요금(1h)</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[2].fee_hour }원</b></font>
+                   </div>
+                   <div class="otherDiv" align="center">
+                      <span class="badge badge-warning"><font size="4">거리당 요금(1km)</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[2].fee_km }원</b></font> 
+                   </div>
+                </div>
+                
             </div>
         </div>
     </div>
