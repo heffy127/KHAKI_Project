@@ -210,6 +210,7 @@ create table usedCar ( -- 중고차 판매 게시판
 	phone varchar2(20),
 	visitDay varchar2(20),
 	distance varchar2(20),
+	processingStatus char(1)
 )
 
 -- 샘플데이터

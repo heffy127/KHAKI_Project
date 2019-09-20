@@ -9,6 +9,7 @@ public class UsedCarDTO {
 	private String phone;
 	private String visitDay;
 	private String distance;
+	private String processingStatus;
 	
 	public String getName() {
 		return name;
@@ -52,7 +53,12 @@ public class UsedCarDTO {
 	public void setDistance(String distance) {
 		this.distance = distance;
 	}
-	
+	public String getProcessingStatus() {
+		return processingStatus;
+	}
+	public void setProcessingStatus(String processingStatus) {
+		this.processingStatus = processingStatus;
+	}
 	
 	
 }

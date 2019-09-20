@@ -295,10 +295,13 @@
                         <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-6-tab" data-toggle="tab" href="#tabs-icons-text-6" role="tab" aria-controls="tabs-icons-text-6" aria-selected="true"><i class="ni ni-money-coins mr-2"></i>예약 관리(환불 처리)</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-7-tab" data-toggle="tab" href="#tabs-icons-text-7" role="tab" aria-controls="tabs-icons-text-7" aria-selected="false"><i class="ni ni-books mr-2"></i>쿠폰 관리</a>
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-7-tab" data-toggle="tab" href="#tabs-icons-text-7" role="tab" aria-controls="tabs-icons-text-7" aria-selected="true"><i class="ni ni-money-coins mr-2"></i>중고차 매입관리</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-8-tab" data-toggle="tab" href="#tabs-icons-text-8" role="tab" aria-controls="tabs-icons-text-8" aria-selected="false"><i class="ni ni-chart-pie-35 mr-2"></i>회원 설문조사</a>
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-8-tab" data-toggle="tab" href="#tabs-icons-text-8" role="tab" aria-controls="tabs-icons-text-8" aria-selected="false"><i class="ni ni-books mr-2"></i>쿠폰 관리</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-9-tab" data-toggle="tab" href="#tabs-icons-text-9" role="tab" aria-controls="tabs-icons-text-9" aria-selected="false"><i class="ni ni-chart-pie-35 mr-2"></i>회원 설문조사</a>
                     </li>
                 </ul>
             </div>
@@ -343,10 +346,15 @@
                      </div>
                      <div class="tab-pane fade" id="tabs-icons-text-7" role="tabpanel" aria-labelledby="tabs-icons-text-7-tab">
                      
+                         <iframe id="memberAll" src="admin_usedCar.do" style="width: 100%; height: 1300px;" frameborder="0"></iframe>
+                   
+                     </div>
+                     <div class="tab-pane fade" id="tabs-icons-text-8" role="tabpanel" aria-labelledby="tabs-icons-text-8-tab">
+                     
                          <p class="description">쿠폰 관리 iframe 자리</p>
                   
                      </div>
-                     <div class="tab-pane fade" id="tabs-icons-text-8" role="tabpanel" aria-labelledby="tabs-icons-text-8-tab">
+                     <div class="tab-pane fade" id="tabs-icons-text-9" role="tabpanel" aria-labelledby="tabs-icons-text-9-tab">
                      
                          <iframe id="surveyResult" src="admin_surveyResult.do" style="width: 100%; height: 1300px;" frameborder="0"></iframe>
                   

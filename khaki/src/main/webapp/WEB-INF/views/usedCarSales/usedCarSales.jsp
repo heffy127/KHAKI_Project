@@ -259,9 +259,29 @@
 		
 		$("#usedCarBtn").click(function(){
 			result = confirm("입력하신 정보로 신청 하시겠습니까?");
+			var name = $("#nameInput").val();
+			var location_select = $("#location_select option:selected").val();
+			var carNum = $("#carNumInput").val();
+			var phone = $("#phoneinput").val();
+			var visitDay = $("#requestDayInput").val();
+			var distance = $("#distanceInput").val();
+			
+			var c = $("#carNumCheck").val();
+			var l = $("#location_select option:selected").val();
+			var p = $("#phoneNumCheck").val();
+			var v = $("#requestDayCheck").val();
+			var d = $("#distanceCheck").val();
+			
 			if(result == true) {
-				alert("상담 신청이 완료 되었습니다.\n담당자 배정 후 연락드릴 예정입니다.");
-				$("#usedCarSales").submit();
+				if(name != "" && location_select != "지역" && carNum != "" && phone != "" && visitDay != "" && distance != "") {
+					if(c == "undefined" || l != "지역" || p == "undefined" || v == "undefined" || d == "undefined") {
+						alert("상담 신청이 완료 되었습니다.\n담당자 배정 후 연락드릴 예정입니다.");
+						$("#usedCarSales").submit();						
+					} else {
+					}
+				} else {
+				}
+				
 			}
 		})
 		
@@ -599,7 +619,7 @@
 	            					<label style="margin-left: 10%;">이름</label>
 	            				</div>
 	            				<div style="width: 70%; float: left;">
-	            					<input type="text" name="name" style="width: 80%;" placeholder="이름을 입력해주세요.">
+	            					<input type="text" id="nameInput" name="name" style="width: 80%;" placeholder="이름을 입력해주세요.">
 	            				</div>
             				</div>
             				<div style="width: 100%; overflow: auto; margin-bottom: 3%;">
