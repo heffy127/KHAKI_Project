@@ -26,6 +26,7 @@ public class KhakiZoneController {
 		System.out.println("khakizone_insert!");
 		
 		System.out.println(khakiZoneDTO);
+		
 		zonedao.insert(khakiZoneDTO);
 		
 		return "khakizone/khakizone_main";

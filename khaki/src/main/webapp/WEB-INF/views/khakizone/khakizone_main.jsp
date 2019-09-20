@@ -27,32 +27,39 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cf7aa5c76b385f7270d308f67a145b"></script>
 
-
+	<!-- aaabbbccc -->
 	<div class="row">
 	
 		<div class="col-md-6" id="map">map 이용 표현</div>
 		
 		<div class="col-md-6">
-			<div class="row">
-				<div class="col">
-					<div class="row">
-						<div class="col-md-3">
-							<input type="text" placeholder="카키존 이름">
+			<form action="khakizone_insert.do">
+				<div class="row">
+					<div class="col">
+						<div class="row">
+							<div class="col-md-3">
+								<input type="text" name="zone_name" placeholder="카키존 이름">
+							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3">
-							<input type="text" placeholder="카키존 넘버">
+						<div class="row">
+							<div class="col-md-3">
+								<input type="text" name="zone_num" placeholder="카키존 넘버">
+							</div>
+							<div class="col-md-9">카키존 위치 : <input name="zone_location_x" id="location_x" type="text" placeholder="경도"> / <input name="zone_location_y" id="location_y" type="text" placeholder="위도"></div>
 						</div>
-						<div class="col-md-9">카키존 위치 : <input id="location_x" type="text" placeholder="경도"> / <input id="location_y" type="text" placeholder="위도"></div>
-					</div>
-					<div class="row">
-						<div class="col-md-10">
-							<textarea rows="7" cols="90" placeholder="내용을 입력해주세요"></textarea>
+						<div class="row">
+							<div class="col-md-10">
+								<textarea name="zone_comment" rows="7" cols="90" placeholder="내용을 입력해주세요"></textarea>
+							</div>
 						</div>
-					</div>
-				</div>	<!-- col end -->
-			</div>	<!-- row end -->
+						<div class="row">
+							<div class="col">
+								<input type="submit" value="카키존 등록">
+							</div>
+						</div>
+					</div>	<!-- col end -->
+				</div>	<!-- row end -->
+			</form>
 			
 			<br><br>
 			

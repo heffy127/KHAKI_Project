@@ -8,6 +8,18 @@ public class KhakiZoneDTO {
 	private double zone_location_y;	//카키존 경도
 	private String zone_comment;	//카키존 세부설명
 	
+	public double getZone_location_x() {
+		return zone_location_x;
+	}
+	public void setZone_location_x(double zone_location_x) {
+		this.zone_location_x = zone_location_x;
+	}
+	public double getZone_location_y() {
+		return zone_location_y;
+	}
+	public void setZone_location_y(double zone_location_y) {
+		this.zone_location_y = zone_location_y;
+	}
 	public int getZone_num() {
 		return zone_num;
 	}
@@ -19,18 +31,6 @@ public class KhakiZoneDTO {
 	}
 	public void setZone_name(String zone_name) {
 		this.zone_name = zone_name;
-	}
-	public double getZone_location_x() {
-		return zone_location_x;
-	}
-	public void setZone_location_x(int zone_location_x) {
-		this.zone_location_x = zone_location_x;
-	}
-	public double getZone_location_y() {
-		return zone_location_y;
-	}
-	public void setZone_location_y(int zone_location_y) {
-		this.zone_location_y = zone_location_y;
 	}
 	public String getZone_comment() {
 		return zone_comment;
