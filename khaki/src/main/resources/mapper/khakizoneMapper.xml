@@ -4,31 +4,33 @@
 
 <mapper namespace="zoneDAO">
 
-	<select id="getSomething" parameterType="int" resultType="#package.#modelname">
+	<!-- <select id="zone_select" parameterType="int" resultType="rsMap">
 		SELECT
 		columnname1,
 		columnname2,
 		columnname3
-		FROM tablename1
+		FROM khakizone
 		WHERE columnname1 = #{value}
-	</select>
+	</select> -->
 
-	<resultMap type="#modelname" id="YourResultSet">
-		<id property="param1" column="columnname1" />
-		<result property="param2" column="columnname2" />
-		<result property="param3" column="columnname3" />
+	<resultMap type="zoneDTO" id="rsMap">
+		<result property="zone_num" column="zone_num" />
+		<result property="zone_name" column="zone_name" />
+		<result property="zone_location_x" column="zone_location_x" />
+		<result property="zone_location_y" column="zone_location_y" />
+		<result property="zone_comment" column="zone_comment" />
 	</resultMap>
 
-	<select id="getAll" resultMap="YourResultSet">
-		SELECT * FROM tablename1
+	<select id="zone_selectAll" resultMap="rsMap">
+		SELECT * FROM khakizone
 	</select>
 
-	<insert id="insertSomething" parameterType="#modelname">
-		INSERT INTO tablename1 (columnname1, columnname2, columnname3)
-		VALUES(#{value1},#{value2},#{value3})
+	<insert id="zone_insert" parameterType="zoneDTO">
+		INSERT INTO khakizone (zone_num, zone_name, zone_location_x,zone_location_y, zone_comment)
+		VALUES(#{zone_num},#{zone_name},#{zone_location_x}, #{zone_location_y},#{zone_comment})
 	</insert>
 
-	<update id="updateSomething" parameterType="#modelname">
+	<!-- <update id="updateSomething" parameterType="#modelname">
 		UPDATE tablename1
 		SET
 		columnname1=#{param1}
@@ -39,6 +41,6 @@
 	<delete id="deleteSomething" parameterType="int">
 		DELETE FROM tablename1 WHERE
 		columnname1 = #{param1}
-	</delete>
+	</delete> -->
 
 </mapper>
