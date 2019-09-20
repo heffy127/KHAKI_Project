@@ -66,6 +66,14 @@
 	    	}
   		})	//	광고 감추기/보이기 기능 END checkbox label을 누르면 동작하도록
     	
+  		// id를 비교하여 
+  		var id = '${sessionId}';
+  		//alert(id);
+    	//alert(typeof id);
+  		if(id.substr(0,5) == 'admin'){
+	  		$("#btn_write").attr('disabled',false);	//false면 버튼을 활성화, ture면 비활성화
+  		}
+  		
     });	//Jquery End
   </script>
   <style type="text/css">
@@ -576,7 +584,7 @@
                 			<form action="noticeInsert.do">
 		                		<input type="hidden" name="curPage" value="<%= pg.getCurPage()%>">
 		                		<input type="hidden" name="pageSize" value="<%= pg.getPageSize()%>">
-		                		<button type="submit" class="btn btn-outline-info">글쓰기</button>
+		                		<button type="submit" id="btn_write" class="btn btn-outline-info" disabled="disabled">글쓰기</button>
 		                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		                		<input type="button" class="btn btn-outline-info" onclick="history.back(-1);" value="뒤로가기">
 		                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
