@@ -42,26 +42,27 @@
 			
 			/* tab1Btn 클릭 후 3.8초뒤 tab2Btn 클릭 */
 			$('#tab1Btn').click(function() {
-				setTimeout(() => {
+				setTimeout(function(){
 					$('#tab2Btn').click()		
 				}, 3800);
 			})
 			$('#tab2Btn').click(function() {
-				setTimeout(() => {
+				setTimeout(function(){
 					$('#tab3Btn').click()		
 				}, 3800);
 			})
 			$('#tab3Btn').click(function() {
-				setTimeout(() => {
+				setTimeout(function(){
 					$('#tab1Btn').click()		
 				}, 3800);
 			})
 			//
+			
+			tab1Click()
 	})
 </script>
 </head>
-<!-- 메인페이지 열릴때 tab1Btn 자동 클릭 -->
-<body onload="javascript:tab1Click()">
+<body>
 <div>
 <div class="nav-wrapper" style="display: none;">
     <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
