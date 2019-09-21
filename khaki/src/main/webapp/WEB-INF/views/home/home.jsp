@@ -294,24 +294,28 @@
                 <h6 class="text-overflow m-0">Welcome!</h6>
               </div>
               <a href="profile.do" class="dropdown-item">
-                <i class="ni ni-single-02"></i>
-                <span>My profile</span>
+                <i class="ni ni-circle-08"></i>
+                <span>회원정보 관리</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
-                <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
+              <a href="profile.do?tab=2" class="dropdown-item">
+                <i class="ni ni-time-alarm"></i>
+                <span>예약정보 관리</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
-                <i class="ni ni-calendar-grid-58"></i>
-                <span>Activity</span>
+              <a href="profile.do?tab=3" class="dropdown-item">
+                <i class="ni ni-user-run"></i>
+                <span>핸들러 관리</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
+              <a href="profile.do?tab=4" class="dropdown-item">
+                <i class="ni ni-book-bookmark"></i>
+                <span>나의 쿠폰북</span>
+              </a>
+              <a href="profile.do?tab=5" class="dropdown-item">
+                <i class="ni ni-align-center"></i>
+                <span>내가 쓴 글 확인</span>
               </a>
               <div class="dropdown-divider"></div>
               <a href="sessionLogout.do" class="dropdown-item">
-                <i class="ni ni-user-run"></i>
+                <i class="ni ni-button-power"></i>
                 <span>Logout</span>
               </a>
             </div>

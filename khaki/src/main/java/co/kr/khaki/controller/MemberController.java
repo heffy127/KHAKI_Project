@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -51,13 +52,12 @@ public class MemberController {
 	PayDAO payDAO;
 	
 	@RequestMapping("profile.do")
-	public String member(MemberDTO memberDTO, MemberLevelDTO memberLevelDTO, Model model, HttpSession session, CalculateMemberLevel cal) {
+	public String member(MemberDTO memberDTO, MemberLevelDTO memberLevelDTO, 
+			Model model, HttpSession session, CalculateMemberLevel cal, @RequestParam(defaultValue="1") String tab) {
 		memberDTO = memberDAO.selectId((String)session.getAttribute("sessionId"));
 		model.addAttribute("memberDTO", memberDTO);
 		//
 		memberLevelDTO = memberLevelDAO.selectId(memberDTO.getId());
-		memberLevelDTO = cal.setLevel(memberLevelDTO, 300);  // 프로필 들어갈때 300씩 증가(테스트용)
-		memberLevelDAO.update(memberLevelDTO); // 등급 DB 업데이트
 		int[] arr = cal.showStat(memberLevelDTO);
 		model.addAttribute("memberLevelDTO",memberLevelDTO);
 		model.addAttribute("expLimit", arr[0]); // 요구 경험치
@@ -66,6 +66,7 @@ public class MemberController {
 		model.addAttribute("countWrite", boardDAO.countWrite(memberDTO.getId())); // 내가 쓴 글 count
 		model.addAttribute("countReservation", payDAO.countReservation(memberDTO.getId())); // 내 현재 예약 count
 		
+		model.addAttribute("tab", tab); // 마이페이지 탭 선택
 		return "member/profile";
 	}
 	

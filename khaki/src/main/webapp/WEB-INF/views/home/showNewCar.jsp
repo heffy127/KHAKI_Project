@@ -40,21 +40,21 @@
 				$('#tab1Btn').click()
 			}
 			
-			/* tab1Btn 클릭 후 3.8초뒤 tab2Btn 클릭 */
+			/* tab1Btn 클릭 후 3.5초뒤 tab2Btn 클릭 */
 			$('#tab1Btn').click(function() {
 				setTimeout(function(){
 					$('#tab2Btn').click()		
-				}, 3800);
+				}, 3500);
 			})
 			$('#tab2Btn').click(function() {
 				setTimeout(function(){
 					$('#tab3Btn').click()		
-				}, 3800);
+				}, 3500);
 			})
 			$('#tab3Btn').click(function() {
 				setTimeout(function(){
 					$('#tab1Btn').click()		
-				}, 3800);
+				}, 3500);
 			})
 			//
 			
