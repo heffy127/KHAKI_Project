@@ -350,7 +350,7 @@
             <div class="card-header bg-transparent">
               <div class="row align-items-center">
                 <div class="col">
-                  <h2 class="mb-0">New Car</h2>
+                  <h2 class="mb-0">KHAKI 신규 차량</h2>
                 </div>
               </div>
             </div>

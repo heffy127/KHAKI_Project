@@ -31,19 +31,48 @@
 	width: 50%;
 }
 </style>
+<script type="text/javascript">
+	$(document).ready(
+		function() {
+			
+			/* tab1Btn 클릭 함수 */
+			tab1Click = function() { 
+				$('#tab1Btn').click()
+			}
+			
+			/* tab1Btn 클릭 후 3.8초뒤 tab2Btn 클릭 */
+			$('#tab1Btn').click(function() {
+				setTimeout(() => {
+					$('#tab2Btn').click()		
+				}, 3800);
+			})
+			$('#tab2Btn').click(function() {
+				setTimeout(() => {
+					$('#tab3Btn').click()		
+				}, 3800);
+			})
+			$('#tab3Btn').click(function() {
+				setTimeout(() => {
+					$('#tab1Btn').click()		
+				}, 3800);
+			})
+			//
+	})
+</script>
 </head>
-<body>
+<!-- 메인페이지 열릴때 tab1Btn 자동 클릭 -->
+<body onload="javascript:tab1Click()">
 <div>
-<div class="nav-wrapper">
+<div class="nav-wrapper" style="display: none;">
     <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
         <li class="nav-item">
-            <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i>Home</a>
+            <a class="nav-link mb-sm-3 mb-md-0 active" id="tab1Btn" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i>Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Profile</a>
+            <a class="nav-link mb-sm-3 mb-md-0" id="tab2Btn" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Profile</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-calendar-grid-58 mr-2"></i>Messages</a>
+            <a class="nav-link mb-sm-3 mb-md-0" id="tab3Btn" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-calendar-grid-58 mr-2"></i>Messages</a>
         </li>
     </ul>
 </div>
@@ -64,7 +93,7 @@
                    </div>
                 </div>
                 <div align="center">
-                   <img src=${list[0].car_image} width="400px" height="300px"/> 
+                   <img src=${list[0].car_image} width="382px" height="282px"/> 
                 </div>
                 <div>
                    <div class="otherDiv" align="center">
@@ -98,7 +127,7 @@
                    </div>
                 </div>
                 <div align="center">
-                   <img src=${list[1].car_image} width="400px" height="300px"/> 
+                   <img src=${list[1].car_image} width="382px" height="282px"/> 
                 </div>
                 <div>
                    <div class="otherDiv" align="center">
@@ -132,7 +161,7 @@
                    </div>
                 </div>
                 <div align="center">
-                   <img src=${list[2].car_image} width="400px" height="300px"/> 
+                   <img src=${list[2].car_image} width="382px" height="282px"/> 
                 </div>
                 <div>
                    <div class="otherDiv" align="center">
