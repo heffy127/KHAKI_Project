@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="co.kr.khaki.notice.pagination"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -188,12 +189,48 @@
 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 	
 	
+	/* 
 	var marker = new kakao.maps.Marker({ 
 	    // 지도 중심좌표에 마커를 생성합니다 
 	    position: map.getCenter()
 	}); 
 	// 지도에 마커를 표시합니다
-	marker.setMap(map);
+	marker.setMap(map); 
+	*/
+	
+	
+	//-----------------------------------------
+	// select 해온 값을 배열에 넣고 마커에 추가하는 작업
+	// marksers 배열에 select해온 값을 넣어야함
+	var markers=[];
+	
+	// select_list의 좌표값을 foreach문을 통해 지도에 마커 표시 및 markers배열에 push
+	<c:forEach var="seldto" items="${select_list}">
+		addMarker(new kakao.maps.LatLng(${seldto.zone_location_x}, ${seldto.zone_location_y}));
+	</c:forEach>
+	
+	
+	// 마커를 생성, 지도위에 표시하는 함수
+	function addMarker(position) {
+	    // 마커를 생성합니다
+	    var marker = new kakao.maps.Marker({
+	        position: position
+	    });
+	    // 마커가 지도 위에 표시되도록 설정합니다
+	    marker.setMap(map);
+	    // 생성된 마커를 배열에 추가합니다
+	    markers.push(marker);
+	}
+	
+	// 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
+	function setMarkers(map) {
+	    for (var i = 0; i < markers.length; i++) {
+	        markers[i].setMap(map);
+	    }            
+	}
+	
+	//-----------------------------------------
+	
 	
 	// 지도를 클릭했을때 클릭한 위치에 마커를 추가하도록 지도에 클릭이벤트를 등록합니다
 	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
