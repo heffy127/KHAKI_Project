@@ -17,14 +17,19 @@
  	<link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
 	<!-- CSS Files -->
  	<link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+
+	<script type="text/javascript">
+		// 페이지네이션 함수
+		function fn_paging(curPage){
+	  		location.href = "khakizone_main.do?curPage="+curPage;
+	  		//alert(curPage); 
+	  		//페이지 넘버 확인
+	  	};
+		
+	</script>
+
 </head>
 <body>
-
-<p>
-    <button onclick="hideMarkers()">마커 감추기</button>
-    <button onclick="showMarkers()">마커 보이기</button>
-</p> 
-
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=84cf7aa5c76b385f7270d308f67a145b"></script>
 
 	<!-- aaabbbccc -->
@@ -59,6 +64,7 @@
 						</div>
 					</div>	<!-- col end -->
 				</div>	<!-- row end -->
+				<input type="hidden" name="khakizone_seq" value="">
 			</form>
 			
 			<br><br>
@@ -91,36 +97,84 @@
 				                </th>
 				            </tr>
 				        </thead>
-				        
+				        <!-- aaabbcc -->
 				        <tbody class="list">
-				            
-				            <tr>
-				                <th scope="row" class="">
-				                	카키존 넘버
-				                </th>
-				                
-				                <td class="">
-				                	카키존 이름
-				                </td>
-				                
-				                <td class="">
-				                	카키존 경도
-				                </td>
-				                
-				                <td>
-				                	카키존 위도
-				                </td>
-				                
-				                <td class="">
-				                	카키존 세부설명
-				                </td>
-				            </tr>
+				            <c:forEach var="seldto" items="${select_list}">
+					            <tr>
+					                <th scope="row" class="">
+					                	${seldto.zone_num }
+					                </th>
+					                <td class="">
+					                	${seldto.zone_name }
+					                </td>
+					                <td class="">
+					                	${seldto.zone_location_x }
+					                </td>
+					                <td>
+					                	${seldto.zone_location_y }
+					                </td>
+					                <td class="">
+					                	${seldto.zone_comment }
+					                </td>
+					            </tr>
+				            </c:forEach>
 				        </tbody>
 				    </table>
 				</div>
 			  </div>	<!-- table-responsive end -->
 			</div>	<!-- table row end -->
-			<div class="row">페이지네이션 부분</div>
+			<div class="row">
+				<div class="col" align="center">
+					<nav aria-label="Page navigation example">
+					  <ul class="pagination pagination-lg justify-content-center">
+					 	<c:if test="${pagination.curRange ne 1 }">
+					 	  <li class="page-item">
+		                       <a href="#" onClick="fn_paging(1)">[처음]</a> 
+		                     </li>
+		                   </c:if>
+		                   <c:if test="${pagination.curPage ne 1}">
+		                     <li class="page-item">
+		                       <a class="page-link" href="#" onClick="fn_paging('${pagination.prevPage }')" aria-label="Previous">
+		                       	<i class="fa fa-angle-left"></i>
+						        <span class="sr-only">Previous</span>
+					        </a> 
+				          </li>
+		                   </c:if>
+		                   <!-- 페이지 숫자 표시 부분 -->
+		                   <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
+		                       <c:choose>
+		                           <c:when test="${pageNum eq pagination.curPage}">
+		                           	<li class="page-item active">
+		                           		<a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }<span class="sr-only">(current)</span></a>
+		                          		</li>
+		                           </c:when>
+		                           <c:otherwise>
+		                           	<li class="page-item">
+		                           		<a class="page-link" href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+		                          		</li>
+		                           </c:otherwise>
+		                       </c:choose>
+		                   </c:forEach>
+		                   <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
+		                   	<li class="page-item">
+		                      		<a class="page-link" href="#" onClick="fn_paging('${pagination.nextPage }')" aria-label="Next">
+							        <i class="fa fa-angle-right"></i>
+							        <span class="sr-only">Next</span>
+								</a> 
+							</li>
+		                   </c:if>
+		                   <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
+		                       <li class="page-item">
+						      <a class="page-link" href="#" onClick="fn_paging('${pagination.pageCnt }')" aria-label="Next">
+						        <i class="fa fa-angle-right"></i>
+						        <span class="sr-only">Next</span>
+						      </a>
+						    </li>
+		                	   </c:if>
+	                	</ul>
+					</nav>
+				</div>
+			</div>
 		  </div>
 	</div>
 	

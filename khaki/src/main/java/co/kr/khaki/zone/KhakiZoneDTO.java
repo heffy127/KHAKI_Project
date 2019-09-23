@@ -39,11 +39,4 @@ public class KhakiZoneDTO {
 		this.zone_comment = zone_comment;
 	}
 	
-	// DTO 확인용, 프로젝트 완료 후 삭제
-	@Override
-	public String toString() {
-		return "KhakiZoneDTO [zone_num=" + zone_num + ", zone_name=" + zone_name + ", zone_location_x="
-				+ zone_location_x + ", zone_location_y=" + zone_location_y + ", zone_comment=" + zone_comment + "]";
-	}
-	
 }
