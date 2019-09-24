@@ -62,7 +62,7 @@
            $("#claim").hide();
            $("#startImg").hide();
            $("#returnImg").hide();
-             $("#lockImg").show();
+           $("#lockImg").show();
         });
         
         // 차량 찾기
@@ -72,7 +72,7 @@
            $("#claim").hide();
            $("#startImg").hide();
            $("#returnImg").hide();
-             $("#lockImg").show();
+           $("#lockImg").show();
         });
         
         // 시동걸기
@@ -81,7 +81,7 @@
            $("#unlockImg").hide();
            $("#claim").hide();
            $("#returnImg").hide();
-             $("#lockImg").hide();
+           $("#lockImg").hide();
            $("#startImg").show();
         });
         
@@ -93,7 +93,7 @@
               $("#lockImg").hide();
               $("#startImg").hide();
               $("#returnImg").hide();
-                $("#claim").show();
+              $("#claim").show();
            }
         });
         
@@ -105,12 +105,16 @@
               $("#unlockImg").hide();
               $("#claim").hide();
               $("#startImg").hide();
-                $("#lockImg").hide();
-                $("#returnImg").show();
-                
-                
-                
-                
+              $("#lockImg").hide();
+              $("#returnImg").show();
+              
+              // 차량 반납 후 버튼 비활성화
+              $("#unlockCar").attr("disabled","true");
+              $("#lockCar").attr("disabled","true");
+              $("#findCar").attr("disabled","true");
+              $("#startCar").attr("disabled","true");
+              $("#reportCar").attr("disabled","true");
+              $("#returnCar").attr("disabled","true");
            }
         });
      });
@@ -121,21 +125,21 @@
    <div id="tabs-icons-text-6" role="tabpanel" aria-labelledby="tabs-icons-text-6-tab">
       <div style="width: 50%; float: left; border-right: 8px solid #f5f5f5; padding: 1%;">
          <div id="name" style="width:100%; text-align:right; margin-bottom: 10px;">
-            <h2><b style="color: blue;">${sessionId}</b>님 안녕하세요.</h2>
+            <h2><b style="color: #336633;">${sessionName}</b>님 안녕하세요.</h2>
          </div>
          <div id="key-top" style="text-align: center;">
             <button id="unlockCar" style="width: 45%; height: 120px; margin-right: 25px; font-size: 25px;" type="button" class="btn btn-secondary btn-lg">
-               문열기<br><img width="40px;" src="https://image.flaticon.com/icons/svg/1967/1967887.svg"></button>
+               	문열기<br><img width="40px;" src="https://image.flaticon.com/icons/svg/1967/1967887.svg"></button>
             <button id="lockCar" style="width: 45%; height: 120px;  font-size: 25px;" type="button" class="btn btn-secondary btn-lg">
-               문잠금<br><img width="40px;" src="https://image.flaticon.com/icons/svg/1972/1972850.svg"></button>
+              	 문잠금<br><img width="40px;" src="https://image.flaticon.com/icons/svg/1972/1972850.svg"></button>
          </div>                        
          <div id="key-mid" style="text-align: center; margin-top: 5%; margin-bottom: 5%;">
             <button id="findCar" style="width: 30%; height: 150px; margin-right: 20px; font-size: 25px;" type="button" class="btn btn-secondary btn-lg">
-               차량 찾기<br><img width="35px;" src="https://image.flaticon.com/icons/svg/709/709011.svg"></button>
+             	  차량 찾기<br><img width="35px;" src="https://image.flaticon.com/icons/svg/709/709011.svg"></button>
             <button id="startCar" style="width: 30%; height: 150px; margin-right: 20px; font-size: 25px;" type="button" class="btn btn-secondary btn-lg">
-               시동 걸기<br><img width="35px;" src="https://image.flaticon.com/icons/svg/944/944563.svg"></button>
+              	 시동 걸기<br><img width="35px;" src="https://image.flaticon.com/icons/svg/944/944563.svg"></button>
             <button id="reportCar" style="width: 30%; height: 150px; font-size: 25px; color: red;" type="button" class="btn btn-secondary btn-lg" onclick="location.href='claim.do'">
-                  신고 하기<br><img width="35px;" src="https://image.flaticon.com/icons/svg/2039/2039772.svg"></button>
+				 신고 하기<br><img width="35px;" src="https://image.flaticon.com/icons/svg/2039/2039772.svg"></button>
          </div>
          <div id="key-bottom">
             <button id="returnCar" type="button" style="height: 120px; font-size: 30px;" class="btn btn-secondary btn-lg btn-block">
@@ -146,9 +150,9 @@
    <div id="window" style="text-align:center; width: 50%; float: left; padding: 1%;">
       <img id="unlockImg" style="width: 400px;" src="https://st2.depositphotos.com/1495079/12203/v/950/depositphotos_122037262-stock-illustration-padlock-unlock-sign-icon.jpg">
       <img id="lockImg" style="width: 400px;" src="https://st2.depositphotos.com/3907761/7233/v/450/depositphotos_72338459-stock-illustration-01208a.jpg">
-      <img id="startImg" style="width: 400px;" src="resources/assets/img/brand/startCar.gif">
+      <img id="startImg" style="width: 400px;" src="resources/assets/img/icons/key/startCar.gif">
       <div id="returnImg" style="text-align: center;">
-         <img  style="width: 400px;" src="resources/assets/img/brand/thanks.gif">
+         <img  style="width: 400px;" src="resources/assets/img/icons/key/thanks.gif">
          <h1 style="padding-top: 10px;">이용해 주셔서 감사합니다.</h1>
       </div>
       <iframe id="claim" src="claim.do?writer=${sessionId }" style="width: 100%; height: 900px;" frameborder="0"></iframe>

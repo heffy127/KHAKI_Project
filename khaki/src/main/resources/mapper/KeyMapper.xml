@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="KeyDAO">
+	
+	<resultMap id="rsMap" type="keyDTO">
+
+		<result column="keyId" property="keyId" />
+		<result column="door" property="door" />
+		<result column="carNum" property="carNum" />
+		<result column="startCar" property="startCar" />
+		<result column="returnCar" property="returnCar" />
+
+	</resultMap>
+
+	<select id="keyAll" resultMap="rsMap">
+	SELECT * FROM myKey 
+	</select>
+
+	<!-- 예약 후에 키 생성 -->
+	<insert id="insertKey" parameterType="keyDTO">
+	INSERT INTO myKey (keyId,door, carNum, startCar, returnCar)
+	VALUES(#{keyId,jdbcType=VARCHAR},#{door, jdbcType=VARCHAR},#{carNum,jdbcType=VARCHAR},#{startCar, jdbcType=VARCHAR},#{returnCar}) 
+	</insert>
+
+	<!-- 문열림/잠김 -->
+	<update id="updateDoor" parameterType="keyDTO">
+	UPDATE myKey 
+	SET 
+	door=#{door}
+	WHERE
+	keyId = #{keyId} 
+	</update>
+
+	<!-- 시동 -->
+	<update id="updateStart" parameterType="keyDTO">
+	UPDATE myKey
+	SET
+	startCar=#{startCar}
+	WHER
+	EkeyId = #{keyId}
+	</update>
+
+	<!-- 반납 -->
+	<update id="updateReturn" parameterType="keyDTO">
+	UPDATE myKey
+	SET
+	returnCar=#{returnCar}
+	WHERE
+	keyId = #{keyId} 
+	</update>
+
+</mapper>

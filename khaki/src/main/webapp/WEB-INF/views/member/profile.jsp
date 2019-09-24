@@ -455,7 +455,7 @@
                    
                      </div>
                      <div class="tab-pane fade" id="tabs-icons-text-6" role="tabpanel" aria-labelledby="tabs-icons-text-6-tab">
-                         <iframe src="key.do" style="width: 100%; height: 1000px;" frameborder="0"></iframe>
+                         <iframe src="survey.do" style="width: 100%; height: 1000px;" frameborder="0"></iframe>
                      </div>
                  </div>
              </div>
