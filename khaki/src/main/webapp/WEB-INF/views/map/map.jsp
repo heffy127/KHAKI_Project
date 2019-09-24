@@ -1,7 +1,9 @@
+<%@page import="co.kr.khaki.zone.KhakiZoneDTO"%>
+<%@page import="co.kr.khaki.zone.KhakiZoneDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -127,10 +129,17 @@ select{
 <title>1등 카셰어링, khaki</title>
 <%
 String sessionId = (String)session.getAttribute("sessionId");
+List<KhakiZoneDTO> list = (List<KhakiZoneDTO>)request.getAttribute("list");
 int strTimeCheck = 0;
 int endTimeCheck = 0;
+double loc_x = 0;
+double loc_y = 0;
+String selectZoneNum = "";
+for(int k = 0; k<list.size(); k++){
+	selectZoneNum = selectZoneNum + Integer.toString(k) + ",";
+}
 %>
-<input id="selectZoneNum" type ="hidden" value='${selectZoneNum}'>
+<input id="selectZoneNum" type ="hidden" value='<%=selectZoneNum%>'>
 <input id="sessionId" type ="hidden" value=<%=sessionId%>>
 <input id="selectCarNum" type ="hidden" value='${selectCarNum}'>
 <input id="car_num" type ="hidden">
@@ -530,7 +539,6 @@ $(document).on('click','#res_start', function () {
 </script>
 <!-- 부름예약시 거리 및 비용계산 -->
 <script type="text/javascript">
-   var zone_addr = ['역말로10길','불광삼협하이츠빌라','큰사랑나눔복지센터','예일여자중학교','장수보건진료소','구산경향파크아파트','인천남동시범공단','청요2리마을회관','도일초등학교','kakao스페이스닷원'];
    function burum() { //부름예약시 실행 > 시작점과 도착점의 거리, 비용을 계산 (크롤링)
       $('#insurance').modal("hide"); //닫기 
       var number = parseInt($('#zoneNumber').val());
@@ -648,14 +656,17 @@ $(document).ready(
 		        },
 		        success : function(data) {
 		        	if(data.trim()=="?"){
-			        	alert("현재 ID는 면허가 승인되지 않았습니다.");
 			        	$('#reserveSelectBox').attr("disabled","disabled")
+			        	$('#reserveSelectBox').text("면허승인 후 예약가능합니다.")
+			        	$('#resetBox').remove();
 		        	} else if (data.trim()=="x"){
-			        	alert("현재 ID는 면허승인이 거부되었습니다.");
 				        $('#reserveSelectBox').attr("disabled","disabled")
+			        	$('#reserveSelectBox').text("면허승인 후 예약가능합니다.")
+			        	$('#resetBox').remove();
 		        	} else if (data.trim()==""){
-			        	alert("현재 ID는 면허가 등록되지 않았습니다.");
 				        $('#reserveSelectBox').attr("disabled","disabled")
+			        	$('#reserveSelectBox').text("면허승인 후 예약가능합니다.")
+			        	$('#resetBox').remove();
 		        	} 
 		        }
 		     })
@@ -913,7 +924,7 @@ $(document).ready(
                         <div class="row" style="height: 100%">
                            <!-- Button trigger modal -->
                            <button id="reserveSelectBox" type="button" class="btn btn-outline-default" style="font-weight: bold; font-size: 20px" data-toggle="modal" data-target="#reservation1" onclick="rererere()" >시간&차종 검색</button>
-                           <button type="button" class="btn btn-outline-default" style="font-weight: bold; font-size: 20px" onclick="reset()">설정초기화</button>
+                           <button id="resetBox" type="button" class="btn btn-outline-default" style="font-weight: bold; font-size: 20px" onclick="reset()">설정초기화</button>
                            <!-------------------------------------------------->
                            <!-- 예약시간 선택 -->
                            <div class="modal fade" id="reservation1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
@@ -1460,7 +1471,6 @@ $(document).ready(
                   </div>
                </div>
 
-
                <script>
                   var MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
                   MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
@@ -1485,43 +1495,56 @@ $(document).ready(
                   spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH,
                         SPRITE_HEIGHT); // 스프라이트 이미지의 크기
                   //----------------------------------------------------------------------------------------------------------------------
-                  var positionsAll = [ // 마커의 위치
-                	  <%
-                	  // 파라메터로 넘어온 좌표값 넣기
-                	  // List<zoneDTO> list = request.getParameter("list");
-                	  // for(int i =0; i < list.size(); i++){
-                		 // zoneDTO zdto= list.get(i);
-                		  %>
-                		  <%-- new kakao.maps.LatLng(<%= zdto.get위도%>, <%= zdto.get경도%>), --%>
-                		  <%
-                	  // }
-                	  %>
-                        new kakao.maps.LatLng(37.61094, 126.92267),
-                        new kakao.maps.LatLng(37.61361, 126.93490),
-                        new kakao.maps.LatLng(37.62247, 126.92701),
-                        new kakao.maps.LatLng(37.61071, 126.91606),
-                        new kakao.maps.LatLng(36.93971, 126.89636),
-                        new kakao.maps.LatLng(37.61071, 126.90606),
-                        new kakao.maps.LatLng(37.41071, 126.70606),
-                        new kakao.maps.LatLng(37.20071, 126.89606),
-                        new kakao.maps.LatLng(37.35071, 126.77606),
-                        new kakao.maps.LatLng(33.45022, 126.57384), 
-                        new kakao.maps.LatLng(37.55100, 127.10991), 
-                        new kakao.maps.LatLng(37.54875, 127.01141), 
-                        new kakao.maps.LatLng(37.58792 , 126.90599),
-                        ], selectedMarker = null;// 클릭한 마커를 담을 변수
-                  //----------------------------------------------------------------------------------------------------------------------
-                  var positions = [];
-                  selectZoneNum.forEach(function(item) {
-                     positions.push(positionsAll[item]);
-                  });
+                var list = [];
+                var temp = [];
+                var selectedMarker = null;
+
+                var positionsAll = [
+                	<%
+                	
+                	
+                	for(int k = 0; k<list.size();k++){
+                		loc_x = list.get(k).getZone_location_x();
+                		loc_y = list.get(k).getZone_location_y();
+                		String zName = list.get(k).getZone_name();
+                		%>
+                		new kakao.maps.LatLng(<%=loc_x%>, <%=loc_y%>),
+                		<% 
+                		} 
+                		%>
+                ];
+                var zone_addr = [];
+                	<%
+                	for(int k = 0; k<list.size();k++){
+                	String loc_name = list.get(k).getZone_name();
+                	System.out.println(loc_name);
+                	%>
+                	zone_addr.push("<%=loc_name%>");
+                	<%                	}                	%>
+                $.ajax({
+                	url : "khakizone_map.do",
+                	success : function(result) {
+						result = result.trim();
+						list = result.split("★");
+						for (var i = 0; i < list.length-1; i++) {
+							list[i] = list[i].trim();
+							temp = list[i].split("/");
+							positionsInsert(temp[0],temp[1]);
+						}
+                	}
+                })
+                   //----------------------------------------------------------------------------------------------------------------------
+                var positions = [];
+                selectZoneNum.forEach(function(item) {
+                positions.push(positionsAll[item]);
+                });
 
                   //----------------------------------------------------------------------------------------------------------------------
 
                   var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                   mapOption = {
-                     center : new kakao.maps.LatLng(37.619156535986576,
-                           126.9213114357428), // 지도의 중심좌표 > 회원정보에 입력된 주소를 좌표로 변환하여 입력됨
+                     center : new kakao.maps.LatLng(<%=loc_x%>,
+                           <%=loc_y%>), // 지도의 중심좌표 > 회원정보에 입력된 주소를 좌표로 변환하여 입력됨
                      level : 7
                   // 지도의 확대 레벨
                   };
@@ -1594,8 +1617,7 @@ $(document).ready(
 
                                     // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
                                     // 마커의 이미지를 클릭 이미지로 변경합니다
-                                    if (!selectedMarker
-                                          || selectedMarker !== marker) {
+                                    if (!selectedMarker || selectedMarker !== marker) {
 
                                        // 클릭된 마커 객체가 null이 아니면
                                        // 클릭된 마커의 이미지를 기본 이미지로 변경하고
@@ -1607,13 +1629,13 @@ $(document).ready(
 
                                     // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
                                     selectedMarker = marker;
-                                    var selected = (JSON.stringify(selectedMarker.getPosition())).split(",");
-                                    selected[0] = Number(selected[0].substring(6,selected[0].length));
+                                    var selected = (JSON.stringify(selectedMarker.getPosition())).split(","); // 선택된 마커의 좌표를 [위도,경도] 배열로 만듦
+                                    selected[0] = Number(selected[0].substring(6,selected[0].length)); 
                                     selected[1] = Number(selected[1].substring(5,selected[1].length - 1));
                                     // 선택된 좌표의 경도,위도값을 숫자로 받아옴
 
-                                    selected[0] = selected[0].toFixed(12);
-                                    selected[1] = selected[1].toFixed(12);
+                                    selected[0] = selected[0].toFixed(5);
+                                    selected[1] = selected[1].toFixed(5);
                                     // 맨 뒤 이상한 소숫점 없애기위해 13번째 자리에서 반올림
 
                                     var markers = [];
@@ -1622,9 +1644,10 @@ $(document).ready(
                                        markers = (JSON.stringify(positions[i])).split(",");
                                        markers[0] = Number(markers[0].substring(6,markers[0].length));
                                        markers[1] = Number(markers[1].substring(5,markers[1].length - 1));
+                                       markers[0] = markers[0].toFixed(5);
+                                       markers[1] = markers[1].toFixed(5);
 
-                                       if (markers[0] == selected[0]
-                                             && markers[1] == selected[1]) { // 선택된 좌표와 입력되어있던 좌표가 같을 경우
+                                       if (markers[0] == selected[0] && markers[1] == selected[1]) { // 선택된 좌표와 입력되어있던 좌표가 같을 경우
                                           selectNum = selectZoneNum[i]; // 선택된것 중 순번 > 절대순번을 찾아서 보냄
                                           $('#zoneNumber').val(selectNum);
                                           carListInfo(selectNum); // 몇번째 마커인지 번호와 함께 전송
@@ -1641,8 +1664,7 @@ $(document).ready(
                            {
                               offset : offset, // 마커 이미지에서의 기준 좌표
                               spriteOrigin : spriteOrigin, // 스트라이프 이미지 중 사용할 영역의 좌상단 좌표
-                              spriteSize : spriteImageSize
-                           // 스프라이트 이미지의 크기
+                              spriteSize : spriteImageSize // 스프라이트 이미지의 크기
                            });
 
                      return markerImage;

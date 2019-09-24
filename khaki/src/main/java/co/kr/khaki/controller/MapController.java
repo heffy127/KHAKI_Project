@@ -10,34 +10,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import co.kr.khaki.car.CarDAO;
 import co.kr.khaki.car.CarDTO;
 import co.kr.khaki.member.LicenseDTO;
+import co.kr.khaki.zone.KhakiZoneDAO;
+import co.kr.khaki.zone.KhakiZoneDTO;
 
 @Controller
 public class MapController {
 
 	@Autowired
 	CarDAO cdao;
+	
+	@Autowired
+	KhakiZoneDAO kdao;
 
 	@RequestMapping("map.do")
 	public String map(Model model, HttpSession session) {
-		String selectZoneNum = "0,1,2,3,4,5,6,7,8,9,";
+		String selectZoneNum = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,";
+		System.out.println("컨트롤러 1번");
+		List<KhakiZoneDTO> list = kdao.selectAll();
 		model.addAttribute("selectZoneNum", selectZoneNum);
 		model.addAttribute("selectCarNum", null);
-		if(session.getAttribute("sessionId")!=null) {
-			return "map/map";
-		} else {
-			return "home/home";
-		}
+		model.addAttribute("list", list);
+	return "map/map";
 	}
 
 	@RequestMapping("mapReset.do")
 	public String mapReset(Model model, String selectZoneNum, String startTime, String endTime, String carNums) {
 		System.out.println("MAP컨트롤러에서의 zones 값 : " + selectZoneNum);
 		// 받아온 String 값을 세션에 넣어야 함
+		List<KhakiZoneDTO> list = kdao.selectAll();
 		model.addAttribute("selectZoneNum", selectZoneNum);
 		model.addAttribute("selectCarNum", carNums);
 		model.addAttribute("buy_startTime", startTime);
 		model.addAttribute("buy_endTime", endTime);
 		model.addAttribute("carNums", carNums);
+		model.addAttribute("list", list);
 		return "map/map";
 	}
 

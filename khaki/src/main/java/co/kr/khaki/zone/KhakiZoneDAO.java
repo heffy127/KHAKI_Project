@@ -30,4 +30,9 @@ public class KhakiZoneDAO {
 		return my.selectList("zoneDAO.select_page", idx);
 	}
 	
+	public List<KhakiZoneDTO> selectAll() {
+		System.out.println("DAO 2번");
+		return my.selectList("zoneDAO.zone_selectAll");
+	}
+	
 }

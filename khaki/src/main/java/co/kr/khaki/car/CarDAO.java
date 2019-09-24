@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import co.kr.khaki.member.LicenseDTO;
+
 @Repository
 public class CarDAO {
    
@@ -51,5 +53,10 @@ public class CarDAO {
          List<CarDTO> list = my.selectList("carDAO.search1", buy_carModel);
          //System.out.println("3번 : "+ list.size());
          return list;
+      }
+      
+      public LicenseDTO mapLisence(String id) {
+    	  LicenseDTO dto = my.selectOne("licenseDAO.selectId", id);
+    	  return dto;
       }
 }
