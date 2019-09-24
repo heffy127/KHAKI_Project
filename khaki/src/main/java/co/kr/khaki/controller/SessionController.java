@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import co.kr.khaki.member.MemberDAO;
-import co.kr.khaki.member.MemberDTO;
+import co.kr.khaki.member.DAO.MemberDAO;
+import co.kr.khaki.member.DTO.MemberDTO;
 
 @Controller
 @SessionAttributes({"sessionId","sessionName","sessionPhoto"}) // 세션 생성

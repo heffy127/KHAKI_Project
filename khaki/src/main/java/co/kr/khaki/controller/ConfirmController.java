@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
-import co.kr.khaki.member.MemberDAO;
-import co.kr.khaki.member.MemberDTO;
+import co.kr.khaki.member.DAO.MemberDAO;
+import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.pay.PayDTO;
 
 @Controller

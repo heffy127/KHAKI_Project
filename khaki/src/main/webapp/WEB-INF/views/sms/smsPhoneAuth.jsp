@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>   <!-- UTF로 인코딩 -->
-<%@page import="co.kr.khaki.member.MemberDTO"%>
+<%@page import="co.kr.khaki.member.DTO.MemberDTO"%>
 
 
      <html>

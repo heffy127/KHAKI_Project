@@ -11,12 +11,12 @@
    <typeAliases>
       <typeAlias type="co.kr.khaki.board.BoardDTO" alias="bDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.board.BoardReplyDTO" alias="reDTO"></typeAlias>
-      <typeAlias type="co.kr.khaki.member.MemberDTO" alias="memberDTO"></typeAlias>
-      <typeAlias type="co.kr.khaki.member.MemberLevelDTO" alias="memberLevelDTO"></typeAlias>
-      <typeAlias type="co.kr.khaki.member.SocialDTO" alias="socialDTO"></typeAlias>
-      <typeAlias type="co.kr.khaki.member.LicenseDTO" alias="licenseDTO"></typeAlias>
-      <typeAlias type="co.kr.khaki.member.MemberAdminDTO" alias="memberAdminDTO"></typeAlias>
-      <typeAlias type="co.kr.khaki.member.InsertPointDTO" alias="insertPointDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.member.DTO.MemberDTO" alias="memberDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.member.DTO.MemberLevelDTO" alias="memberLevelDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.member.DTO.SocialDTO" alias="socialDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.member.DTO.LicenseDTO" alias="licenseDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.member.DTO.MemberAdminDTO" alias="memberAdminDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.member.DTO.InsertPointDTO" alias="insertPointDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.survey.Car_surveyDTO" alias="car_surveyDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.survey.Car_surveyResultDTO" alias="car_surveyResultDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.notice.NoticeDTO" alias="nDTO"></typeAlias>

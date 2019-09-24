@@ -17,11 +17,11 @@ import co.kr.khaki.handler.DAO.HandlerUseDAO;
 import co.kr.khaki.handler.DTO.HandlerDTO;
 import co.kr.khaki.handler.DTO.HandlerStatusDTO;
 import co.kr.khaki.handler.DTO.HandlerUseDTO;
-import co.kr.khaki.member.InsertPointDTO;
-import co.kr.khaki.member.LicenseDAO;
-import co.kr.khaki.member.LicenseDTO;
-import co.kr.khaki.member.MemberDAO;
-import co.kr.khaki.member.MemberDTO;
+import co.kr.khaki.member.DAO.LicenseDAO;
+import co.kr.khaki.member.DAO.MemberDAO;
+import co.kr.khaki.member.DTO.InsertPointDTO;
+import co.kr.khaki.member.DTO.LicenseDTO;
+import co.kr.khaki.member.DTO.MemberDTO;
 
 @Service
 public class HandlerServiceImpl implements HandlerServiceInterface {

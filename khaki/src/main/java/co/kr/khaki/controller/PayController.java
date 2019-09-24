@@ -7,14 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import co.kr.khaki.common.CalculateMemberLevel;
 import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
 import co.kr.khaki.handler.DAO.HandlerDAO;
 import co.kr.khaki.handler.DTO.HandlerDTO;
-import co.kr.khaki.member.CalculateMemberLevel;
-import co.kr.khaki.member.MemberDAO;
-import co.kr.khaki.member.MemberLevelDAO;
-import co.kr.khaki.member.MemberLevelDTO;
+import co.kr.khaki.member.DAO.MemberDAO;
+import co.kr.khaki.member.DAO.MemberLevelDAO;
+import co.kr.khaki.member.DTO.MemberLevelDTO;
 import co.kr.khaki.pay.PayDAO;
 import co.kr.khaki.pay.PayDTO;
 

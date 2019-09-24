@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import co.kr.khaki.member.LicenseDTO;
+import co.kr.khaki.member.DTO.LicenseDTO;
 
 @Repository
 public class CarDAO {

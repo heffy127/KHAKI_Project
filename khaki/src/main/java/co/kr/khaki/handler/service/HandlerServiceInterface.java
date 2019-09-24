@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.kr.khaki.handler.DTO.HandlerDTO;
 import co.kr.khaki.handler.DTO.HandlerUseDTO;
-import co.kr.khaki.member.MemberDTO;
+import co.kr.khaki.member.DTO.MemberDTO;
 
 public interface HandlerServiceInterface {
 

@@ -8,13 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import co.kr.khaki.member.LicenseDAO;
-import co.kr.khaki.member.LicenseDTO;
-import co.kr.khaki.member.MemberAdminDAO;
-import co.kr.khaki.member.MemberAdminDTO;
-import co.kr.khaki.member.MemberDAO;
-import co.kr.khaki.member.MemberDTO;
-import co.kr.khaki.member.MemberLevelDAO;
+import co.kr.khaki.member.DAO.LicenseDAO;
+import co.kr.khaki.member.DAO.MemberAdminDAO;
+import co.kr.khaki.member.DAO.MemberDAO;
+import co.kr.khaki.member.DAO.MemberLevelDAO;
+import co.kr.khaki.member.DTO.LicenseDTO;
+import co.kr.khaki.member.DTO.MemberAdminDTO;
+import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.notice.pagination;
 
 @Controller
