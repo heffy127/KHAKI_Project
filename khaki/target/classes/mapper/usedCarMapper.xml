@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="usedCarDAO">
+	
+	<insert id="insert" parameterType="usedCarDTO">
+		INSERT INTO usedCar
+		VALUES(#{name},#{location1},#{location2},#{carNum},#{phone},#{visitDay},#{distance},'N')
+	</insert>
+	
+	<resultMap type="usedCarDTO" id="rsMap">
+      <result property="name" column="name" />
+      <result property="location1" column="location1" />
+      <result property="location2" column="location2" />
+      <result property="carNum" column="carNum" />
+      <result property="phone" column="phone" />
+      <result property="visitDay" column="visitDay" />
+      <result property="distance" column="distance" />
+      <result property="processingStatus" column="processingStatus" />
+   </resultMap>
+   
+	<select id="selectAll" resultMap="rsMap">
+      SELECT * FROM usedCar
+   </select>
+   
+   <select id="select" resultMap="rsMap">
+      SELECT * FROM usedCar where processingStatus = 'N'
+   </select>
+   
+   <update id="update" parameterType="usedCarDTO">
+		UPDATE usedCar SET processingStatus = 'Y' WHERE carNum = #{carNum}
+	</update>
+	
+	<select id="selectName" parameterType="String" resultMap="rsMap">
+      SELECT *
+		FROM usedCar
+		WHERE name like '%'||#{name} or name like #{name}||'%' or name like '%'||#{name}||'%'
+   </select>
+   <select id="selectCarNum" parameterType="String" resultMap="rsMap">
+      SELECT *
+		FROM usedCar
+		WHERE carNum like '%'||#{carNum} or carNum like #{carNum}||'%' or carNum like '%'||#{carNum}||'%'
+   </select>
+   <select id="selectPhone" parameterType="String" resultMap="rsMap">
+      SELECT *
+		FROM usedCar
+		WHERE phone like '%'||#{phone} or phone like #{phone}||'%' or phone like '%'||#{phone}||'%'
+   </select>
+
+</mapper>
+

@@ -43,6 +43,12 @@ public class BoardDAO {
 		return myBatis.selectList("bDAO.selectAll");
 	}
 	
+	// 메인페이지 추천 내림차순 5개 select
+	public List<BoardDTO> selectFive() {
+		System.out.println("selectFive 완료");
+		return myBatis.selectList("bDAO.selectFive");
+	}
+	
 	public List<BoardDTO> selectWriter(String writer) {
 		System.out.println("selectWriter 완료");
 		return myBatis.selectList("bDAO.selectWriter",writer);

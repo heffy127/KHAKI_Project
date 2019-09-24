@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -215,7 +215,6 @@
           <li class="nav-item">
             <a class="nav-link " href="survey1.do">
               <i class="ni ni-image text-black"></i> 차량 이용 설문지 예비
-<!-- >>>>>>> branch 'master' of https://github.com/heffy127/KHAKI_Project.git -->
             </a>
           </li>
          </ul>
@@ -295,24 +294,28 @@
                 <h6 class="text-overflow m-0">Welcome!</h6>
               </div>
               <a href="profile.do" class="dropdown-item">
-                <i class="ni ni-single-02"></i>
-                <span>My profile</span>
+                <i class="ni ni-circle-08"></i>
+                <span>회원정보 관리</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
-                <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
+              <a href="profile.do?tab=2" class="dropdown-item">
+                <i class="ni ni-time-alarm"></i>
+                <span>예약정보 관리</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
-                <i class="ni ni-calendar-grid-58"></i>
-                <span>Activity</span>
+              <a href="profile.do?tab=3" class="dropdown-item">
+                <i class="ni ni-user-run"></i>
+                <span>핸들러 관리</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
+              <a href="profile.do?tab=4" class="dropdown-item">
+                <i class="ni ni-book-bookmark"></i>
+                <span>나의 쿠폰북</span>
+              </a>
+              <a href="profile.do?tab=5" class="dropdown-item">
+                <i class="ni ni-align-center"></i>
+                <span>내가 쓴 글 확인</span>
               </a>
               <div class="dropdown-divider"></div>
               <a href="sessionLogout.do" class="dropdown-item">
-                <i class="ni ni-user-run"></i>
+                <i class="ni ni-button-power"></i>
                 <span>Logout</span>
               </a>
             </div>
@@ -322,165 +325,60 @@
     </nav>
     <!-- End Navbar -->
     <!-- Header -->
-    <div class="header bg-gradient-default pb-8 pt-5 pt-md-8">
+    <div class="header bg-gradient-default pb-8 pt-1 pt-lg-6 d-flex align-items-center">
+  <!--   	 style="min-height: 400px; background-image: url(resources/assets/img/theme/home-cover.JPG); background-size: cover; background-position: center top;" -->
+    	<!-- mask -->
+    	<!-- <span class="mask bg-gradient-default opacity-7"></span> -->
+    
       <div class="container-fluid">
         <div class="header-body">
           <!-- Card stats -->
           <div class="row">
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
-                      <span class="h2 font-weight-bold mb-0">350,897</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                        <i class="fas fa-chart-bar"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-default mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                      <span class="h2 font-weight-bold mb-0">2,356</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="fas fa-chart-pie"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last week</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                      <span class="h2 font-weight-bold mb-0">924</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                        <i class="fas fa-users"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                    <span class="text-nowrap">Since yesterday</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                      <span class="h2 font-weight-bold mb-0">49,65%</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-default mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
+           
+          
+         
           </div>
         </div>
       </div>
     </div>
     <div class="container-fluid mt--7">
       <div class="row">
-        <div class="col-xl-8 mb-5 mb-xl-0">
-          <div class="card bg-gradient-default shadow">
-            <div class="card-header bg-transparent">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
-                  <h2 class="text-white mb-0">Sales value</h2>
-                </div>
-                <div class="col">
-                  <ul class="nav nav-pills justify-content-end">
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales" data-update='{"data":{"datasets":[{"data":[0, 20, 10, 30, 15, 40, 20, 60, 60]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">Month</span>
-                        <span class="d-md-none">M</span>
-                      </a>
-                    </li>
-                    <li class="nav-item" data-toggle="chart" data-target="#chart-sales" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Week</span>
-                        <span class="d-md-none">W</span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="card-body">
-              <!-- Chart -->
-              <div class="chart">
-                <!-- Chart wrapper -->
-                <canvas id="chart-sales" class="chart-canvas"></canvas>
-              </div>
-            </div>
-          </div>
+      	
+      	<!-- 유튜브 -->
+        <div class="col-xl-7 mb-5 mb-xl-0">
+        	<iframe width="100%" height="510px" src="https://www.youtube.com/embed/H89lGdWn0LE?rel=1&version=2&autoplay=1&loop=1&mute=1&playlist=H89lGdWn0LE;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
-        <div class="col-xl-4">
+        
+       <div class="col-xl-5">
           <div class="card shadow">
             <div class="card-header bg-transparent">
               <div class="row align-items-center">
                 <div class="col">
-                  <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                  <h2 class="mb-0">Total orders</h2>
+                  <h2 class="mb-0">KHAKI 신규 차량</h2>
                 </div>
               </div>
             </div>
             <div class="card-body">
               <!-- Chart -->
-              <div class="chart">
-                <canvas id="chart-orders" class="chart-canvas"></canvas>
-              </div>
+                <iframe src="showNewCar.do" style=" width: 100%; height: 385px;"></iframe>
+
             </div>
           </div>
         </div>
       </div>
+
       <div class="row mt-5">
-        <div class="col-xl-8 mb-5 mb-xl-0">
+		
+		<!-- 최신 공지사항 5개 -->
+        <div class="col-xl-4">
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Page visits</h3>
+                  <h3 class="mb-0">공지사항</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                  <a href="notice.do" class="btn btn-sm btn-primary">더 보기</a>
                 </div>
               </div>
             </div>
@@ -489,97 +387,52 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Page name</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col">Unique users</th>
-                    <th scope="col">Bounce rate</th>
+                    <th scope="col">글분류</th>
+                    <th scope="col">글제목</th>
+                    <th scope="col">작성일시</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">
-                      /argon/
-                    </th>
-                    <td>
-                      4,569
-                    </td>
-                    <td>
-                      340
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-up text-default mr-3"></i> 46,53%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/index.html
-                    </th>
-                    <td>
-                      3,985
-                    </td>
-                    <td>
-                      319
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/charts.html
-                    </th>
-                    <td>
-                      3,513
-                    </td>
-                    <td>
-                      294
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/tables.html
-                    </th>
-                    <td>
-                      2,050
-                    </td>
-                    <td>
-                      147
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-up text-default mr-3"></i> 50,87%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/profile.html
-                    </th>
-                    <td>
-                      1,795
-                    </td>
-                    <td>
-                      190
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
-                    </td>
-                  </tr>
+
+					<c:forEach var="noticeDTO" items="${noticeList }">
+						<tr>
+							<td height="60px;">
+								<c:choose>
+			                  		<c:when test="${noticeDTO.notice_type eq 'P'}">
+			                  			<img  style="width: auto; height: auto; max-width: 60px; max-height: 25px;" src="resources/assets/img/icons/noticeicon/공지.gif">
+			                  		</c:when>
+			                  		<c:when test="${noticeDTO.notice_type eq 'A'}">
+			                  			<img style="width: auto; height: auto; max-width: 60px; max-height: 25px;" src="resources/assets/img/icons/noticeicon/광고.gif">
+			                  		</c:when>
+			                  		<c:when test="${noticeDTO.notice_type eq 'E'}">
+			                  			<img style="width: auto; height: auto; max-width: 60px; max-height: 25px;" src="resources/assets/img/icons/noticeicon/이벤트.gif">
+                  					</c:when>
+                  				</c:choose>
+							</td>
+							<td>
+								<a href="noticeSelect.do?notice_num=${noticeDTO.notice_num }">${noticeDTO.title }</a>
+							</td>
+							<td>
+								${fn:substring(noticeDTO.write_date,2,16)}
+							</td>
+						</tr>
+					</c:forEach>
+
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-        <div class="col-xl-4">
+        <!-- 자유게시판 추천글 5개 -->
+        <div class="col-xl-8 mb-5 mb-xl-0">
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Social traffic</h3>
+                  <h3 class="mb-0">자유게시판 추천글</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                  <a href="board.do" class="btn btn-sm btn-primary">더 보기</a>
                 </div>
               </div>
             </div>
@@ -588,102 +441,97 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Referral</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col"></th>
+                    <th scope="col">글번호</th>
+                    <th scope="col">글제목</th>
+                    <th scope="col">글쓴이</th>
+                    <th scope="col">추천수</th>
+                    <th scope="col">작성일시</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">
-                      Facebook
-                    </th>
-                    <td>
-                      1,480
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">60%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Facebook
-                    </th>
-                    <td>
-                      5,480
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">70%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-default" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Google
-                    </th>
-                    <td>
-                      4,807
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">80%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Instagram
-                    </th>
-                    <td>
-                      3,678
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">75%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      twitter
-                    </th>
-                    <td>
-                      2,645
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">30%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
+                  <c:set var="rank" value="1"></c:set>
+                  <c:forEach var="boardDTO" items="${boardList }">
+                   	<c:choose>
+                   		<c:when test="${rank == 1 }">
+                   			<tr style="background-color: #fff9d4;">
+		                		<td height="60px;">
+		                			${boardDTO.bNum}
+		                		</td>
+		                		<th scope="row">
+		                			<a href="select.do?bNum=${boardDTO.bNum}"><b>${boardDTO.title}</b></a>
+		                		</th>
+		                		<td>
+		                			${boardDTO.writer}
+		                		</td>
+		                		<td>
+		                			<font color="red">${boardDTO.hit}</font>
+		                		</td>
+		                		<td>
+		                			${fn:substring(boardDTO.write_date,0,14)}
+		                		</td>
+                			</tr>	
+                   		</c:when>
+                   		<c:when test="${rank == 2 }">
+                   			<tr style="background-color: #f5f5f5;">
+		                		<td height="60px;">
+		                			${boardDTO.bNum}
+		                		</td>
+		                		<th scope="row">
+		                			<a href="select.do?bNum=${boardDTO.bNum}"><b>${boardDTO.title}</b></a>
+		                		</th>
+		                		<td>
+		                			${boardDTO.writer}
+		                		</td>
+		                		<td>
+		                			<font color="red">${boardDTO.hit}</font>
+		                		</td>
+		                		<td>
+		                			${fn:substring(boardDTO.write_date,0,14)}
+		                		</td>
+                			</tr>	
+                   		</c:when>
+                   		<c:when test="${rank == 3 }">
+                   			<tr style="background-color: #ffe4cf;">
+		                		<td height="60px;">
+		                			${boardDTO.bNum}
+		                		</td>
+		                		<th scope="row">
+		                			<a href="select.do?bNum=${boardDTO.bNum}"><b>${boardDTO.title}</b></a>
+		                		</th>
+		                		<td>
+		                			${boardDTO.writer}
+		                		</td>
+		                		<td>
+		                			<font color="red">${boardDTO.hit}</font>
+		                		</td>
+		                		<td>
+		                			${fn:substring(boardDTO.write_date,0,14)}
+		                		</td>
+                			</tr>	
+                   		</c:when>
+                   		<c:otherwise>
+                   			<tr>
+		                		<td height="60px;">
+		                			${boardDTO.bNum}
+		                		</td>
+		                		<th scope="row">
+		                			<a href="select.do?bNum=${boardDTO.bNum}"><b>${boardDTO.title}</b></a>
+		                		</th>
+		                		<td>
+		                			${boardDTO.writer}
+		                		</td>
+		                		<td>
+		                			<font color="red">${boardDTO.hit}</font>
+		                		</td>
+		                		<td>
+		                			${fn:substring(boardDTO.write_date,0,14)}
+		                		</td>
+                			</tr>	
+                   		</c:otherwise>
+                   	</c:choose>
+                   	<c:set var="rank" value="${rank + 1 }"></c:set>
+                  </c:forEach>
+
                 </tbody>
               </table>
             </div>

@@ -136,25 +136,6 @@
         		$("#admin_reservation_emptyyyyy"+i).toggle();
 	        })
 	        
-	        $("#admin_reservation_detail1"+i).click(function(){
-        		if($("#clickCheck1").val() == "0") {
-        			$("#detail_b_tag1"+i).text("사고정보 자세히");
-        			$("#detail_img_tag1"+i).attr("src", "https://image.flaticon.com/icons/svg/2026/2026638.svg");
-        			$("#clickCheck1").val("1");
-        		} else {
-        			$("#detail_b_tag1"+i).text("사고정보 자세히");
-        			$("#detail_img_tag1"+i).attr("src", "https://image.flaticon.com/icons/svg/2026/2026641.svg");
-        			$("#clickCheck1").val("0");
-        		}
-        		
-        		// 주문정보 자세히 버튼을 클릭하면 숨어져있던 tr들이 hide와 show를 반복적으로 toggle
-        		$("#admin_reservation_empty1"+i).toggle();
-        		$("#admin_reservation_emptyy1"+i).toggle();
-        		$("#admin_reservation_emptyyy1"+i).toggle();
-        		$("#admin_reservation_emptyyyy1"+i).toggle();
-        		$("#admin_reservation_emptyyyyy1"+i).toggle();
-	        })
-	        
 	        
 	        
 	        $("#refund_btn"+i).click(function(){
@@ -165,7 +146,6 @@
 	 	  	 			   url:"refundUpdate.do",
 	 	  	 			   data : {
 	 	  	 			 	  "impUid" : $("#impUid"+i).text()
-	 	  	 			 	  
 	 	  	 			   },
 	 	  	 			   // async: false, // for문 안에서 ajax 작동 순서를 정상적으로 돌아가게 해줌
 	 	  	 			   success:function(data){
@@ -303,7 +283,8 @@
 			   				<td></td>
 			   				<td></td>
 			   				<td></td>
-			   				<td><span style="cursor: pointer;" class="admin_reservation_detail" id="admin_reservation_detail1${status.index }" value="${status.index }"><b id="detail_b_tag1${status.index }">사고정보 자세히</b><img id='detail_img_tag1${status.index }' src='https://image.flaticon.com/icons/svg/2026/2026641.svg' style='width: 7%; margin-left: 2%;'></span></td>
+			   				<%-- <td><span style="cursor: pointer;" class="admin_reservation_detail" id="admin_reservation_detail1${status.index }" value="${status.index }"><b id="detail_b_tag1${status.index }">사고정보 자세히</b><img id='detail_img_tag1${status.index }' src='https://image.flaticon.com/icons/svg/2026/2026641.svg' style='width: 7%; margin-left: 2%;'></span></td> --%>
+			   				<td></td>
 			   				<td><span style="cursor: pointer;" class="admin_reservation_detail" id="admin_reservation_detail${status.index }" value="${status.index }"><b id="detail_b_tag${status.index }">주문정보 자세히</b><img id='detail_img_tag${status.index }' src='https://image.flaticon.com/icons/svg/2026/2026641.svg' style='width: 7%; margin-left: 2%;'></span></td>
 			   			</tr>
 			   			<tr id="admin_reservation_empty${status.index }" style="border-top: 4px dotted #0000001c; height: 50px;" value="0">

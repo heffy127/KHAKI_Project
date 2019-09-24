@@ -1,0 +1,37 @@
+DB 설계
+
+create table khakizone(
+zone_num number,
+zone_name varchar2(30),
+zone_location_x number,
+zone_location_y number,
+zone_comment varchar2(300)
+)
+
+DB 설명
+zone_num number : 카키존 번호 - 1 : 서울, 2 : 경기 등으로
+zone_name varchar2(30) : 존 이름 - 00주차장, 00집 앞, 000개인 등
+zone_location_x number : 존의 경도	/ 소수점 5자리까지
+zone_location_y number : 존의 위도	/ 소수점 5자리까지
+zone_comment varchar2(300) : 존의 세부설명
+
+
+kakao maps
+rectangleBounds - 남서쪽, 북동쪽 좌표 필요
+
+지도, 마커 기능, 마커 클릭기능, 새로운 좌표 지정, 
+
+1. 등록된 마커들을 DB에서 불러와서 지도상에 뿌린다
+1-1. 테이블에 가져온 list를 뿌림
+2. 마커를 클릭하면 그 카키존의 정보를 우측 상단에 불러온다
+3. 추가버튼을 누르면 그쪽 좌표를 가져오고 이름과 넘버를 이용해서 등록
+4. 
+
+마커 클릭시 좌표를 가져오는지 확인
+
+9/21(토)
+- 카키존 메인 select query문 작성
+	- index개념 확인 후 적용 가능한지 검토
+	- 시퀀스를 주어 num값을 가지는 컬럼을 하나 추가하여 그것을 desc로 내림차순 정렬하여도 rownum의 개념이 되는지 확인
+	- DBeaver에서 서브쿼리문 확인
+	- 그 이후 페이지네이션 기능 적용(1번이 넘어오면 1*10 이런식으로 curPage개념으로 생각)

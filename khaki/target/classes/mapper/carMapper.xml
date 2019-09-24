@@ -38,12 +38,30 @@
       <result property="fee_km" column="fee_km" />
       <result property="car_image" column="car_image" />
       <result property="brand" column="brand" />
-	  <result property="car_size" column="car_size" />
-	  <result property="reg_date" column="reg_date" />
+     <result property="car_size" column="car_size" />
+     <result property="reg_date" column="reg_date" />
+   </resultMap>
+   
+   <resultMap type="newCarDTO" id="rsMap_newCarDTO">
+      <result property="car_name" column="car_name" />
+      <result property="driven" column="driven" />
+      <result property="fuel_type" column="fuel_type" />
+      <result property="fee_hour" column="fee_hour" />
+      <result property="fee_km" column="fee_km" />
+      <result property="car_image" column="car_image" />
+     <result property="reg_date" column="reg_date" />
+     <result property="zone_name" column="zone_name" />
    </resultMap>
 
    <select id="selectAll" resultMap="rsMap">
       SELECT * FROM car_board
+   </select>
+   
+   <!-- 마이페이지 새로 등록된 차 출력 -->
+   <select id="selectThree" resultMap="rsMap_newCarDTO">
+      select * 
+      from ( select c.car_name, c.car_image, c.fuel_type, c.driven, c.fee_hour, c.fee_km, c.reg_date, k.zone_name 
+      from car_board c, khakizone k where c.zone_num = k.zone_num ORDER BY c.reg_date desc) where  3 >= ROWNUM
    </select>
 
    <insert id="insert" parameterType="cDTO">

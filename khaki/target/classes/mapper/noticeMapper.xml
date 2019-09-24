@@ -24,6 +24,11 @@
 	<select id="selectAll" resultMap="rsMap">
 		SELECT * FROM notice_board order by notice_num desc
 	</select>
+	
+	<!-- 메인페이지 최근 글 5개만 가져오는 쿼리문 -->
+	<select id="selectFive" resultMap="rsMap">
+		SELECT * FROM notice_board where 5 >= rownum order by notice_num desc
+	</select>
 
 	<select id="select_notice" resultMap="rsMap">
 		SELECT * FROM notice_board where notice_type = 'P' order by notice_num desc

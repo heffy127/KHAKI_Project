@@ -19,6 +19,12 @@ public class CarDAO {
          return list;
       }
       
+      public List<NewCarDTO> selectThree() {
+         List<NewCarDTO> list = my.selectList("carDAO.selectThree");
+         System.out.println("List<NewCarDTO> selectThree");
+         return list;
+      }
+      
       public void insert(CarDTO carDTO) {
          my.insert("carDAO.insert", carDTO);
          System.out.println("insert 성공");

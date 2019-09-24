@@ -1,0 +1,47 @@
+package co.kr.khaki.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import co.kr.khaki.notice.pagination;
+import co.kr.khaki.zone.KhakiZoneDAO;
+import co.kr.khaki.zone.KhakiZoneDTO;
+
+@Controller
+public class KhakiZoneController {
+
+	
+	@Autowired
+	KhakiZoneDAO zonedao;
+	
+	@RequestMapping("khakizone_main.do")
+	public String khakizone(Model model, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="5") int pageSize) {
+		System.out.println("khakizone_main 소환!");
+		
+		int total = zonedao.cntAll();
+		pagination pg = new pagination(total, curPage, pageSize);
+		
+		System.out.println("index 숫자 : " + pg.getStartIndex());
+		List<KhakiZoneDTO> select_list = zonedao.select_page(pg.getStartIndex());
+		
+		//model객체를 통한 view단에 전달하는 곳
+		model.addAttribute("pagination", pg);
+		model.addAttribute("select_list", select_list);
+		
+		return "khakizone/khakizone_main";
+	}
+	
+	@RequestMapping("khakizone_insert.do")
+	public String khakizone_insert(KhakiZoneDTO khakiZoneDTO) {
+		System.out.println("khakizone_insert!");
+		System.out.println(khakiZoneDTO);
+		zonedao.insert(khakiZoneDTO);
+		return "khakizone/khakizone_main";
+	}
+	
+}

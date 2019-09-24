@@ -13,7 +13,10 @@ import co.kr.khaki.carmanage.CarConsumableDTO;
 import co.kr.khaki.carmanage.CarList;
 import co.kr.khaki.carmanage.CarManageDAO;
 import co.kr.khaki.carmanage.CarManageDTO;
+import co.kr.khaki.handler.HandlerDTO;
 import co.kr.khaki.notice.pagination;
+import co.kr.khaki.usedCar.UsedCarDAO;
+import co.kr.khaki.usedCar.UsedCarDTO;
 
 @Controller
 public class CarManageController {
@@ -23,6 +26,9 @@ public class CarManageController {
 	
 	@Autowired
 	CarConsumableDAO ccdao;
+	
+	@Autowired
+	UsedCarDAO usedCarDAO;
 	
 	
 	@RequestMapping("carmanageDelete.do")
@@ -160,6 +166,13 @@ public class CarManageController {
 	@RequestMapping("carmanageInsertDB.do")
 	public String carmanageInsertDB(CarManageDTO carManageDTO, CarConsumableDTO carConsumableDTO, 
 			@RequestParam(defaultValue="1") int curPage, Model model, @RequestParam(defaultValue="10") int pageSize){
+		String carNum = carManageDTO.getCar_num();
+		List<UsedCarDTO> usedCarDTO = usedCarDAO.selectAll();
+		for (UsedCarDTO used : usedCarDTO) {
+			if(carNum.equals(used.getCarNum())) {
+				usedCarDAO.update(used);
+			}
+		}
 		
 		System.out.println("CMcontroller Insert!");
 		cmdao.insert(carManageDTO);

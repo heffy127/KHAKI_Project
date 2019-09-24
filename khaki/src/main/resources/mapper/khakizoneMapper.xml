@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="zoneDAO">
+
+	<select id="select_page" parameterType="int" resultMap="rsMap">
+		select X.ZONE_NUM, X.ZONE_NAME, X.ZONE_LOCATION_X, X.ZONE_LOCATION_Y, X.ZONE_COMMENT
+		from ( 
+		    select rownum as rnum, A.ZONE_NAME, A.ZONE_NUM, A.ZONE_LOCATION_X, A.ZONE_LOCATION_Y, A.ZONE_COMMENT
+		    from (
+		        select ZONE_NAME, ZONE_NUM, ZONE_LOCATION_X, ZONE_LOCATION_Y, ZONE_COMMENT
+		        from KHAKIZONE
+		        order by ZONE_NUM desc) A
+		    where #{idx}+5 >= rownum) X
+		where X.rnum >= #{idx}+1
+	</select>
+
+	<resultMap type="zoneDTO" id="rsMap">
+		<result property="zone_num" column="zone_num" />
+		<result property="zone_name" column="zone_name" />
+		<result property="zone_location_x" column="zone_location_x" />
+		<result property="zone_location_y" column="zone_location_y" />
+		<result property="zone_comment" column="zone_comment" />
+	</resultMap>
+
+	<select id="zone_selectAll" resultMap="rsMap">
+		SELECT * FROM khakizone
+	</select>
+	
+	<select id="zone_cntAll" resultType="int">
+		SELECT count(*) from khakizone
+	</select>
+
+	<insert id="zone_insert" parameterType="zoneDTO">
+		INSERT INTO khakizone (zone_num, zone_name, zone_location_x,zone_location_y, zone_comment)
+		VALUES(khakizone_seq.nextval,#{zone_name},#{zone_location_x}, #{zone_location_y},#{zone_comment})
+	</insert>
+
+	<!-- <update id="updateSomething" parameterType="#modelname">
+		UPDATE tablename1
+		SET
+		columnname1=#{param1}
+		WHERE
+		columnname2 = #{param2}
+	</update>
+
+	<delete id="deleteSomething" parameterType="int">
+		DELETE FROM tablename1 WHERE
+		columnname1 = #{param1}
+	</delete> -->
+
+</mapper>

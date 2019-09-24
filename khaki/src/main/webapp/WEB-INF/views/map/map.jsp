@@ -634,6 +634,34 @@ function reservation() {
       })
    //-------------------------------------------------------------------------------
 }
+$(document).ready(
+		function() { //면허가 없으면 예약불가
+			var sessionId = $('#sessionId').val();
+			$.ajax({
+		        type : "GET",
+		        url : "mapLisence.do",
+		        data : {
+		           'sessionId' : sessionId
+		        },
+		        error : function(error) {
+		           alert("오류발생" + error);
+		        },
+		        success : function(data) {
+		        	if(data.trim()=="?"){
+			        	alert("현재 ID는 면허가 승인되지 않았습니다.");
+			        	$('#reserveSelectBox').attr("disabled","disabled")
+		        	} else if (data.trim()=="x"){
+			        	alert("현재 ID는 면허승인이 거부되었습니다.");
+				        $('#reserveSelectBox').attr("disabled","disabled")
+		        	} else if (data.trim()==""){
+			        	alert("현재 ID는 면허가 등록되지 않았습니다.");
+				        $('#reserveSelectBox').attr("disabled","disabled")
+		        	} 
+		        }
+		     })
+		}
+		);
+
 </script>
 <div class="d-flex align-items-center">
    <img alt="" src="" width="10"> <span class="mr-2">100%</span>
@@ -884,7 +912,7 @@ function reservation() {
                      <div class="card-body" style="height: 100%">
                         <div class="row" style="height: 100%">
                            <!-- Button trigger modal -->
-                           <button type="button" class="btn btn-outline-default" style="font-weight: bold; font-size: 20px" data-toggle="modal" data-target="#reservation1" onclick="rererere()">시간&차종 검색</button>
+                           <button id="reserveSelectBox" type="button" class="btn btn-outline-default" style="font-weight: bold; font-size: 20px" data-toggle="modal" data-target="#reservation1" onclick="rererere()" >시간&차종 검색</button>
                            <button type="button" class="btn btn-outline-default" style="font-weight: bold; font-size: 20px" onclick="reset()">설정초기화</button>
                            <!-------------------------------------------------->
                            <!-- 예약시간 선택 -->
@@ -1480,7 +1508,7 @@ function reservation() {
                         new kakao.maps.LatLng(33.45022, 126.57384), 
                         new kakao.maps.LatLng(37.55100, 127.10991), 
                         new kakao.maps.LatLng(37.54875, 127.01141), 
-                        new kakao.maps.LatLng(37.58792 , 126.90599), 
+                        new kakao.maps.LatLng(37.58792 , 126.90599),
                         ], selectedMarker = null;// 클릭한 마커를 담을 변수
                   //----------------------------------------------------------------------------------------------------------------------
                   var positions = [];

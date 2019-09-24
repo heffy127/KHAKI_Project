@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import co.kr.khaki.car.CarDAO;
 import co.kr.khaki.car.CarDTO;
+import co.kr.khaki.member.LicenseDTO;
 
 @Controller
 public class MapController {
@@ -80,6 +81,13 @@ public class MapController {
 		List<CarDTO> list = cdao.search1(buy_carModel);
 		model.addAttribute("carList", list);
 		return "map/search1";
+	}
+	
+	@RequestMapping("mapLisence.do") // 차종으로 차량정보 찾아옴
+	public String mapLisence(Model model, String sessionId) {
+		LicenseDTO dto = cdao.mapLisence(sessionId);
+		model.addAttribute("dto", dto);
+		return "map/lisence";
 	}
 
 }

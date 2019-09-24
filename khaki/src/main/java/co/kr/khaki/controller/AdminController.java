@@ -39,7 +39,7 @@ public class AdminController {
    // 관리자 회원 관리 창
    @RequestMapping("admin_memberAll.do")
    public String admin_memberAll(Model model,  
-		   @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="3") int pageSize) {   
+		   @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="6") int pageSize) {   
 	   List<MemberAdminDTO> memberAdminList = memberAdminDAO.selectAll(); 
       model.addAttribute("memberAdminList",memberAdminList);
       model.addAttribute("searchMethod", "id"); // selectBox 기본 아이디 선택
