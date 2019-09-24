@@ -11,14 +11,14 @@ import org.springframework.web.bind.support.SessionStatus;
 import co.kr.khaki.member.DTO.InsertPointDTO;
 import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.member.DTO.SocialDTO;
-import co.kr.khaki.member.service.MemberServiceImpl;
+import co.kr.khaki.member.service.MemberService;
 
 
 @Controller
 public class RegisterController {
 
    @Autowired
-   MemberServiceImpl memberService;
+   MemberService memberService;
    
    @RequestMapping("idCheck.do")
    public String idCheck(String idCheck, MemberDTO memberDTO, Model model) {
