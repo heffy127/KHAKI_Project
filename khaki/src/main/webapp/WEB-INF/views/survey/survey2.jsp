@@ -120,7 +120,7 @@ hr
 <br>
 <form name="surveyF" id="surveyF" method="post" action="surveyFin.do">
 	<div align="center">
-		<div style="width: 600px;" align="left">
+		<div style="width: 500px;" align="left"> <!-- 화면 비율 때문에 수정함 -->
 			<div class="divQuestion">
 				<span class="badge badge-warning"> Q1 </span> <span id="q1Pop"
 					data-toggle="popover" data-color="danger" data-placement="right"

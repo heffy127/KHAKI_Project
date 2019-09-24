@@ -39,21 +39,29 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
   <script>
   	$(function(){
-  		$("#submit").hide();
-  		$("#paper").hide();
+  		// key & survey iframe 숨김처리
+  		$("#survey1").hide();
+  		$("#key").hide();
+  		$("#comment2").hide();
+  		
+  		// 설문버튼 동작
   		$("#surveybtn").on("click",function(){
-	  		$("#submit").show();
+	  		$("#windowImg").hide();
+	  		$("#comment1").hide();
+	  		$("#comment2").show();
+	  		$("#survey1").show();
   			var btn = false;
   			btn = true;
+			$("#surveybtn").hide();
   			if(btn == true){
-  				$("#surveybtn").html("키 가져오기");
-  				$("#windowImg").attr({"src":"resources/assets/img/icons/survey/jyp.jpg"});
+  				$("#surveybtn").click(function(){
+			  		$("#windowImg").hide();
+			  		$("#survey1").hide();
+			  		$("#key").show();
+			  		$("#survey").hide();
+			  		
+  				})
   			}
-	  		$("#submit").click(function(){
-  				$("#surveybtn").html("키 가져오기").button("submit");
-  				alert("설문완료 되었습니다.");
-	  		});
-  			
   		});
   	});
   </script>
@@ -63,11 +71,14 @@
 	<div class="card shadow border-0" id="carkeyArea">
 		<!-- carkey -->
 		<div id="tabs-icons-text-6" role="tabpanel" aria-labelledby="tabs-icons-text-6-tab">
+			<iframe id="key" src="key.do" style="width: 100%; height: 900px;" frameborder="0"></iframe>
 			<div id="survey" style="width: 50%; float: left; border-right: 8px solid #f5f5f5; padding: 1%;">
 				<div id="survey-head" style="text-align: center;">
-					<img width="800px" style="opacity: 0.7"
+					<img width="100%" style="opacity: 0.7"
 						src="https://www.midashri.com/hs-fs/hubfs/000%20Blog%20posting/Hrev%20blog%20img(posting)/shutterstock_752463637.jpg?width=1000&name=shutterstock_752463637.jpg">
-					<h2 style="margin-top: 10px;">차량 운행 전 차량 상태에 대한 설문을 진행해주세요.</h2>
+					<h2 id="comment1" style="margin-top: 10px;">차량 운행 전 <u>차량 상태</u>에 대한 <b style="color: red;">설문</b>을 진행해주세요.</h2>
+					<h1 id="comment2"><b style="color: #336633;">KHAKI</b>를 이용해주셔서 감사합니다.
+						<img width="45px;" src="http://res.heraldm.com/content/image/2016/01/13/20160113001785_0.jpg"></h1>
 				</div>                     	
 			<div id="survey-body">
 				<button id="surveybtn" type="button" style="height: 120px; font-size: 30px; margin-top: 15px;" class="btn btn-secondary btn-lg btn-block">
@@ -76,14 +87,8 @@
 			</div>
 			<!-- 실행창 -->
 			<div id="window" style="width: 50%; float: left; padding: 1%; text-align: center;">
-			<!-- 설문지 넣을 곳 -->
-				<form>
-					<img id="windowImg" style="width: 800px; height: 610px; opacity: 0.75" src="resources/assets/img/icons/survey/car.jpg">
-					<!-- <img id="paper" style="width: 800px; height: 610px; opacity: 0.75" src="resources/assets/img/icons/survey/survey.png"> -->
-					<button id="submit" type="submit" style="height: 120px; font-size: 30px; margin-top: 10px;" 
-						class="btn btn-secondary btn-lg btn-block">
-							설문 제출하기</button>
-				</form>
+				<img id="windowImg" style="width: 100%; height: 610px; opacity: 0.75" src="resources/assets/img/icons/survey/car.jpg">
+				<iframe id="survey1" src="survey1.do" style="width: 100%; height: 900px;" frameborder="0"></iframe>
 			</div>
 		</div>
 	</div>

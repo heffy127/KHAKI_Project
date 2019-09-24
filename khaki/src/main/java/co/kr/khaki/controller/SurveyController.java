@@ -19,6 +19,12 @@ public class SurveyController {
    @Autowired
    SurveyDAO surveyDAO;
    
+   // profile에서 key 첫화면 호출
+   @RequestMapping("survey.do")
+   public String survey() {
+	   return "key/survey";
+   }
+   
    @RequestMapping("survey1.do")
    public String survey1() {
       

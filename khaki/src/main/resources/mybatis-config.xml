@@ -4,9 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
    <!-- 부적합한 열 유형 처리방법 (NULL이 들어갈 수 있는 값에대한 처리) -->
-   <settings>
-      <setting name="jdbcTypeForNull" value="NULL" />
-   </settings>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
     
    <typeAliases>
       <typeAlias type="co.kr.khaki.board.BoardDTO" alias="bDTO"></typeAlias>
@@ -33,6 +33,8 @@
       <typeAlias type="co.kr.khaki.key.ClaimDTO" alias="claimDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.usedCar.UsedCarDTO" alias="usedCarDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.zone.KhakiZoneDTO" alias="zoneDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.key.KeyDTO" alias="keyDTO"/>
+	  <typeAlias type="co.kr.khaki.coupon.CouponDTO" alias="cpDTO"/>
       
    </typeAliases>
    <mappers>
@@ -51,10 +53,12 @@
       <mapper resource="mapper/payMapper.xml" />
       <mapper resource="mapper/carMapper.xml" />
       <mapper resource="mapper/consumableMapper.xml" />
-      <mapper resource="mapper/couponMapper.xml" />
+      <mapper resource="mapper/couponUseMapper.xml" />
       <mapper resource="mapper/refundMapper.xml" />
       <mapper resource="mapper/claimMapper.xml" />
       <mapper resource="mapper/usedCarMapper.xml" />
       <mapper resource="mapper/khakizoneMapper.xml" />
+      <mapper resource="mapper/KeyMapper.xml"/>
+	  <mapper resource="mapper/couponMapper.xml" />
    </mappers>
 </configuration>

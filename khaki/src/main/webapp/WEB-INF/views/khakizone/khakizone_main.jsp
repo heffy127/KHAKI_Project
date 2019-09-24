@@ -45,11 +45,7 @@
 						<div class="row">
 							<div class="col-md-3">
 								<input type="text" name="zone_name" placeholder="카키존 이름">
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<input type="text" name="zone_num" placeholder="카키존 넘버">
+								<input type="hidden" name="zone_num" placeholder="카키존 넘버" value="1">
 							</div>
 							<div class="col-md-9">카키존 위치 : <input name="zone_location_x" id="location_x" type="text" placeholder="경도"> / <input name="zone_location_y" id="location_y" type="text" placeholder="위도"></div>
 						</div>
@@ -182,22 +178,10 @@
 <script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
 	    mapOption = { 
-	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	        level: 3 // 지도의 확대 레벨
+	        center: new kakao.maps.LatLng(37.312699, 126.830516), // 지도의 중심좌표
+	        level: 6 // 지도의 확대 레벨
 	    };
-	
 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-	
-	
-	/* 
-	var marker = new kakao.maps.Marker({ 
-	    // 지도 중심좌표에 마커를 생성합니다 
-	    position: map.getCenter()
-	}); 
-	// 지도에 마커를 표시합니다
-	marker.setMap(map); 
-	*/
-	
 	
 	//-----------------------------------------
 	// select 해온 값을 배열에 넣고 마커에 추가하는 작업
@@ -206,9 +190,11 @@
 	
 	// select_list의 좌표값을 foreach문을 통해 지도에 마커 표시 및 markers배열에 push
 	<c:forEach var="seldto" items="${select_list}">
-		addMarker(new kakao.maps.LatLng(${seldto.zone_location_x}, ${seldto.zone_location_y}));
+		var x = ${seldto.zone_location_x};
+		var y = ${seldto.zone_location_y};
+		addMarker(new kakao.maps.LatLng(x, y));
+		addRectangleBounds(x, y);
 	</c:forEach>
-	
 	
 	// 마커를 생성, 지도위에 표시하는 함수
 	function addMarker(position) {
@@ -222,15 +208,52 @@
 	    markers.push(marker);
 	}
 	
+	// ----------------------------------------------------------
+	// 지역별로 구분할 수 있게 
+	// 사각형 만들어주는 함수
+	function addRectangleBounds(x, y){
+		var sw = new kakao.maps.LatLng(x-0.00200, y-0.0020), // 사각형 영역의 남서쪽 좌표
+	    ne = new kakao.maps.LatLng(x+0.00200, y+0.00200); // 사각형 영역의 북동쪽 좌표
+	    
+		// 사각형을 구성하는 영역정보를 생성합니다
+		// 사각형을 생성할 때 영역정보는 LatLngBounds 객체로 넘겨줘야 합니다
+		var rectangleBounds = new kakao.maps.LatLngBounds(sw, ne);
+	    
+		// 지도에 표시할 사각형을 생성합니다
+		var rectangle = new kakao.maps.Rectangle({
+		    bounds: rectangleBounds, // 그려질 사각형의 영역정보입니다
+		    strokeWeight: 4, // 선의 두께입니다
+		    strokeColor: '#FF3DE5', // 선의 색깔입니다
+		    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+		    strokeStyle: 'shortdashdot', // 선의 스타일입니다
+		    fillColor: '#FF8AEF', // 채우기 색깔입니다
+		    fillOpacity: 0.8 // 채우기 불투명도 입니다
+		});
+		// 지도에 사각형을 표시합니다
+		rectangle.setMap(map);
+	}
+	
+	
+	
+	// ----------------------------------------------------------
+	
 	// 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
 	function setMarkers(map) {
 	    for (var i = 0; i < markers.length; i++) {
 	        markers[i].setMap(map);
-	    }            
+	    }
 	}
 	
 	//-----------------------------------------
 	
+	var marker = new kakao.maps.Marker({ 
+	    // 지도 중심좌표에 마커를 생성합니다 
+	    position: new kakao.maps.LatLng(31.97220, 122.63106)
+	});
+	
+	
+	// 지도에 마커를 표시합니다
+	marker.setMap(map);
 	
 	// 지도를 클릭했을때 클릭한 위치에 마커를 추가하도록 지도에 클릭이벤트를 등록합니다
 	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        

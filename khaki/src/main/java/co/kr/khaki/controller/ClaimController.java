@@ -16,10 +16,6 @@ public class ClaimController {
 	@Autowired
 	ClaimDAO cdao;
 
-	@RequestMapping("key.do")
-	public String key() {
-		return "key/key";
-	}
 	@RequestMapping("claim.do")
 	public String claim() {
 		return "key/claim";
