@@ -4,57 +4,61 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
    <!-- 부적합한 열 유형 처리방법 (NULL이 들어갈 수 있는 값에대한 처리) -->
-	<settings>
-		<setting name="jdbcTypeForNull" value="NULL" />
-	</settings>
+   <settings>
+      <setting name="jdbcTypeForNull" value="NULL" />
+   </settings>
     
-	<typeAliases>
-		<typeAlias type="co.kr.khaki.board.BoardDTO" alias="bDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.board.BoardReplyDTO" alias="reDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.member.MemberDTO" alias="memberDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.member.MemberLevelDTO" alias="memberLevelDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.member.SocialDTO" alias="socialDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.member.LicenseDTO" alias="licenseDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.member.MemberAdminDTO" alias="memberAdminDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.member.InsertPointDTO" alias="insertPointDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.survey.Car_surveyDTO" alias="car_surveyDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.survey.Car_surveyResultDTO" alias="car_surveyResultDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.notice.NoticeDTO" alias="nDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.carmanage.CarManageDTO" alias="cmDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.handler.HandlerDTO" alias="hDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.handler.HandlerStatusDTO" alias="hsDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.handler.HandlerUseDTO" alias="huDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.pay.PayDTO" alias="pDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.car.CarDTO" alias="cDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.carmanage.CarConsumableDTO" alias="ccDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.coupon.CouponUseDTO" alias="cpuDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.refund.RefundDTO" alias="refundDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.key.ClaimDTO" alias="claimDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.usedCar.UsedCarDTO" alias="usedCarDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.key.ClaimDTO" alias="claimDTO"></typeAlias>
-		<typeAlias type="co.kr.khaki.zone.KhakiZoneDTO" alias="zoneDTO"></typeAlias>
-		
-	</typeAliases>
-	<mappers>
-		<mapper resource="mapper/boardMapper.xml" />
-		<mapper resource="mapper/boardReplyMapper.xml" />
-		<mapper resource="mapper/memberMapper.xml" />
-		<mapper resource="mapper/memberAdminMapper.xml" />
-		<mapper resource="mapper/surveyMapper.xml" />
-		<mapper resource="mapper/memberLevelMapper.xml" />
-		<mapper resource="mapper/licenseMapper.xml" />
-		<mapper resource="mapper/socialMapper.xml" />
-		<mapper resource="mapper/noticeMapper.xml" />
-		<mapper resource="mapper/carmanageMapper.xml" />
-		<mapper resource="mapper/handlerMapper.xml" />
-		<mapper resource="mapper/handlerUseMapper.xml" />
-		<mapper resource="mapper/payMapper.xml" />
-		<mapper resource="mapper/carMapper.xml" />
-		<mapper resource="mapper/consumableMapper.xml" />
-		<mapper resource="mapper/couponMapper.xml" />
-		<mapper resource="mapper/refundMapper.xml" />
-		<mapper resource="mapper/claimMapper.xml" />
-		<mapper resource="mapper/usedCarMapper.xml" />
-		<mapper resource="mapper/khakizoneMapper.xml" />
-	</mappers>
+   <typeAliases>
+      <typeAlias type="co.kr.khaki.board.BoardDTO" alias="bDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.board.BoardReplyDTO" alias="reDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.member.MemberDTO" alias="memberDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.member.MemberLevelDTO" alias="memberLevelDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.member.SocialDTO" alias="socialDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.member.LicenseDTO" alias="licenseDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.member.MemberAdminDTO" alias="memberAdminDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.member.InsertPointDTO" alias="insertPointDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.survey.Car_surveyDTO" alias="car_surveyDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.survey.Car_surveyResultDTO" alias="car_surveyResultDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.notice.NoticeDTO" alias="nDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.carmanage.CarManageDTO" alias="cmDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.handler.HandlerDTO" alias="hDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.handler.HandlerStatusDTO" alias="hsDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.handler.HandlerUseDTO" alias="huDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.pay.PayDTO" alias="pDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.car.NewCarDTO" alias="newCarDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.car.CarDTO" alias="cDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.carmanage.CarConsumableDTO" alias="ccDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.coupon.CouponUseDTO" alias="cpuDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.refund.RefundDTO" alias="refundDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.key.ClaimDTO" alias="claimDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.usedCar.UsedCarDTO" alias="usedCarDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.zone.KhakiZoneDTO" alias="zoneDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.key.KeyDTO" alias="keyDTO"/>
+	  <typeAlias type="co.kr.khaki.coupon.CouponDTO" alias="cpDTO"/>
+      
+   </typeAliases>
+   <mappers>
+      <mapper resource="mapper/boardMapper.xml" />
+      <mapper resource="mapper/boardReplyMapper.xml" />
+      <mapper resource="mapper/memberMapper.xml" />
+      <mapper resource="mapper/memberAdminMapper.xml" />
+      <mapper resource="mapper/surveyMapper.xml" />
+      <mapper resource="mapper/memberLevelMapper.xml" />
+      <mapper resource="mapper/licenseMapper.xml" />
+      <mapper resource="mapper/socialMapper.xml" />
+      <mapper resource="mapper/noticeMapper.xml" />
+      <mapper resource="mapper/carmanageMapper.xml" />
+      <mapper resource="mapper/handlerMapper.xml" />
+      <mapper resource="mapper/handlerUseMapper.xml" />
+      <mapper resource="mapper/payMapper.xml" />
+      <mapper resource="mapper/carMapper.xml" />
+      <mapper resource="mapper/consumableMapper.xml" />
+      <mapper resource="mapper/couponUseMapper.xml" />
+      <mapper resource="mapper/refundMapper.xml" />
+      <mapper resource="mapper/claimMapper.xml" />
+      <mapper resource="mapper/usedCarMapper.xml" />
+      <mapper resource="mapper/khakizoneMapper.xml" />
+      <mapper resource="mapper/KeyMapper.xml"/>
+	  <mapper resource="mapper/couponMapper.xml" />
+   </mappers>
 </configuration>

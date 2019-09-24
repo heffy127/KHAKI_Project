@@ -1,4 +1,4 @@
-package co.kr.khaki.handler;
+package co.kr.khaki.handler.DTO;
 
 public class HandlerDTO {
 	private int hb_num;

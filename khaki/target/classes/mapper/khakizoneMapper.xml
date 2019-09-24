@@ -4,14 +4,17 @@
 
 <mapper namespace="zoneDAO">
 
-	<!-- <select id="zone_select" parameterType="int" resultType="rsMap">
-		SELECT
-		columnname1,
-		columnname2,
-		columnname3
-		FROM khakizone
-		WHERE columnname1 = #{value}
-	</select> -->
+	<select id="select_page" parameterType="int" resultMap="rsMap">
+		select X.ZONE_NUM, X.ZONE_NAME, X.ZONE_LOCATION_X, X.ZONE_LOCATION_Y, X.ZONE_COMMENT
+		from ( 
+		    select rownum as rnum, A.ZONE_NAME, A.ZONE_NUM, A.ZONE_LOCATION_X, A.ZONE_LOCATION_Y, A.ZONE_COMMENT
+		    from (
+		        select ZONE_NAME, ZONE_NUM, ZONE_LOCATION_X, ZONE_LOCATION_Y, ZONE_COMMENT
+		        from KHAKIZONE
+		        order by ZONE_NUM desc) A
+		    where #{idx}+5 >= rownum) X
+		where X.rnum >= #{idx}+1
+	</select>
 
 	<resultMap type="zoneDTO" id="rsMap">
 		<result property="zone_num" column="zone_num" />
@@ -24,10 +27,14 @@
 	<select id="zone_selectAll" resultMap="rsMap">
 		SELECT * FROM khakizone
 	</select>
+	
+	<select id="zone_cntAll" resultType="int">
+		SELECT count(*) from khakizone
+	</select>
 
 	<insert id="zone_insert" parameterType="zoneDTO">
 		INSERT INTO khakizone (zone_num, zone_name, zone_location_x,zone_location_y, zone_comment)
-		VALUES(#{zone_num},#{zone_name},#{zone_location_x}, #{zone_location_y},#{zone_comment})
+		VALUES(khakizone_seq.nextval,#{zone_name},#{zone_location_x}, #{zone_location_y},#{zone_comment})
 	</insert>
 
 	<!-- <update id="updateSomething" parameterType="#modelname">

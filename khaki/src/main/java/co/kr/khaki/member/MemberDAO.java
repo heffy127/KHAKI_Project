@@ -4,7 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import co.kr.khaki.handler.HandlerStatusDTO;
+import co.kr.khaki.handler.DTO.HandlerStatusDTO;
 import co.kr.khaki.pay.PayDTO;
 
 @Repository

@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import co.kr.khaki.handler.HandlerDTO;
+import co.kr.khaki.handler.DTO.HandlerDTO;
 
 @Repository
 public class CouponUseDAO {

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
-import co.kr.khaki.handler.HandlerDAO;
-import co.kr.khaki.handler.HandlerDTO;
+import co.kr.khaki.handler.DAO.HandlerDAO;
+import co.kr.khaki.handler.DTO.HandlerDTO;
 import co.kr.khaki.member.CalculateMemberLevel;
 import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.member.MemberLevelDAO;

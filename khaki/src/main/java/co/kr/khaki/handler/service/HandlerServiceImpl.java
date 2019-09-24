@@ -1,4 +1,4 @@
-package co.kr.khaki.controller;
+package co.kr.khaki.handler.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -7,23 +7,24 @@ import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.kr.khaki.coupon.CouponUseDTO;
-import co.kr.khaki.handler.HandlerDAO;
-import co.kr.khaki.handler.HandlerDTO;
-import co.kr.khaki.handler.HandlerStatusDTO;
-import co.kr.khaki.handler.HandlerUseDAO;
-import co.kr.khaki.handler.HandlerUseDTO;
+import co.kr.khaki.handler.DAO.HandlerDAO;
+import co.kr.khaki.handler.DAO.HandlerUseDAO;
+import co.kr.khaki.handler.DTO.HandlerDTO;
+import co.kr.khaki.handler.DTO.HandlerStatusDTO;
+import co.kr.khaki.handler.DTO.HandlerUseDTO;
 import co.kr.khaki.member.InsertPointDTO;
 import co.kr.khaki.member.LicenseDAO;
 import co.kr.khaki.member.LicenseDTO;
 import co.kr.khaki.member.MemberDAO;
 import co.kr.khaki.member.MemberDTO;
 
-@Controller
-public class HandlerController {
+@Service
+public class HandlerServiceImpl implements HandlerServiceInterface {
 
 	@Autowired
 	HandlerDAO hdao;
@@ -37,13 +38,8 @@ public class HandlerController {
 	@Autowired
 	LicenseDAO licenseDAO;
 
-	@RequestMapping("handler.do")
-	public String handler() {
-		return "handler/handler";
-	}
-
-	@RequestMapping("handlerBoard.do")
-	public String handlerBoard(Model model) {
+	@Override
+	public List<HandlerDTO> handlerBoard() {
 		List<HandlerDTO> handler = hdao.selectAll();
 		List<HandlerDTO> hd = new ArrayList<HandlerDTO>(); // 저장되어 출력 될 List
 
@@ -116,42 +112,34 @@ public class HandlerController {
 		}
 
 		System.out.println("Controller SelectAll");
-		model.addAttribute("hlist", hd);
-		return "handler/handlerBoard";
+		return hd;
 	}
 
-	@RequestMapping("handlerJquery.do")
-	public String handlerJquery(Model model) {
-		return "handler/handlerJquery";
-	}
-
-	@RequestMapping("handlerDetailSearch.do")
-	public String handlerDetailSearch(HandlerDTO hdto, Model model) {
+	@Override
+	public List<HandlerDTO> handlerDetailSearch(HandlerDTO hdto) {
 		List<HandlerDTO> handler = hdao.select(hdto);
 		System.out.println("Controller Select");
-		model.addAttribute("hlist", handler);
-		return "handler/handlerDetailSearch";
+		return handler;
 	}
 
-	@RequestMapping("handlerDetailSearch2.do")
-	public String handlerDetailSearch2(HandlerDTO hdto, Model model) {
+	@Override
+	public List<HandlerDTO> handlerDetailSearch2(HandlerDTO hdto) {
 		List<HandlerDTO> handler = hdao.select2(hdto);
 		System.out.println("Controller Select2");
-		model.addAttribute("hlist2", handler);
-		return "handler/handlerDetailSearch2";
+		return handler;
 	}
 
-	@RequestMapping("handlerIdCheck.do")
-	public String handlerIdCheck(MemberDTO memberDTO, Model model) {
-		memberDTO = memberDAO.selectId(memberDTO.getId());
-		model.addAttribute("memberDTO", memberDTO);
-		return "handler/handlerIdCheck";
+	@Override
+	public MemberDTO handlerIdCheck(MemberDTO memberDTO) {
+		MemberDTO memberDTO2 = memberDAO.selectId(memberDTO.getId());
+		return memberDTO2;
 	}
 
 	// handler.jsp에서 아직 핸들러가 아닌 회원이 핸들러 신청하기 버튼을 클릭 했을 경우
 	// 사용자의 useCount(카키 이용횟수)를 파악해 5번 이상 이용한 회원 일 경우 핸들러 신청 가능.
+	@Override
 	@RequestMapping("handlerUseCountCheck.do")
-	public String handlerUseCountCheck(MemberDTO memberDTO, Model model) {
+	public String handlerUseCountCheck(MemberDTO memberDTO) {
 		memberDTO = memberDAO.selectId(memberDTO.getId()); // ajax에서 sessionId를 data로 보내서 해당 id로 select
 		System.out.println(memberDTO.getId() + " : sessionId 확인");
 		System.out.println(memberDTO.getUseCount() + " : useCount 확인"); // sessionId와 useCount 확인.
@@ -173,21 +161,21 @@ public class HandlerController {
 				hsDTO.setHandler(handler);
 				System.out.println("입력 될 데이터 : " + hsDTO.getId() + ", " + hsDTO.getHandler());
 				memberDAO.updateHandler(hsDTO);
-				model.addAttribute("useCountCheck", handler);// 핸들러 여부 결과 Y/N 중 하나를 다음 페이지로 전송
+				return handler;
 			} else if ((year - liYear) == 1) {
 				if (month > liMonth) {
 					handler = "Y";
 					hsDTO.setHandler(handler);
 					System.out.println("입력 될 데이터 : " + hsDTO.getId() + ", " + hsDTO.getHandler());
 					memberDAO.updateHandler(hsDTO);
-					model.addAttribute("useCountCheck", handler);// 핸들러 여부 결과 Y/N 중 하나를 다음 페이지로 전송
+					return handler;
 				} else if (month == liMonth) {
 					if (date > liDate) {
 						handler = "Y";
 						hsDTO.setHandler(handler);
 						System.out.println("입력 될 데이터 : " + hsDTO.getId() + ", " + hsDTO.getHandler());
 						memberDAO.updateHandler(hsDTO);
-						model.addAttribute("useCountCheck", handler);// 핸들러 여부 결과 Y/N 중 하나를 다음 페이지로 전송
+						return handler;
 					}
 				}
 			}
@@ -197,67 +185,50 @@ public class HandlerController {
 			hsDTO.setHandler(handler);
 			System.out.println("입력 될 데이터 : " + hsDTO.getId() + ", " + hsDTO.getHandler());
 			memberDAO.updateHandler(hsDTO);
-			model.addAttribute("useCountCheck", handler);// 핸들러 여부 결과 Y/N 중 하나를 다음 페이지로 전송
+			return handler;
 		} else { // 4미만일 경우
 			handler = "N";
 			hsDTO.setHandler(handler);
 			System.out.println("입력 될 데이터 : " + hsDTO.getId() + ", " + hsDTO.getHandler());
 			memberDAO.updateHandler(hsDTO);
-			model.addAttribute("useCountCheck", handler);// 핸들러 여부 결과 Y/N 중 하나를 다음 페이지로 전송
+			return handler;
 		}
-		// model.addAttribute("useCountCheck", handler); // 핸들러 여부 결과 Y/N 중 하나를 다음 페이지로
-		// 전송
+		
+		return handler;
 
-		return "handler/handlerUseCountCheck";
+		
 	}
 
 	// 핸들러 게시판에서 신청하기 버튼 누를 때마다 handleruse db에 insert
-	@RequestMapping("handlerUse.do")
-	public String handlerUse(HandlerUseDTO handlerUseDTO, Model model) {
+	@Override
+	public void handlerUse(HandlerUseDTO handlerUseDTO) {
 		System.out.println("hudao Insert~");
 		hudao.insert(handlerUseDTO);
-
-		return "handler/handlerUse";
 	}
 
-	@RequestMapping("handlerUseSelect.do")
-	public String handlerUseSelect(String h_id, Model model) {
+	@Override
+	public List<HandlerUseDTO> handlerUseSelect(String h_id) {
 		System.out.println("handlerUse select 시작");
 		List<HandlerUseDTO> hu = hudao.select(h_id);
-
-		model.addAttribute("hulist", hu);
-
-		return "handler/handlerUseSelect";
+		return hu;
 	}
 
-	@RequestMapping("handlerUseUpdate.do")
-	public String handlerUseUpdate(HandlerUseDTO handlerUseDTO, Model model) {
-
-		System.out.println(handlerUseDTO.getH_id() + "zzzz");
-		System.out.println(handlerUseDTO.getH_carNum() + "zzzz");
-		System.out.println(handlerUseDTO.getH_carModel() + "zzzz");
-		System.out.println(handlerUseDTO.getH_startLocation() + "zzzz");
-		System.out.println(handlerUseDTO.getH_returnLocation() + "zzzz");
-		System.out.println(handlerUseDTO.getH_complete() + "zzzz");
-		System.out.println(handlerUseDTO.getH_point() + "zzzz");
-		System.out.println(handlerUseDTO.getH_using() + "zzzz");
+	@Override
+	public void handlerUseUpdate(HandlerUseDTO handlerUseDTO) {
 		String[] sp = handlerUseDTO.getH_point().split("p");
 		System.out.println(sp[0]);
 		hudao.update(handlerUseDTO);
 		InsertPointDTO insertpointDTO = new InsertPointDTO();
 		insertpointDTO.setId(handlerUseDTO.getH_id());
 		insertpointDTO.setPoint(Integer.parseInt(sp[0]));
-
 		memberDAO.updatePoint(insertpointDTO);
-		return "handler/handlerUseSelect";
 	}
 
+	@Override
 	@RequestMapping("handlerDelete.do")
-	public String handlerDelete(HandlerDTO handlerDTO) {
+	public void handlerDelete(HandlerDTO handlerDTO) {
 		System.out.println(handlerDTO.getHb_num() + " 번호!!!");
 		hdao.delete(handlerDTO);
-
-		return "handler/handlerDelete";
 	}
 
 }
