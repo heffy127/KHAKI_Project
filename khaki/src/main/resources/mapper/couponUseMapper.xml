@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cpuDAO">
+	
+	<select id="select" parameterType="cpuDTO" resultMap="rsMap">
+		SELECT *
+		FROM couponUse
+		WHERE cp_id = #{cp_id}
+	</select>
+	
+	
+	<resultMap type="cpuDTO" id="rsMap">
+		<result property="num" column="num" />
+		<result property="cp_id" column="cp_id" />
+		<result property="cp_title" column="cp_title" />
+		<result property="cp_type" column="cp_type" />
+		<result property="cp_num" column="cp_num" />
+		<result property="cp_end" column="cp_end" />
+		<result property="cp_using" column="cp_using" />
+	</resultMap>
+	
+	<delete id="delete" parameterType="cpuDTO">
+		DELETE FROM couponUse WHERE
+		cp_end = #{cp_end}
+	</delete>
+	
+	<delete id="update" parameterType="cpuDTO">
+		UPDATE couponUse SET cp_using = 'Y' WHERE num = #{num}
+	</delete>
+	
+	<delete id="updateN" parameterType="cpuDTO">
+		UPDATE couponUse SET cp_using = 'N' WHERE num = #{num}
+	</delete>
+
+</mapper>
+

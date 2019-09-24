@@ -329,13 +329,13 @@
 			           			<input type="text" id="title" name="title" placeholder="제목을 입력하세요." style="left:92px; height:27px; width:700px; margin-top: -5px;">
 					   		</div>
 				        	<div>
-				        	<c:if test="${sessionId == 'admin1'}">
 				           		<div style="width: 100px;"><h3>글 카테고리 </h3>
 									<div><input type="radio" id="category" name="category" value="free" checked>일반
-									<input type="radio" id="category" name="category" value="notice">공지 <br>
+					        	<c:if test="${sessionId == 'admin1'}">
+										<input type="radio" id="category" name="category" value="notice">공지 <br>
+								</c:if>
 									</div>
 								</div>
-							</c:if>
 							<!-- 관리자 권한  END -->
 				        	</div>
 				        		<div>

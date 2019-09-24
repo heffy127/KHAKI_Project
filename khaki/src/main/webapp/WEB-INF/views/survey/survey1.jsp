@@ -33,18 +33,23 @@
 				function() {
 					location.href = "survey2.do"
 			})
+			$('#surveyNoBtn').click( // 다음에 하기
+				function() {
+					$(top.document).find("#tabs-icons-text-6").attr("src","orange");
+			})
+			
 	})
 </script>
 <body>
 <br>
 <div align="center">
-	<div style="width: 600px;">
+	<div style="width: 500px;">  <!-- 화면 비율 때문에 수정함 -->
 		<div style="background-color: #32a852">
 			<h1 style="color: white;">KHAKI 차량 이용 만족도 조사</h1>
 		</div>
 		<br>
 		<div>
-			<img alt="설문 커버" src="resources/assets/img/theme/survey-cover.JPG" width="600px;">
+			<img alt="설문 커버" src="resources/assets/img/theme/survey-cover.JPG" width="500px;">
 		</div>	
 		<div class="divExplain">
 			대한민국 1등 카셰어링, KHAKI를 이용해주셔서 감사합니다.<br>
