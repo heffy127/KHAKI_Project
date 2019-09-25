@@ -576,6 +576,18 @@
   <script src="resources/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
   <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
+	   
+	    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+	    navigator.geolocation.getCurrentPosition(function(position) {
+	       
+	        lat = position.coords.latitude;    // 위도
+	        lon = position.coords.longitude; // 경도
+	       
+	      sessionStorage.setItem('preLoc_x', lat);
+	      sessionStorage.setItem('preLoc_y', lon);
+	      });
+	   
+	
     window.TrackJS &&
       TrackJS.install({
         token: "ee6fab19c5a04ac1a32a645abde4613a",

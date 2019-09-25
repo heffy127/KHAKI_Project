@@ -1506,8 +1506,6 @@ $(document).ready(
 
                 var positionsAll = [
                 	<%
-                	
-                	
                 	for(int k = 0; k<list.size();k++){
                 		loc_x = list.get(k).getZone_location_x();
                 		loc_y = list.get(k).getZone_location_y();
@@ -1540,19 +1538,16 @@ $(document).ready(
                 })
                    //----------------------------------------------------------------------------------------------------------------------
                 var positions = [];
-                selectZoneNum.forEach(function(item) {
-                positions.push(positionsAll[item]);
-                });
-
-                  //----------------------------------------------------------------------------------------------------------------------
-
-                  var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-                  mapOption = {
-                     center : new kakao.maps.LatLng(<%=loc_x%>,
-                           <%=loc_y%>), // 지도의 중심좌표 > 회원정보에 입력된 주소를 좌표로 변환하여 입력됨
-                     level : 7
-                  // 지도의 확대 레벨
-                  };
+	                selectZoneNum.forEach(function(item) {
+	                positions.push(positionsAll[item]);
+	                });
+	                
+                    	var mapContainer = document.getElementById('map'); // 지도를 표시할 div
+                        var mapOption = {
+                           center : new kakao.maps.LatLng(sessionStorage.getItem('preLoc_x'),sessionStorage.getItem('preLoc_y')), // 지도의 중심좌표 > 회원정보에 입력된 주소를 좌표로 변환하여 입력됨
+                           level : 7
+                        // 지도의 확대 레벨 
+                        };
 
                   var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
@@ -1566,12 +1561,10 @@ $(document).ready(
                      overOriginY = 0, // 스프라이트 이미지에서 오버 마커로 사용할 Y좌표 값
                      normalOrigin = new kakao.maps.Point(0, originY), // 스프라이트 이미지에서 기본 마커로 사용할 영역의 좌상단 좌표
                      clickOrigin = new kakao.maps.Point(gapX, originY), // 스프라이트 이미지에서 마우스오버 마커로 사용할 영역의 좌상단 좌표
-                     overOrigin = new kakao.maps.Point(gapX * 2,
-                           overOriginY); // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
+                     overOrigin = new kakao.maps.Point(gapX * 2, overOriginY); // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
 
                      // 마커를 생성하고 지도위에 표시합니다
-                     addMarker(positions[i], normalOrigin, overOrigin,
-                           clickOrigin);
+                     addMarker(positions[i], normalOrigin, overOrigin, clickOrigin);
                   }
 
                   // 마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
@@ -1700,7 +1693,8 @@ $(document).ready(
       </footer>
    </div>
 </div>
-
+<input type="hidden" id="preLocLat">
+<input type="hidden" id="preLocLon">
 <!--   Core   -->
 <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
 <script src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
