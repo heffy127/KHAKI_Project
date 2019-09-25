@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import co.kr.khaki.notice.pagination;
+import co.kr.khaki.zone.KhakiZoneCal;
 import co.kr.khaki.zone.KhakiZoneDAO;
 import co.kr.khaki.zone.KhakiZoneDTO;
 
@@ -30,9 +31,17 @@ public class KhakiZoneController {
 		System.out.println("index 숫자 : " + pg.getStartIndex());
 		List<KhakiZoneDTO> select_list = zonedao.select_page(pg.getStartIndex());
 		
+		KhakiZoneCal zonecal = new KhakiZoneCal(select_list);
+		
+		System.out.println("===================================================");
+		System.out.println("zonecal 평균x : "+zonecal.getCenter_x()+", 평균y : "+zonecal.getCenter_y()+", 차이값 최대 : "+zonecal.getBetween_max()+", x값 최대 :"+
+		zonecal.getMax_x()+", y값 최대  : "+zonecal.getMax_y());
+		System.out.println("===================================================");
+		
 		//model객체를 통한 view단에 전달하는 곳
 		model.addAttribute("pagination", pg);
 		model.addAttribute("select_list", select_list);
+		model.addAttribute("cal", zonecal);
 		
 		return "khakizone/khakizone_main";
 	}
@@ -52,9 +61,12 @@ public class KhakiZoneController {
 		System.out.println("index 숫자 : " + pg.getStartIndex());
 		List<KhakiZoneDTO> select_list = zonedao.select_page(pg.getStartIndex());
 		
+		KhakiZoneCal zonecal = new KhakiZoneCal(select_list);
+		
 		//model객체를 통한 view단에 전달하는 곳
 		model.addAttribute("pagination", pg);
 		model.addAttribute("select_list", select_list);
+		model.addAttribute("cal", zonecal);
 		
 		return "khakizone/khakizone_main";
 	}
