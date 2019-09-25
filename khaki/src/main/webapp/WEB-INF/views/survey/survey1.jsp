@@ -21,7 +21,7 @@
 .divExplain
 {
 	margin-top: 20px;
-	font-size: 19px;
+	font-size: 17px;
 	font-weight: bold;
 }
 </style>
@@ -33,6 +33,7 @@
 				function() {
 					location.href = "survey2.do"
 			})
+			
 			$('#surveyNoBtn').click( // 다음에 하기
 				function() {
 					$(top.document).find("#tabs-icons-text-6").attr("src","orange");

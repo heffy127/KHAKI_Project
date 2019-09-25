@@ -8,10 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import co.kr.khaki.member.DAO.LicenseDAO;
-import co.kr.khaki.member.DAO.MemberAdminDAO;
-import co.kr.khaki.member.DAO.MemberDAO;
-import co.kr.khaki.member.DAO.MemberLevelDAO;
+import co.kr.khaki.member.DAO.LicenseDAOInter;
+import co.kr.khaki.member.DAO.MemberAdminDAOInter;
+import co.kr.khaki.member.DAO.MemberDAOInter;
+import co.kr.khaki.member.DAO.MemberLevelDAOInter;
 import co.kr.khaki.member.DTO.LicenseDTO;
 import co.kr.khaki.member.DTO.MemberAdminDTO;
 import co.kr.khaki.member.DTO.MemberDTO;
@@ -21,13 +21,13 @@ import co.kr.khaki.notice.pagination;
 public class AdminController {
 
    @Autowired
-   MemberDAO memberDAO;
+   MemberDAOInter memberDAO;
    @Autowired
-   MemberLevelDAO memberLevelDAO;
+   MemberLevelDAOInter memberLevelDAO;
    @Autowired
-   LicenseDAO licenseDAO;
+   LicenseDAOInter licenseDAO;
    @Autowired
-   MemberAdminDAO memberAdminDAO;
+   MemberAdminDAOInter memberAdminDAO;
    
    @RequestMapping("admin.do")
    public String admin() {   

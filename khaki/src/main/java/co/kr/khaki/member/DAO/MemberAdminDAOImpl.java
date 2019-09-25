@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import co.kr.khaki.member.DTO.MemberAdminDTO;
 
 @Repository
-public class MemberAdminDAOImpl implements MemberAdminDAO {
+public class MemberAdminDAOImpl implements MemberAdminDAOInter {
 
    @Autowired
    SqlSessionTemplate my;

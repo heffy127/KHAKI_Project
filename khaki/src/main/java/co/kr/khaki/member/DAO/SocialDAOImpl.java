@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import co.kr.khaki.member.DTO.SocialDTO;
 
 @Repository
-public class SocialDAOImpl implements SocialDAO {
+public class SocialDAOImpl implements SocialDAOInter {
 
 	@Autowired
 	SqlSessionTemplate my;

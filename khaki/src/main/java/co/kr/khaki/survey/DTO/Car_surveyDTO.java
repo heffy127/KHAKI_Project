@@ -1,4 +1,4 @@
-package co.kr.khaki.survey;
+package co.kr.khaki.survey.DTO;
 
 public class Car_surveyDTO {
 	private int num;

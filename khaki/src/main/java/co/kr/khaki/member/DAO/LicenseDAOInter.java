@@ -4,7 +4,7 @@ import java.util.List;
 
 import co.kr.khaki.member.DTO.LicenseDTO;
 
-public interface LicenseDAO {
+public interface LicenseDAOInter {
 
 	LicenseDTO selectId(String id);
 

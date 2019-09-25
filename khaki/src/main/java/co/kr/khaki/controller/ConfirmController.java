@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
-import co.kr.khaki.member.DAO.MemberDAO;
+import co.kr.khaki.member.DAO.MemberDAOInter;
 import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.pay.PayDTO;
 
@@ -23,7 +23,7 @@ public class ConfirmController {
 	CouponUseDAO cpuDAO;
 	
 	@Autowired
-	MemberDAO memberDAO;
+	MemberDAOInter memberDAO;
 	
 	@RequestMapping("confirm.do")
 	   public String confirm(Model model, PayDTO payDTO, String buy_carImage) {

@@ -11,26 +11,26 @@ import org.springframework.web.bind.support.SessionStatus;
 import co.kr.khaki.member.DTO.InsertPointDTO;
 import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.member.DTO.SocialDTO;
-import co.kr.khaki.member.service.MemberService;
+import co.kr.khaki.member.service.MemberServiceInter;
 
 
 @Controller
 public class RegisterController {
 
    @Autowired
-   MemberService memberService;
+   MemberServiceInter memberServiceInter;
    
    @RequestMapping("idCheck.do")
    public String idCheck(String idCheck, MemberDTO memberDTO, Model model) {
-      memberDTO = memberService.selectFromId(idCheck);
-      model.addAttribute("check", memberService.check(memberDTO));
+      memberDTO = memberServiceInter.selectFromId(idCheck);
+      model.addAttribute("check", memberServiceInter.check(memberDTO));
       return "register/check";
    }
    
    @RequestMapping("emailCheck.do")
    public String emailCheck(MemberDTO memberDTO, Model model) {
-      memberDTO = memberService.selectFromEmail(memberDTO);
-      model.addAttribute("check", memberService.check(memberDTO));
+      memberDTO = memberServiceInter.selectFromEmail(memberDTO);
+      model.addAttribute("check", memberServiceInter.check(memberDTO));
       return "register/check";
    }
    
@@ -59,7 +59,7 @@ public class RegisterController {
    // 이메일 인증코드 전송
    @RequestMapping("emailAuth.do") // ajax용
    public String emailAuth(MemberDTO memberDTO, Model model) {
-      String authNum = memberService.sendEmailAuth(memberDTO);
+      String authNum = memberServiceInter.sendEmailAuth(memberDTO);
       model.addAttribute("authNum", authNum);
       return "register/emailAuthNum"; // 이메일 인증번호를 register3로 가져오는 jsp
    }
@@ -91,8 +91,8 @@ public class RegisterController {
    // 휴대폰 중복체크
    @RequestMapping("phoneCheck.do")
    public String phoneCheck(MemberDTO memberDTO, Model model) {
-      memberDTO = memberService.selectFromPhone(memberDTO);
-      model.addAttribute("check", memberService.check(memberDTO));
+      memberDTO = memberServiceInter.selectFromPhone(memberDTO);
+      model.addAttribute("check", memberServiceInter.check(memberDTO));
       return "register/check";
    }
    
@@ -114,13 +114,13 @@ public class RegisterController {
       System.out.println("여긴 registerEnd " + socialDTO.getSocial_id());
       sessionStatus.setComplete(); // 가입 문자를 위해 생성했던 세션 삭제
       
-      memberService.insertHashPw(memberDTO); // 비밀번호 해시화 후 저장
-      memberService.insertSocial(socialDTO, memberDTO); // 소셜 가입의 경우 social 테이블에 저장
+      memberServiceInter.insertHashPw(memberDTO); // 비밀번호 해시화 후 저장
+      memberServiceInter.insertSocial(socialDTO, memberDTO); // 소셜 가입의 경우 social 테이블에 저장
 
       // 가입시 100point 지급
-      memberService.updatePoint(memberDTO.getId(), 100); // 포인트 업데이트
-      memberService.updatePointReco(reco, memberDTO.getId(), 100); // 추천인 포인트 업데이트
-      memberService.insertLevel(memberDTO.getId()); // 회원 레벨 생성
+      memberServiceInter.updatePoint(memberDTO.getId(), 100); // 포인트 업데이트
+      memberServiceInter.updatePointReco(reco, memberDTO.getId(), 100); // 추천인 포인트 업데이트
+      memberServiceInter.insertLevel(memberDTO.getId()); // 회원 레벨 생성
       if(go.trim().equals("home")) {
          return "home/index";
          // 바로 홈으로

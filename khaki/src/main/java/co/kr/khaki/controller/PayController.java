@@ -12,8 +12,8 @@ import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
 import co.kr.khaki.handler.DAO.HandlerDAO;
 import co.kr.khaki.handler.DTO.HandlerDTO;
-import co.kr.khaki.member.DAO.MemberDAO;
-import co.kr.khaki.member.DAO.MemberLevelDAO;
+import co.kr.khaki.member.DAO.MemberDAOInter;
+import co.kr.khaki.member.DAO.MemberLevelDAOInter;
 import co.kr.khaki.member.DTO.MemberLevelDTO;
 import co.kr.khaki.pay.PayDAO;
 import co.kr.khaki.pay.PayDTO;
@@ -25,7 +25,7 @@ public class PayController {
       PayDAO pdao;
       
       @Autowired
-  	  MemberDAO memberDAO;
+  	  MemberDAOInter memberDAO;
       
       @Autowired
   	  HandlerDAO hdao;
@@ -34,7 +34,7 @@ public class PayController {
   	  CouponUseDAO cpuDAO;
       
       @Autowired 
-  	  MemberLevelDAO memberLevelDAO;
+  	  MemberLevelDAOInter memberLevelDAO;
 
       String cnt;
 

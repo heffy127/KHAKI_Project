@@ -5,7 +5,7 @@ import co.kr.khaki.member.DTO.InsertPointDTO;
 import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.pay.PayDTO;
 
-public interface MemberDAO {
+public interface MemberDAOInter {
 
 	MemberDTO selectId(String id);
 

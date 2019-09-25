@@ -55,6 +55,7 @@ hr
 {
 	margin-top: 20px;
 }
+
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -110,7 +111,7 @@ hr
 				}, 1800); // 1.5초뒤 popover닫기
 				return false
 			}
-			
+			window.parent.surveyFinish()
 			$('#surveyF').submit()
 		})
 	})
@@ -191,35 +192,35 @@ hr
 							<div class="custom-control custom-radio mb-3">
 								<input name="q2" class="custom-control-input" id="q2_1"
 									type="radio" value="5"> <label
-									class="custom-control-label" for="q2_1">매우 그렇다</label>
+									class="custom-control-label" for="q2_1" style="font-size: 13px;">매우 그렇다</label>
 							</div>
 						</td>
 						<td style="width: 120px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q2" class="custom-control-input" id="q2_2"
 									type="radio" value="4"> <label
-									class="custom-control-label" for="q2_2">조금 그렇다</label>
+									class="custom-control-label" for="q2_2" style="font-size: 13px;">조금 그렇다</label>
 							</div>
 						</td>
 						<td style="width: 120px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q2" class="custom-control-input" id="q2_3"
 									type="radio" value="3"> <label
-									class="custom-control-label" for="q2_3">보통이다</label>
+									class="custom-control-label" for="q2_3" style="font-size: 13px;">보통이다</label>
 							</div>
 						</td>
 						<td style="width: 120px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q2" class="custom-control-input" id="q2_4"
 									type="radio" value="2"> <label
-									class="custom-control-label" for="q2_4">조금 아니다</label>
+									class="custom-control-label" for="q2_4" style="font-size: 13px;">조금 아니다</label>
 							</div>
 						</td>
 						<td style="width: 120px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q2" class="custom-control-input" id="q2_5"
 									type="radio" value="1"> <label
-									class="custom-control-label" for="q2_5">매우 아니다</label>
+									class="custom-control-label" for="q2_5" style="font-size: 13px;">매우 아니다</label>
 							</div>
 						</td>
 					</tr>
@@ -240,35 +241,35 @@ hr
 							<div class="custom-control custom-radio mb-3">
 								<input name="q3" class="custom-control-input" id="q3_1"
 									type="radio" value="5"> <label
-									class="custom-control-label" for="q3_1">매우 그렇다</label>
+									class="custom-control-label" for="q3_1" style="font-size: 13px;">매우 그렇다</label>
 							</div>
 						</td>
 						<td style="width: 120px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q3" class="custom-control-input" id="q3_2"
 									type="radio" value="4"> <label
-									class="custom-control-label" for="q3_2">조금 그렇다</label>
+									class="custom-control-label" for="q3_2" style="font-size: 13px;">조금 그렇다</label>
 							</div>
 						</td>
 						<td style="width: 120px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q3" class="custom-control-input" id="q3_3"
 									type="radio" value="3"> <label
-									class="custom-control-label" for="q3_3">보통이다</label>
+									class="custom-control-label" for="q3_3" style="font-size: 13px;">보통이다</label>
 							</div>
 						</td>
 						<td style="width: 120px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q3" class="custom-control-input" id="q3_4"
 									type="radio" value="2"> <label
-									class="custom-control-label" for="q3_4">조금 아니다</label>
+									class="custom-control-label" for="q3_4" style="font-size: 13px;">조금 아니다</label>
 							</div>
 						</td>
 						<td style="width: 120px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q3" class="custom-control-input" id="q3_5"
 									type="radio" value="1"> <label
-									class="custom-control-label" for="q3_5">매우 아니다</label>
+									class="custom-control-label" for="q3_5" style="font-size: 13px;">매우 아니다</label>
 							</div>
 						</td>
 					</tr>
@@ -289,35 +290,35 @@ hr
 							<div class="custom-control custom-radio mb-3">
 								<input name="q4" class="custom-control-input" id="q4_1"
 									type="radio" value="5"> <label
-									class="custom-control-label" for="q4_1">매우 그렇다</label>
+									class="custom-control-label" for="q4_1" style="font-size: 13px;">매우 그렇다</label>
 							</div>
 						</td>
 						<td style="width: 120px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q4" class="custom-control-input" id="q4_2"
 									type="radio" value="4"> <label
-									class="custom-control-label" for="q4_2">조금 그렇다</label>
+									class="custom-control-label" for="q4_2" style="font-size: 13px;">조금 그렇다</label>
 							</div>
 						</td>
 						<td style="width: 120px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q4" class="custom-control-input" id="q4_3"
 									type="radio" value="3"> <label
-									class="custom-control-label" for="q4_3">보통이다</label>
+									class="custom-control-label" for="q4_3" style="font-size: 13px;">보통이다</label>
 							</div>
 						</td>
 						<td style="width: 120px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q4" class="custom-control-input" id="q4_4"
 									type="radio" value="2"> <label
-									class="custom-control-label" for="q4_4">조금 아니다</label>
+									class="custom-control-label" for="q4_4" style="font-size: 13px;">조금 아니다</label>
 							</div>
 						</td>
 						<td style="width: 120px;">
 							<div class="custom-control custom-radio mb-3">
 								<input name="q4" class="custom-control-input" id="q4_5"
 									type="radio" value="1"> <label
-									class="custom-control-label" for="q4_5">매우 아니다</label>
+									class="custom-control-label" for="q4_5" style="font-size: 13px;">매우 아니다</label>
 							</div>
 						</td>
 					</tr>

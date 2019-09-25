@@ -4,7 +4,7 @@ import java.util.List;
 
 import co.kr.khaki.member.DTO.MemberAdminDTO;
 
-public interface MemberAdminDAO {
+public interface MemberAdminDAOInter {
 
 	List<MemberAdminDTO> selectAll();
 

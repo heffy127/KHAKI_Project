@@ -7,7 +7,7 @@ import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.member.DTO.MemberLevelDTO;
 import co.kr.khaki.member.DTO.SocialDTO;
 
-public interface MemberService {
+public interface MemberServiceInter {
 
 	// ID로 회원 검색
 	MemberDTO selectFromId(String id);

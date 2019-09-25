@@ -17,10 +17,10 @@ import co.kr.khaki.common.Mail_findId;
 import co.kr.khaki.common.Mail_findPw;
 import co.kr.khaki.common.Mail_mypageAuth;
 import co.kr.khaki.common.TempPw;
-import co.kr.khaki.member.DAO.LicenseDAO;
-import co.kr.khaki.member.DAO.MemberDAO;
-import co.kr.khaki.member.DAO.MemberLevelDAO;
-import co.kr.khaki.member.DAO.SocialDAO;
+import co.kr.khaki.member.DAO.LicenseDAOInter;
+import co.kr.khaki.member.DAO.MemberDAOInter;
+import co.kr.khaki.member.DAO.MemberLevelDAOInter;
+import co.kr.khaki.member.DAO.SocialDAOInter;
 import co.kr.khaki.member.DTO.InsertPointDTO;
 import co.kr.khaki.member.DTO.LicenseDTO;
 import co.kr.khaki.member.DTO.MemberDTO;
@@ -29,15 +29,15 @@ import co.kr.khaki.member.DTO.SocialDTO;
 import co.kr.khaki.pay.PayDAO;
 
 @Service
-public class MemberServiceImpl implements MemberService {
+public class MemberServiceImpl implements MemberServiceInter {
    @Autowired
-   MemberDAO memberDAO;
+   MemberDAOInter memberDAO;
    @Autowired
-   MemberLevelDAO memberLevelDAO;
+   MemberLevelDAOInter memberLevelDAO;
    @Autowired
-   LicenseDAO licenseDAO;
+   LicenseDAOInter licenseDAO;
    @Autowired
-   SocialDAO socialDAO;
+   SocialDAOInter socialDAO;
    @Autowired
    BoardDAO boardDAO;
    @Autowired
@@ -427,8 +427,8 @@ public void deleteSocial(SocialDTO socialDTO) {
    
    // 운전면허 정보 삭제
    /* (non-Javadoc)
- * @see co.kr.khaki.member.service.MemberService#deleteLicense(java.lang.String)
- */
+	* @see co.kr.khaki.member.service.MemberService#deleteLicense(java.lang.String)
+	*/
 @Override
 public void deleteLicense(String id) {
 	   

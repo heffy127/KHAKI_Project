@@ -17,8 +17,8 @@ import co.kr.khaki.handler.DAO.HandlerUseDAO;
 import co.kr.khaki.handler.DTO.HandlerDTO;
 import co.kr.khaki.handler.DTO.HandlerStatusDTO;
 import co.kr.khaki.handler.DTO.HandlerUseDTO;
-import co.kr.khaki.member.DAO.LicenseDAO;
-import co.kr.khaki.member.DAO.MemberDAO;
+import co.kr.khaki.member.DAO.LicenseDAOInter;
+import co.kr.khaki.member.DAO.MemberDAOInter;
 import co.kr.khaki.member.DTO.InsertPointDTO;
 import co.kr.khaki.member.DTO.LicenseDTO;
 import co.kr.khaki.member.DTO.MemberDTO;
@@ -33,10 +33,10 @@ public class HandlerServiceImpl implements HandlerServiceInterface {
 	HandlerUseDAO hudao;
 
 	@Autowired
-	MemberDAO memberDAO;
+	MemberDAOInter memberDAO;
 
 	@Autowired
-	LicenseDAO licenseDAO;
+	LicenseDAOInter licenseDAO;
 
 	@Override
 	public List<HandlerDTO> handlerBoard() {

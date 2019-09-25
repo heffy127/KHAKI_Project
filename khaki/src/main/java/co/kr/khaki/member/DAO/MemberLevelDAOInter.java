@@ -4,7 +4,7 @@ import java.util.List;
 
 import co.kr.khaki.member.DTO.MemberLevelDTO;
 
-public interface MemberLevelDAO {
+public interface MemberLevelDAOInter {
 
 	MemberLevelDTO selectId(String id);
 

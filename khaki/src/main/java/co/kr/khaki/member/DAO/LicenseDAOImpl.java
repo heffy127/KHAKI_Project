@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import co.kr.khaki.member.DTO.LicenseDTO;
 
 @Repository
-public class LicenseDAOImpl implements LicenseDAO {
+public class LicenseDAOImpl implements LicenseDAOInter {
 	
 	@Autowired
 	SqlSessionTemplate my;

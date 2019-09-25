@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import co.kr.khaki.member.DAO.MemberDAO;
+import co.kr.khaki.member.DAO.MemberDAOInter;
 import co.kr.khaki.member.DTO.MemberDTO;
 
 @Controller
@@ -15,7 +15,7 @@ import co.kr.khaki.member.DTO.MemberDTO;
 public class SessionController {
 
 	@Autowired
-	MemberDAO memberDAO;
+	MemberDAOInter memberDAO;
 	
 	@RequestMapping("sessionLogin.do")
 	public String sessionLogin(MemberDTO memberDTO, Model model) {	

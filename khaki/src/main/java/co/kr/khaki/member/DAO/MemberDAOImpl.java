@@ -10,7 +10,7 @@ import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.pay.PayDTO;
 
 @Repository
-public class MemberDAOImpl implements MemberDAO {
+public class MemberDAOImpl implements MemberDAOInter {
 
    @Autowired
    SqlSessionTemplate my;

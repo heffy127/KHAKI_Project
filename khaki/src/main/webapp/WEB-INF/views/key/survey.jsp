@@ -44,25 +44,21 @@
   		$("#key").hide();
   		$("#comment2").hide();
   		
-  		// 설문버튼 동작
+  		// 설문하기 버튼 클릭
   		$("#surveybtn").on("click",function(){
 	  		$("#windowImg").hide();
 	  		$("#comment1").hide();
 	  		$("#comment2").show();
 	  		$("#survey1").show();
-  			var btn = false;
-  			btn = true;
-			$("#surveybtn").hide();
-  			if(btn == true){
-  				$("#surveybtn").click(function(){
-			  		$("#windowImg").hide();
-			  		$("#survey1").hide();
-			  		$("#key").show();
-			  		$("#survey").hide();
-			  		
-  				})
-  			}
   		});
+  		
+  		surveyFinish = function() {
+  			$("#survey1").hide();
+  			$("#survey").hide();
+  			$("#comment2").hide();
+  			$("#key").show();
+  			
+		}
   	});
   </script>
 </head>

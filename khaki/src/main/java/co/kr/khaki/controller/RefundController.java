@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import co.kr.khaki.common.CalculateMemberLevel;
 import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
-import co.kr.khaki.member.DAO.MemberDAO;
-import co.kr.khaki.member.DAO.MemberLevelDAO;
+import co.kr.khaki.member.DAO.MemberDAOInter;
+import co.kr.khaki.member.DAO.MemberLevelDAOInter;
 import co.kr.khaki.member.DTO.InsertPointDTO;
 import co.kr.khaki.member.DTO.MemberAdminDTO;
 import co.kr.khaki.member.DTO.MemberDTO;
@@ -29,13 +29,13 @@ public class RefundController {
 	PayDAO pdao;
 
 	@Autowired
-	MemberDAO memberDAO;
+	MemberDAOInter memberDAO;
 
 	@Autowired
 	RefundDAO refundDAO;
 
 	@Autowired
-	MemberLevelDAO memberLevelDAO;
+	MemberLevelDAOInter memberLevelDAO;
 
 	@Autowired
 	CouponUseDAO cpuDAO;

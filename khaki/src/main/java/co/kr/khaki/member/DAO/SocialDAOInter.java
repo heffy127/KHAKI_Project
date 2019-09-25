@@ -2,7 +2,7 @@ package co.kr.khaki.member.DAO;
 
 import co.kr.khaki.member.DTO.SocialDTO;
 
-public interface SocialDAO {
+public interface SocialDAOInter {
 
 	SocialDTO selectId_naver(String id);
 
