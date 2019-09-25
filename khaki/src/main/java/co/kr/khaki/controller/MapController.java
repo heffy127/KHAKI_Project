@@ -24,10 +24,8 @@ public class MapController {
 
 	@RequestMapping("map.do")
 	public String map(Model model, HttpSession session) {
-		String selectZoneNum = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,";
 		System.out.println("컨트롤러 1번");
 		List<KhakiZoneDTO> list = kdao.selectAll();
-		model.addAttribute("selectZoneNum", selectZoneNum);
 		model.addAttribute("selectCarNum", null);
 		model.addAttribute("list", list);
 	return "map/map";
@@ -38,7 +36,7 @@ public class MapController {
 		System.out.println("MAP컨트롤러에서의 zones 값 : " + selectZoneNum);
 		// 받아온 String 값을 세션에 넣어야 함
 		List<KhakiZoneDTO> list = kdao.selectAll();
-		model.addAttribute("selectZoneNum", selectZoneNum);
+		model.addAttribute("selectZoneNum1", selectZoneNum);
 		model.addAttribute("selectCarNum", carNums);
 		model.addAttribute("buy_startTime", startTime);
 		model.addAttribute("buy_endTime", endTime);

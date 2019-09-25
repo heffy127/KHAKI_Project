@@ -135,8 +135,13 @@ int endTimeCheck = 0;
 double loc_x = 0;
 double loc_y = 0;
 String selectZoneNum = "";
-for(int k = 0; k<list.size(); k++){
-	selectZoneNum = selectZoneNum + Integer.toString(k) + ",";
+if(request.getAttribute("selectZoneNum1")==null){
+selectZoneNum = "";
+	for(int k = 0; k<list.size(); k++){
+		selectZoneNum = selectZoneNum + Integer.toString(k) + ",";
+	} 
+} else {
+	selectZoneNum = (String)request.getAttribute("selectZoneNum1");
 }
 %>
 <input id="selectZoneNum" type ="hidden" value='<%=selectZoneNum%>'>
