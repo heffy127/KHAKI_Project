@@ -34,6 +34,10 @@
       where s.id not like 'admin%' and s.name not like '관리자'
    </select>
    
+   	<select id="cntAll" resultType="int">
+		SELECT count(*) from member
+	</select>
+   
    <select id="selectId" parameterType="String" resultMap="rsMap">
       select s.id, s.name, s.email_id, s.email_site, s.phone1, s.phone2, s.phone3, s.postcode, s.address1, 
       s.address2, s.address3, s.point, s.smspush, s.emailpush, s.photo, s.memberlevel, l.permission from 

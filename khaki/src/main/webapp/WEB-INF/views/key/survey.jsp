@@ -57,7 +57,6 @@
   			$("#survey").hide();
   			$("#comment2").hide();
   			$("#key").show();
-  			
 		}
   	});
   </script>
