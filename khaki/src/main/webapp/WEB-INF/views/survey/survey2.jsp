@@ -114,6 +114,12 @@ hr
 			window.parent.surveyFinish()
 			$('#surveyF').submit()
 		})
+		
+		$('#surveyNoBtn').click(
+			function() {
+				window.parent.surveyFinish()
+		})
+		
 	})
 </script>
 </head>

@@ -36,7 +36,7 @@
 			
 			$('#surveyNoBtn').click( // 다음에 하기
 				function() {
-					$(top.document).find("#tabs-icons-text-6").attr("src","orange");
+					window.parent.surveyFinish()
 			})
 			
 	})

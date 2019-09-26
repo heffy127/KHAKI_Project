@@ -83,4 +83,11 @@ public List<MemberAdminDTO> selectPushSort_emailPush() {
       System.out.println("selectPushSort_emailPush 성공");
       return list;
    }
+
+@Override
+public int countMemberAll() {
+	
+	return my.selectOne("memberAdminDAO.cntAll");
+}
+
 }

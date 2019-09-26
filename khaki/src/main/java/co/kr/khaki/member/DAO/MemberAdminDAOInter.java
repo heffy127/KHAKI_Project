@@ -19,5 +19,7 @@ public interface MemberAdminDAOInter {
 	List<MemberAdminDTO> selectPushSort_smsPush();
 
 	List<MemberAdminDTO> selectPushSort_emailPush();
+	
+	int countMemberAll();
 
 }
