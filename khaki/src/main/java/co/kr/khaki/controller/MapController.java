@@ -93,5 +93,10 @@ public class MapController {
 		model.addAttribute("dto", dto);
 		return "map/lisence";
 	}
+	
+	@RequestMapping("loadView.do")
+	public String loadView() {
+		return "map/loadView";
+	}
 
 }

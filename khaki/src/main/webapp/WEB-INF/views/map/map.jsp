@@ -11,7 +11,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3010ba59fe5cb4ef476a120272fd67f0"></script>
 <style>
 select{
    width: 19%;
@@ -128,9 +127,9 @@ select{
 </style>
 <title>1등 카셰어링, khaki</title>
 <%
-String sessionId = (String)session.getAttribute("sessionId");
-List<KhakiZoneDTO> list = (List<KhakiZoneDTO>)request.getAttribute("list");
-int strTimeCheck = 0;
+String sessionId = (String)session.getAttribute("sessionId"); //세션아이디를 가져옴
+List<KhakiZoneDTO> list = (List<KhakiZoneDTO>)request.getAttribute("list"); //DB의 모든 카키존 정보를 가져옴
+int strTimeCheck = 0; 
 int endTimeCheck = 0;
 double loc_x = 0;
 double loc_y = 0;
@@ -291,7 +290,6 @@ selectZoneNum = "";
    // 선택된 존 번호 배열로 맵에 마커를 나타냄
    // 맨 처음에는 모든 마커 나타내도록 되어있음
    
-   
    // 처음 접속시 현재시간으로 예약 시작시간 셋팅하기 위해--------
    var d = new Date();
    function rererere() {
@@ -355,7 +353,7 @@ selectZoneNum = "";
 		     $('#endMin').attr('disabled', true);
 	         $('#timeCheck').attr('disabled', false);
 	      } else{
-	    	  alert("시작시간 이후로 입력해주세요.")
+	    	 alert("시작시간 이후로 입력해주세요.");
 	         $('#timeCheck').attr('disabled', true);
 	      }
 }
@@ -394,6 +392,9 @@ selectZoneNum = "";
             alert("오류발생" + error);
          },
          success : function(data) { //data : 30허1111,3★30허1111,3★
+        	if(data.trim()==""){
+        		alert("조건에 만족하는 회사가 없습니다. 시간이나 차종을 다시 선택하세요.")
+        	}
             var temp2 = data.split("★");   // 배열 temp2
             var carNums = "";
             var zones ="";
@@ -417,9 +418,9 @@ selectZoneNum = "";
                   error : function(error) {
                      alert("오류발생" + error);
                   },
-                  success : function(data) {
+                  success : function(data) { // 조건에 만족하는 차량정보들을 나열한 문자 : data
                      ee = ee+1;
-                     if(data.trim()=="y"){
+                     if(data.trim()=="y"){ 
                         carNums = carNums + temp1[0] + ",";
                         $('#car_num').val(carNums);
                         zones = zones + temp1[1] + ",";
@@ -526,7 +527,6 @@ function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모�
 	        	          +'<td width="30%">'+x2[4]+" / "+x2[1]+'% </td>'
 	        	          +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-info" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'">'+x2[6]+'</button></td></tr>'
 	        	      );	 
-	        	 
 	         }
          }
       
@@ -601,10 +601,7 @@ function reservation() {
    var use_time = buy_endTime - buy_startTime; // 대여시간
    var use_day = parseInt(use_time/10000); // 日 시간금액*24
    var use_hour = 0;
-   //var use_min = use_time % 100; // 分 시간금액 * (1/60)
    var use_min = 0;
-   // buy_startTime = 1909051250
-   // buy_endTime  =  1909051320
    var strMin = parseInt(buy_startTime.substr(8,2));
    var endMin = parseInt(buy_endTime.substr(8,2));
    var strHour = parseInt(buy_startTime.substr(6,2));
@@ -1490,15 +1487,11 @@ $(document).ready(
                   SPRITE_HEIGHT = 146, // 스프라이트 이미지 높이
                   SPRITE_GAP = 10; // 스프라이트 이미지에서 마커간 간격
 
-                  var markerSize = new kakao.maps.Size(MARKER_WIDTH,
-                        MARKER_HEIGHT), // 기본, 클릭 마커의 크기
+                  var markerSize = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
                   markerOffset = new kakao.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
-                  overMarkerSize = new kakao.maps.Size(OVER_MARKER_WIDTH,
-                        OVER_MARKER_HEIGHT), // 오버 마커의 크기
-                  overMarkerOffset = new kakao.maps.Point(OVER_OFFSET_X,
-                        OVER_OFFSET_Y), // 오버 마커의 기준 좌표
-                  spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH,
-                        SPRITE_HEIGHT); // 스프라이트 이미지의 크기
+                  overMarkerSize = new kakao.maps.Size(OVER_MARKER_WIDTH, OVER_MARKER_HEIGHT), // 오버 마커의 크기
+                  overMarkerOffset = new kakao.maps.Point(OVER_OFFSET_X, OVER_OFFSET_Y), // 오버 마커의 기준 좌표
+                  spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH,SPRITE_HEIGHT); // 스프라이트 이미지의 크기
                   //----------------------------------------------------------------------------------------------------------------------
                 var list = [];
                 var temp = [];
@@ -1545,7 +1538,7 @@ $(document).ready(
                     	var mapContainer = document.getElementById('map'); // 지도를 표시할 div
                         var mapOption = {
                            center : new kakao.maps.LatLng(sessionStorage.getItem('preLoc_x'),sessionStorage.getItem('preLoc_y')), // 지도의 중심좌표 > 회원정보에 입력된 주소를 좌표로 변환하여 입력됨
-                           level : 7
+                           level : 5
                         // 지도의 확대 레벨 
                         };
 
@@ -1568,8 +1561,7 @@ $(document).ready(
                   }
 
                   // 마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
-                  function addMarker(position, normalOrigin, overOrigin,
-                        clickOrigin) {
+                  function addMarker(position, normalOrigin, overOrigin,clickOrigin) {
 
                      // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
                      var normalImage = createMarkerImage(markerSize,
@@ -1589,13 +1581,11 @@ $(document).ready(
                      marker.normalImage = normalImage;
 
                      // 마커에 mouseover 이벤트를 등록합니다
-                     kakao.maps.event.addListener(marker, 'mouseover',
-                           function() {
+                     kakao.maps.event.addListener(marker, 'mouseover',function() {
 
                               // 클릭된 마커가 없고, mouseover된 마커가 클릭된 마커가 아니면
                               // 마커의 이미지를 오버 이미지로 변경합니다
-                              if (!selectedMarker
-                                    || selectedMarker !== marker) {
+                              if (!selectedMarker || selectedMarker !== marker) {
                                  marker.setImage(overImage);
                               }
                            });
@@ -1605,7 +1595,7 @@ $(document).ready(
 
                               // 클릭된 마커가 없고, mouseout된 마커가 클릭된 마커가 아니면
                               // 마커의 이미지를 기본 이미지로 변경합니다
-                              if (!selectedMarker|| selectedMarker !== marker) {
+                              if (!selectedMarker || selectedMarker !== marker) {
                                  marker.setImage(normalImage);
                               }
                            });
@@ -1664,7 +1654,6 @@ $(document).ready(
                               spriteOrigin : spriteOrigin, // 스트라이프 이미지 중 사용할 영역의 좌상단 좌표
                               spriteSize : spriteImageSize // 스프라이트 이미지의 크기
                            });
-
                      return markerImage;
                   }
                </script>

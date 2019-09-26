@@ -133,11 +133,11 @@
                       
 	                      <c:when test="${claimDTO.claim_result eq null}">
 	                        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal" onclick="claimModal('${claimDTO.claim_content}','${claimDTO.claim_id}','${claimDTO.claim_num}')">확인중</button>
-					      </c:when>    
+					      </c:when>
 					      
 	                      <c:when test="${claimDTO.claim_result ne null}">
 	                        <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal" onclick="resultView('${claimDTO.claim_content}','${claimDTO.claim_result}')">완료</button>
-					      </c:when>    
+					      </c:when>
 					      
 				      </c:choose>
                       </div>
@@ -208,7 +208,19 @@
       </div>
     </div>
   </div>
-  
+  <!--   Core   -->
+<script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+<script src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!--   Optional JS   -->
+<!--   Argon JS   -->
+<script src="resources/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
+<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+   window.TrackJS && TrackJS.install({
+      token : "ee6fab19c5a04ac1a32a645abde4613a",
+      application : "argon-dashboard-free"
+   });
+</script>
 </body>
 
 </html>
