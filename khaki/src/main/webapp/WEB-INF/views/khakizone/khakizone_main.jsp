@@ -39,6 +39,31 @@
 				var z_comment = $(this).children("#list_menu_zone_comment").text().trim();
 				$("#zone_comment").text(z_comment);
 				
+				var zone_num = $(this).children(".list_menu_zone_num").text().trim();
+				
+				alert("zone_num : "+zone_num);
+				alert("select_list.size : "+${select_list.size()});
+				
+				for (var i = 0; i < ${select_list.size()}; i++) {	// 5를 유동적으로 쓸 수 있는 방법(list의 사이즈를 활용하자)
+	    			list_zone_num = $("#list_menu"+i).children("#list_menu_zone_num"+i).text().trim().toString();
+	    			alert("list_zone_num : "+list_zone_num);
+	    			
+				if(zone_num == list_zone_num){
+						alert("성공!");
+						//$("#list_menu"+i).children("#list_menu_zone_num"+i).text(zone_num+"<-- 선택 " );
+						//$("#list_menu"+i).children("#list_menu_zone_num"+i).append('<img alt="" src="resources/assets/img/etc/star.jpg" style="widows: 30px;height: 30px;">');
+						$("#list_menu"+i).css("background-color","#ff5e00");
+					}else{
+						if(list_zone_num.split("<")[0] != null){
+							//$("#list_menu"+i).children("#list_menu_zone_num"+i).text(list_zone_num.split("<")[0]);
+							$("#list_menu"+i).css("background-color","");
+						}
+					}
+				}
+				
+				
+				
+				
 			})	//list_menu class click
 		})	//JQuery end
 	  	
@@ -113,7 +138,7 @@
 				        <tbody class="list">
 				            <c:forEach var="seldto" items="${select_list}" varStatus="status">
 					            <tr id="list_menu${status.index}" class="list_menu">
-					                <th scope="row" id="list_menu_zone_num${status.index}">
+					                <th scope="row" id="list_menu_zone_num${status.index}" class="list_menu_zone_num">
 					                	${seldto.zone_num }
 					                </th>
 					                <td id="list_menu_zone_name" class="">
@@ -321,6 +346,9 @@
 	    // 마커에 click 이벤트를 등록합니다
 	    kakao.maps.event.addListener(marker, 'click', function() {
 	    		
+	    		// 새로운 카키존 등록 시 찍은 마커를 없앰
+	    		first_marker.setMap(null);
+	    	
 	    		//zone_name, location_x, location_y, zone_comment(input쪽에 id)	aaaabbb
 	    		$("#zone_name").val(zone_name);
 	    		$("#zone_comment").text(zone_comment);
@@ -329,34 +357,29 @@
 	    		
 	    		alert($("#list_menu1").children("#list_menu_zone_num1").text().trim().toString())
 	    		var list_zone_num = null;
-	    		//표시되는 이미지 : <img alt="" src="resources/assets/img/etc/star.jpg" style="widows: 30px;height: 30px;">
-	    		//'<img alt="" src="resources/assets/img/etc/star.jpg" style="widows: 30px;height: 30px;">'	- 별 이미지 태그
 	    		for (var i = 0; i < '${select_list.size()}'; i++) {	// 5를 유동적으로 쓸 수 있는 방법(list의 사이즈를 활용하자)
 	    			list_zone_num = $("#list_menu"+i).children("#list_menu_zone_num"+i).text().trim().toString();
 					if(zone_num == list_zone_num){
 						alert("성공!");
-						$("#list_menu"+i).children("#list_menu_zone_num"+i).text(zone_num+"<-- 선택 " );
+						$("#list_menu"+i).css("background-color","#ff5e00");
 					}else{
-						if(list_zone_num.split("<")[0] != null){
-							$("#list_menu"+i).children("#list_menu_zone_num"+i).text(list_zone_num.split("<")[0]);
+							$("#list_menu"+i).css("background-color","");
 						}
 					}
-				}
-	    		
-	    		//
+				
 	    		
 		        // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
 		        // 마커의 이미지를 클릭 이미지로 변경합니다
 		        if (!selectedMarker || selectedMarker !== marker) {
-		
+					
 		            // 클릭된 마커 객체가 null이 아니면
 		            // 클릭된 마커의 이미지를 기본 이미지로 변경하고
 		            !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
-		
+					
 		            // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
 		            marker.setImage(clickImage);
 		        }
-		
+				
 		        // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
 		        selectedMarker = marker;
 	    	});
@@ -421,13 +444,13 @@
 	
 	//-----------------------------------------
 	
-	var marker = new kakao.maps.Marker({ 
+	var first_marker = new kakao.maps.Marker({ 
 	    // 지도 좌측 가장 아래에
 	    position: new kakao.maps.LatLng(29.400446, 114.698731)
 	});
 	
 	// 지도에 마커를 표시합니다
-	marker.setMap(map);
+	first_marker.setMap(map);
 	
 	// 지도를 클릭했을때 클릭한 위치에 마커를 추가하도록 지도에 클릭이벤트를 등록합니다
 	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
@@ -441,12 +464,12 @@
     	var latlng = mouseEvent.latLng; 
 		
     	// 마커 위치를 클릭한 위치로 옮깁니다
-        marker.setPosition(latlng);
-		
+        first_marker.setPosition(latlng);
+        first_marker.setMap(map);
 	    //---------------------------------------
 	    
 	    // 내가 코딩한 곳
-	    var lastpoint = marker.getPosition();	
+	    var lastpoint = first_marker.getPosition();	
 	    
 	    //toString은 String으로 형변환, parseInt는 int로 형변환
 	    // parseInt는 말그대로 int형으로 반환(소수점이 없음...), parseFloat를 사용하여 실수형 파싱
@@ -460,6 +483,8 @@
 	    $("#location_y").val(y.toFixed(5));
 	    
 	  	//---------------------------------------
+	  	
+	    
 	});
 	
 </script>
