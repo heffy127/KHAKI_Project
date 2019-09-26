@@ -309,7 +309,6 @@ iframe
                                     </td>   
                                  </c:otherwise>
                               </c:choose>
-      
                               
                               <td>${memberAdminDTO.point }&nbsp;pt</td>
                               
