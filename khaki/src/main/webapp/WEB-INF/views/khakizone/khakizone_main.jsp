@@ -28,45 +28,6 @@
 	  		//페이지 넘버 확인
 	  	};
 		
-	  	$(function(){
-			$(".list_menu").click(function(){
-				var z_name = $(this).children("#list_menu_zone_name").text().trim();
-				$("#zone_name").val(z_name);
-				var z_location_x = $(this).children("#list_menu_zone_location_x").text().trim();
-				$("#location_x").val(z_location_x);
-				var z_location_y = $(this).children("#list_menu_zone_location_y").text().trim();
-				$("#location_y").val(z_location_y);
-				var z_comment = $(this).children("#list_menu_zone_comment").text().trim();
-				$("#zone_comment").text(z_comment);
-				
-				var zone_num = $(this).children(".list_menu_zone_num").text().trim();
-				
-				alert("zone_num : "+zone_num);
-				alert("select_list.size : "+${select_list.size()});
-				
-				for (var i = 0; i < ${select_list.size()}; i++) {	// 5를 유동적으로 쓸 수 있는 방법(list의 사이즈를 활용하자)
-	    			list_zone_num = $("#list_menu"+i).children("#list_menu_zone_num"+i).text().trim().toString();
-	    			alert("list_zone_num : "+list_zone_num);
-	    			
-				if(zone_num == list_zone_num){
-						alert("성공!");
-						//$("#list_menu"+i).children("#list_menu_zone_num"+i).text(zone_num+"<-- 선택 " );
-						//$("#list_menu"+i).children("#list_menu_zone_num"+i).append('<img alt="" src="resources/assets/img/etc/star.jpg" style="widows: 30px;height: 30px;">');
-						$("#list_menu"+i).css("background-color","#ff5e00");
-					}else{
-						if(list_zone_num.split("<")[0] != null){
-							//$("#list_menu"+i).children("#list_menu_zone_num"+i).text(list_zone_num.split("<")[0]);
-							$("#list_menu"+i).css("background-color","");
-						}
-					}
-				}
-				
-				
-				
-				
-			})	//list_menu class click
-		})	//JQuery end
-	  	
 	</script>
 
 </head>
@@ -183,12 +144,12 @@
 		                           <c:when test="${pageNum eq pagination.curPage}">
 		                           	<li class="page-item active">
 		                           		<a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }<span class="sr-only">(current)</span></a>
-		                          		</li>
+	                          		</li>
 		                           </c:when>
 		                           <c:otherwise>
 		                           	<li class="page-item">
 		                           		<a class="page-link" href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
-		                          		</li>
+	                          		</li>
 		                           </c:otherwise>
 		                       </c:choose>
 		                   </c:forEach>
@@ -214,10 +175,8 @@
 			</div>
 		  </div>
 	</div>
-	<!-- aaaabbccccddefeef -->
 	
 <script>
-
 	var MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
 	MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
 	OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
@@ -231,15 +190,11 @@
 	SPRITE_HEIGHT = 146, // 스프라이트 이미지 높이
 	SPRITE_GAP = 10; // 스프라이트 이미지에서 마커간 간격
 	
-	var markerSize = new kakao.maps.Size(MARKER_WIDTH,
-	      MARKER_HEIGHT), // 기본, 클릭 마커의 크기
+	var markerSize = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
 	markerOffset = new kakao.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
-	overMarkerSize = new kakao.maps.Size(OVER_MARKER_WIDTH,
-	      OVER_MARKER_HEIGHT), // 오버 마커의 크기
-	overMarkerOffset = new kakao.maps.Point(OVER_OFFSET_X,
-	      OVER_OFFSET_Y), // 오버 마커의 기준 좌표
-	spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH,
-	      SPRITE_HEIGHT); // 스프라이트 이미지의 크기
+	overMarkerSize = new kakao.maps.Size(OVER_MARKER_WIDTH, OVER_MARKER_HEIGHT), // 오버 마커의 크기
+	overMarkerOffset = new kakao.maps.Point(OVER_OFFSET_X, OVER_OFFSET_Y), // 오버 마커의 기준 좌표
+	spriteImageSize = new kakao.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
 	// ---------------------------------------------------------
 
 	// 100m : 4, 250m : 5, 500m : 6, 1000 : 7, 2000 : 8, 
@@ -357,7 +312,7 @@
 	    		
 	    		alert($("#list_menu1").children("#list_menu_zone_num1").text().trim().toString())
 	    		var list_zone_num = null;
-	    		for (var i = 0; i < '${select_list.size()}'; i++) {	// 5를 유동적으로 쓸 수 있는 방법(list의 사이즈를 활용하자)
+	    		for (var i = 0; i < '${select_list.size()}'; i++) {	// 5를 유동적으로 쓸 수 있는 방법 : (list의 사이즈를 활용하자)
 	    			list_zone_num = $("#list_menu"+i).children("#list_menu_zone_num"+i).text().trim().toString();
 					if(zone_num == list_zone_num){
 						alert("성공!");
@@ -486,6 +441,79 @@
 	  	
 	    
 	});
+	
+	// JQuery문 Start
+	$(function(){
+		
+		$(".list_menu").click(function(){
+			var z_name = $(this).children("#list_menu_zone_name").text().trim();
+			$("#zone_name").val(z_name);
+			var z_location_x = $(this).children("#list_menu_zone_location_x").text().trim();
+			$("#location_x").val(z_location_x);
+			var z_location_y = $(this).children("#list_menu_zone_location_y").text().trim();
+			$("#location_y").val(z_location_y);
+			var z_comment = $(this).children("#list_menu_zone_comment").text().trim();
+			$("#zone_comment").text(z_comment);
+			
+			var zone_num = $(this).children(".list_menu_zone_num").text().trim();
+			
+			//alert("zone_num : "+zone_num);
+			//alert("select_list.size : "+${select_list.size()});
+			
+			for (var i = 0; i < ${select_list.size()}; i++) {	// 5를 유동적으로 쓸 수 있는 방법(list의 사이즈를 활용하자)
+    			list_zone_num = $("#list_menu"+i).children("#list_menu_zone_num"+i).text().trim().toString();
+    			//alert("list_zone_num : "+list_zone_num);
+			
+				if(zone_num == list_zone_num){
+				alert("성공!");
+				//$("#list_menu"+i).children("#list_menu_zone_num"+i).text(zone_num+"<-- 선택 " );
+				//$("#list_menu"+i).children("#list_menu_zone_num"+i).append('<img alt="" src="resources/assets/img/etc/star.jpg" style="widows: 30px;height: 30px;">');
+				$("#list_menu"+i).css("background-color","#ff5e00");
+				}else{
+				//$("#list_menu"+i).children("#list_menu_zone_num"+i).text(list_zone_num.split("<")[0]);
+				$("#list_menu"+i).css("background-color","");
+				}
+			}
+			
+			// 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
+		    var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
+		        overImage = createMarkerImage(overMarkerSize, overMarkerOffset, overOrigin),
+		        clickImage = createMarkerImage(markerSize, markerOffset, clickOrigin);
+			
+		 	/* console.log(z_location_x);
+		 	console.log(z_location_y);
+		 	alert(typeof z_location_x);
+		 	alert(typeof z_location_y); */
+		 	
+		 	// 선택된 div의 경도값
+		 	var z_x = parseFloat(z_location_x);
+		 	//선택된 div의 위도값
+		 	var z_y = parseFloat(z_location_y);
+		 	//alert(typeof z_x);
+		 	//alert(typeof z_y);
+		 	
+		 	// markers배열에 담긴 marker들을 가져와 좌표값을 비교해서 선택된 마커면 기본이미지로 돌리고, 현재 선택된 마커를 selectedMarker로 설정
+		 	for (var i = 0; i < markers.length; i++) {
+		 		var m_z_x = parseFloat(markers[i].getPosition().getLat().toFixed(5));
+				var m_z_y = parseFloat(markers[i].getPosition().getLng().toFixed(5));
+				
+				if(z_x == m_z_x && z_y == m_z_y){
+					
+					if (!selectedMarker || selectedMarker !== markers[i]) {
+			            // 클릭된 마커 객체가 null이 아니면
+			            // 클릭된 마커의 이미지를 기본 이미지로 변경하고
+			            !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
+						
+			            // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
+			            markers[i].setImage(clickImage);
+			        }
+			        // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
+			        selectedMarker = markers[i];
+				}
+			}
+		})	//list_menu class click
+	})	//JQuery end
+	
 	
 </script>
 	

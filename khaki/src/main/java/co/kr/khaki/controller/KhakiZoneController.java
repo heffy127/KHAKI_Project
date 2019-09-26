@@ -22,7 +22,9 @@ public class KhakiZoneController {
 	
 	@RequestMapping("khakizone_main.do")
 	public String khakizone(Model model, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="5") int pageSize) {
-		System.out.println("khakizone_main 소환!");
+		//System.out.println("khakizone_main 소환!");
+		
+		System.out.println("curPage : "+curPage+"/ pageSize : "+pageSize);
 		
 		// 페이지 네이션 부분
 		int total = zonedao.cntAll();
@@ -33,10 +35,7 @@ public class KhakiZoneController {
 		
 		KhakiZoneCal zonecal = new KhakiZoneCal(select_list);
 		
-		System.out.println("===================================================");
-		System.out.println("zonecal 평균x : "+zonecal.getCenter_x()+", 평균y : "+zonecal.getCenter_y()+", 차이값 최대 : "+zonecal.getBetween_max()+", x값 최대 :"+
-		zonecal.getMax_x()+", y값 최대  : "+zonecal.getMax_y());
-		System.out.println("===================================================");
+		System.out.println(zonecal);
 		
 		//model객체를 통한 view단에 전달하는 곳
 		model.addAttribute("pagination", pg);

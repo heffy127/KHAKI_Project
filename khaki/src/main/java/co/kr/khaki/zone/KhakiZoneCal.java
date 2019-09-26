@@ -2,6 +2,10 @@ package co.kr.khaki.zone;
 
 import java.util.List;
 
+/**
+ * @author 민병호
+ *
+ */
 public class KhakiZoneCal {
 	
 	// 지도 중심좌표 옮길 떄 사용
@@ -21,14 +25,13 @@ public class KhakiZoneCal {
 	
 	// 파라미터 있는 생성자 : 전체 list를 받아와서 사용
 	public KhakiZoneCal(List<KhakiZoneDTO> list) {
+		
 		float sum_x=0;	// x좌표의 합
 		float sum_y=0;	// y좌표의 합
-		float[] arr_x = new float[5];
-		float[] arr_y = new float[5];
+		float[] arr_x = new float[list.size()];
+		float[] arr_y = new float[list.size()];
 		
 		for (int i = 0; i < list.size(); i++) {
-			sum_x += list.get(i).getZone_location_x();
-			sum_y += list.get(i).getZone_location_y();
 			arr_x[i] = list.get(i).getZone_location_x();
 			arr_y[i] = list.get(i).getZone_location_y();
 		}
@@ -132,4 +135,13 @@ public class KhakiZoneCal {
 	public void setCenter_y(float center_y) {
 		this.center_y = center_y;
 	}
+
+	@Override
+	public String toString() {
+		return "KhakiZoneCal [center_x=" + center_x + ", center_y=" + center_y + ", max_x=" + max_x + ", max_y=" + max_y
+				+ ", min_x=" + min_x + ", min_y=" + min_y + ", between_max=" + between_max + "]";
+	}
+	
+	
+	
 }
