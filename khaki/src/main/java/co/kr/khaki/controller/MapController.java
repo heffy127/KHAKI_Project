@@ -95,7 +95,10 @@ public class MapController {
 	}
 	
 	@RequestMapping("loadView.do")
-	public String loadView() {
+	public String loadView(Model model, String x, String y) {
+		System.out.println(x +":"+y + "컨트롤러 좌표");
+		model.addAttribute("view_x", x);
+		model.addAttribute("view_y", y);
 		return "map/loadView";
 	}
 

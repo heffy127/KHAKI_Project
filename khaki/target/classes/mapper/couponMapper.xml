@@ -8,15 +8,20 @@
 	<select id="cpSelect" parameterType="cpDTO" resultMap="rsMap">
 		SELECT * FROM coupon WHERE cId = #{cId}
 	</select>
-
+	
+	<select id="couponIdSelect" parameterType="String" resultType="int">
+		SELECT count (*) FROM coupon WHERE cId = #{cId}
+	</select>
+	
 	<resultMap type="cpDTO" id="rsMap">
 		<result property="num" column="num" />
 		<result property="cId" column="cId" />
-		<result property="cTitle" column="cTitle" />
-		<result property="option" column="option" />
+		<result property="cTitle1" column="cTitle1" />
+		<result property="cTitle2" column="cTitle2" />
+		<result property="cOption" column="cOption" />
 		<result property="discount" column="discount" />
-		<result property="startDate" column="startDate" />
 		<result property="endDate" column="endDate" />		
+		<result property="cpCondition" column="cpCondition" />		
 	</resultMap>
 
 	<!-- 쿠폰리스트 select -->
@@ -26,8 +31,8 @@
 	
 	<!-- 쿠폰 등록 쿼리문 -->
 	<insert id="cpInsert" parameterType="cpDTO">
-		INSERT INTO coupon(num,cId,cTitle,option,discount,startDate,endDate) 
-		VALUES(no_seq.NEXTVAL,#{cId, jdbcType=VARCHAR},#{cTitle, jdbcType=VARCHAR},#{option, jdbcType=VARCHAR},#{discount,jdbcType=VARCHAR},sysdate,sysdate+6)
+		INSERT INTO coupon
+		VALUES(CP_SEQ.NEXTVAL,#{cId},#{cTitle1},#{cTitle2},#{cOption},#{discount},#{endDate},#{cpCondition})
 	</insert>
 	
 	<!-- 게시글 삭제 쿼리문   -->

@@ -151,6 +151,8 @@ selectZoneNum = "";
 <input id="buy_carModel" type ="hidden">
 <input id="buy_startTime" type ="hidden" value='${buy_startTime}'>
 <input id="buy_endTime" type ="hidden" value='${buy_endTime}'>
+
+</script>
 <!-- ajax  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- 주소 api -->
@@ -197,6 +199,14 @@ selectZoneNum = "";
       }).open();
    }
 </script>
+<!-- loadView -->
+<script type="text/javascript">
+function loadView(x,y) {
+	$('#loadViewDIV').empty();
+	$('#loadViewDIV').append("<iframe src='loadView.do?x="+ y + "&y="+ x +"' style='width: 100%; height: 430px;'></iframe>");
+}
+</script>
+
 <!-- modal 닫기, 시간/차량/보험 정보 변수 -->
 <script type="text/javascript"> 
    function burumClose1() { // 부름 장소설정 , 다음 눌렀을 때 부름 금액 크롤링하여 다음 모달에 보여줌
@@ -212,7 +222,7 @@ selectZoneNum = "";
       }
       
       $.ajax({
-         type : "GET",
+         type : "POST",
          url : "burumReservation.do",
          data : {
             'zone_loc' : zone_loc,
@@ -385,7 +395,7 @@ selectZoneNum = "";
       var buy_startTime = $('#startYear').val() + $('#startMonth').val() + $('#startDay').val() + $('#startClock').val() + $('#startMin').val(); //입력된 시작시간
       var buy_endTime = $('#endYear').val() + $('#endMonth').val() + $('#endDay').val() + $('#endClock').val() + $('#endMin').val(); //입력된 반납시간
       $.ajax({
-         type : "GET",
+         type : "POST",
          url : "search1.do",
          data : {'buy_carModel' : buy_carModel},
          error : function(error) {
@@ -408,7 +418,7 @@ selectZoneNum = "";
                temp1[0]=temp1[0].trim(); // 30호1111
                temp1[1]=temp1[1].trim(); // 3
                $.ajax({ //-----------------------------------------------------
-                  type:"GET",
+                  type:"POST",
                   url : "search2.do",
                   data : {
                      'buy_endTime':buy_endTime,
@@ -481,7 +491,7 @@ function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모�
 		   '<h2 class="badge badge-pill badge-primary">'+zone_addr[i]+'</h2>'
 			 );
    $.ajax({
-      type : "GET",
+      type : "POST",
       url : "carListInfo.do",
       data : {
          'zoneNum' : i
@@ -551,7 +561,7 @@ $(document).on('click','#res_start', function () {
       var home_loc = $('#sample5_address').val();
       alert(number + " - " + home_loc + " - " + zone_loc);
       $.ajax({
-         type : "GET",
+         type : "POST",
          url : "burumReservation.do",
          data : {
             'zone_loc' : zone_loc,
@@ -623,7 +633,7 @@ function reservation() {
    }
  //----------
    $.ajax({
-         type : "GET",
+         type : "POST",
          url : "carNumSearch.do",
          data : {
             'car_num' : buy_carNum
@@ -648,7 +658,7 @@ $(document).ready(
 		function() { //면허가 없으면 예약불가
 			var sessionId = $('#sessionId').val();
 			$.ajax({
-		        type : "GET",
+		        type : "POST",
 		        url : "mapLisence.do",
 		        data : {
 		           'sessionId' : sessionId
@@ -687,7 +697,7 @@ $(document).ready(
 </head>
 <body>
 
-<form action="confirm.do" id="confirm">
+<form action="confirm.do" id="confirm" method="post">
    <input name="buy_id" type="hidden">
    <input name="buy_carIns" type="hidden">
    <input name="buy_carModel" type="hidden">
@@ -1437,10 +1447,10 @@ $(document).ready(
                   <div id="map" style="width: 70%; height: 700px; float: left; border-radius: 10px;"></div>
                   <!--지도 DIV-->
 
-                  <div class="card shadow" style="width: 30%; height: 700px; float: left; border-radius: 10px;">
-                     <div class="card-header bg-transparent" style="width: 100%; height: 100%">
+                  <div style="width: 30%; height: 700px; float: left; border-radius: 10px;">
+                     <div class="card-header bg-transparent" style="width: 100%; height: 56%">
                         <div id="carListInfo1" style="width: 100%;"></div>
-                        <div class="row align-items-center" style="width: 100%">
+                        <div style="width: 100%">
                         <!-- 마커를 클릭했을 때 주소가 들어갈 장소 -->
                         <div id = "markerAddr"></div>
                            <div style="width: 100%;">
@@ -1455,7 +1465,7 @@ $(document).ready(
                                  </thead>
                               </table>
                               <!------------------------------------------------------------->
-                              <div style="width: 106%; height: 630px;">
+                              <div style="width: 106%; height: 100%;">
                               <div class="alert alert-secondary" role="alert"><table id="carList">
                               </table></div>
                               <!---------------------------------------------------------------------------->
@@ -1464,11 +1474,8 @@ $(document).ready(
                         </div>
 
                      </div>
-                     <div class="card-body">
-                        <!-- Chart -->
-                        <div class="chart">
-                           <canvas id="chart-orders" class="chart-canvas"></canvas>
-                        </div>
+                     <div id="loadViewDIV" style="height: 50%;">
+                        <iframe src="loadView.do" style="width: 100%; height: 430px; border-radius: 10px;"></iframe>
                      </div>
                   </div>
                </div>
@@ -1639,6 +1646,7 @@ $(document).ready(
                                           selectNum = selectZoneNum[i]; // 선택된것 중 순번 > 절대순번을 찾아서 보냄
                                           $('#zoneNumber').val(selectNum);
                                           carListInfo(selectNum); // 몇번째 마커인지 번호와 함께 전송
+                                    	  loadView(markers[0],markers[1]);
                                        }
                                     } //for문종료 : 마커를 클릭하면 몇번째 마커인지 표시
                                  });
