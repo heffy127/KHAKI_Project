@@ -1,4 +1,4 @@
-package co.kr.khaki.controller;
+package co.kr.khaki.chat.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 
-import co.kr.khaki.chat.ServletAwareConfig;
+import co.kr.khaki.common.ServletAwareConfig;
 
 @Controller
 // @ServerEndpoint(value="/echo.do") 는 /echo.do 라는 url 요청을 통해 웹소켓에 들어가겠다라는 어노테이션

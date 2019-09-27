@@ -1,4 +1,4 @@
-package co.kr.khaki.chat;
+package co.kr.khaki.common;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.websocket.HandshakeResponse;

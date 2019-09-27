@@ -1,4 +1,4 @@
-package co.kr.khaki.controller;
+package co.kr.khaki.session.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,17 +9,18 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import co.kr.khaki.member.DAO.MemberDAOInter;
 import co.kr.khaki.member.DTO.MemberDTO;
+import co.kr.khaki.member.service.MemberServiceInter;
 
 @Controller
 @SessionAttributes({"sessionId","sessionName","sessionPhoto"}) // 세션 생성
 public class SessionController {
 
 	@Autowired
-	MemberDAOInter memberDAO;
+	MemberServiceInter memberServiceInter;
 	
 	@RequestMapping("sessionLogin.do")
 	public String sessionLogin(MemberDTO memberDTO, Model model) {	
-		memberDTO = memberDAO.selectId(memberDTO.getId());
+		memberDTO =  memberServiceInter.selectFromId(memberDTO.getId());
 		model.addAttribute("sessionId", memberDTO.getId());
 		model.addAttribute("sessionName", memberDTO.getName());
 		model.addAttribute("sessionPhoto", memberDTO.getPhoto());
@@ -29,7 +30,7 @@ public class SessionController {
 	
 	@RequestMapping("sessionLoginLicense.do")
 	public String sessionLoginLicense(MemberDTO memberDTO, Model model) {	
-		memberDTO = memberDAO.selectId(memberDTO.getId());
+		memberDTO = memberServiceInter.selectFromId(memberDTO.getId());
 		model.addAttribute("sessionId", memberDTO.getId());
 		model.addAttribute("sessionName", memberDTO.getName());
 		model.addAttribute("sessionPhoto", memberDTO.getPhoto());

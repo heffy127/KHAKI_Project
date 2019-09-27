@@ -1,4 +1,4 @@
-package co.kr.khaki.controller;
+package co.kr.khaki.home.controller;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import co.kr.khaki.board.BoardDTO;
 import co.kr.khaki.car.CarDAO;
 import co.kr.khaki.car.NewCarDTO;
 import co.kr.khaki.common.AuthNumber;
+import co.kr.khaki.home.service.HomeServiceImpl;
 import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.member.DTO.SocialDTO;
 import co.kr.khaki.notice.NoticeDAO;
@@ -22,19 +23,15 @@ import co.kr.khaki.notice.NoticeDTO;
 public class HomeController {
    
    @Autowired
-   NoticeDAO noticeDAO;
-   @Autowired
-   BoardDAO boardDAO;
-   @Autowired
-   CarDAO carDAO;
+   HomeServiceImpl homeServiceInter;
    
    @RequestMapping("home.do")
    public String home(Model model) {
       // 공지사항 5개
-      List<NoticeDTO> noticeList = noticeDAO.selectFive();
+      List<NoticeDTO> noticeList = homeServiceInter.selectNoticeFive();
       model.addAttribute("noticeList", noticeList);
       // 자유게시판 추천순 5개
-      List<BoardDTO> boardList = boardDAO.selectFive();
+      List<BoardDTO> boardList = homeServiceInter.selectBoardFive();
       model.addAttribute("boardList", boardList);
       
       return "home/home";
@@ -42,9 +39,10 @@ public class HomeController {
    
    @RequestMapping("showNewCar.do")
    public String showNewCar(Model model) {
-      List<NewCarDTO> list = carDAO.selectThree();
-      System.out.println(list.get(0).getCar_name());
-      model.addAttribute("list", list);
+	// 신규 등록 차량 3대
+   List<NewCarDTO> list = homeServiceInter.selectCarThree();
+   System.out.println(list.get(0).getCar_name());
+   model.addAttribute("list", list);
       
       return "home/showNewCar";
    }
