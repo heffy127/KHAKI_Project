@@ -91,4 +91,27 @@ public class KhakiZoneController {
 		
 		return "khakizone/khakizone_main";
 	}
+
+	@RequestMapping("khakizone_delete.do")
+	public String khakizone_delete(Model model, int zone_num, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="5") int pageSize) {
+		System.out.println("khakizone delete!");
+		System.out.println(zone_num);
+		zonedao.delete(zone_num);
+		
+		// 페이지 네이션 부분
+		int total = zonedao.cntAll();
+		pagination pg = new pagination(total, curPage, pageSize);
+		
+		System.out.println("index 숫자 : " + pg.getStartIndex());
+		List<KhakiZoneDTO> select_list = zonedao.select_page(pg.getStartIndex());
+		
+		KhakiZoneCal zonecal = new KhakiZoneCal(select_list);
+		
+		//model객체를 통한 view단에 전달하는 곳
+		model.addAttribute("pagination", pg);
+		model.addAttribute("select_list", select_list);
+		model.addAttribute("cal", zonecal);
+		
+		return "khakizone/khakizone_main";
+	}
 }

@@ -58,6 +58,7 @@
 						<div class="row">
 							<div class="col">
 								<input type="submit" id="zone_form_submit" value="카키존 등록" style="display: none;">
+								<button type="button" id="zone_btn_delete" style="display: none;">카키존 삭제</button>
 							</div>
 						</div>
 					</div>	<!-- col end -->
@@ -321,11 +322,17 @@
 						}
 					}
 				
-	    		/* <form id="zone_form" action="khakizone_insert.do">
-	    		<input type="hidden" id="zone_form_submit" style="display: none;"> */
+	    		// 클릭 시 존 버튼 수정할 수 있는 버튼 표출
 	    		$("#zone_form").attr("action","khakizone_update.do");
 	    		$("#zone_form_submit").val("카키존 수정");
-	    		$("#zone_form_submit").css("display","");
+	    		$("#zone_form_submit").css("display","");	// 버튼 보이도록 표출
+	    		
+	    		// 클릭 시 존 삭제 버튼 표출
+	    		//<button type="button" id="zone_btn_delete" style="display: none;">카키존 삭제</button>
+	    		$("#zone_btn_delete").css("display","");	// 버튼 보이도록 표출
+	    		$("#zone_btn_delete").click(function(){
+	    			location.href="khakizone_delete.do?zone_num="+zone_num;
+	    		});
 	    		
 		        // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
 		        // 마커의 이미지를 클릭 이미지로 변경합니다
@@ -522,6 +529,14 @@
 		 	$("#zone_form").attr("action","khakizone_update.do");
     		$("#zone_form_submit").val("카키존 수정");
     		$("#zone_form_submit").css("display","");
+    		
+    		// 클릭 시 존 삭제 버튼 표출
+    		//<button type="button" id="zone_btn_delete" style="display: none;">카키존 삭제</button>
+    		$("#zone_btn_delete").css("display","");	// 버튼 보이도록 표출
+    		$("#zone_btn_delete").click(function(){
+    			location.href="khakizone_delete.do?zone_num="+z_num;
+    		});
+    		
 		})	//list_menu class click
 	})	//JQuery end
 	

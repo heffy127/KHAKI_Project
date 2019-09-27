@@ -12,6 +12,11 @@ public class KhakiZoneDAO {
 	@Autowired
 	SqlSessionTemplate my;
 	
+	public void delete(int zone_num) {
+		System.out.println("KhakiZoneDAO Delete!");
+		my.delete("zoneDAO.zone_delete", zone_num);
+	}
+	
 	public void update(KhakiZoneDTO khakiZoneDTO) {
 		System.out.println("KhakiZoneDAO Update!");
 		my.update("zoneDAO.zone_update", khakiZoneDTO);

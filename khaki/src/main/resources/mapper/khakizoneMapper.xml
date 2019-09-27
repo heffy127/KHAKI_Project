@@ -45,11 +45,11 @@
 		zone_num = #{zone_num}
 	</update>
 	
-	<!-- 
-	<delete id="deleteSomething" parameterType="int">
-		DELETE FROM tablename1 WHERE
-		columnname1 = #{param1}
+	
+	<delete id="zone_delete" parameterType="int">
+		DELETE FROM khakizone WHERE
+		zone_num = #{zone_num}
 	</delete> 
-	-->
+	
 
 </mapper>
