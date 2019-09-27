@@ -69,56 +69,361 @@
   			// 0번인덱스에는 쿠폰 타입, 1번 인덱스에는 할인정도가 들어가있다.
   			// alert(couponVal[0]);
   			// alert(couponVal[1]);
-  			
-  			if(couponVal[0] == "basic") {
-  				ku = parseInt(0);
-				kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
-  				$("#ku").val(ku);
-				$("#kyul").val(kyul);
+  			if(couponVal[3] == "1") {
+  				var cpTitle = couponVal[4].split("원");
+  				cpTitle = parseInt(cpTitle[0]);
+  				if(cpTitle > one) {
+  					alert("쿠폰 조건이 맞지 않습니다.\n다른 쿠폰을 선택 해주세요.")
+  					$(".coupon_method option:eq(0)").prop("selected", true); //첫번째 option 선택
+  					ku = parseInt(0);
+					kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+		  			$("#ku").val(ku);
+					$("#kyul").val(kyul);
+		  				
+		  			$("#discount_label").remove();
+		  			$("#discount_label2").remove();
+		  			// 최초 결제금액을 할인 적용한 금액으로 변경
+		  			$("#confirm_amount").text(kyul);
+		  	  		// 할인 적용 안된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+		  		  	result = parseInt(kyul * 0.03);
+		  		  	$("#confirm_point").text(result);
+  				} else {
+  					if(couponVal[0] == "basic") {
+  		  				ku = parseInt(0);
+  						kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+  		  				$("#ku").val(ku);
+  						$("#kyul").val(kyul);
+  		  				
+  		  				$("#discount_label").remove();
+  		  				$("#discount_label2").remove();
+  		  				// 최초 결제금액을 할인 적용한 금액으로 변경
+  		  				$("#confirm_amount").text(kyul);
+  		  	  			// 할인 적용 안된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+  		  		  		result = parseInt(kyul * 0.03);
+  		  		  		$("#confirm_point").text(result);
+  		  				
+  		  			} else if(couponVal[0] == "M") { // 쿠폰타입이 금액할인이라면
+  		  				ku = parseInt(couponVal[1]);
+  						kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+  		  				$("#ku").val(ku);
+  						$("#kyul").val(kyul);
+  						if(kyul < 0) { // 결제할 금액이 0원 아래로 내려갈경우 -금액이 아닌 0원으로 대체
+  							kyul = 0;
+  						}
+  						// 최초 결제금액을 할인 적용한 금액으로 변경
+  						$("#confirm_amount").text(kyul);
+  			  			// (할인적용)이라는 문구가 만들어져 있다면 우선 삭제한 후 다시 append
+  						$("#discount_label").remove();
+  						$("#discount_label2").remove();
+  			  			// 할인이 적용되었다고 알리기 위해 라벨 추가
+  						$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>최초금액 : " + one + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
+  			  			// 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+  				  		result = parseInt(kyul * 0.03);
+  				  		$("#confirm_point").text(result);
+  		  			} else { // 쿠폰타입이 퍼센트 할인이라면 
+  		  				ku = parseInt(kyul * (parseInt(couponVal[1]) * 0.01));
+  		  				kyul = one - ku - po;
+  		  				$("#ku").val(ku);
+  		  				$("#kyul").val(kyul);
+  		  				// 최초 결제금액을 할인 적용한 금액으로 변경
+  		  				$("#confirm_amount").text(kyul);
+  		  	  			// (할인적용)이라는 문구가 만들어져 있다면 우선 삭제한 후 다시 append
+  		  				$("#discount_label").remove();
+  		  				$("#discount_label2").remove();
+  		  	  			// 할인이 적용되었다고 알리기 위해 라벨 추가
+  		  				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>할인전금액 : " + one + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
+  		  	  			// 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+  		  		  		result = parseInt(kyul * 0.03);
+  		  		  		$("#confirm_point").text(result);
+  		  			}
+  		  			$("#couponSeq").val(couponVal[2]);
+  				}
+  			} else if(couponVal[3] == "2") {
+  				var cpTitle = couponVal[4].split("시간");
+  				cpTitle = parseInt(cpTitle[0]);
   				
-  				$("#discount_label").remove();
-  				$("#discount_label2").remove();
-  				// 최초 결제금액을 할인 적용한 금액으로 변경
-  				$("#confirm_amount").text(kyul);
-  	  			// 할인 적용 안된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
-  		  		result = parseInt(kyul * 0.03);
-  		  		$("#confirm_point").text(result);
+  				var startTime = $("#confirm_startTime").text().split(" ");
+  				var startDay = startTime[0].split(".");
+  				startDay0 = parseInt(startDay[0]);
+  				startDay1 = parseInt(startDay[1]);
+  				startDay2 = parseInt(startDay[2]);
   				
-  			} else if(couponVal[0] == "M") { // 쿠폰타입이 금액할인이라면
-  				ku = parseInt(couponVal[1]);
-				kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
-  				$("#ku").val(ku);
-				$("#kyul").val(kyul);
-				if(kyul < 0) { // 결제할 금액이 0원 아래로 내려갈경우 -금액이 아닌 0원으로 대체
-					kyul = 0;
-				}
-				// 최초 결제금액을 할인 적용한 금액으로 변경
-				$("#confirm_amount").text(kyul);
-	  			// (할인적용)이라는 문구가 만들어져 있다면 우선 삭제한 후 다시 append
-				$("#discount_label").remove();
-				$("#discount_label2").remove();
-	  			// 할인이 적용되었다고 알리기 위해 라벨 추가
-				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>최초금액 : " + one + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
-	  			// 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
-		  		result = parseInt(kyul * 0.03);
-		  		$("#confirm_point").text(result);
-  			} else { // 쿠폰타입이 퍼센트 할인이라면 
-  				ku = parseInt(kyul * (parseInt(couponVal[1]) * 0.01));
-  				kyul = one - ku - po;
-  				$("#ku").val(ku);
-  				$("#kyul").val(kyul);
-  				// 최초 결제금액을 할인 적용한 금액으로 변경
-  				$("#confirm_amount").text(kyul);
-  	  			// (할인적용)이라는 문구가 만들어져 있다면 우선 삭제한 후 다시 append
-  				$("#discount_label").remove();
-  				$("#discount_label2").remove();
-  	  			// 할인이 적용되었다고 알리기 위해 라벨 추가
-  				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>할인전금액 : " + one + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
-  	  			// 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
-  		  		result = parseInt(kyul * 0.03);
-  		  		$("#confirm_point").text(result);
+  				startTime = startTime[1].split(":");
+  				startTime = parseInt(startTime[0]);
+  				
+  				var endTime = $("#confirm_endTime").text().split(" ");
+  				var endDay = endTime[0].split(".");
+  				endDay0 = parseInt(endDay[0]);
+  				endDay1 = parseInt(endDay[1]);
+  				endDay2 = parseInt(endDay[2]);
+  				
+  				endTime = endTime[1].split(":");
+  				endTime = parseInt(endTime[0]);
+  				var timeCheck = "";
+  				if(startDay0 < endDay0) { // 출발 년도가 반납 년도보다 작을 경우 (예: 19년 < 20년) 가능한 경우는 19년 12월 31일 ~ 20년 1월 1일 같은 경우밖에 없음.
+  					if(startDay1 == 12 && startDay1 == 31 && endDay1 == 1 && endDay2 == 1) { // 출발 월이 반납 월보다 클 경우에 사용 가능한 경우는 12월 31일 출발 1월 1일 반납 밖에 없음.
+						var tt = 24 - startTime; // tt : 2
+						startTime = startTime - 24; // endTime : -2
+						startTime += tt; // startTime : 0
+						endTime += tt; // endTime : 06
+						if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 22시 - 6시 > 3)
+  							timeCheck = "Y";
+  						} else {
+  							timeCheck = "N";
+  						}
+					} else {
+						timeCheck = "N";
+					}
+  				} else { // 출발 년도가 반납 년도보다 같을 경우 (예: 19년 == 19년)
+  					if(startDay1 < endDay1) { // 출발 월이 반납 월보다 작을 경우 (예: 9월 < 10월) 
+  						if(startDay1 == 2) { // 출발 월이 2월일 경우
+  							if(startDay2 == 28 && endDay2 == 1) { // 출발날짜가 2월 28일 이면서 반납날짜가 3월 1일 일경우, 즉 달이 바뀌었는데 예약시간이 1일 미만일 경우
+  								var tt = 24 - startTime; // tt : 2
+  								startTime = startTime - 24; // endTime : -2
+  								startTime += tt; // startTime : 0
+  								endTime += tt; // endTime : 06
+  								if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 22시 - 6시 > 3)
+  	  								timeCheck = "Y";
+  	  							} else {
+  	  								timeCheck = "N";
+  	  							}
+  							} else { // 출발날짜 ~ 반납날짜까지 최소 24시간을 초과할경우
+  								timeCheck = "N";
+  							}
+  						} else if(startDay1 == 1 || startDay1 == 3 || startDay1 == 5 || startDay1 == 7 || startDay1 == 8 || startDay1 == 10 || startDay1 == 12) { // 출발 월의 마지막날이 31일 일 경우
+  							if(startDay2 == 31 && endDay2 == 1) { // 출발날짜가 31일 이면서 반납날짜가 1일 일경우, 즉 달이 바뀌었는데 예약시간이 1일 미만일 경우
+  								var tt = 24 - startTime; // tt : 2
+  								startTime = startTime - 24; // endTime : -2
+  								startTime += tt; // startTime : 0
+  								endTime += tt; // endTime : 06
+  								if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 22시 - 6시 > 3)
+  	  								timeCheck = "Y";
+  	  							} else {
+  	  								timeCheck = "N";
+  	  							}
+  							} else { // 출발날짜 ~ 반납날짜까지 최소 24시간을 초과할경우
+  								timeCheck = "N";
+  							}
+  						} else { // 출발 월의 마지막날이 30일 일 경우
+  							if(startDay2 == 30 && endDay2 == 1) { // 출발날짜가 308일 이면서 반납날짜가 1일 일경우, 즉 달이 바뀌었는데 예약시간이 1일 미만일 경우
+  								var tt = 24 - startTime; // tt : 2
+  								startTime = startTime - 24; // endTime : -2
+  								startTime += tt; // startTime : 0
+  								endTime += tt; // endTime : 06
+  								if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 22시 - 6시 > 3)
+  	  								timeCheck = "Y";
+  	  							} else {
+  	  								timeCheck = "N";
+  	  							}
+  							} else { // 출발날짜 ~ 반납날짜까지 최소 24시간을 초과할경우
+  								timeCheck = "N";
+  							}
+  						}
+  					} else if(startDay1 == endDay1) { // 출발 월과 반납 월이 같을 경우 (예: 9월 == 9월)
+  						if(startDay2 < endDay2) { // 출발 일이 반납 일보다 작을 경우(예: 26일 < 27일)
+  							if(endDay2 - startDay2 >= 2) { // 대여기간이 2일 이상일 경우(예: 28일 - 26일 >= 2) 쿠폰사용 가능
+  								
+  							} else if(endDay2 - startDay2 == 1) { // 대여기간이 1일 이하라서 시간 체크 필요 (예: 출발 27일 22시 반납 28일 04시.)
+  								var tt = 24 - startTime; // tt : 2
+  								startTime = startTime - 24; // endTime : -2
+  								startTime += tt; // startTime : 0
+  								endTime += tt; // endTime : 06
+  								if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 22시 - 6시 > 3)
+  	  								timeCheck = "Y";
+  	  							} else {
+  	  								timeCheck = "N";
+  	  							}
+  							} else { // 대여기간이 같은 날일 경우
+  								if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 22시 - 6시 > 3)
+  	  								timeCheck = "Y";
+  	  							} else {
+  	  								timeCheck = "N";
+  	  							}
+  							}
+  						} else if(startDay2 == endDay2) { // 출발 일과 반납 일이 같을 경우 (예: 26일 == 26일)
+  							if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 12시 - 20시 > 3)
+  								timeCheck = "Y";
+  							} else {
+  								timeCheck = "N";
+  							}
+  							
+  						} else { // 출발 일이 반납 일보다 클 경우(예:26일 > 25일) 최소 한달이상은 지났으니 쿠폰 사용 가능
+  							timeCheck = "Y";
+  						}
+  					} else { // 출발 월이 반납 월보다 클 경우 (예: 12월 > 1월)
+  						if(startDay1 == 12 && startDay1 == 31 && endDay1 == 1 && endDay2 == 1) { // 출발 월이 반납 월보다 클 경우에 사용 가능한 경우는 12월 31일 출발 1월 1일 반납 밖에 없음.
+  							var tt = 24 - startTime; // tt : 2
+							startTime = startTime - 24; // endTime : -2
+							startTime += tt; // startTime : 0
+							endTime += tt; // endTime : 06
+							if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 22시 - 6시 > 3)
+	  							timeCheck = "Y";
+	  						} else {
+	  							timeCheck = "N";
+	  						}
+  						} else { // 출발월이 반납 월보다 큰데 하루차이가 아니라면 최소 2일 이상 차이나기 때문에 쿠폰 사용 가능
+  							timeCheck = "Y";
+  						}
+  					}
+  						
+  				}
+  				
+  				if(timeCheck == "N") {
+  					alert("쿠폰 조건이 맞지 않습니다.\n다른 쿠폰을 선택 해주세요.")
+  					$(".coupon_method option:eq(0)").prop("selected", true); //첫번째 option 선택
+  					ku = parseInt(0);
+					kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+		  			$("#ku").val(ku);
+					$("#kyul").val(kyul);
+		  				
+		  			$("#discount_label").remove();
+		  			$("#discount_label2").remove();
+		  			// 최초 결제금액을 할인 적용한 금액으로 변경
+		  			$("#confirm_amount").text(kyul);
+		  	  		// 할인 적용 안된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+		  		  	result = parseInt(kyul * 0.03);
+		  		  	$("#confirm_point").text(result);
+  					
+  				} else if(timeCheck == "Y") {
+  					if(couponVal[0] == "basic") {
+  		  				ku = parseInt(0);
+  						kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+  		  				$("#ku").val(ku);
+  						$("#kyul").val(kyul);
+  		  				
+  		  				$("#discount_label").remove();
+  		  				$("#discount_label2").remove();
+  		  				// 최초 결제금액을 할인 적용한 금액으로 변경
+  		  				$("#confirm_amount").text(kyul);
+  		  	  			// 할인 적용 안된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+  		  		  		result = parseInt(kyul * 0.03);
+  		  		  		$("#confirm_point").text(result);
+  		  				
+  		  			} else if(couponVal[0] == "M") { // 쿠폰타입이 금액할인이라면
+  		  				ku = parseInt(couponVal[1]);
+  						kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+  		  				$("#ku").val(ku);
+  						$("#kyul").val(kyul);
+  						if(kyul < 0) { // 결제할 금액이 0원 아래로 내려갈경우 -금액이 아닌 0원으로 대체
+  							kyul = 0;
+  						}
+  						// 최초 결제금액을 할인 적용한 금액으로 변경
+  						$("#confirm_amount").text(kyul);
+  			  			// (할인적용)이라는 문구가 만들어져 있다면 우선 삭제한 후 다시 append
+  						$("#discount_label").remove();
+  						$("#discount_label2").remove();
+  			  			// 할인이 적용되었다고 알리기 위해 라벨 추가
+  						$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>최초금액 : " + one + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
+  			  			// 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+  				  		result = parseInt(kyul * 0.03);
+  				  		$("#confirm_point").text(result);
+  		  			} else { // 쿠폰타입이 퍼센트 할인이라면 
+  		  				ku = parseInt(kyul * (parseInt(couponVal[1]) * 0.01));
+  		  				kyul = one - ku - po;
+  		  				$("#ku").val(ku);
+  		  				$("#kyul").val(kyul);
+  		  				// 최초 결제금액을 할인 적용한 금액으로 변경
+  		  				$("#confirm_amount").text(kyul);
+  		  	  			// (할인적용)이라는 문구가 만들어져 있다면 우선 삭제한 후 다시 append
+  		  				$("#discount_label").remove();
+  		  				$("#discount_label2").remove();
+  		  	  			// 할인이 적용되었다고 알리기 위해 라벨 추가
+  		  				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>할인전금액 : " + one + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
+  		  	  			// 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+  		  		  		result = parseInt(kyul * 0.03);
+  		  		  		$("#confirm_point").text(result);
+  		  			}
+  		  			$("#couponSeq").val(couponVal[2]);
+  				}
+  			} else if(couponVal[3] == "3") {
+  				var cpTitle1 = couponVal[4].split("시");
+  				var cpT1 = cpTitle1[0];
+  				var cpTitle2 = cpTitle1[1].split(" ");
+  				var cpT2 = cpTitle2[2];
+  				
+  				var startTime = $("#confirm_startTime").text().split(" ");
+  				
+  				startTime = startTime[1].split(":");
+  				startTime = parseInt(startTime[0]);
+  				
+  				var timeCheck = "";
+  				if(parseInt(cpT1) <= startTime && parseInt(cpT2) > startTime ) { // 출발시간이 쿠폰의 범위시간 안에 있을 경우
+  					timeCheck = "Y";
+  				} else {
+  					timeCheck = "N";
+  				}
+  				
+  				if(timeCheck == "N") {
+  					alert("쿠폰 조건이 맞지 않습니다.\n다른 쿠폰을 선택 해주세요.")
+  					$(".coupon_method option:eq(0)").prop("selected", true); //첫번째 option 선택
+  					ku = parseInt(0);
+					kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+		  			$("#ku").val(ku);
+					$("#kyul").val(kyul);
+		  				
+		  			$("#discount_label").remove();
+		  			$("#discount_label2").remove();
+		  			// 최초 결제금액을 할인 적용한 금액으로 변경
+		  			$("#confirm_amount").text(kyul);
+		  	  		// 할인 적용 안된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+		  		  	result = parseInt(kyul * 0.03);
+		  		  	$("#confirm_point").text(result);
+  				} else {
+  					if(couponVal[0] == "basic") {
+  		  				ku = parseInt(0);
+  						kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+  		  				$("#ku").val(ku);
+  						$("#kyul").val(kyul);
+  		  				
+  		  				$("#discount_label").remove();
+  		  				$("#discount_label2").remove();
+  		  				// 최초 결제금액을 할인 적용한 금액으로 변경
+  		  				$("#confirm_amount").text(kyul);
+  		  	  			// 할인 적용 안된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+  		  		  		result = parseInt(kyul * 0.03);
+  		  		  		$("#confirm_point").text(result);
+  		  				
+  		  			} else if(couponVal[0] == "M") { // 쿠폰타입이 금액할인이라면
+  		  				ku = parseInt(couponVal[1]);
+  						kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+  		  				$("#ku").val(ku);
+  						$("#kyul").val(kyul);
+  						if(kyul < 0) { // 결제할 금액이 0원 아래로 내려갈경우 -금액이 아닌 0원으로 대체
+  							kyul = 0;
+  						}
+  						// 최초 결제금액을 할인 적용한 금액으로 변경
+  						$("#confirm_amount").text(kyul);
+  			  			// (할인적용)이라는 문구가 만들어져 있다면 우선 삭제한 후 다시 append
+  						$("#discount_label").remove();
+  						$("#discount_label2").remove();
+  			  			// 할인이 적용되었다고 알리기 위해 라벨 추가
+  						$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>최초금액 : " + one + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
+  			  			// 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+  				  		result = parseInt(kyul * 0.03);
+  				  		$("#confirm_point").text(result);
+  		  			} else { // 쿠폰타입이 퍼센트 할인이라면 
+  		  				ku = parseInt(kyul * (parseInt(couponVal[1]) * 0.01));
+  		  				kyul = one - ku - po;
+  		  				$("#ku").val(ku);
+  		  				$("#kyul").val(kyul);
+  		  				// 최초 결제금액을 할인 적용한 금액으로 변경
+  		  				$("#confirm_amount").text(kyul);
+  		  	  			// (할인적용)이라는 문구가 만들어져 있다면 우선 삭제한 후 다시 append
+  		  				$("#discount_label").remove();
+  		  				$("#discount_label2").remove();
+  		  	  			// 할인이 적용되었다고 알리기 위해 라벨 추가
+  		  				$("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>할인전금액 : " + one + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
+  		  	  			// 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+  		  		  		result = parseInt(kyul * 0.03);
+  		  		  		$("#confirm_point").text(result);
+  		  			}
+  		  			$("#couponSeq").val(couponVal[2]);
+  				}
+  				
+  				
+  				
   			}
-  			$("#couponSeq").val(couponVal[2]);
+  			
   			
   			
   		})

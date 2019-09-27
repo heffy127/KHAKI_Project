@@ -12,6 +12,7 @@ public class CouponUseDTO {
 	private int cp_num; // 할인정도
 	private String cp_end; // 쿠폰 유효기간 마감날짜(해당 DTO 호출할 때 유효기간 마감날짜가 이미 지났을 경우 해당 쿠폰 삭제)
 	private String cp_using;
+	private String cp_condition;
 	
 	public int getNum() {
 		return num;
@@ -54,6 +55,12 @@ public class CouponUseDTO {
 	}
 	public void setCp_end(String cp_end) {
 		this.cp_end = cp_end;
+	}
+	public String getCp_condition() {
+		return cp_condition;
+	}
+	public void setCp_condition(String cp_condition) {
+		this.cp_condition = cp_condition;
 	}
 	
 	

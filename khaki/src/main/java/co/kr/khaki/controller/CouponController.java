@@ -1,6 +1,7 @@
 package co.kr.khaki.controller;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +20,23 @@ public class CouponController {
 	// 쿠폰 등록
 	@RequestMapping("insertCp.do")
 	public String cpInsert(CouponDTO couponDTO) {
-		// endDate 지정
-
-		// 쿠폰 등록
-		dao.couponInsert(couponDTO);
-		return "coupon/insertCp";
+		String cId = "";
+		boolean a = true;
+		int check = 0;
+		while (a) {
+			cId = "CP_" + couponDTO.getcOption() + "_";
+			Random rd = new Random();
+			cId += rd.nextInt(999999);
+			check = dao.couponIdSelect(cId);
+			if (check == 0) {
+				couponDTO.setcId(cId);
+				dao.couponInsert(couponDTO);
+				a = false;
+			} else {
+				a = true;
+			}
+		}
+		return "coupon/admin_coupon1";
 	}
 
 	// 쿠폰 삭제
@@ -52,5 +65,27 @@ public class CouponController {
 		List<CouponDTO> list = dao.couponSelectAll();
 		model.addAttribute("list", list);
 		return "coupon/coupon";
+	}
+
+	// 쿠폰 리스트 불러오기
+	@RequestMapping("admin_coupon.do")
+	public String admin_coupon() {
+		return "coupon/admin_coupon_choice";
+	}
+
+	// 쿠폰 리스트 불러오기
+	@RequestMapping("admin_coupon1.do")
+	public String admin_coupon1() {
+		return "coupon/admin_coupon1";
+	}
+	// 쿠폰 리스트 불러오기
+	@RequestMapping("admin_coupon2.do")
+	public String admin_coupon2() {
+		return "coupon/admin_coupon2";
+	}
+	// 쿠폰 리스트 불러오기
+	@RequestMapping("admin_coupon3.do")
+	public String admin_coupon3() {
+		return "coupon/admin_coupon3";
 	}
 }
