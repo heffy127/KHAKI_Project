@@ -1,4 +1,4 @@
-package co.kr.khaki.member.DTO;
+package co.kr.khaki.admin.DTO;
 
 public class MemberAdminDTO {
 	private String id;

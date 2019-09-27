@@ -1,8 +1,8 @@
-package co.kr.khaki.member.DAO;
+package co.kr.khaki.admin.DAO;
 
 import java.util.List;
 
-import co.kr.khaki.member.DTO.MemberAdminDTO;
+import co.kr.khaki.admin.DTO.MemberAdminDTO;
 
 public interface MemberAdminDAOInter {
 

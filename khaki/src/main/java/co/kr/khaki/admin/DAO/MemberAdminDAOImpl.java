@@ -1,4 +1,4 @@
-package co.kr.khaki.member.DAO;
+package co.kr.khaki.admin.DAO;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import co.kr.khaki.member.DTO.MemberAdminDTO;
+import co.kr.khaki.admin.DTO.MemberAdminDTO;
 
 @Repository
 public class MemberAdminDAOImpl implements MemberAdminDAOInter {

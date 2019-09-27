@@ -8,13 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import co.kr.khaki.admin.DTO.MemberAdminDTO;
 import co.kr.khaki.common.CalculateMemberLevel;
 import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
 import co.kr.khaki.member.DAO.MemberDAOInter;
 import co.kr.khaki.member.DAO.MemberLevelDAOInter;
 import co.kr.khaki.member.DTO.InsertPointDTO;
-import co.kr.khaki.member.DTO.MemberAdminDTO;
 import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.member.DTO.MemberLevelDTO;
 import co.kr.khaki.pay.PayDAO;
