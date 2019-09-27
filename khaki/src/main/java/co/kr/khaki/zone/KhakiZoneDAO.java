@@ -12,6 +12,11 @@ public class KhakiZoneDAO {
 	@Autowired
 	SqlSessionTemplate my;
 	
+	public List<KhakiZone_CarmanageDTO> select_zone_num(){
+		System.out.println("KhakiZoneDAO zone_nums select!");
+		return my.selectList("zoneDAO.zone_nums");
+	}
+	
 	public void delete(int zone_num) {
 		System.out.println("KhakiZoneDAO Delete!");
 		my.delete("zoneDAO.zone_delete", zone_num);

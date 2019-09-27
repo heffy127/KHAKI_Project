@@ -232,94 +232,6 @@
     <div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
       <div class="container-fluid">
         <div class="header-body">
-          <!-- Card stats -->
-          <!-- <div class="row">
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">총차량수</h5>
-                      <span class="h2 font-weight-bold mb-0">0000</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                        <i class="fas fa-car"></i>
-                      </div>
-                    </div>
-                    <p></p>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body normal">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">정상운행</h5>
-                      <span class="h2 font-weight-bold mb-0">0000</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last week</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body old">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">노후차량</h5>
-                      <span class="h2 font-weight-bold mb-0">0000</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                    <span class="text-nowrap">Since yesterday</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body junggo">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">중고차량(판매가능)</h5>
-                      <span class="h2 font-weight-bold mb-0">0000</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-warning mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
@@ -331,78 +243,89 @@
           		<img src="https://image.flaticon.com/icons/svg/2035/2035524.svg" style="width: 3%; margin-right: 2%;">교통상황 CCTV
           	</div>	<!-- card-header end -->
             <div class="card-body">	<!-- id에 map을 주어 위의 script 실행되도록 함 -->
-            	<!-- aaabbb -->
             	<div class="row">
 	            	<!-- map 표시되는 div -->
 	            	<div class="col-md-9" id="map" style="width: 1000px;height: 1000px; background-image: url('https://thumbs.gfycat.com/DeficientBareDalmatian-size_restricted.gif'); background-size: 100%; background-repeat: no-repeat; background-position: center top;"></div>
             		<!-- 메뉴 놓을 div -->
             		<div class="col-md-3" align="center">
             			<div class="row">
+            				<div class="col">
             				지도 확대 / 축소
+            				</div>
             			</div>
             			<div class="row">
-            				<button class="btn btn-info" onclick="zoomOut()">지도레벨 + 1(축소)</button>
-            				<button class="btn btn-danger" onclick="zoomIn()">지도레벨 - 1(확대)</button>
+            				<div class="col">
+	            				<button class="btn btn-info" onclick="zoomOut()">지도레벨 + 1(축소)</button>
+	            				<button class="btn btn-danger" onclick="zoomIn()">지도레벨 - 1(확대)</button>
+            				</div>
             			</div>
             			<div class="row">
-            				지역별(광역시)
+            				<div class="col">
+	            				지역별(광역시)
+            				</div>
             			</div>
             			<div class="row">
-            				<button class="btn btn-outline-secondary" onclick="panTo(37.563928, 126.997477)">서울특별시</button>
-            				<button class="btn btn-outline-secondary" onclick="panTo(35.176476, 129.079631)">부산광역시</button>
-            				<button class="btn btn-outline-secondary" onclick="panTo(35.869516, 128.606184)">대구광역시</button>
+	            				<button class="btn btn-outline-secondary" onclick="panTo(37.563928, 126.997477)">서울특별시</button>
+	            				<button class="btn btn-outline-secondary" onclick="panTo(35.176476, 129.079631)">부산광역시</button>
+	            				<button class="btn btn-outline-secondary" onclick="panTo(35.869516, 128.606184)">대구광역시</button>
             			</div>
             			<div class="row">
-            				<button class="btn btn-outline-secondary" onclick="panTo(37.449180, 126.731477)">인천광역시</button>
-            				<button class="btn btn-outline-secondary" onclick="panTo(35.154573, 126.889890)">광주광역시</button>
-            				<button class="btn btn-outline-secondary" onclick="panTo(36.356850, 127.384213)">대전광역시</button>
+	            				<button class="btn btn-outline-secondary" onclick="panTo(37.449180, 126.731477)">인천광역시</button>
+	            				<button class="btn btn-outline-secondary" onclick="panTo(35.154573, 126.889890)">광주광역시</button>
+	            				<button class="btn btn-outline-secondary" onclick="panTo(36.356850, 127.384213)">대전광역시</button>
             			</div>
             			<div class="row">
-            				<button class="btn btn-outline-secondary" onclick="panTo(35.547520, 129.330644)">울산광역시</button>
-            				<button class="btn btn-outline-secondary" onclick="panTo(36.480262, 127.289035)">세종특별자치시</button>
+		           				<button class="btn btn-outline-secondary" onclick="panTo(35.547520, 129.330644)">울산광역시</button>
+		           				<button class="btn btn-outline-secondary" onclick="panTo(36.480262, 127.289035)">세종특별자치시</button>
             			</div>
             			
             			<div class="row">
-            				지역별(도별)
+            				<div class="col">
+	            				지역별(도별)
+            				</div>
             			</div>
-            			<div class="row">
-            			<!-- 비슷해 보이는 것들끼리 버튼 색깔 통일해서 표현하면 좋을듯 -->
-            			<!-- 경기도, 강원도 btn btn-outline-primary / 충청남도, 충청북도 btn btn-outline-success / 
-            				경상남도, 경상북도 btn btn-outline-info / 전라북도, 전라남도 btn btn-outline-warning -->
-            				
             				<!-- 광역시
-서울특별시 - 중구청(37.563928, 126.997477)
-부산광역시 - 연제구청(35.176476, 129.079631)
-대구광역시 - 대구중구청(35.869516, 128.606184)
-인천광역시 - 남동구청(37.449180, 126.731477)
-광주광역시 - 서구청(35.154573, 126.889890)
-대전광역시 - 서구청(36.356850, 127.384213)
-울산광역시 - 남구청(35.547520, 129.330644)
-세종특별자치시 - 시청(36.480262, 127.289035)
-도
-경기도 - 수원시청(37.264685, 127.031270)
-강원도 - 춘천시청(37.881437, 127.730108)
-충청북도 - 청주시청(36.642323, 127.488833)
-충청남도 - 홍성군청(36.601518, 126.660837)
-전라북도 - 전주시청(35.824437, 127.148022)
-전라남도 - 무안군청(34.990623, 126.481728)
-경상북도 - 안동시청(36.586488, 128.727215)
-경상남도 - 창원시청(35.228223, 128.681825)
- -->
-            				<button class="btn btn-outline-primary" onclick="panTo(37.264685, 127.031270)">경기도</button>
-            				<button class="btn btn-outline-primary" onclick="panTo(37.881437, 127.730108)">강원도</button>
+							서울특별시 - 중구청(37.563928, 126.997477)
+							부산광역시 - 연제구청(35.176476, 129.079631)
+							대구광역시 - 대구중구청(35.869516, 128.606184)
+							인천광역시 - 남동구청(37.449180, 126.731477)
+							광주광역시 - 서구청(35.154573, 126.889890)
+							대전광역시 - 서구청(36.356850, 127.384213)
+							울산광역시 - 남구청(35.547520, 129.330644)
+							세종특별자치시 - 시청(36.480262, 127.289035)
+							도
+							경기도 - 수원시청(37.264685, 127.031270)
+							강원도 - 춘천시청(37.881437, 127.730108)
+							충청북도 - 청주시청(36.642323, 127.488833)
+							충청남도 - 홍성군청(36.601518, 126.660837)
+							전라북도 - 전주시청(35.824437, 127.148022)
+							전라남도 - 무안군청(34.990623, 126.481728)
+							경상북도 - 안동시청(36.586488, 128.727215)
+							경상남도 - 창원시청(35.228223, 128.681825)
+							 -->
+ 						<div class="row">
+ 							<div class="col">
+	            				<button class="btn btn-outline-primary" onclick="panTo(37.264685, 127.031270)">경기도</button>
+	            				<button class="btn btn-outline-primary" onclick="panTo(37.881437, 127.730108)">강원도</button>
+ 							</div>
             			</div>
             			<div class="row">
-            				<button class="btn btn-outline-success" onclick="panTo(36.642323, 127.488833)">충청북도</button>
-            				<button class="btn btn-outline-success" onclick="panTo(36.601518, 126.660837)">충청남도</button>
+ 							<div class="col">
+	            				<button class="btn btn-outline-success" onclick="panTo(36.642323, 127.488833)">충청북도</button>
+	            				<button class="btn btn-outline-success" onclick="panTo(36.601518, 126.660837)">충청남도</button>
+            				</div>
             			</div>
             			<div class="row">
-            				<button class="btn btn-outline-info" onclick="panTo(36.586488, 128.727215)">경상북도</button>
-            				<button class="btn btn-outline-info" onclick="panTo(35.228223, 128.681825)">경상남도</button>
+ 							<div class="col">
+	            				<button class="btn btn-outline-info" onclick="panTo(36.586488, 128.727215)">경상북도</button>
+	            				<button class="btn btn-outline-info" onclick="panTo(35.228223, 128.681825)">경상남도</button>
+            				</div>
             			</div>
             			<div class="row">
-            				<button class="btn btn-outline-warning" onclick="panTo(35.824437, 127.148022)">전라북도</button>
-            				<button class="btn btn-outline-warning" onclick="panTo(34.990623, 126.481728)">전라남도</button>
+ 							<div class="col">
+	            				<button class="btn btn-outline-warning" onclick="panTo(35.824437, 127.148022)">전라북도</button>
+	            				<button class="btn btn-outline-warning" onclick="panTo(34.990623, 126.481728)">전라남도</button>
+            				</div>
             			</div>
             		</div>
             	</div>
@@ -413,33 +336,6 @@
           </div>	<!-- card-footer end -->
         </div>
       </div>
-      <!-- Footer -->
-      <!-- Footer -->
-      <footer class="footer">
-        <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-              &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-            </div>
-          </div>
-          <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer>
     </div>
   </div>
   	<!-- aaaa -->
@@ -482,7 +378,6 @@
 	    $.get(url, function(result) {
 	        // 데이터에서 좌표 값을 가지고 마커를 표시합니다
 	        // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
-	        // aaaaa
 	        var json = $.xml2json(result);
 	        console.log(json.data);
 	        var markers = $(json.data).map(function(i, data) {

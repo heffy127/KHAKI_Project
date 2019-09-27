@@ -17,6 +17,8 @@ import co.kr.khaki.handler.DTO.HandlerDTO;
 import co.kr.khaki.notice.pagination;
 import co.kr.khaki.usedCar.UsedCarDAO;
 import co.kr.khaki.usedCar.UsedCarDTO;
+import co.kr.khaki.zone.KhakiZoneDAO;
+import co.kr.khaki.zone.KhakiZone_CarmanageDTO;
 
 @Controller
 public class CarManageController {
@@ -30,6 +32,8 @@ public class CarManageController {
 	@Autowired
 	UsedCarDAO usedCarDAO;
 	
+	@Autowired
+	KhakiZoneDAO zoneDAO;
 	
 	@RequestMapping("carmanageDelete.do")
 	public String carmanageDelete(String car_num, Model model, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="10") int pageSize){
@@ -155,10 +159,15 @@ public class CarManageController {
 		//CarList 객체 생성
 		CarList carList = new CarList();
 		
+		List<KhakiZone_CarmanageDTO> zonelist = zoneDAO.select_zone_num();
+		
+		//System.out.println(zonelist.get(0).getZone_name());
+		
 		// model로 객체 전송
 		model.addAttribute("cars", carList.getCars());
 		model.addAttribute("carlist", carList.getCarsList());
 		model.addAttribute("brands",carList.getBrands());
+		model.addAttribute("zonelist", zonelist);
 		
 		return "carmanage/carmanageInsert";
 	}

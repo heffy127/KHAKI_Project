@@ -172,9 +172,9 @@
 		            						<div class="col col-sm-10" style="height: 50px; line-height: 50px; vertical-align: middle;">
 		            							카키존 지정 : 
 		            							<select name="zone_num">
-		            								<option value="1">1번</option>
-		            								<option value="2">2번</option>
-		            								<option value="3">3번</option>
+		            								<c:forEach var="zonedto" items="${zonelist }">
+		            									<option value="${zonedto.zone_num }">${zonedto.zone_name }</option>
+		            								</c:forEach>
 		            							</select>
 		            						</div>
 		            					</div>
