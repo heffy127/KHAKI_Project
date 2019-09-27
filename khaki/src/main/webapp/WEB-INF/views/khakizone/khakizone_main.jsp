@@ -40,13 +40,13 @@
 		<div class="col-md-6" id="map">map 이용 표현</div>
 		
 		<div class="col-md-6">
-			<form action="khakizone_insert.do">
+			<form id="zone_form" action="khakizone_insert.do">
 				<div class="row">
 					<div class="col">
 						<div class="row">
 							<div class="col-md-3">
 								<input type="text" id="zone_name" name="zone_name" placeholder="카키존 이름">
-								<input type="hidden" name="zone_num" placeholder="카키존 넘버" value="1">
+								<input type="hidden" id="zone_num" name="zone_num" placeholder="카키존 넘버" value="1">
 							</div>
 							<div class="col-md-9">카키존 위치 : <input name="zone_location_x" id="location_x" type="text" placeholder="경도"> / <input name="zone_location_y" id="location_y" type="text" placeholder="위도"></div>
 						</div>
@@ -57,14 +57,12 @@
 						</div>
 						<div class="row">
 							<div class="col">
-								<input type="submit" value="카키존 등록">
+								<input type="submit" id="zone_form_submit" value="카키존 등록" style="display: none;">
 							</div>
 						</div>
 					</div>	<!-- col end -->
 				</div>	<!-- row end -->
-				<input type="hidden" name="khakizone_seq" value="">
 			</form>
-			
 			<br><br>
 			
 			<!-- table -->
@@ -220,11 +218,11 @@
 	if(between_max >2){
 		map_level = 12
 	}else if(between_max > 1.5){
-		map_level = 9
+		map_level = 11
 	}else if(between_max > 1){
-		map_level = 7
+		map_level = 10
 	}else{
-		map_level = 6
+		map_level = 9
 	}
 	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
@@ -309,6 +307,7 @@
 	    		$("#zone_comment").text(zone_comment);
 	    		$("#location_x").val(x);
 	    		$("#location_y").val(y);
+	    		$("#zone_num").val(zone_num);
 	    		
 	    		alert($("#list_menu1").children("#list_menu_zone_num1").text().trim().toString())
 	    		var list_zone_num = null;
@@ -322,6 +321,11 @@
 						}
 					}
 				
+	    		/* <form id="zone_form" action="khakizone_insert.do">
+	    		<input type="hidden" id="zone_form_submit" style="display: none;"> */
+	    		$("#zone_form").attr("action","khakizone_update.do");
+	    		$("#zone_form_submit").val("카키존 수정");
+	    		$("#zone_form_submit").css("display","");
 	    		
 		        // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
 		        // 마커의 이미지를 클릭 이미지로 변경합니다
@@ -438,7 +442,9 @@
 	    $("#location_y").val(y.toFixed(5));
 	    
 	  	//---------------------------------------
-	  	
+	    $("#zone_form").attr("action","khakizone_insert.do");
+	    $("#zone_form_submit").css("display","");
+	    $("#zone_form_submit").val("카키존 등록");
 	    
 	});
 	
@@ -455,8 +461,8 @@
 			var z_comment = $(this).children("#list_menu_zone_comment").text().trim();
 			$("#zone_comment").text(z_comment);
 			
-			var zone_num = $(this).children(".list_menu_zone_num").text().trim();
-			
+			var z_num = $(this).children(".list_menu_zone_num").text().trim();
+			$("#zone_num").val(z_num);
 			//alert("zone_num : "+zone_num);
 			//alert("select_list.size : "+${select_list.size()});
 			
@@ -464,7 +470,7 @@
     			list_zone_num = $("#list_menu"+i).children("#list_menu_zone_num"+i).text().trim().toString();
     			//alert("list_zone_num : "+list_zone_num);
 			
-				if(zone_num == list_zone_num){
+				if(z_num == list_zone_num){
 				alert("성공!");
 				//$("#list_menu"+i).children("#list_menu_zone_num"+i).text(zone_num+"<-- 선택 " );
 				//$("#list_menu"+i).children("#list_menu_zone_num"+i).append('<img alt="" src="resources/assets/img/etc/star.jpg" style="widows: 30px;height: 30px;">');
@@ -511,6 +517,11 @@
 			        selectedMarker = markers[i];
 				}
 			}
+		 	
+		 	// 버튼 
+		 	$("#zone_form").attr("action","khakizone_update.do");
+    		$("#zone_form_submit").val("카키존 수정");
+    		$("#zone_form_submit").css("display","");
 		})	//list_menu class click
 	})	//JQuery end
 	

@@ -4,7 +4,6 @@ import java.util.List;
 
 /**
  * @author 민병호
- *
  */
 public class KhakiZoneCal {
 	
@@ -42,40 +41,46 @@ public class KhakiZoneCal {
 		max_y = arr_y[0];
 		min_y = arr_y[0];
 		
-		for (int i = 0; i < arr_x.length; i++) {
-			if(max_x < arr_x[i]) {
-				max_x = arr_x[i];
+		if(list.size() > 1) {
+			for (int i = 0; i < arr_x.length; i++) {
+				if(max_x < arr_x[i]) {
+					max_x = arr_x[i];
+				}
+				
+				if(min_x > arr_x[i]) {
+					min_x = arr_x[i];
+				}
+				
+				// 편의상 반복횟수가 같기 때문에 활용
+				if(max_y < arr_y[i]) {
+					max_y = arr_y[i];
+				}
+				
+				if(min_y > arr_y[i]) {
+					min_y = arr_y[i];
+				}
 			}
 			
-			if(min_x > arr_x[i]) {
-				min_x = arr_x[i];
-			}
+			//System.out.println("x좌표 합 : "+sum_x+", y좌표 합 : "+sum_y);
+			//System.out.println("x max : "+max_x+", x min : "+min_x + ", y max : "+max_y+", y min ; "+min_y);
 			
-			// 편의상 반복횟수가 같기 때문에 활용
-			if(max_y < arr_y[i]) {
-				max_y = arr_y[i];
-			}
+			float between_x = max_x - min_x;
+			float between_y = max_y - min_y;
 			
-			if(min_y > arr_y[i]) {
-				min_y = arr_y[i];
+			// 결과 넣기
+			this.center_x = (max_x + min_x)/2;
+			this.center_y = (max_y + min_y)/2;
+			
+			// 가장 큰 차이 값을 저장
+			if(between_x > between_y) {
+				this.between_max = between_x;
+			}else {
+				this.between_max = between_y;
 			}
-		}
-		
-		//System.out.println("x좌표 합 : "+sum_x+", y좌표 합 : "+sum_y);
-		//System.out.println("x max : "+max_x+", x min : "+min_x + ", y max : "+max_y+", y min ; "+min_y);
-		
-		float between_x = max_x - min_x;
-		float between_y = max_y - min_y;
-		
-		// 결과 넣기
-		this.center_x = (max_x + min_x)/2;
-		this.center_y = (max_y + min_y)/2;
-		
-		// 가장 큰 차이 값을 저장
-		if(between_x > between_y) {
-			this.between_max = between_x;
 		}else {
-			this.between_max = between_y;
+			this.center_x = arr_x[0];
+			this.center_y = arr_y[0];
+			this.between_max = (float)0.5;	//지도 레벨 1 이하면 설정 시 
 		}
 	}
 	
@@ -140,8 +145,5 @@ public class KhakiZoneCal {
 	public String toString() {
 		return "KhakiZoneCal [center_x=" + center_x + ", center_y=" + center_y + ", max_x=" + max_x + ", max_y=" + max_y
 				+ ", min_x=" + min_x + ", min_y=" + min_y + ", between_max=" + between_max + "]";
-	}
-	
-	
-	
+	}	
 }

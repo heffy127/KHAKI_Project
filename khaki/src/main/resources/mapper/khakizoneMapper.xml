@@ -37,17 +37,19 @@
 		VALUES(khakizone_seq.nextval,#{zone_name},#{zone_location_x}, #{zone_location_y},#{zone_comment})
 	</insert>
 
-	<!-- <update id="updateSomething" parameterType="#modelname">
-		UPDATE tablename1
+	<update id="zone_update" parameterType="zoneDTO">
+		UPDATE khakizone
 		SET
-		columnname1=#{param1}
+		zone_name=#{zone_name}, zone_location_x=#{zone_location_x}, zone_location_y=#{zone_location_y}, zone_comment=#{zone_comment}
 		WHERE
-		columnname2 = #{param2}
+		zone_num = #{zone_num}
 	</update>
-
+	
+	<!-- 
 	<delete id="deleteSomething" parameterType="int">
 		DELETE FROM tablename1 WHERE
 		columnname1 = #{param1}
-	</delete> -->
+	</delete> 
+	-->
 
 </mapper>

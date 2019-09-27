@@ -48,7 +48,6 @@ public class KhakiZoneController {
 	@RequestMapping("khakizone_insert.do")
 	public String khakizone_insert(Model model, KhakiZoneDTO khakiZoneDTO, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="5") int pageSize) {
 		System.out.println("khakizone_insert!");
-		System.out.println(khakiZoneDTO);
 		zonedao.insert(khakiZoneDTO);
 		
 		// 페이지 네이션 부분
@@ -70,4 +69,26 @@ public class KhakiZoneController {
 		return "khakizone/khakizone_main";
 	}
 	
+	@RequestMapping("khakizone_update.do")
+	public String khakizone_update(Model model, KhakiZoneDTO khakiZoneDTO, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="5") int pageSize) {
+		System.out.println("khakizone_update!");
+		System.out.println(khakiZoneDTO);
+		zonedao.update(khakiZoneDTO);
+		
+		// 페이지 네이션 부분
+		int total = zonedao.cntAll();
+		pagination pg = new pagination(total, curPage, pageSize);
+		
+		System.out.println("index 숫자 : " + pg.getStartIndex());
+		List<KhakiZoneDTO> select_list = zonedao.select_page(pg.getStartIndex());
+		
+		KhakiZoneCal zonecal = new KhakiZoneCal(select_list);
+		
+		//model객체를 통한 view단에 전달하는 곳
+		model.addAttribute("pagination", pg);
+		model.addAttribute("select_list", select_list);
+		model.addAttribute("cal", zonecal);
+		
+		return "khakizone/khakizone_main";
+	}
 }
