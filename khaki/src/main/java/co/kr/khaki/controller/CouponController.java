@@ -78,14 +78,17 @@ public class CouponController {
 	public String admin_coupon1() {
 		return "coupon/admin_coupon1";
 	}
+
 	// 쿠폰 리스트 불러오기
 	@RequestMapping("admin_coupon2.do")
 	public String admin_coupon2() {
 		return "coupon/admin_coupon2";
 	}
+
 	// 쿠폰 리스트 불러오기
 	@RequestMapping("admin_coupon3.do")
 	public String admin_coupon3() {
 		return "coupon/admin_coupon3";
 	}
+
 }

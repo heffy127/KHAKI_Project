@@ -10,6 +10,11 @@
 		WHERE cp_id = #{cp_id}
 	</select>
 	
+	<select id="select2" parameterType="String" resultMap="rsMap">
+		SELECT *
+		FROM couponUse
+		WHERE cp_id = #{cp_id} and cp_using = 'N'
+	</select>
 	
 	<resultMap type="cpuDTO" id="rsMap">
 		<result property="num" column="num" />

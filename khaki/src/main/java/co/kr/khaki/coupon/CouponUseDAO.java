@@ -7,7 +7,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import co.kr.khaki.handler.DTO.HandlerDTO;
 
 @Repository
 public class CouponUseDAO {
@@ -18,6 +17,11 @@ public class CouponUseDAO {
 	public List<CouponUseDTO> select(CouponUseDTO cpuDTO) {
 		System.out.println("CouponUseDTO select!");
 		return my.selectList("cpuDAO.select", cpuDTO);
+	}
+	
+	public List<CouponUseDTO> select2(String cp_id) {
+		System.out.println("CouponUseDTO select2!");
+		return my.selectList("cpuDAO.select2", cp_id);
 	}
 	
 	public void delete(CouponUseDTO cpuDTO) {

@@ -22,6 +22,7 @@
    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
    <script>
    	$(function(){
+   		// 
    		$("#cTitle1").keyup(function(){
    			var cTitle1 = $("#cTitle1").val();
    			if(cTitle1 >= 24) {
