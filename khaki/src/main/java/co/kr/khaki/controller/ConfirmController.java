@@ -14,7 +14,7 @@ import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
 import co.kr.khaki.member.DAO.MemberDAOInter;
 import co.kr.khaki.member.DTO.MemberDTO;
-import co.kr.khaki.pay.PayDTO;
+import co.kr.khaki.reservation.DTO.PayDTO;
 
 @Controller
 public class ConfirmController {

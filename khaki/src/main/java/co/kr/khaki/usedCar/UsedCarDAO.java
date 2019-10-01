@@ -6,8 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import co.kr.khaki.pay.PayDTO;
 import co.kr.khaki.refund.RefundDTO;
+import co.kr.khaki.reservation.DTO.PayDTO;
 
 @Repository
 public class UsedCarDAO {

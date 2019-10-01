@@ -1,4 +1,4 @@
-package co.kr.khaki.pay;
+package co.kr.khaki.reservation.DTO;
 
 public class PayDTO {
 	private int buy_num; // 구매개수를 확인 할 번호

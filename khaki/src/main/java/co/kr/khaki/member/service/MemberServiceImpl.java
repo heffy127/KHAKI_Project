@@ -26,7 +26,7 @@ import co.kr.khaki.member.DTO.LicenseDTO;
 import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.member.DTO.MemberLevelDTO;
 import co.kr.khaki.member.DTO.SocialDTO;
-import co.kr.khaki.pay.PayDAO;
+import co.kr.khaki.reservation.DAO.PayDAOImpl;
 
 @Service
 public class MemberServiceImpl implements MemberServiceInter {
@@ -41,7 +41,7 @@ public class MemberServiceImpl implements MemberServiceInter {
    @Autowired
    BoardDAO boardDAO;
    @Autowired
-   PayDAO payDAO;
+   PayDAOImpl payDAO;
    
    // ID로 회원 검색
    /* (non-Javadoc)

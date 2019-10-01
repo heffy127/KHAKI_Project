@@ -1,4 +1,4 @@
-package co.kr.khaki.pay;
+package co.kr.khaki.reservation.DAO;
 
 import java.util.List;
 
@@ -7,8 +7,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import co.kr.khaki.reservation.DTO.PayDTO;
+
 @Repository
-public class PayDAO {
+public class PayDAOImpl implements PayDAOInterface {
 
 	@Autowired
 	SqlSessionTemplate my;

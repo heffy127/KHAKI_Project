@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import co.kr.khaki.pay.PayDTO;
+import co.kr.khaki.reservation.DTO.PayDTO;
 import co.kr.khaki.usedCar.UsedCarDAO;
 import co.kr.khaki.usedCar.UsedCarDTO;
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import co.kr.khaki.handler.DTO.HandlerStatusDTO;
 import co.kr.khaki.member.DTO.InsertPointDTO;
 import co.kr.khaki.member.DTO.MemberDTO;
-import co.kr.khaki.pay.PayDTO;
+import co.kr.khaki.reservation.DTO.PayDTO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAOInter {
