@@ -1,4 +1,4 @@
-package co.kr.khaki.refund;
+package co.kr.khaki.refund.DTO;
 
 public class RefundDTO {
 	

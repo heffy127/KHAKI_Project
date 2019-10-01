@@ -1,10 +1,11 @@
-package co.kr.khaki.controller;
+package co.kr.khaki.refund.service;
 
 import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -17,13 +18,13 @@ import co.kr.khaki.member.DAO.MemberLevelDAOInter;
 import co.kr.khaki.member.DTO.InsertPointDTO;
 import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.member.DTO.MemberLevelDTO;
-import co.kr.khaki.refund.RefundDAO;
-import co.kr.khaki.refund.RefundDTO;
+import co.kr.khaki.refund.DAO.RefundDAOInterface;
+import co.kr.khaki.refund.DTO.RefundDTO;
 import co.kr.khaki.reservation.DAO.PayDAOInterface;
 import co.kr.khaki.reservation.DTO.PayDTO;
 
-@Controller
-public class RefundController {
+@Service
+public class RefundServiceImpl implements RefundServiceInterface {
 
 	@Autowired
 	PayDAOInterface pdao;
@@ -32,7 +33,7 @@ public class RefundController {
 	MemberDAOInter memberDAO;
 
 	@Autowired
-	RefundDAO refundDAO;
+	RefundDAOInterface refundDAO;
 
 	@Autowired
 	MemberLevelDAOInter memberLevelDAO;
@@ -40,17 +41,14 @@ public class RefundController {
 	@Autowired
 	CouponUseDAO cpuDAO;
 
-	@RequestMapping("admin_reservation.do")
-	public String admin_reservation(Model model) {
+	@Override
+	public List<PayDTO> admin_reservation() {
 		List<PayDTO> pdto = pdao.selectAll();
-		model.addAttribute("pdto", pdto);
-		model.addAttribute("searchMethod", "buy_impUid");
-		model.addAttribute("searchInputText", "");
-		return "checkReservation/admin_reservation";
+		return pdto;
 	}
 
-	@RequestMapping("refund.do")
-	public String refund(String buy_impUid) {
+	@Override
+	public void refund(String buy_impUid) {
 		// reservation DB에 주문번호로 select해오기 위해 payDTO 객체 생성
 		PayDTO payDTO = new PayDTO();
 		// payDTO의 주문번호에 get메소드로 입력
@@ -115,22 +113,20 @@ public class RefundController {
 
 		refundDTO.setPointOrCoupon(pDTO.getBuy_useCoupon());
 		refundDAO.insert(refundDTO);
-
-		return "pay/payResult";
 	}
 
-	@RequestMapping("refundSelectYN.do")
-	public String refundSelectYN(String impUid, Model model) {
+	@Override
+	public RefundDTO refundSelectYN(String impUid) {
 		System.out.println(impUid + " : 넘어온 주문번호 확인");
 		RefundDTO refundDTO = refundDAO.select(impUid);
 		if (refundDTO != null) {
 			System.out.println(refundDTO.getRefundYN() + " : 넘길 값 확인");
-			model.addAttribute("refundDTO", refundDTO);
+			return refundDTO;
 		}
-		return "checkReservation/refundSelectYN";
+		return refundDTO;
 	}
 
-	@RequestMapping("refundUpdate.do")
+	@Override
 	public String refundUpdate(String impUid) {
 		RefundDTO refundDTO = new RefundDTO();
 		System.out.println(impUid + "주문번호@@@");
@@ -155,34 +151,26 @@ public class RefundController {
 		return "checkReservation/admin_reservation";
 	}
 
-	@RequestMapping("refund_search.do")
-	public String refund_search(String select, String text, Model model) {
+	@Override
+	public List<PayDTO> refund_search(String select, String text) {
 		System.out.println(select + "넘어온 데이터 확인");
 		System.out.println(text + "넘어온 데이터 확인");
 
 		if (select.equals("buy_impUid")) { // id 검색
 			List<PayDTO> pdto = pdao.selectImpUid(text);
-			model.addAttribute("pdto", pdto);
-			model.addAttribute("searchMethod", "buy_impUid"); // selectBox 아이디 선택
-			model.addAttribute("searchInputText", text);
+			return pdto;
 		} else if (select.equals("buy_id")){
 			List<PayDTO> pdto = pdao.selectId(text);
-			model.addAttribute("pdto", pdto);
-			model.addAttribute("searchMethod", "buy_id"); // selectBox 아이디 선택
-			model.addAttribute("searchInputText", text);
+			return pdto;
 		} else if (select.equals("buy_name")){
 			List<PayDTO> pdto = pdao.selectName(text);
-			model.addAttribute("pdto", pdto);
-			model.addAttribute("searchMethod", "buy_name"); // selectBox 아이디 선택
-			model.addAttribute("searchInputText", text);
+			return pdto;
 		} else if (select.equals("buy_carNum")){
 			List<PayDTO> pdto = pdao.selectCarNum(text);
-			model.addAttribute("pdto", pdto);
-			model.addAttribute("searchMethod", "buy_carNum"); // selectBox 아이디 선택
-			model.addAttribute("searchInputText", text);
+			return pdto;
 		}
+		return null;
 
-		return "checkReservation/admin_reservation";
 	}
 
 }

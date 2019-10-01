@@ -1,4 +1,4 @@
-package co.kr.khaki.controller;
+package co.kr.khaki.confirm.controller;
 
 import java.util.ArrayList;
 import java.util.Calendar;

@@ -15,7 +15,7 @@ import co.kr.khaki.carmanage.CarManageDAO;
 import co.kr.khaki.carmanage.CarManageDTO;
 import co.kr.khaki.handler.DTO.HandlerDTO;
 import co.kr.khaki.notice.pagination;
-import co.kr.khaki.usedCar.DAO.UsedCarDAO;
+import co.kr.khaki.usedCar.DAO.UsedCarDAOInterface;
 import co.kr.khaki.usedCar.DTO.UsedCarDTO;
 import co.kr.khaki.zone.KhakiZoneDAO;
 import co.kr.khaki.zone.KhakiZone_CarmanageDTO;
@@ -30,7 +30,7 @@ public class CarManageController {
 	CarConsumableDAO ccdao;
 	
 	@Autowired
-	UsedCarDAO usedCarDAO;
+	UsedCarDAOInterface usedCarDAO;
 	
 	@Autowired
 	KhakiZoneDAO zoneDAO;

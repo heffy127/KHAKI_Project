@@ -8,15 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.kr.khaki.reservation.DTO.PayDTO;
-import co.kr.khaki.usedCar.DAO.UsedCarDAO;
+import co.kr.khaki.usedCar.DAO.UsedCarDAOImpl;
 import co.kr.khaki.usedCar.DTO.UsedCarDTO;
-import co.kr.khaki.usedCar.service.UsedCarServiceImpl;
+import co.kr.khaki.usedCar.service.UsedCarServiceInterface;
 
 @Controller
 public class UsedCarController {
 	
 	@Autowired
-	UsedCarServiceImpl usedCarServiceImpl;
+	UsedCarServiceInterface usedCarServiceImpl;
 
 	@RequestMapping("nanumCar.do")
 	public String nanumCar(Model model) {
