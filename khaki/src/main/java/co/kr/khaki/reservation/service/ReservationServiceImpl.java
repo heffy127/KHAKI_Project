@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Service;
 
 import co.kr.khaki.car.CarDAO;
 import co.kr.khaki.car.CarDTO;
@@ -18,14 +16,14 @@ import co.kr.khaki.handler.DTO.HandlerDTO;
 import co.kr.khaki.member.DAO.MemberDAOInter;
 import co.kr.khaki.member.DAO.MemberLevelDAOInter;
 import co.kr.khaki.member.DTO.MemberLevelDTO;
-import co.kr.khaki.reservation.DAO.PayDAOImpl;
+import co.kr.khaki.reservation.DAO.PayDAOInterface;
 import co.kr.khaki.reservation.DTO.PayDTO;
 
-@Controller
+@Service
 public class ReservationServiceImpl implements ReservationServiceInterface {
 
 	@Autowired
-	PayDAOImpl pdao;
+	PayDAOInterface pdao;
 
 	@Autowired
 	MemberDAOInter memberDAO;

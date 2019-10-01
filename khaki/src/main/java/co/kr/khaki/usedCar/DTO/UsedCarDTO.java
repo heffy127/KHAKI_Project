@@ -1,4 +1,4 @@
-package co.kr.khaki.usedCar;
+package co.kr.khaki.usedCar.DTO;
 
 public class UsedCarDTO {
 	

@@ -15,51 +15,61 @@ public class PayDAOImpl implements PayDAOInterface {
 	@Autowired
 	SqlSessionTemplate my;
 
+	@Override
 	public void insert(PayDTO PayDTO) {
 		System.out.println("PayDAO Insert!");
 		my.insert("pDAO.insert", PayDTO);
 	}
 
+	@Override
 	public void update(PayDTO PayDTO) {
 		System.out.println("PayDAO Update!");
 		my.update("pDAO.update", PayDTO);
 	}
 
+	@Override
 	public void delete(PayDTO PayDTO) {
 		System.out.println("PayDAO delete!");
 		my.delete("pDAO.delete", PayDTO);
 	}
 
+	@Override
 	public PayDTO select(PayDTO PayDTO) {
 		System.out.println("PayDAO select!");
 		return my.selectOne("pDAO.select", PayDTO);
 	}
 
+	@Override
 	public List<PayDTO> select2(PayDTO PayDTO) {
 		System.out.println("PayDAO select!");
 		return my.selectList("pDAO.select2", PayDTO);
 	}
 
+	@Override
 	public List<PayDTO> selectImpUid(String buy_impUid) {
 		System.out.println("PayDAO selectImpUid!");
 		return my.selectList("pDAO.selectImpUid", buy_impUid);
 	}
 
+	@Override
 	public List<PayDTO> selectId(String buy_id) {
 		System.out.println("PayDAO selectId!");
 		return my.selectList("pDAO.selectId", buy_id);
 	}
 
+	@Override
 	public List<PayDTO> selectName(String buy_name) {
 		System.out.println("PayDAO selectName!");
 		return my.selectList("pDAO.selectName", buy_name);
 	}
 
+	@Override
 	public List<PayDTO> selectCarNum(String buy_carNum) {
 		System.out.println("PayDAO selectCarNum!");
 		return my.selectList("pDAO.selectCarNum", buy_carNum);
 	}
 
+	@Override
 	public List<PayDTO> selectAll() {
 		System.out.println("PayDAO selectAll!");
 		return my.selectList("pDAO.selectAll");
@@ -67,32 +77,37 @@ public class PayDAOImpl implements PayDAOInterface {
 
 	String cnt;
 
+	@Override
 	public String selectCar(String buy_carModel) {
-		cnt = my.selectOne("payDAO.selectCar", buy_carModel);
+		cnt = my.selectOne("pDAO.selectCar", buy_carModel);
 		return cnt;
 	}
 
+	@Override
 	public String selectEndTime(String buy_endTime, String buy_carModel) {
 		PayDTO pDTO = new PayDTO();
 		pDTO.setBuy_carModel(buy_carModel);
 		pDTO.setBuy_endTime(buy_endTime);
-		cnt = my.selectOne("payDAO.selectEndTime", pDTO);
+		cnt = my.selectOne("pDAO.selectEndTime", pDTO);
 		return cnt;
 	}
 
+	@Override
 	public String selectStartTime(String buy_startTime, String buy_carModel) {
 		PayDTO pDTO = new PayDTO();
 		pDTO.setBuy_carModel(buy_carModel);
 		pDTO.setBuy_startTime(buy_startTime);
-		cnt = my.selectOne("payDAO.selectStartTime", pDTO);
+		cnt = my.selectOne("pDAO.selectStartTime", pDTO);
 		return cnt;
 	}
 
+	@Override
 	public int countReservation(String buy_id) {
 		System.out.println("pDAO countReservation");
 		return my.selectOne("pDAO.countReservation", buy_id);
 	}
 
+	@Override
 	public String search2(String buy_endTime, String buy_carNum, String buy_startTime) {
 		// 입력한 시간,차량으로 예약가능한지 여부 계산
 		PayDTO pDTO = new PayDTO();

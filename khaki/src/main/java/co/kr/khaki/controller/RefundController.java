@@ -19,14 +19,14 @@ import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.member.DTO.MemberLevelDTO;
 import co.kr.khaki.refund.RefundDAO;
 import co.kr.khaki.refund.RefundDTO;
-import co.kr.khaki.reservation.DAO.PayDAOImpl;
+import co.kr.khaki.reservation.DAO.PayDAOInterface;
 import co.kr.khaki.reservation.DTO.PayDTO;
 
 @Controller
 public class RefundController {
 
 	@Autowired
-	PayDAOImpl pdao;
+	PayDAOInterface pdao;
 
 	@Autowired
 	MemberDAOInter memberDAO;

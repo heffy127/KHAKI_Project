@@ -1,4 +1,4 @@
-package co.kr.khaki.usedCar;
+package co.kr.khaki.usedCar.DAO;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import co.kr.khaki.refund.RefundDTO;
 import co.kr.khaki.reservation.DTO.PayDTO;
+import co.kr.khaki.usedCar.DTO.UsedCarDTO;
 
 @Repository
 public class UsedCarDAO {
