@@ -31,7 +31,7 @@
 	<link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
 	<!-- CSS Files -->
 	<link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
-
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script>
@@ -141,7 +141,7 @@
 				$('#forAuthBtn').click(
 					function () {
 						if($('#phone_span').text() != '휴대폰 번호 인증을 진행해주세요.'){
-							alert("휴대폰 번호 입력 정보를 다시 확인해주세요.")
+							swal("휴대폰 번호 입력 정보를 다시 확인해주세요.")
 							return false
 						}
 						var phone = $('#phone1').val() + "-" + $('#phone2').val() + "-" + $('#phone3').val()
@@ -209,18 +209,18 @@
 				$('#next').click(
 					function () {
 						if($('#phone_span').text() != '휴대폰 번호 인증이 완료되었습니다.'){
-							alert('휴대폰 번호 입력 정보를 다시 확인해주세요.')
+							swal('휴대폰 번호 입력 정보를 다시 확인해주세요.')
 							$('#phone1').focus()
 							return false
 						}
 
 						if($('#postcode').val() == null || $('#postcode').val().trim() == "" ){
-							alert('주소 입력 정보를 다시 확인해주세요.')
+							swal('주소 입력 정보를 다시 확인해주세요.')
 							return false
 						}
 
 						if($('#reco_span').text() == '존재하지 않는 회원입니다.'){
-							alert('추천인 입력 정보를 다시 확인해주세요.')
+							swal('추천인 입력 정보를 다시 확인해주세요.')
 							$('#reco').focus()
 							return false
 						}

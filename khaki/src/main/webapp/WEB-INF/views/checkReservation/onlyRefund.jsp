@@ -37,6 +37,7 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
 	$(function() {
 		// Go to IAMPORT 클릭시 실제 환불 처리 할 수 있는 버튼 새창으로 띄움
@@ -73,7 +74,7 @@
 			 	  }
 			   },
 			   error : function(xhr, status) {
-			          alert(xhr + " : " + status);
+			          swal(xhr + " : " + status);
 			   }
 			});
         }

@@ -10,6 +10,7 @@
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3010ba59fe5cb4ef476a120272fd67f0"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 select{
    width: 19%;
@@ -190,7 +191,7 @@ int endTimeCheck = 0;
             'home_loc' : home_loc
          },
          error : function(error) {
-            alert("오류발생" + error);
+            swal("오류발생" + error);
          },
          success : function(data) {
             $('#burumFee').val(data);
@@ -296,7 +297,7 @@ int endTimeCheck = 0;
 	      
 	      var allTimePre = tempY + tempM + tempD + tempH + tempMs;
 	   if(allTimeStr>=allTimePre){
-		   alert("선택되었습니다.")
+		   swal("선택되었습니다.")
 		   $('#endTimeButton').attr('disabled', false);
 		   $('#startTimeButton').attr('disabled', true);
 		   $('#startYear').attr('disabled', true);
@@ -305,7 +306,7 @@ int endTimeCheck = 0;
 		   $('#startClock').attr('disabled', true);
 		   $('#startMin').attr('disabled', true);
 	   } else{
-		   alert("현재시간 이후로 입력해주세요.")
+		   swal("현재시간 이후로 입력해주세요.")
 	   }
 }
    function endTimeButton() {
@@ -313,7 +314,7 @@ int endTimeCheck = 0;
 	   var allTimeEnd = $('#endYear').val() + $('#endMonth').val() + $('#endDay').val() + $('#endClock').val() + $('#endMin').val();
 	      var allTime = parseInt(allTimeEnd) + 100 - parseInt(allTimeStr);
 	      if(allTime >= 0){
-	         alert("선택되었습니다.")
+	         swal("선택되었습니다.")
 	         $('#endTimeButton').attr('disabled', true);
 		     $('#endYear').attr('disabled', true);
 		     $('#endMonth').attr('disabled', true);
@@ -322,7 +323,7 @@ int endTimeCheck = 0;
 		     $('#endMin').attr('disabled', true);
 	         $('#timeCheck').attr('disabled', false);
 	      } else{
-	    	  alert("시작시간 이후로 입력해주세요.")
+	    	  swal("시작시간 이후로 입력해주세요.")
 	         $('#timeCheck').attr('disabled', true);
 	      }
 }
@@ -358,7 +359,7 @@ int endTimeCheck = 0;
          url : "search1.do",
          data : {'buy_carModel' : buy_carModel},
          error : function(error) {
-            alert("오류발생" + error);
+            swal("오류발생" + error);
          },
          success : function(data) { //data : 30허1111,3★30허1111,3★
             var temp2 = data.split("★");   // 배열 temp2
@@ -382,7 +383,7 @@ int endTimeCheck = 0;
                      'buy_carNum':temp1[0]
                   },
                   error : function(error) {
-                     alert("오류발생" + error);
+                     swal("오류발생" + error);
                   },
                   success : function(data) {
                      ee = ee+1;
@@ -402,7 +403,7 @@ int endTimeCheck = 0;
             
          }
       })
-      // alert($('#car_num').val());
+      // swal($('#car_num').val());
       // 조건에 만족하는 차량들로 마커 재구성
    }
 </script>
@@ -450,7 +451,7 @@ function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모�
          'zoneNum' : i
       },
       error : function(error) {
-         alert("오류발생" + error);
+         swal("오류발생" + error);
       },
       success : function(data) {
          var xx = data.trim();
@@ -512,7 +513,7 @@ $(document).on('click','#res_start', function () {
       var number = parseInt($('#zoneNumber').val());
       var zone_loc = zone_addr[number];
       var home_loc = $('#sample5_address').val();
-      alert(number + " - " + home_loc + " - " + zone_loc);
+      swal(number + " - " + home_loc + " - " + zone_loc);
       $.ajax({
          type : "GET",
          url : "burumReservation.do",
@@ -521,10 +522,10 @@ $(document).on('click','#res_start', function () {
             'home_loc' : home_loc
          },
          error : function(error) {
-            alert("오류발생" + error);
+            swal("오류발생" + error);
          },
          success : function(data) {
-            alert("크롤링 성공했다 치고 : "+data)
+            swal("크롤링 성공했다 치고 : "+data)
          }
       })
    }
@@ -582,10 +583,10 @@ function reservation() {
  //----------
    if ((endHour-strHour)>= 0){
 	   use_hour = endHour-strHour;
-	   alert(endHour-strHour)
+	   swal(endHour-strHour)
    } else {
 	   use_hour = 24-(strHour-endHour);
-	   alert(endHour-strHour)
+	   swal(endHour-strHour)
    }
  //----------
    $.ajax({
@@ -595,7 +596,7 @@ function reservation() {
             'car_num' : buy_carNum
          },
          error : function(error) {
-            alert("오류발생" + error);
+            swal("오류발생" + error);
          },
          success : function(data) {
             var ww = data.split(",");
@@ -620,17 +621,17 @@ $(document).ready(
 		           'sessionId' : sessionId
 		        },
 		        error : function(error) {
-		           alert("오류발생" + error);
+		           swal("오류발생" + error);
 		        },
 		        success : function(data) {
 		        	if(data.trim()=="?"){
-			        	alert("현재 ID는 면허가 승인되지 않았습니다.");
+			        	swal("현재 ID는 면허가 승인되지 않았습니다.");
 			        	$('#reserveSelectBox').attr("disabled","disabled")
 		        	} else if (data.trim()=="x"){
-			        	alert("현재 ID는 면허승인이 거부되었습니다.");
+			        	swal("현재 ID는 면허승인이 거부되었습니다.");
 				        $('#reserveSelectBox').attr("disabled","disabled")
 		        	} else if (data.trim()==""){
-			        	alert("현재 ID는 면허가 등록되지 않았습니다.");
+			        	swal("현재 ID는 면허가 등록되지 않았습니다.");
 				        $('#reserveSelectBox').attr("disabled","disabled")
 		        	} 
 		        }

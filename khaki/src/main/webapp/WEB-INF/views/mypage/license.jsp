@@ -19,6 +19,7 @@
 <!-- CSS Files -->
 <link href="resources/assets/css/argon-dashboard.css?v=1.1.0"
    rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
 <!--   Core   -->
 <script
@@ -65,39 +66,39 @@
 						
 						
 						if($('#num1').val() == ''){
-							alert("면허 번호를 입력해주세요.")
+							swal("면허 번호를 입력해주세요.")
 							$('#num1').focus()
 							return false
 						}
 						
 						if(!(num13Type.test($('#num1').val()))){
-							alert('입력하신 면허 번호를 다시 확인해주세요.')
+							swal('입력하신 면허 번호를 다시 확인해주세요.')
 							$('#num1').val('')
 							$('#num1').focus()
 							return false
 						}
 						
 						if($('#num2').val() == ''){
-							alert("면허 번호를 입력해주세요.")
+							swal("면허 번호를 입력해주세요.")
 							$('#num2').focus()
 							return false
 						}
 
 						if(!(num2Type.test($('#num2').val()))){
-							alert('입력하신 면허 번호를 다시 확인해주세요.')
+							swal('입력하신 면허 번호를 다시 확인해주세요.')
 							$('#num2').val('')
 							$('#num2').focus()
 							return false
 						}
 						
 						if($('#num3').val() == ''){
-							alert("면허 번호를 입력해주세요.")
+							swal("면허 번호를 입력해주세요.")
 							$('#num3').focus()
 							return false
 						}
 
 						if(!(num13Type.test($('#num3').val()))){
-							alert('입력하신 면허 번호를 다시 확인해주세요.')
+							swal('입력하신 면허 번호를 다시 확인해주세요.')
 							$('#num3').val('')
 							$('#num3').focus()
 							return false
@@ -139,7 +140,7 @@
 							data: d,
 							type: 'POST',
 							success: function(result){
-								alert("운전면허 정보 등록이 완료되었습니다.\n관리자 심사이후 카셰어링 서비스를 이용하실 수 있습니다.")
+								swal("운전면허 정보 등록이 완료되었습니다.\n관리자 심사이후 카셰어링 서비스를 이용하실 수 있습니다.")
 								window.parent.closeModal_normal('changed')
 							}
 						})

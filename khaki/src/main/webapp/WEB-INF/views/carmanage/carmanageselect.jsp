@@ -10,6 +10,7 @@
 <title>1등 카셰어링, khaki</title>
 	<!-- Jquery CDN -->
  	<script src="https://code.jquery.com/jquery-latest.js"></script>
+ 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			// 목록 으로
@@ -19,14 +20,14 @@
 			
 			// 소모품 목록으로
 			$("#consumable").click(function(){
-				alert("소모품 목록으로");
+				swal("소모품 목록으로");
 			});	// comsumable end
 
 			// 차량 삭제
 			$("#delete").click(function(){
 				var td_car_num = $("#td_car_num").text().trim();
 				
-				//alert(td_car_num+"차량 삭제!")
+				//swal(td_car_num+"차량 삭제!")
 				
 				location.href = "carmanageDelete.do?car_num="+td_car_num;
 			});	// delete end

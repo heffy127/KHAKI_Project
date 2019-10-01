@@ -2,6 +2,9 @@ package co.kr.khaki.reservation.service;
 
 import java.util.ArrayList;
 
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import co.kr.khaki.common.CalculateMemberLevel;
 import co.kr.khaki.coupon.CouponUseDTO;
 import co.kr.khaki.reservation.DTO.PayDTO;
@@ -26,5 +29,7 @@ public interface ReservationServiceInterface {
 	String couponUsing(CouponUseDTO cpuDTO);
 
 	ArrayList checkReservation(String id);
+	
+	String reservation_endTime_check(String id);
 
 }

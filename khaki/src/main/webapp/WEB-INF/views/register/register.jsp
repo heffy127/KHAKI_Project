@@ -39,6 +39,7 @@
 <!-- CSS Files -->
 <link href="resources/assets/css/argon-dashboard.css?v=1.1.0"
 	rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
  <!-- 네이버 아이디 로그인 -->
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <!-- 카카오 아이디 로그인  -->
@@ -262,7 +263,7 @@ $(document).ready(
 			success: function(result){
 				var check = result.trim()
 				if(check != 'null'){ // Social 테이블에 저장된 값 있으면 바로 로그인
-					alert("이미 가입된 회원이십니다.")
+					swal("이미 가입된 회원이십니다.")
 					location.href = "sessionLogin.do?id=" + check
 					
 				}else{ // 가입 안된 상태이므로 가입창으로 넘어감  
@@ -274,7 +275,7 @@ $(document).ready(
        })
       },
     fail: function(err) {
-         alert(JSON.stringify(err));
+         swal(JSON.stringify(err));
         }
       });
 </script>

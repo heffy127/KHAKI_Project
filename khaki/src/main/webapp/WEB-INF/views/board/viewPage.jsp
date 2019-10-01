@@ -39,7 +39,7 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <!-- JQuery CDN -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!-- 스마트 에디터  -->
   <script src="https://code.jquery.com/jquery-latest.js"></script>
   <script type="text/javascript">
@@ -81,7 +81,7 @@
         $("#deleteBtn").click(function(){
         	var retVal = confirm("게시글을 삭제하시겠습니까?");
         	   if( retVal == true ){
-	        	   alert("삭제되었습니다.");
+	        	   swal("삭제되었습니다.");
 			       var num = ${dto.bNum}
 			       location.href = 'delete.do?bNum=' + num 
         	   }
@@ -109,12 +109,12 @@
 										$("#goodPlace").text(data);
 									},
 									error : function(xhr, status) {
-										alert(xhr + " : " + status);
+										swal(xhr + " : " + status);
 									}
 								});
 							},
 							error : function(xhr, status) {
-								alert(xhr + " : " + status);
+								swal(xhr + " : " + status);
 							}
 						});
 					}

@@ -23,7 +23,7 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <!-- JQuery CDN -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!-- 스마트 에디터  -->
   <script src="https://code.jquery.com/jquery-latest.js"></script>
   <script type="text/javascript" src="./resources/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
@@ -52,9 +52,9 @@
             //폼 submit
             var title = $("#title").text();
             if(title == null){
-            	alert("제목을 입력해주세요.")
+            	swal("제목을 입력해주세요.")
             }else{
-            	alert("게시글이 등록되었습니다.")
+            	swal("게시글이 등록되었습니다.")
 	            $("#insertBoardFrm").submit();
             }
 

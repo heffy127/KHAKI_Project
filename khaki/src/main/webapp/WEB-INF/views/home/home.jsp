@@ -20,6 +20,7 @@
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script type="text/javascript">
   	$(function() {
   		// handler a태그 클릭시 sessionId의 핸들러 여부에 따라 호출 페이지가 달라짐.
@@ -40,7 +41,7 @@
 			    	  }
 			      },
 			      error : function(xhr, status) { // ajax가 실패했을 때
-		              alert(xhr + " : " + status); // 실패 내용 확인
+		              swal(xhr + " : " + status); // 실패 내용 확인
 		          }
 			});
   		})

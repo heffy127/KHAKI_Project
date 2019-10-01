@@ -33,6 +33,7 @@
   <link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!-- reCaptcha -->
  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
  <!-- 네이버 아이디 로그인 -->
@@ -80,7 +81,7 @@
 							if(sessionStorage.getItem('loginCnt').length > 5){
 								var v = grecaptcha.getResponse()
 								if(v.length == 0){ // 0일 경우 체크가 안된것
-									alert("자동입력방지 버튼을 클릭해주세요.")
+									swal("자동입력방지 버튼을 클릭해주세요.")
 									return false
 								}
 							}
@@ -93,7 +94,7 @@
 										var check = result
 										if(check.trim() != 'yes'){
 											// 아이디 비밀번호가 안맞을 경우
-											alert("로그인 계정을 다시 확인해주세요.")
+											swal("로그인 계정을 다시 확인해주세요.")
 											if(sessionStorage.getItem('loginCnt').length < 6){
 												sessionStorage.setItem('loginCnt', sessionStorage.getItem('loginCnt').concat('0'))
 											} else {
@@ -134,7 +135,7 @@
 				$('#id_save').click(
 						function() { 
 							if($('#id_save').is(':checked')){
-								alert("개인 정보 보호를 위해 공용 PC에서는 사용에 유의해 주십시오.")
+								swal("개인 정보 보호를 위해 공용 PC에서는 사용에 유의해 주십시오.")
 								$('#forCookie').attr('value','yes')
 							} else {
 								$('#forCookie').attr('value','no')
@@ -438,7 +439,7 @@
 					location.href = "sessionLogin.do?id=" + check
 					
 				}else{
-					alert("카카오 소셜 로그인 가입정보가 없습니다.\n회원가입 페이지로 이동합니다.")
+					swal("카카오 소셜 로그인 가입정보가 없습니다.\n회원가입 페이지로 이동합니다.")
 					location.href = "register.do"
 				}
 			}
@@ -447,7 +448,7 @@
        })
       },
     fail: function(err) {
-         alert(JSON.stringify(err));
+         swal(JSON.stringify(err));
         }
       });
 </script>

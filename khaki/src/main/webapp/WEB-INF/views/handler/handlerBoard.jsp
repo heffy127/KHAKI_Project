@@ -33,7 +33,7 @@
   <link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
-  
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script type="text/javascript">
   	$(function() {
@@ -315,7 +315,7 @@
 					    	  $(".hb_query_content").append(data);
 					      },
 					      error : function(xhr, status) {
-				              alert(xhr + " : " + status);
+				              swal(xhr + " : " + status);
 				          }
 					});
 					
@@ -331,7 +331,7 @@
 					    	  $(".hb_table_content").append(data);
 					      },
 					      error : function(xhr, status) {
-				              alert(xhr + " : " + status);
+				              swal(xhr + " : " + status);
 				          }
 					});
 					break;
@@ -347,7 +347,7 @@
 					    	  $(".hb_query_content").append(data);
 					      },
 					      error : function(xhr, status) {
-				              alert(xhr + " : " + status);
+				              swal(xhr + " : " + status);
 				          }
 					});
 					
@@ -363,7 +363,7 @@
 					    	  $(".hb_table_content").append(data);
 					      },
 					      error : function(xhr, status) {
-				                alert(xhr + " : " + status);
+				                swal(xhr + " : " + status);
 				          }
 					});
 					break;
@@ -419,16 +419,16 @@
 					      url:"handlerDelete.do",
 					      data : handlerDeleteFrm,
 					      success:function(data){
-					    	  alert("핸들러 신청이 완료 되었습니다");
+					    	  swal("핸들러 신청이 완료 되었습니다");
 					    	  location.href="handlerBoard.do";
 					      },
 					      error : function(xhr, status) {
-				                alert(xhr + " : " + status);
+				                swal(xhr + " : " + status);
 				          }
 					});
 			      },
 			      error : function(xhr, status) {
-		                alert(xhr + " : " + status);
+		                swal(xhr + " : " + status);
 		          }
 			});
 		})

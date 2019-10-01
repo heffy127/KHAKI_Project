@@ -19,12 +19,12 @@
  	<link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
 	<!-- CSS Files -->
  	<link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
-
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		// 페이지네이션 함수
 		function fn_paging(curPage){
 	  		location.href = "khakizone_main.do?curPage="+curPage;
-	  		//alert(curPage); 
+	  		//swal(curPage); 
 	  		//페이지 넘버 확인
 	  	};
 		
@@ -204,8 +204,8 @@
 	var center_y = '${cal.center_y }';	
 	var between_max = '${cal.between_max}';
 	
-	//alert(typeof center_x);
-	//alert(typeof center_y);
+	//swal(typeof center_x);
+	//swal(typeof center_y);
 	//지도 중심좌표 설정(select해온 값을기준으로 평균값이 있으면 평균좌표로 아니면그냥 안산시청으로)
 	var map_center = null;
 	if(center_x == ""){
@@ -310,12 +310,12 @@
 	    		$("#location_y").val(y);
 	    		$("#zone_num").val(zone_num);
 	    		
-	    		alert($("#list_menu1").children("#list_menu_zone_num1").text().trim().toString())
+	    		swal($("#list_menu1").children("#list_menu_zone_num1").text().trim().toString())
 	    		var list_zone_num = null;
 	    		for (var i = 0; i < '${select_list.size()}'; i++) {	// 5를 유동적으로 쓸 수 있는 방법 : (list의 사이즈를 활용하자)
 	    			list_zone_num = $("#list_menu"+i).children("#list_menu_zone_num"+i).text().trim().toString();
 					if(zone_num == list_zone_num){
-						alert("성공!");
+						swal("성공!");
 						$("#list_menu"+i).css("background-color","#ff5e00");
 					}else{
 							$("#list_menu"+i).css("background-color","");
@@ -442,7 +442,7 @@
 	    var x = parseFloat(lastpoint.toString().split(',')[0].split('(')[1].trim());
 	    var y = parseFloat(lastpoint.toString().split(',')[1].split(')')[0].trim());
 	    
-	   	alert(x + " / "+ y);
+	   	swal(x + " / "+ y);
 	    
 	    // toFixed(소수점자리) : 소수점자리까지만 남기고 반올림해서 반환
 	    $("#location_x").val(x.toFixed(5));
@@ -470,15 +470,15 @@
 			
 			var z_num = $(this).children(".list_menu_zone_num").text().trim();
 			$("#zone_num").val(z_num);
-			//alert("zone_num : "+zone_num);
-			//alert("select_list.size : "+${select_list.size()});
+			//swal("zone_num : "+zone_num);
+			//swal("select_list.size : "+${select_list.size()});
 			
 			for (var i = 0; i < ${select_list.size()}; i++) {	// 5를 유동적으로 쓸 수 있는 방법(list의 사이즈를 활용하자)
     			list_zone_num = $("#list_menu"+i).children("#list_menu_zone_num"+i).text().trim().toString();
-    			//alert("list_zone_num : "+list_zone_num);
+    			//swal("list_zone_num : "+list_zone_num);
 			
 				if(z_num == list_zone_num){
-				alert("성공!");
+				swal("성공!");
 				//$("#list_menu"+i).children("#list_menu_zone_num"+i).text(zone_num+"<-- 선택 " );
 				//$("#list_menu"+i).children("#list_menu_zone_num"+i).append('<img alt="" src="resources/assets/img/etc/star.jpg" style="widows: 30px;height: 30px;">');
 				$("#list_menu"+i).css("background-color","#ff5e00");
@@ -495,15 +495,15 @@
 			
 		 	/* console.log(z_location_x);
 		 	console.log(z_location_y);
-		 	alert(typeof z_location_x);
-		 	alert(typeof z_location_y); */
+		 	swal(typeof z_location_x);
+		 	swal(typeof z_location_y); */
 		 	
 		 	// 선택된 div의 경도값
 		 	var z_x = parseFloat(z_location_x);
 		 	//선택된 div의 위도값
 		 	var z_y = parseFloat(z_location_y);
-		 	//alert(typeof z_x);
-		 	//alert(typeof z_y);
+		 	//swal(typeof z_x);
+		 	//swal(typeof z_y);
 		 	
 		 	// markers배열에 담긴 marker들을 가져와 좌표값을 비교해서 선택된 마커면 기본이미지로 돌리고, 현재 선택된 마커를 selectedMarker로 설정
 		 	for (var i = 0; i < markers.length; i++) {

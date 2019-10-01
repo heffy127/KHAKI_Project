@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.kr.khaki.car.CarDAO;
 import co.kr.khaki.car.CarDTO;
@@ -148,6 +151,26 @@ public class ReservationServiceImpl implements ReservationServiceInterface {
 		returnList.add(carImageList);
 		
 		return returnList;
+	}
+	
+	public String reservation_endTime_check(String id) {
+		List<PayDTO> pdto = pdao.selectId(id);
+		String returnText = "";
+		if(pdto.size() == 0) {
+			System.out.println("dto NULL 확인");
+			returnText = "Y";
+		} else {
+			for (PayDTO payDTO : pdto) {
+				System.out.println("realEndTime : " + payDTO.getBuy_real_endTime());
+				if(String.valueOf(payDTO.getBuy_real_endTime()).equals("null")) {
+					returnText = "N";
+				} else {
+					returnText = "Y";
+				}
+			}
+		}
+		
+		return returnText;
 	}
 	
 

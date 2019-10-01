@@ -19,6 +19,7 @@
 <!-- CSS Files -->
 <link href="resources/assets/css/argon-dashboard.css?v=1.1.0"
    rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- 네이버 아이디 로그인 -->
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <!-- 카카오 아이디 로그인  -->
@@ -89,12 +90,12 @@ $(document).ready(
 												+ 'border-bottom-left-radius: 0.4375rem; border-bottom-right-radius: 0.4375rem;"></iframe>')
 										$('#modal-changePw').modal({backdrop: 'static'}) // 모달 닫힘 방지 
 									} else { // DB에 저장된 비밀번호와 불일치
-										alert("입력하신 비밀번호를 다시 확인해주세요.")
+										swal("입력하신 비밀번호를 다시 확인해주세요.")
 									}
 								}
 							})
 						}else{
-							alert('비밀번호를 입력해주세요.')
+							swal('비밀번호를 입력해주세요.')
 						}
 						$('#pw').val('')
 						
@@ -127,7 +128,7 @@ $(document).ready(
 									success: function(result){
 										var check = result
 										if(check.trim() != 'null'){
-											alert('중복된 이메일입니다.')
+											swal('중복된 이메일입니다.')
 										}else{
 											// 중복 안된경우 메일 보내기
 												$('#emailChangeBtn').attr('class', 'btn btn-warning')
@@ -143,7 +144,7 @@ $(document).ready(
 														khakiAuth = result.trim() 
 														// 메일로 보낸 인증번호를 가져온 후
 														// 인증완료 버튼 눌렀을때 사용자가 세션을 통해 보내온 인증번호와 비교하게 됨
-														alert("입력하신 이메일 계정으로 인증메일를 발송했습니다.\n해당 이메일로 인증 후 인증완료 버튼을 눌러주세요")
+														swal("입력하신 이메일 계정으로 인증메일를 발송했습니다.\n해당 이메일로 인증 후 인증완료 버튼을 눌러주세요")
 														$('#emailChangeBtn').attr('class', 'btn btn-info')
 														$('#emailChangeBtn').text('인증완료')
 														$('#emailChangeBtn').attr('disabled',false)
@@ -162,7 +163,7 @@ $(document).ready(
 
 								
 							}else{
-								alert("이메일 형식에 맞게  작성해주세요.")
+								swal("이메일 형식에 맞게  작성해주세요.")
 							}
 						} else { // 인증완료일때 클릭
 							$('#emailPop').popover('hide')
@@ -172,7 +173,7 @@ $(document).ready(
 									userAuth = result.trim()
 									// khaki 인증번호와 사용자가 세션을 통해 보내온 인증번호 비교
 									if(khakiAuth != userAuth || khakiAuth == null){
-										alert('이메일 인증 정보를 다시 확인해주세요.')
+										swal('이메일 인증 정보를 다시 확인해주세요.')
 										return false
 									}else{
 										var d = $('#mypageF').serialize()
@@ -181,7 +182,7 @@ $(document).ready(
 											data: d,
 											type: 'POST',
 											success: function(result){
-												alert("이메일 변경이 완료되었습니다.")
+												swal("이메일 변경이 완료되었습니다.")
 												sessionStorage.removeItem("sessionMypageAuthNum");
 												location.reload(true);
 											}
@@ -247,7 +248,7 @@ $(document).ready(
 									success: function(result) {
 									var check = result
 									if(check.trim() != 'null'){
-										alert('휴대폰 번호가 중복됩니다.')
+										swal('휴대폰 번호가 중복됩니다.')
 									} else { // 중복체크 통과
 										
 										var phone = $('#phone1').val() + "-" + $('#phone2').val() + "-" + $('#phone3').val()
@@ -263,7 +264,7 @@ $(document).ready(
 							  })
 								
 							} else { // 정규식 만족 못할 때
-								alert('휴대폰 번호 정보를 정확히 입력해주세요.')
+								swal('휴대폰 번호 정보를 정확히 입력해주세요.')
 							}
 						} else { //인증완료 버튼일때 클릭
 							$('#phonePop').popover('hide')
@@ -273,7 +274,7 @@ $(document).ready(
 								data: d,
 								type: 'POST',
 								success: function(result){
-									alert("휴대폰 번호 변경이 완료되었습니다.")
+									swal("휴대폰 번호 변경이 완료되었습니다.")
 									location.reload(true);
 								}
 							})
@@ -340,7 +341,7 @@ $(document).ready(
 							data: d,
 							type: 'POST',
 							success: function(result){
-								alert("주소 변경이 완료되었습니다.")
+								swal("주소 변경이 완료되었습니다.")
 								location.reload(true);
 							}
 						})
@@ -404,7 +405,7 @@ $(document).ready(
 				        		$.ajax({
 									url: "mypage_socialDelete.do?id=" + $('#id').val() + "&social_type=naver",
 									success: function(result){
-										alert("네이버 소셜 연동이 해제되었습니다.")
+										swal("네이버 소셜 연동이 해제되었습니다.")
 										location.reload(true);
 									}
 								})
@@ -428,7 +429,7 @@ $(document).ready(
 				        		$.ajax({
 									url: "mypage_socialDelete.do?id=" + $('#id').val() + "&social_type=kakao",
 									success: function(result){
-										alert("카카오 소셜 연동이 해제되었습니다.")
+										swal("카카오 소셜 연동이 해제되었습니다.")
 										location.reload(true);
 									}
 								})
@@ -470,7 +471,7 @@ $(document).ready(
 					function() {
 						if($("#emailPush_chk").is(":checked")){
 							if('${memberDTO.email_id}' == ''){
-								alert('이메일을 통한 정보 수신을 원하실 경우\n이메일 주소를 등록해주세요.')
+								swal('이메일을 통한 정보 수신을 원하실 경우\n이메일 주소를 등록해주세요.')
 								location.reload(true)
 								return false
 							}
@@ -483,7 +484,7 @@ $(document).ready(
 								data: d,
 								type: 'POST',
 								success: function(result){
-									alert("마케팅 정보 수신 변경이 완료되었습니다.")
+									swal("마케팅 정보 수신 변경이 완료되었습니다.")
 									location.reload(true);
 								}
 							
@@ -986,7 +987,7 @@ input[type="text"]
 			success: function(result){
 				var check = result.trim() // already가 아닌경우 sessionId값을 가져옴
 				if(check == 'already'){ // 해당 카카오 계정으로 다른 아이디 소셜 계정 연결
-					alert("이미 다른 KHAKI 계정에서 사용중입니다.")
+					swal("이미 다른 KHAKI 계정에서 사용중입니다.")
 					location.reload(true);
 					
 				}else{
@@ -999,7 +1000,7 @@ input[type="text"]
 								"social_type" : "kakao"
 								},
 						success: function(result){
-							alert("카카오 소셜 연동이 완료되었습니다.")
+							swal("카카오 소셜 연동이 완료되었습니다.")
 							location.reload(true);
 						}
 					})
@@ -1010,7 +1011,7 @@ input[type="text"]
        })
       },
     fail: function(err) {
-         alert(JSON.stringify(err));
+         swal(JSON.stringify(err));
         }
       });
 </script>

@@ -10,6 +10,7 @@
 <title>1등 카셰어링, khaki</title>
 	<!-- Jquery CDN -->
  	<script src="https://code.jquery.com/jquery-latest.js"></script>
+ 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
 			
@@ -31,7 +32,7 @@
  				// 차량번호 입력한 것을 그대로 받아와서 넘겨줌
  				var carnum_data = $("#car_num").val(); 
  				$("#carnum1").val(carnum_data);
- 				//alert(carnum_data)
+ 				//swal(carnum_data)
  				
  				//배열 순서대로 타이밍벨트, 구동벨트, 엔진오일, 변속기오일, 브레이크 오일, 에어컨필터, 연료필터, 에어클리너, 냉각수, 배터리, 타이어 순서
 				var arr = new Array(100000, 30000, 10000, 30000, 40000, 15000, 30000, 20000, 50000, 60000, 30000);
@@ -39,18 +40,18 @@
 				for(var i=0; i<arr.length;i++){
 					var change_num = Math.floor(distance1 / arr[i]);		//distance에 따른 차량 소모품 교체 횟수(기준으로 나눈 것)
 					$("#consumable"+(i+1)).val(change_num);
-					//alert(change_num)
+					//swal(change_num)
 				};
 				
  				$("#car_insert").submit();
- 				alert("차량 등록 완료!");
+ 				swal("차량 등록 완료!");
  				
 			});	// insert end
 
       		// 제조사드롭다운 클릭시 이벤트
 			$(".dropdown-min-menu1").click(function(){
 				var data1 = $(this).children(".carbrand").text();	// data1은 사용자가 선택된 제조사이름을 가져옴
-				alert(data1);
+				swal(data1);
 				$("#brand_dropDown").text(data1);	// 제조사선택 화면에 선택된 값을 나오게끔
 				$("#brand").val(data1);
 				
@@ -62,7 +63,7 @@
 				$.getJSON(jsontest, function(data){	//data안에 JSON값을 가져옴(success된 것)
 					$.each(data, function(I,item){	// I는 JSON안의 인덱스,item은 각 객체들을 가져오는 것으로 생각
 						if(data1 == item.made){	//제조사가 일치하면
-							//alert(I + ":" + item.name + " / "+ item.fuel)	//여기까지 완료
+							//swal(I + ":" + item.name + " / "+ item.fuel)	//여기까지 완료
 							$(".min-menu2").append('<div class=\"dropdown-min-menu2\"><div class=\"dropdown-item carname\">'+item.name+'/'+item.size+'/'+item.fuel+'</div></div>');
 							// append되는 대상을 잘 생각하고, remove는 대상을 지우는 것으로 children을 지워야 그 대상이 아닌 하위가 지워지는 것!
 						}
@@ -83,12 +84,12 @@
 				// jstl의 for문으로 뿌려진 것을 this로 가져오는 것과 내부에서 append해서 만들어진 dropdown에서 가져오는 것의 차이??
 				var data2 = $(this).children(".carname").text();
 				//여기서 this는 dropdown-min-menu2를 의미함
-				alert(data2);	
+				swal(data2);	
 				var arr = new Array();
 				arr = data2.split("/");
 				// split 테스트
-				alert(arr[0]);
-				alert(arr[1]);
+				swal(arr[0]);
+				swal(arr[1]);
 				
 				//$("#car_dropDown").children().children("i").remove();
 				

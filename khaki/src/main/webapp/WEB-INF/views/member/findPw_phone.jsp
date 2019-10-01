@@ -10,6 +10,7 @@
 <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetswal/dist/sweetswal.min.js"></script>
 <script type="text/javascript">
 $(document).ready(
 		function() {
@@ -18,24 +19,24 @@ $(document).ready(
 				
 				
 				if($('#name').val().trim() == ""){
-					alert("이름 입력 정보를 확인해주세요.")
+					swal("이름 입력 정보를 확인해주세요.")
 					return false
 				}
 				
 				if($('#id').val().trim() == ""){
-					alert("아이디 입력 정보를 확인해주세요.")
+					swal("아이디 입력 정보를 확인해주세요.")
 					return false
 				}
 				
 				if($('#phone1').val().trim() == "" || $('#phone2').val().trim() == null || $('#phone3').val().trim() == null){
-					alert("휴대폰 번호 입력 정보를 확인해주세요.")
+					swal("휴대폰 번호 입력 정보를 확인해주세요.")
 					return false
 				}
 				
 				// 구글 리캡차 (자동입력 매크로 방지)
 				var v = grecaptcha.getResponse()
 				if(v.length == 0){ // 0일 경우 체크가 안된것
-					alert("자동입력방지 버튼을 클릭해주세요.")
+					swal("자동입력방지 버튼을 클릭해주세요.")
 					return false
 				}
 				
@@ -51,7 +52,7 @@ $(document).ready(
 							
 							
 						}else{
-							alert("등록된 전화번호가 없습니다.")
+							swal("등록된 전화번호가 없습니다.")
 							location.reload(true);
 						}
 					}

@@ -41,6 +41,7 @@
   <link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!-- Google font  -->
   <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Nanum+Pen+Script&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
@@ -275,13 +276,13 @@
 			if(result == true) {
 				if(name != "" && location_select != "지역" && carNum != "" && phone != "" && visitDay != "" && distance != "") {
 					if(c == "undefined" || l != "지역" || p == "undefined" || v == "undefined" || d == "undefined") {
-						alert("상담 신청이 완료 되었습니다.\n담당자 배정 후 연락드릴 예정입니다.");
+						swal("상담 신청이 완료 되었습니다.\n담당자 배정 후 연락드릴 예정입니다.");
 						$("#usedCarSales").submit();						
 					} else {
-						alert("입력 정보를 다시 확인해주세요.")
+						swal("입력 정보를 다시 확인해주세요.")
 					}
 				} else {
-					alert("입력 정보를 다시 확인해주세요.")
+					swal("입력 정보를 다시 확인해주세요.")
 				}
 				
 			}

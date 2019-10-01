@@ -17,6 +17,7 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <!-- jquery -->
   <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
  <script type="text/javascript">
  $(document).ready(function() {
 	  
@@ -71,12 +72,12 @@
 	    		  
 	    	  } else if(message == "상담원과의 연결이 종료되었습니다.") {
 	    		  
-	    		  alert("상담원과의 연결이 종료되었습니다.\n계속 상담을 원하시면 다시 시도해주세요.")
+	    		  swal("상담원과의 연결이 종료되었습니다.\n계속 상담을 원하시면 다시 시도해주세요.")
 	    		   parent.document.location.reload()
 	    		  
-	    	  }else if(message == '채팅가능관리자없음'){ // 채팅 가능 인원이 초과된경우 alert을 띄우고 새로고침
+	    	  }else if(message == '채팅가능관리자없음'){ // 채팅 가능 인원이 초과된경우 swal을 띄우고 새로고침
 	    		  
-	    		  alert("채팅 가능한 상담원이 없습니다.\n나중에 다시 시도해주세요.")
+	    		  swal("채팅 가능한 상담원이 없습니다.\n나중에 다시 시도해주세요.")
 	    		  parent.document.location.reload()
 	    		  
 	    	  } else { // 상대방이 보낸 메세지 표현
@@ -91,7 +92,7 @@
 	      };
 	      /////
 	      ws.onclose=function(event){
-	    	  alert('상담이 종료되었습니다.')
+	    	  swal('상담이 종료되었습니다.')
 	    	  $('#chatContent').text('')
 	    	  $('#chatContent').scrollTop($('#chatContent').prop('scrollHeight'));
 	      }
@@ -101,7 +102,7 @@
 	  function send(){
 		  // 내용없이 전송할 때
 		  if($("#messageinput").val().trim() == ''){
-			  alert("전송할 내용을 입력해주세요.")
+			  swal("전송할 내용을 입력해주세요.")
 			  $("#messageinput").focus()
 			  return false
 		  }

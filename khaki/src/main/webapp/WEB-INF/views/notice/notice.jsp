@@ -32,15 +32,16 @@
   </title>
     <!-- Jquery CDN -->
   <script src="https://code.jquery.com/jquery-latest.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script type="text/javascript">
   	
   	function fn_paging(curPage){
   		location.href = "notice.do?curPage="+curPage;
-  		//alert(curPage); //페이지 넘버 확인 aaaaaabb
+  		//swal(curPage); //페이지 넘버 확인 aaaaaabb
   	};
   	
   	function change_pagesize(pageSize, curPage){
-  		alert(pageSize +" / "+ curPage);
+  		swal(pageSize +" / "+ curPage);
   		location.href = "notice.do?curPage="+curPage+"&pageSize="+pageSize;
   	}
   	
@@ -48,7 +49,7 @@
     $(function(){
     	$(".check_notice1").click(function(){
 	  		var check_notice = $("#check_notice").prop("checked");	//prop는 속성값을 의미 체크안되어 있으면 false를 반환, 되어있으면 true를 반환
-	    	//alert(check_notice);
+	    	//swal(check_notice);
 	  		if(check_notice == true){
 	    		$("tbody").children("#board_notice").hide();
 	    	}else{
@@ -58,7 +59,7 @@
   		
   		$(".check_event1").click(function(){
 	  		var check_notice = $("#check_event").prop("checked");	//prop는 속성값을 의미 체크안되어 있으면 false를 반환, 되어있으면 true를 반환
-	    	//alert(check_notice);
+	    	//swal(check_notice);
 	  		if(check_notice == true){
 	    		$("tbody").children("#board_event").hide();
 	    	}else{
@@ -68,8 +69,8 @@
     	
   		// id를 비교하여 
   		var id = '${sessionId}';
-  		//alert(id);
-    	//alert(typeof id);
+  		//swal(id);
+    	//swal(typeof id);
   		if(id.substr(0,5) == 'admin'){
 	  		$("#btn_write").attr('disabled',false);	//false면 버튼을 활성화, ture면 비활성화
   		}

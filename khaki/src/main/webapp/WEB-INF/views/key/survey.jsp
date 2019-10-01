@@ -37,6 +37,7 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
   	$(function(){
   		// key & survey iframe 숨김처리
@@ -46,10 +47,37 @@
   		
   		// 설문하기 버튼 클릭
   		$("#surveybtn").on("click",function(){
-	  		$("#windowImg").hide();
-	  		$("#comment1").hide();
-	  		$("#comment2").show();
-	  		$("#survey1").show();
+  			var sessionId = $("#sessionId").val();
+  			$.ajax({
+		        url : "reservation_endTime_check.do",
+		        data : {
+		           'id' : sessionId
+		        },
+		        error : function(error) {
+		           swal("오류발생" + error);
+		        },
+		        success : function(data) {
+		        	if(data.trim()=="Y"){
+		        		swal({
+		        			  title: "이용 가능한 차량이 존재하지 않습니다.",
+		        			  text: "차량 예약 후 이용 부탁드립니다.\n차량 예약을 하시겠습니까?",
+		        			  icon: "warning",
+		        			  buttons: true,
+		        			  dangerMode: true,
+		        		})
+		        		.then((willDelete) => {
+		        			if (willDelete) {
+		        				window.parent.location.href = "map.do";
+		        			}
+		        		});
+		        	} else {
+		        		$("#windowImg").hide();
+		    	  		$("#comment1").hide();
+		    	  		$("#comment2").show();
+		    	  		$("#survey1").show();
+		        	}
+		        }
+    		})
   		});
   		
   		surveyFinish = function() {
@@ -64,6 +92,7 @@
 
 <body class="">
 	<div class="card shadow border-0" id="carkeyArea">
+	<input type="hidden" id="sessionId" name="sessionId" value="${sessionId }">
 		<!-- carkey -->
 		<div id="tabs-icons-text-6" role="tabpanel" aria-labelledby="tabs-icons-text-6-tab">
 			<iframe id="key" src="key.do" style="width: 100%; height: 900px;" frameborder="0"></iframe>

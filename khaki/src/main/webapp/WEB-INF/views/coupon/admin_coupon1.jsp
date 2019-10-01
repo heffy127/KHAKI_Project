@@ -20,6 +20,7 @@
    <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
    <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
    <script>
    	$(function(){
    		$("#cTitle1").keyup(function(){
@@ -103,11 +104,11 @@
 	 				"cOption" : cOption
 	 			},
 	 			success:function(data){
-	 				alert("성공했습니다.");
+	 				swal("성공했습니다.");
 	 				
 	 			},
 	 			error : function(xhr, status) {
-	 				alert(xhr + " : " + status);
+	 				swal(xhr + " : " + status);
 	 			}
 	 		}); */
    			$.ajax({
@@ -123,11 +124,11 @@
 	 				"cpCondition" : cpCondition
 	 			},
 	 			success:function(data){
-	 				alert("쿠폰 등록에 성공했습니다.");
+	 				swal("쿠폰 등록에 성공했습니다.");
 	 				location.href="admin_coupon1.do";
 	 			},
 	 			error : function(xhr, status) {
-	 				alert(xhr + " : " + status);
+	 				swal(xhr + " : " + status);
 	 			}
 	 		});
    			

@@ -34,13 +34,14 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script type="text/javascript">
   	$(function() {
   		// handler_btn(핸들러 신청하기) 버튼 클릭 시 신청자의 useCount(카키 이용 횟수)를 확인하여 5회 이상일 경우 신청 가능
   		$("#handler_btn").click(function(){ // handler_btn(핸들러 신청하기) 버튼 클릭 시
   			var id = '<%=(String)session.getAttribute("sessionId")%>';  // sessionId를 [id]라는 변수에 담아서
   			if(id == "null") {
-  				alert("로그인이 필요한 서비스 입니다.\n 로그인 후 이용 해주세요.");
+  				swal("로그인이 필요한 서비스 입니다.\n 로그인 후 이용 해주세요.");
   				location.href="login.do";
   			} else {
   				$.ajax({ // ajax 실행
@@ -52,11 +53,11 @@
   	  		    	  if(data == "Y") { // handler/handlerUseCountCheck에 데이터가 Y일 경우 핸들러 신청 가능.
   	  		    	  	  $("#exampleModal").modal({}) // data == Y 일 경우 modal 나타남
   	  		    	  } else { // handler/handlerIdCheck에 데이터가 N이거나 NULL일 경우 핸들러 신청 불가.
-  	  		    		  alert("핸들러 신청 조건이 맞지 않아 신청이 불가합니다.\n다시 한 번 확인 후 이용해 주세요.");
+  	  		    		  swal("핸들러 신청 조건이 맞지 않아 신청이 불가합니다.\n다시 한 번 확인 후 이용해 주세요.");
   	  		    	  }
   	  		      },
   	  		      error : function(xhr, status) { // ajax가 실패했을 때
-  	  	              alert(xhr + " : " + status); // 실패 내용 확인
+  	  	              swal(xhr + " : " + status); // 실패 내용 확인
   	  	          }
   				}) // ajax end
   			

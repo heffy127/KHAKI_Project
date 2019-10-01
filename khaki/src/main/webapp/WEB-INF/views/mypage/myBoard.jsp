@@ -14,6 +14,7 @@
 <link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
 <!-- CSS Files -->
 <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(
@@ -22,7 +23,7 @@ $(document).ready(
         deleteBtn = function(val){
         	var retVal = confirm("게시글을 삭제하시겠습니까?");
         	   if( retVal == true ){
-	        	   alert("삭제되었습니다.");
+	        	   swal("삭제되었습니다.");
 			       var num = ${dto.bNum}
 			       location.href = 'delete.do?bNum=' + val
         	   }else{

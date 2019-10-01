@@ -9,6 +9,7 @@
   <!-- CSS Files -->
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script type="text/javascript">
   	$(function() {
   		var id = '<%=(String)session.getAttribute("sessionId")%>';
@@ -37,7 +38,7 @@
 	 	    	  }
 	 	      },
 	 	      error : function(xhr, status) { // ajax가 실패했을 때
-	               alert(xhr + " : " + status); // 실패 내용 확인
+	               swal(xhr + " : " + status); // 실패 내용 확인
 	           }
 		}) // ajax end
 		
@@ -95,7 +96,7 @@
 	      	 	    	  location.href="handlerUseSelect.do?h_id="+id;
 	      	 	      },
 	      	 	      error : function(xhr, status) { // ajax가 실패했을 때
-	      	               alert(xhr + " : " + status); // 실패 내용 확인
+	      	               swal(xhr + " : " + status); // 실패 내용 확인
 	      	           }
 	      		}) // ajax end
   			}

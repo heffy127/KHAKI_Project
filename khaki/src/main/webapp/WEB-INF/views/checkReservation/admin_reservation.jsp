@@ -37,6 +37,7 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
 	$(function() {
 		// Go to IAMPORT 클릭시 실제 환불 처리 할 수 있는 버튼 새창으로 띄움
@@ -72,7 +73,7 @@
 			 	  }
 			   },
 			   error : function(xhr, status) {
-			          alert(xhr + " : " + status);
+			          swal(xhr + " : " + status);
 			   }
 			});
             
@@ -149,17 +150,17 @@
 	 	  	 			   },
 	 	  	 			   // async: false, // for문 안에서 ajax 작동 순서를 정상적으로 돌아가게 해줌
 	 	  	 			   success:function(data){
-	 	  	 				   alert("환불처리가 완료되었습니다.");
+	 	  	 				   swal("환불처리가 완료되었습니다.");
 	 	  	 				   location.reload();
 	 	  	 			   },
 	 	  	 			   error : function(xhr, status) {
-	 	  	 			          alert(xhr + " : " + status);
+	 	  	 			          swal(xhr + " : " + status);
 	 	  	 			   }
 	 	  	 			});	
 	        		}
 	        			
 	        	} else {
-	        		alert("이미 환불이 완료 된 주문건입니다.")
+	        		swal("이미 환불이 완료 된 주문건입니다.")
 	        	}
 	        	
 	 		})
@@ -194,7 +195,7 @@
     	 			 	  }
     	 			   },
     	 			   error : function(xhr, status) {
-    	 			          alert(xhr + " : " + status);
+    	 			          swal(xhr + " : " + status);
     	 			   }
     	 			});
             	}

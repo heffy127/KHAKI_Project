@@ -19,6 +19,7 @@
 <!-- CSS Files -->
 <link href="resources/assets/css/argon-dashboard.css?v=1.1.0"
    rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!--   Core   -->
 <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
 <script
@@ -87,13 +88,13 @@
 				$('#pwChangeBtn').click(
 						function() {
 							if($('#pw_span').text() != '사용 가능한 비밀번호입니다.'){
-								alert('비밀번호 입력 정보를 다시 확인해주세요.')
+								swal('비밀번호 입력 정보를 다시 확인해주세요.')
 								$('#pw').focus()
 								return false
 							}
 
 							if($('#pwChk_span').text() != '비밀번호와 일치합니다.'){
-								alert('비밀번호 확인 입력 정보를 다시 확인해주세요.')
+								swal('비밀번호 확인 입력 정보를 다시 확인해주세요.')
 								$('#pwChk').focus()
 								return false
 							}
@@ -104,7 +105,7 @@
 								data: d,
 								type: 'POST',
 								success: function(result){
-									alert("비밀번호 변경이 완료되었습니다.")
+									swal("비밀번호 변경이 완료되었습니다.")
 									window.parent.closeModal_normal('changed')
 								}
 							})

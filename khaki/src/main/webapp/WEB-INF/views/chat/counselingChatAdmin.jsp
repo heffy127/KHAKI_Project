@@ -17,6 +17,7 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <!-- jquery -->
   <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
  <script type="text/javascript">
  $(document).ready(function() {
 	  
@@ -85,7 +86,7 @@
 	  function send(){
 		  // 내용없이 전송할 때
 		  if($("#messageinput").val().trim() == ''){
-			  alert("전송할 내용을 입력해주세요.")
+			  swal("전송할 내용을 입력해주세요.")
 			  $("#messageinput").focus()
 			  return false
 		  }

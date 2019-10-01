@@ -40,6 +40,7 @@
 <!-- CSS Files -->
 <link href="resources/assets/css/argon-dashboard.css?v=1.1.0"
 	rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -145,7 +146,7 @@
 							
 						} else {
 							//이메일 체크박스 체크 안되어있을때
-							alert("이메일 정보 입력을 통해\nKHAKI에서 제공하는 다양한 혜택정보 수신과\n이메일을 통한 계정찾기 기능을 이용하실 수 있습니다.")
+							swal("이메일 정보 입력을 통해\nKHAKI에서 제공하는 다양한 혜택정보 수신과\n이메일을 통한 계정찾기 기능을 이용하실 수 있습니다.")
 							$('#email_id').val("")
 							$('#email_site').val("")
 							$("#email_select").val('').prop("selected", true); // '직접입력' option 선택
@@ -294,7 +295,7 @@
 									khakiAuth = result.trim() 
 									// 메일로 보낸 인증번호를 가져온 후
 									// next버튼 눌렀을때 사용자가 세션을 통해 보내온 인증번호와 비교하게 됨
-									alert("입력하신 이메일 계정으로 인증메일를 발송했습니다.")
+									swal("입력하신 이메일 계정으로 인증메일를 발송했습니다.")
 									$('#forAuthBtn').attr('class', 'btn btn-success')
 									$('#forAuthBtn').text('발송완료')
 									$('#forAuthBtn').attr('disabled', true)
@@ -307,7 +308,7 @@
 
 
 							}else{
-								alert("이메일 형식을 확인해주세요.")
+								swal("이메일 형식을 확인해주세요.")
 							}
 					}
 				)
@@ -317,25 +318,25 @@
 				$('#next').click(
 					function () {
 						if($('#id_span').text() != '사용 가능한 아이디입니다.'){
-							alert('아이디 입력 정보를 다시 확인해주세요.')
+							swal('아이디 입력 정보를 다시 확인해주세요.')
 							$('#id').focus()
 							return false
 						}
 
 						if($('#pw_span').text() != '사용 가능한 비밀번호입니다.'){
-							alert('비밀번호 입력 정보를 다시 확인해주세요.')
+							swal('비밀번호 입력 정보를 다시 확인해주세요.')
 							$('#pw').focus()
 							return false
 						}
 
 						if($('#pwChk_span').text() != '비밀번호와 일치합니다.'){
-							alert('비밀번호 확인 입력 정보를 다시 확인해주세요.')
+							swal('비밀번호 확인 입력 정보를 다시 확인해주세요.')
 							$('#pwChk').focus()
 							return false
 						}
 
 						if($('#name_span').text() != '본인확인 용도로 사용됩니다.'){
-							alert('실명 입력 정보를 다시 확인해주세요.')
+							swal('실명 입력 정보를 다시 확인해주세요.')
 							$('#name').focus()
 							return false
 						}
@@ -351,7 +352,7 @@
 										userAuth = result.trim()
 										// khaki 인증번호와 사용자가 세션을 통해 보내온 인증번호 비교
 										if(khakiAuth != userAuth || khakiAuth == null){
-											alert('이메일 인증 정보를 다시 확인해주세요.')
+											swal('이메일 인증 정보를 다시 확인해주세요.')
 											return false
 										}else{
 											// 이메일 인증을 위한 세션 삭제
@@ -361,7 +362,7 @@
 									}
 								})
 							} else {
-								alert('이메일 정보를 정확히 입력 후\n인증메일을 통해 이메일 인증을 진행해주세요.')
+								swal('이메일 정보를 정확히 입력 후\n인증메일을 통해 이메일 인증을 진행해주세요.')
 							}
 					} else{
 						$('#regi3').submit();

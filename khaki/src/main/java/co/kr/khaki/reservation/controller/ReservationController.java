@@ -8,17 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import co.kr.khaki.car.CarDAO;
-import co.kr.khaki.car.CarDTO;
 import co.kr.khaki.common.CalculateMemberLevel;
-import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
-import co.kr.khaki.handler.DAO.HandlerDAO;
-import co.kr.khaki.handler.DTO.HandlerDTO;
-import co.kr.khaki.member.DAO.MemberDAOInter;
-import co.kr.khaki.member.DAO.MemberLevelDAOInter;
-import co.kr.khaki.member.DTO.MemberLevelDTO;
-import co.kr.khaki.reservation.DAO.PayDAOImpl;
 import co.kr.khaki.reservation.DTO.PayDTO;
 import co.kr.khaki.reservation.service.ReservationServiceInterface;
 
@@ -93,6 +84,19 @@ public class ReservationController {
 		model.addAttribute("plist", returnList.get(0));
 		model.addAttribute("carImage", returnList.get(1));
 		return "checkReservation/checkReservation";
+	}
+	
+	@RequestMapping("reservation_endTime_check.do")
+	public String reservation_endTime_check(String id, Model model) {
+		System.out.println("페이지에서 넘긴 id : " + id);
+		String check = reservationServiceImpl.reservation_endTime_check(id);
+		if(!check.equals("Y")) {
+			check = "N";
+		}
+		System.out.println("check : " + check);
+		model.addAttribute("check", check);
+		
+		return "checkReservation/reservation_endTime_check";
 	}
 
 }

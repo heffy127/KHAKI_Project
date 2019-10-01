@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 <!-- Jquery CDN -->
 <script src="https://code.jquery.com/jquery-latest.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <%
 	String distance = (String) request.getAttribute("distance");
@@ -38,7 +39,7 @@
 			var percentage = 0;
 			var expire_item = 0;
 			
-			//alert("test1")
+			//swal("test1")
 			// remainder 변수를 통해서 각 소모품주기 기준수로 나눠줌
 			for(var i=0; i<arr.length;i++){
 				var remainder = distance % arr[i];	//나머지 값이 들어 있음
@@ -50,7 +51,7 @@
 				var change_num = Math.round(distance / arr[i]);	//총 운행수 대비해서 교체 했어야했을 횟수
 				
 				percentage = Math.round(remainder / arr[i] * 100);
-				//alert("consumableDB"+i+" : "+consumableDB[i]+"/ change_num"+i+" : "+change_num);
+				//swal("consumableDB"+i+" : "+consumableDB[i]+"/ change_num"+i+" : "+change_num);
 				num = percentage;
 				// percentage를 기준으로 80%~100%이면 버튼을 생성하고, 교체 횟수를 1개 늘림
 				if(num <=50 && num >=0){
@@ -112,7 +113,7 @@
 					
 					// Math.round() 함수는 반올림
 					percentage = Math.round(remainder / arr[i] * 100);
-					// alert((i+1)+"번째 : 총운행 "+distance+" / 나머지 " +remainder+" / 기준 "+ arr[i] + " / 퍼센트 "+percentage);
+					// swal((i+1)+"번째 : 총운행 "+distance+" / 나머지 " +remainder+" / 기준 "+ arr[i] + " / 퍼센트 "+percentage);
 					// 100% 됐을 때와 넘었을 때 분기 처리
 					
 					num = percentage;
@@ -143,7 +144,7 @@
 						$(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+expire_item + " / " + change_num+" | "+num+'%');
 						$("#btn_div"+(i+1)).css("display", "none");	//display:none인 값을 inline으로 바꾸어 보이게 해줌
 					}else{
-						alert((i+1)+"번째 : not range!!" + arr[i]);
+						swal((i+1)+"번째 : not range!!" + arr[i]);
 					}
 					
 					
@@ -154,7 +155,7 @@
 					
 					// Math.round() 함수는 반올림
 					percentage = Math.round(remainder / arr[i] * 100);
-					// alert((i+1)+"번째 : 총운행 "+distance+" / 나머지 " +remainder+" / 기준 "+ arr[i] + " / 퍼센트 "+percentage);
+					// swal((i+1)+"번째 : 총운행 "+distance+" / 나머지 " +remainder+" / 기준 "+ arr[i] + " / 퍼센트 "+percentage);
 					// 100% 됐을 때와 넘었을 때 분기 처리
 					
 					num = percentage;
@@ -185,7 +186,7 @@
 						$(".pctest1_"+(i+1)).children("span").text("교체 횟수 : "+expire_item + " / " + change_num+" | "+num+'%');
 						$("#btn_div"+(i+1)).css("display", "inline");	//display:none인 값을 inline으로 바꾸어 보이게 해줌
 					}else{
-						alert((i+1)+"번째 : not range!!" + arr[i]);
+						swal((i+1)+"번째 : not range!!" + arr[i]);
 					}
 					
 				}	//교체 시기 else end */
@@ -194,10 +195,10 @@
 				
 			};	//for문 End
 			
-			// 소모품 교체횟수 alert(test용)
+			// 소모품 교체횟수 swal(test용)
 				/* 
-				alert(test1);
-				alert(test2); 
+				swal(test1);
+				swal(test2); 
 				*/
 			
 			// progress-bar bg-success 초록색
@@ -205,27 +206,27 @@
 			// progress-bar bg-danger 빨간색
 				
 			var today2 = "<%= today1 %>";
-			//alert(today2);
+			//swal(today2);
 			
 			$(".btn_change").click(function(){
 				// this일 때는 눌린 버튼을 의미함
-				alert("나를 눌렀군요?");
+				swal("나를 눌렀군요?");
 				var data11 = $(this).next(".btn_value").val();
 				var index_data = $(".btn_change").index(this);	// 교체 버튼 눌리면 index를 가져옴
 				var index_time = index_data+12;
-				alert(data11+"/"+index_data + "/" + index_time);
+				swal(data11+"/"+index_data + "/" + index_time);
 				
 				var span_index_data = $(".pctest1_"+(index_data+1)).children("span").text();
 				var change_num1 = span_index_data.split("/")[1].split("|")[0];
 				var change_num2 = span_index_data.split(":")[1].split("/")[0];
 				/* 
 					
-				alert(typeof change_num1);	//typeof 함수는 변수의 타입을 알려줌, 현재 string
-				alert("***"+change_num1+"***");
-				alert(typeof parseInt(change_num1.trim()));
+				swal(typeof change_num1);	//typeof 함수는 변수의 타입을 알려줌, 현재 string
+				swal("***"+change_num1+"***");
+				swal(typeof parseInt(change_num1.trim()));
 					parseInt 메소드 사용시 trim 여부는 상관없는듯?
-				alert("trim : " + parseInt(change_num1.trim()));
-				alert("no tirm : " + parseInt(change_num1)); 
+				swal("trim : " + parseInt(change_num1.trim()));
+				swal("no tirm : " + parseInt(change_num1)); 
 				*/
 				
 				// 바뀔 값들만 셋팅해주는 식으로 구현
@@ -244,11 +245,11 @@
 				    //dataType: "",
 				    data: form_data,
 				    success: function(){
-						alert("ajax 동작 완료!")
+						swal("ajax 동작 완료!")
 						// %부분
 						var percentage1 = Math.round((distance % arr[index_data]) / arr[index_data] * 100);
-						alert("percentage1 : " + percentage1)
-						alert("index_data : " + index_data)
+						swal("percentage1 : " + percentage1)
+						swal("index_data : " + index_data)
 						
 						if(percentage1<=50 && percentage1 >= 0){
 							$(".pctest2_"+(index_data+1)).attr({
@@ -269,14 +270,14 @@
 								'style':'width:'+percentage1+'%;',
 							});
 						}else{
-							alert((index_data+1)+"번째 : not range!!" + arr[index_data]);
+							swal((index_data+1)+"번째 : not range!!" + arr[index_data]);
 						}
 						
 						// 바뀌는 것은 보임
 						var span_index_data1 = $(".pctest1_"+(index_data+1)).children("span").text();
-						//alert(span_index_data1);
+						//swal(span_index_data1);
 						var change_num2 = span_index_data1.split("/")[1].split("|")[0];
-						//alert(change_num2);
+						//swal(change_num2);
 						
 						$(".pctest1_"+(index_data+1)).children("span").text("교체 횟수 : "+change_num1 + " / " + change_num1+" | "+percentage1+'%');
 						$("#btn_div"+(index_data+1)).css("display", "none");
@@ -286,7 +287,7 @@
 				    },
 				
 				    error: function (){        
-						alert("에러!에러!")
+						swal("에러!에러!")
 				    }
 			
 			 	});

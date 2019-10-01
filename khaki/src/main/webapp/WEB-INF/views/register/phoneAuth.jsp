@@ -9,6 +9,7 @@
 	rel="stylesheet" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 	$(document).ready(
 			function() {
@@ -27,7 +28,7 @@
 					if(--timer < 0){ // timer가 0보다 작아질때
 						timer = 0;
 						clearInterval(interval) // 타이머 초기화
-						alert("인증시간이 지났습니다.\n인증번호를 다시 발급받아주세요.")
+						swal("인증시간이 지났습니다.\n인증번호를 다시 발급받아주세요.")
 						window.parent.closeModal_normal()
 					}
 				}, 1000)
@@ -38,10 +39,10 @@
 						var userAuth = $('#authNum').val()
 						if( sessionAuth == userAuth ) {
 							$('#authTitle').text("인증이 완료되었습니다.")
-							alert("휴대폰 인증이 완료되었습니다.\n절차를 계속 진행해주세요.")
+							swal("휴대폰 인증이 완료되었습니다.\n절차를 계속 진행해주세요.")
 							window.parent.closeModal('changed') // 부모창에서 모달 자동으로 닫기
 						} else {
-							alert("인증번호를 다시 확인해주세요.")
+							swal("인증번호를 다시 확인해주세요.")
 						}
 					}		
 				)

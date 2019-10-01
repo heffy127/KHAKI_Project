@@ -9,6 +9,7 @@
     <head>
         <title></title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script type="text/javascript">
         $(document).ready(
         		function () {
@@ -44,7 +45,7 @@
                             http_request = new ActiveXObject("Microsoft.XMLHTTP");
                         } catch (e) {
                             // Eror
-                            alert("지원하지 않는브라우저!");
+                            swal("지원하지 않는브라우저!");
                             return false;
                         }
 

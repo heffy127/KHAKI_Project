@@ -37,6 +37,7 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
 	$(function() {
 		// 현재날짜와 반납한날짜를 비교하여 5일 이상 지나지 않은 주문건만 환불 가능.
@@ -94,7 +95,7 @@
 			    	  }
 			      },
 			      error : function(xhr, status) {
-		              alert(xhr + " : " + status);
+		              swal(xhr + " : " + status);
 		          }
 			});
 	    	
@@ -148,17 +149,17 @@
 		  			    	  "buy_impUid" : $(this).val()
 		  			      },
 		  			      success:function(data){
-		  			    	  alert("환불신청이 완료 되었습니다.\n영업일 기준 3일 이내 처리 될 예정입니다.");
+		  			    	  swal("환불신청이 완료 되었습니다.\n영업일 기준 3일 이내 처리 될 예정입니다.");
 		  			    	  location.href="checkReservation.do?id="+sessionUId;
 		  			      },
 		  			      error : function(xhr, status) {
-		  		              alert(xhr + " : " + status);
+		  		              swal(xhr + " : " + status);
 		  		          }
 		  			});
 				} 
 				
 			} else{
-				alert("고객센터로 문의해주세요\nKHAKI 고객센터 : 1577-1577");
+				swal("고객센터로 문의해주세요\nKHAKI 고객센터 : 1577-1577");
 			}
 		})
 		

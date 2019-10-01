@@ -36,6 +36,7 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
      $(function(){
         $("#unlockImg").hide();
@@ -46,7 +47,7 @@
         
         // 문열림
         $("#unlockCar").click(function(){
-           alert("문이 열렸습니다.");
+           swal("문이 열렸습니다.");
            $("#lockImg").hide();
            $("#claim").hide();
            $("#startImg").hide();
@@ -57,7 +58,7 @@
         
         // 문잠금
         $("#lockCar").click(function(){
-           alert("문이 잠겼습니다.");
+           swal("문이 잠겼습니다.");
            $("#unlockImg").hide();
            $("#claim").hide();
            $("#startImg").hide();
@@ -67,7 +68,7 @@
         
         // 차량 찾기
         $("#findCar").click(function(){
-           alert("소리나기1");
+           swal("소리나기1");
            $("#unlockImg").hide();
            $("#claim").hide();
            $("#startImg").hide();
@@ -77,7 +78,7 @@
         
         // 시동걸기
         $("#startCar").click(function(){
-           alert("소리나기2");
+           swal("소리나기2");
            $("#unlockImg").hide();
            $("#claim").hide();
            $("#returnImg").hide();
@@ -101,7 +102,7 @@
         $("#returnCar").click(function(){
            var retVal = confirm("차량을 반납 하시겠습니까?");
            if(retVal == true) {
-              alert("이용해주셔서 감사합니다.");
+              swal("이용해주셔서 감사합니다.");
               $("#unlockImg").hide();
               $("#claim").hide();
               $("#startImg").hide();

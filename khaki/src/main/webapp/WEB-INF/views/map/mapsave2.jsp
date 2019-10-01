@@ -7,6 +7,7 @@
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3010ba59fe5cb4ef476a120272fd67f0"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 .wrap {
    position: absolute;
@@ -195,7 +196,7 @@ String numnum = (String)session.getAttribute("selectCarNum");
             'home_loc' : home_loc
          },
          error : function(error) {
-            alert("오류발생" + error);
+            swal("오류발생" + error);
          },
          success : function(data) {
             $('#burumFee').val(data);
@@ -278,7 +279,7 @@ String numnum = (String)session.getAttribute("selectCarNum");
             'buy_carModel' : buy_carModel
          },
          error : function(error) {
-            alert("오류발생" + error);
+            swal("오류발생" + error);
          },
          success : function(data) {
 
@@ -291,7 +292,7 @@ String numnum = (String)session.getAttribute("selectCarNum");
                   'buy_carModel' : buy_carModel
                },
                error : function(error) {
-                  alert("오류발생" + error);
+                  swal("오류발생" + error);
                },
                success : function(data) {
                   searchStart = parseInt(data.trim());
@@ -304,7 +305,7 @@ String numnum = (String)session.getAttribute("selectCarNum");
                         'buy_carModel' : buy_carModel
                      },
                      error : function(error) {
-                        alert("End오류발생" + error);
+                        swal("End오류발생" + error);
                      },
                      success : function(data) {
                         searchEnd = parseInt(data.trim());
@@ -321,7 +322,7 @@ String numnum = (String)session.getAttribute("selectCarNum");
                                  'buy_carModel' : buy_carModel,
                               },
                               error : function(error) {
-                                 alert("오류발생" + error);
+                                 swal("오류발생" + error);
                               },
                               success : function(data) {
                                  temp = (data.trim()).split("★");
@@ -330,13 +331,13 @@ String numnum = (String)session.getAttribute("selectCarNum");
                                     carNums[i] = temp2[0];
                                     zones = zones + temp2[1] + ",";
                                  }
-                                 //alert("mapReset 실행 : " + zones);
+                                 //swal("mapReset 실행 : " + zones);
                                  location.href="mapReset.do?selectZoneNum=" + zones + "&startTime="+buy_startTime+"&endTime="+buy_endTime;
                                  // 조건에 부합하는 차량갯수, 존 번호 추출해냄
                               }
                            })
                         } else {
-                           alert("해당시간 " + buy_carModel + "차종 예약불가");
+                           swal("해당시간 " + buy_carModel + "차종 예약불가");
                            
                         }
                      }
@@ -359,7 +360,7 @@ function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모�
          'zoneNum' : i
       },
       error : function(error) {
-         alert("오류발생" + error);
+         swal("오류발생" + error);
       },
       success : function(data) {
          var xx = data.trim();
@@ -403,7 +404,7 @@ $(document).on('click','#res_start', function () {
       var number = parseInt($('#zoneNumber').val());
       var zone_loc = zone_addr[number];
       var home_loc = $('#sample5_address').val();
-      alert(number + " - " + home_loc + " - " + zone_loc);
+      swal(number + " - " + home_loc + " - " + zone_loc);
       $.ajax({
          type : "GET",
          url : "burumReservation.do",
@@ -412,10 +413,10 @@ $(document).on('click','#res_start', function () {
             'home_loc' : home_loc
          },
          error : function(error) {
-            alert("오류발생" + error);
+            swal("오류발생" + error);
          },
          success : function(data) {
-            alert("크롤링 성공했다 치고 : "+data)
+            swal("크롤링 성공했다 치고 : "+data)
          }
       })
    }

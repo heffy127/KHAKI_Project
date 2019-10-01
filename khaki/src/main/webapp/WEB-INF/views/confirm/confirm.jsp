@@ -36,6 +36,7 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
   <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
   	$(function(){
   		// var kyul = parseInt($("#kyul").val($("#first_amount").text()));
@@ -67,13 +68,13 @@
 	  		var couponVal = $('select[name=coupon_method]').val();
   			couponVal = couponVal.split(",");
   			// 0번인덱스에는 쿠폰 타입, 1번 인덱스에는 할인정도가 들어가있다.
-  			// alert(couponVal[0]);
-  			// alert(couponVal[1]);
+  			// swal(couponVal[0]);
+  			// swal(couponVal[1]);
   			if(couponVal[3] == "1") {
   				var cpTitle = couponVal[4].split("원");
   				cpTitle = parseInt(cpTitle[0]);
   				if(cpTitle > one) {
-  					alert("쿠폰 조건이 맞지 않습니다.\n다른 쿠폰을 선택 해주세요.")
+  					swal("쿠폰 조건이 맞지 않습니다.\n다른 쿠폰을 선택 해주세요.")
   					$(".coupon_method option:eq(0)").prop("selected", true); //첫번째 option 선택
   					ku = parseInt(0);
 					kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
@@ -269,7 +270,7 @@
   				}
   				
   				if(timeCheck == "N") {
-  					alert("쿠폰 조건이 맞지 않습니다.\n다른 쿠폰을 선택 해주세요.")
+  					swal("쿠폰 조건이 맞지 않습니다.\n다른 쿠폰을 선택 해주세요.")
   					$(".coupon_method option:eq(0)").prop("selected", true); //첫번째 option 선택
   					ku = parseInt(0);
 					kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
@@ -354,7 +355,7 @@
   				}
   				
   				if(timeCheck == "N") {
-  					alert("쿠폰 조건이 맞지 않습니다.\n다른 쿠폰을 선택 해주세요.")
+  					swal("쿠폰 조건이 맞지 않습니다.\n다른 쿠폰을 선택 해주세요.")
   					$(".coupon_method option:eq(0)").prop("selected", true); //첫번째 option 선택
   					ku = parseInt(0);
 					kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
@@ -459,7 +460,7 @@
 	  			    	  $("#cp_method").append(data);
 	  			      },
 	  			      error : function(xhr, status) {
-	  		              alert(xhr + " : " + status);
+	  		              swal(xhr + " : " + status);
 	  		          }
 	  			});
   				// select를 감싸고있는 div가 쿠폰적용하기를 클릭하면 select를 보이게 함
@@ -468,8 +469,8 @@
   				var couponVal = $('select[name=coupon_method]').val();
   	  			couponVal = couponVal.split(",");
   	  			// 0번인덱스에는 쿠폰 타입, 1번 인덱스에는 할인정도가 들어가있다.
-  	  			// alert(couponVal[0]);
-  	  			// alert(couponVal[1]);
+  	  			// swal(couponVal[0]);
+  	  			// swal(couponVal[1]);
   	  			ku = parseInt(0);
   	  			$("#ku").val(ku);
 	  	  		kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
@@ -921,8 +922,8 @@
           	  	<input type="hidden" id="memberPoint" value="${memberDTO.point }">
           	  	<script>
 				$("#check_module").click(function () {
-					alert($("#po").val() + "포인트");
-					alert($("#ku").val() + "쿠폰");
+					swal($("#po").val() + "포인트");
+					swal($("#ku").val() + "쿠폰");
 					var sessionId = '<%=(String)session.getAttribute("sessionId")%>';
 					var coupon_v = $('select[name=coupon_method]').val();
 					var coupon_t = $('#cp_method option:checked').text();
@@ -940,7 +941,7 @@
 					$("#buy_totalAmount").val($("#confirm_amount").text()); 
 					$("#buy_usePoint").val($("#po").val());
 					$("#buy_useCoupon").val($("#ku").val());
-					alert($("#buy_amount").val());
+					swal($("#buy_amount").val());
 					$("#buy_coupon").val(coupon_sp[0]);
 					$("#buy_discount").val(coupon_v);
 					// 결제 필수파라미터 부분
@@ -1024,21 +1025,21 @@
 									url:"burumService.do",
 									data : params,
 									success:function(data){
-										alert("부름성공");
-										alert("부름 서비스 신청이 완료 되었습니다.\n요청하신 주소로 차량이 이동 될 예정입니다.");
+										swal("부름성공");
+										swal("부름 서비스 신청이 완료 되었습니다.\n요청하신 주소로 차량이 이동 될 예정입니다.");
 									},
 									error : function(xhr, status) {
-										alert(xhr + " : " + status);
+										swal(xhr + " : " + status);
 									}
 								});
 							} else {
-								alert("부름 신청안함");
+								swal("부름 신청안함");
 
 							}
 														
 														
 							if($("#po").val() != "0") {
-								alert($("#pointUseInput").val());
+								swal($("#pointUseInput").val());
 								$.ajax({
 									url:"pointUseInput.do",
 									data : {
@@ -1046,14 +1047,14 @@
 										"point" : $("#pointUseInput").val()
 									},
 									success:function(){
-										alert("포인트성공");
+										swal("포인트성공");
 									},
 									error : function(xhr, status) {
-										alert(xhr + " : " + status);
+										swal(xhr + " : " + status);
 									}
 								});
 							} else {
-								alert("포인트 적용안함");
+								swal("포인트 적용안함");
 
 							}
 
@@ -1065,14 +1066,14 @@
 										"num" : $("#couponSeq").val()
 									},
 									success:function(){
-										alert("쿠폰사용처리성공")
+										swal("쿠폰사용처리성공")
 									},
 									error : function(xhr, status) {
-										alert(xhr + " : " + status);
+										swal(xhr + " : " + status);
 									}
 								});
 							} else {
-								alert("쿠폰 사용안함");
+								swal("쿠폰 사용안함");
 
 							}
 
@@ -1082,18 +1083,18 @@
 									url:"payResult.do",
 									data : params,
 									success:function(data){
-										alert("결제성공");
-										alert("결제가 완료 되었습니다.\n예약페이지로 이동합니다.");
+										swal("결제성공");
+										swal("결제가 완료 되었습니다.\n예약페이지로 이동합니다.");
 										location.href="map.do";
 									},
 									error : function(xhr, status) {
-										alert(xhr + " : " + status);
+										swal(xhr + " : " + status);
 									}
 								})
 							})			
 							
 						}else{
-							alert("실패");
+							swal("실패");
 						}
 					});
 					

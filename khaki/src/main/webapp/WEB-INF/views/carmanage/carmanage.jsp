@@ -11,16 +11,17 @@
 <title>1등 카셰어링, khaki</title>
 	<!-- Jquery CDN -->
  	<script src="https://code.jquery.com/jquery-latest.js"></script>
+ 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript">
 	
 		function fn_paging(curPage){
 	  		location.href = "carmanage.do?curPage="+curPage;
-	  		//alert(curPage); 
+	  		//swal(curPage); 
 	  		//페이지 넘버 확인
 	  	};
 	
 	  	function change_pagesize(pageSize, curPage){
-	  		//alert(pageSize +" / "+ curPage);
+	  		//swal(pageSize +" / "+ curPage);
 	  		location.href = "carmanage.do?curPage="+curPage+"&pageSize="+pageSize;
 	  	}
 	  	
@@ -30,13 +31,13 @@
 			// 차량 검색
 			$("#search").click(function(){
 				// 페이지 이동 식으로
-				//alert("검색!!")
+				//swal("검색!!")
 				var search_obj_check = $("#search_obj").val()
-				alert("과연 : " + search_obj_check)
+				swal("과연 : " + search_obj_check)
 				// onsubmit="return false;"
 				if(search_obj_check==''){
 					$("#search_form").attr('onsubmit','return false;');	//submit 기능 하지 않도록 제어
-					alert("검색어를 입력해주세요!")
+					swal("검색어를 입력해주세요!")
 				}else{
 					$("#search_form").attr('onsubmit','return true;');	//submit 기능 활성화
 					$("#search_form").submit();	//submit 시키면 넘어가도록
@@ -54,7 +55,7 @@
 			// 차량번호를 가지고 넘어가도록 설정
 			$(".row_carlist").click(function(){
 				var data = $(this).children(".car_num").text();
-				//alert(data);
+				//swal(data);
 				location.href = "carmanageSelect.do?car_num="+data;
 				
 			})	
@@ -80,10 +81,10 @@
 				junggolist_percentage = junggolist_size / cmlist_size * 100;
 				oldlist_percentage = oldlist_size / cmlist_size * 100;
 			}
-				//alert(junggolist_size + " / " + oldlist_size)
-			//alert(normal_percentage + " / "+junggolist_percentage + " / "+oldlist_percentage);
-			//alert(cmlist_size +"/"+junggolist_size +"/"+oldlist_size + "/" + normal);
-			//alert(junggolist_percentage.toFixed(2));
+				//swal(junggolist_size + " / " + oldlist_size)
+			//swal(normal_percentage + " / "+junggolist_percentage + " / "+oldlist_percentage);
+			//swal(cmlist_size +"/"+junggolist_size +"/"+oldlist_size + "/" + normal);
+			//swal(junggolist_percentage.toFixed(2));
 			// .toFixed(x) : x자리만큼 소수점 반올림
 			//정상운행
 			$(".normal").children(".row").children(".col").children("span").text(normal+"대");
