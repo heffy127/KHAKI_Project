@@ -93,6 +93,7 @@
         	var writer = $("#contentWriter").text();
         	
         	if(retVal == true){
+        		alert(writer);
         		if(sId == writer){
         			$.ajax({
         			  type : 'POST',
@@ -101,7 +102,7 @@
   			    		 "bNum" :  num
   			    	  },
   			    	  success : function(data){
-  			    		  location.href = "updatePage.do";
+  			    		  location.href = "updatePage.do?bNum="+num;
   			    	  }
   			       });   
         		}else {
@@ -416,7 +417,7 @@
 			                    	</c:if>
 							<br>
 							</td>
-							<td align="center"><font size="5" color="gray"><b>${dto.writer}</b></font>
+							<td align="center"><font size="5" color="gray"><b id="contentWriter">${dto.writer}</b></font>
 								<img alt="Image placeholder" src="${sessionPhoto}" 
 								style="width:40px; border-radius: 40px;">
 								
