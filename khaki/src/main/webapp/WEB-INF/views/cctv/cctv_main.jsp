@@ -235,6 +235,10 @@
         </div>
       </div>
     </div>
+    <div id="loadingDiv" style="background-color: #000000; position: absolute; width: 100%; height: 80%; z-index: 9999; opacity: 0.85; padding: 5% 25% 30% 25%;">
+    	<div style="width: 100%; height: 100%; background-image: url('https://thumbs.gfycat.com/DeficientBareDalmatian-size_restricted.gif'); background-size: 100% 100%;">
+    	</div>
+    </div>
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
@@ -419,6 +423,7 @@
 	
 	        // 클러스터러에 마커들을 추가합니다
 	        clusterer.addMarkers(markers);
+	        $("#loadingDiv").remove();
 	    });
 	
 	    // 마커 클러스터러에 클릭이벤트를 등록합니다
