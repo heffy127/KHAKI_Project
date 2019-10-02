@@ -12,11 +12,32 @@
  	<script src="https://code.jquery.com/jquery-latest.js"></script>
  	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript">
+		function isEmpty(str){
+			if(str == "" || str ==null || str == undefined || str == "null" || str == "undefined"){
+				return true
+			}else{
+				return false
+			}
+		}
+	
+	
 		$(function(){
 			
 			var car_numType = /\d{2,3}[가-힣ㄱ-ㅎㅏ-ㅣ\x20]\d{4}/g;
+			var car_drivenType =  /^[0-9]+$/;
 			
+			// 총 운행Km 유효성 검사
+			$("#total_distance").keyup(function(){
+				var check_total_distance = $("#total_distance").val();
+				if(car_drivenType.test(check_total_distance)){
+					$("#total_distanceCheck").text("")
+				}else{
+					$("#total_distanceCheck").text("총 운행 Km는 숫자만 입력해주세요")
+				}
+				
+			})	// 총운행 킬로수
 			
+			// 차량번호 유효성 검사 및 중복검사
 			$("#car_num").keyup(function(){
 				//alert("keyup 동작!");
 				var check_carnum = $("#car_num").val();
@@ -50,8 +71,29 @@
 			});	// update end
 
 			
-			// 차량 등록
+			// 차량 등록(등록 버튼 click시 )
  			$("#insert").click(function(){
+ 				//id값들 : car_num,total_distance, carname, brand, fuel_type, car_size, fee_km, fee_hour
+				//isEmpty()는 true, false를 반환 - 값이 있는지 없는지 여부를 판단
+				
+				// input값의 value값을 가져오는 곳(유효성 검사를 위해서)
+				var c_car_num = isEmpty($("#car_num").val());
+				var c_total_distance = isEmpty($("#total_distance").val());
+				var c_carname = isEmpty($("#carname").val());
+				var c_brand = isEmpty($("#brand").val());
+				var c_fuel_type = isEmpty($("#fuel").val());
+				var c_car_size = isEmpty($("#car_size").val());
+				var c_fee_km = isEmpty($("#fee_km").val());
+				var c_fee_hour = isEmpty($("#fee_hour").val());
+				
+				console.log("car_num : "+c_car_num);
+				console.log("total_distance : "+c_total_distance);
+				console.log("car_name : "+c_carname);
+				console.log("brand : "+c_brand);
+				console.log("fuel_type : "+c_fuel_type);
+				console.log("car_size : "+c_car_size);
+				console.log("fee_km : "+c_fee_km);
+				console.log("fee_hour : "+c_fee_hour);
  				
  				// 차량 등록시 소모품들 교체는 다 된 것으로 하고 수치를 넣도록 구현
  				// jquery에서 text()는 그 안의 text값을 가져오는것, val()은 value값을 가져오는 것(구분 잘하기)
@@ -72,8 +114,21 @@
 					//swal(change_num)
 				};
 				
- 				$("#car_insert").submit();
- 				swal("차량 등록 완료!");
+				//c_total_distance c_carname c_brand c_fuel_type c_car_size c_fee_km c_fee_hour
+				// 비어있으면 true를 값이 있으면 false를 반환
+				/*
+					논리연산자
+					true && true = true / true && false = false / false && false = false
+					true || false = true
+				*/
+				if(c_car_num || c_total_distance || c_carname || c_brand || c_fuel_type || c_car_size || c_fee_km || c_fee_hour){
+					swal("입력 정보를 전부 입력해주세요")
+				}else{
+	 				swal("차량 등록 완료!");
+					$("#car_insert").submit();
+				}
+				
+ 				//$("#car_insert").submit();
  				
 			});	// insert end
 
@@ -189,14 +244,15 @@
 	            					<div class="form-group">
 		            					<div class="row">
 		            						<div class="col col-sm-10">
-		            							<input type="text" class="form-control" id="car_num" name="car_num" placeholder="차량번호">
+		            							<input type="text" class="form-control" id="car_num" name="car_num" placeholder="차량번호" maxlength="7">
 		            							<!-- 차량번호 keyup으로 제한사항 두기 -->
 		            							<div id="car_numCheck"></div>
 		            						</div>
 		            					</div>
 		            					<div class="row">
 		            						<div class="col col-sm-10">
-		            							<input type="text" class="form-control" id="total_distance" name="driven" placeholder="총 운행 Km">
+		            							<input type="text" class="form-control" id="total_distance" name="driven" placeholder="총 운행 Km" maxlength="8">
+		            							<div id="total_distanceCheck"></div>
 		            						</div>
 		            					</div>
 		            					<div class="row" style="vertical-align: middle;">
@@ -286,7 +342,7 @@
 	            						<input type="hidden" name="car_image" id="car_image">
 		            					<input type="hidden" name="car_name" id="carname">
 		            					
-		            						<!-- DB 통합후 새로 Insert할 내용들 aaa -->
+	            						<!-- DB 통합후 새로 Insert할 내용들 aaa -->
 		            					<input type="hidden" name="fuel_gage" id="fuel_gage" value="90">
 		            					<input type="hidden" name="fee_hour" id="fee_hour" value="">
 		            					<input type="hidden" name="fee_km" id="fee_km" value="">
