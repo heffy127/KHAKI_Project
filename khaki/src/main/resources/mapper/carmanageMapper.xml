@@ -4,6 +4,13 @@
 
 <mapper namespace="cmDAO">
 
+	<select id="check_car_num" parameterType="String" resultType="String">
+		SELECT
+		car_num
+		FROM car_board
+		WHERE car_num=#{car_num}
+	</select>
+
 	<select id="select_car_name" parameterType="String" resultMap="rsMap">
 		SELECT
 		*
@@ -67,7 +74,7 @@
 	</resultMap>
 
 	<select id="selectAll" resultMap="rsMap">
-		SELECT * FROM car_board order by car_num desc
+		SELECT * FROM car_board order by reg_date desc
 	</select>
 	<!-- selectAll부분 수정 필요(등록된 것 역순으로 나오게끔) -->
 	

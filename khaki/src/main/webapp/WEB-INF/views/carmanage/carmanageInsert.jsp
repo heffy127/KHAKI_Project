@@ -14,6 +14,35 @@
 	<script type="text/javascript">
 		$(function(){
 			
+			var car_numType = /\d{2,3}[가-힣ㄱ-ㅎㅏ-ㅣ\x20]\d{4}/g;
+			
+			
+			$("#car_num").keyup(function(){
+				//alert("keyup 동작!");
+				var check_carnum = $("#car_num").val();
+				//alert(check_carnum);
+				if(car_numType.test(check_carnum)){
+					//alert("정규식 통과!");
+					$("#car_numCheck").text("")
+					$.ajax({
+						url:"car_numCheck.do?car_num="+check_carnum,
+						success: function(result){
+							// 차량 등록 버튼 비활성화 및 활성화로 중복검사 시 통과하면 활성화, 그 외에 비활성화
+							var select_carnum = result.trim();
+							if(select_carnum == check_carnum){
+								$("#car_numCheck").text("중복된 차량번호입니다")
+							}else{
+								$("#car_numCheck").text("사용가능한 차량번호입니다")
+							}
+						}
+					})
+				}else{
+					//alert("정규식 실패!");
+					$("#car_numCheck").text("차량번호는 00가0000 또는 000가0000 형식입니다.")
+				}
+				
+			})	//차량번호 key up
+			
 			
 			// 차량 수정
 			$("#update").click(function(){
@@ -162,6 +191,7 @@
 		            						<div class="col col-sm-10">
 		            							<input type="text" class="form-control" id="car_num" name="car_num" placeholder="차량번호">
 		            							<!-- 차량번호 keyup으로 제한사항 두기 -->
+		            							<div id="car_numCheck"></div>
 		            						</div>
 		            					</div>
 		            					<div class="row">

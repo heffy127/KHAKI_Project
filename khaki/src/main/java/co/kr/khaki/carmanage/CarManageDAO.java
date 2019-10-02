@@ -16,6 +16,11 @@ public class CarManageDAO {
 	@Autowired
 	SqlSessionTemplate my;
 	
+	public String check_car_num(String car_num) {
+		System.out.println("car_num select");
+		return my.selectOne("cmDAO.check_car_num",car_num);
+	}
+	
 	public List<CarManageDTO> search(String search_list, String search_obj) {
 		
 		List<CarManageDTO> selectlist;

@@ -35,6 +35,13 @@ public class CarManageController {
 	@Autowired
 	KhakiZoneDAO zoneDAO;
 	
+	@RequestMapping("car_numCheck.do")
+	public String car_numCheck(String car_num, Model model) {
+		String select_car_num = cmdao.check_car_num(car_num);
+		model.addAttribute("car_num",select_car_num);
+		return "carmanage/car_numCheck";
+	}
+	
 	@RequestMapping("carmanageDelete.do")
 	public String carmanageDelete(String car_num, Model model, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="10") int pageSize){
 		// 페이지수 조절하는 것 연결하려면 curPage, pageSize를 가지고 다닐 수 있도록

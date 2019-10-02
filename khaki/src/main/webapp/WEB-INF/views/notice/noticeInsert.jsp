@@ -429,7 +429,7 @@
 					    <div class="col-md-6">
 					      <div class="form-group">
 					      <!-- 일단은 session에서 id 받아오는 것 대신 test 아이디 넣음 -->
-					        <input type="text" class="form-control" value="test" name="writer" placeholder="글쓴이" readonly="readonly">
+					        <input type="text" class="form-control" value="${sessionId}" name="writer" placeholder="글쓴이" readonly="readonly">
 					      </div>
 					    </div>
 				  	</div>
