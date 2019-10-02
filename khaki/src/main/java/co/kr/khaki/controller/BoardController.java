@@ -107,6 +107,7 @@ public class BoardController {
 	public String updatePage(BoardDTO boardDTO, Model model) {
 		// 내용 select
 		BoardDTO dto = dao.select(boardDTO);
+		System.out.println("test:");
 		System.out.println(dto);
 		model.addAttribute("dto", dto);
 		return "board/updatePage";

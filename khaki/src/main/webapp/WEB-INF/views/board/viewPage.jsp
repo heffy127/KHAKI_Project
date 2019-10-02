@@ -39,7 +39,7 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <!-- JQuery CDN -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
   <!-- 스마트 에디터  -->
   <script src="https://code.jquery.com/jquery-latest.js"></script>
   <script type="text/javascript">
@@ -56,16 +56,29 @@
   			$("#insertReFrm").submit();
   		});
   		
-        /* // 댓글 삭제버튼
-        $("#reDelBtn").click(function(){
-        	var retVal = confirm("댓글을 삭제하시겠습니까?");
-        	   if( retVal == true ){
-	        	   alert("삭제되었습니다.");
-	        	   //var num1 = ${reDTO.reNum}
-	        	   var num2 = ${dto.bNum}
-			       location.href = 'deletRe.do?bNum=' + num2;
-        	   }
-        }); */
+  	/* // 댓글 삭제버튼
+		$("#reDelBtn").click(function(){
+			var retVal = confirm("댓글을 삭제하시겠습니까?");
+			var num = 
+			var num2 = ${dto.bNum};
+			if( retVal == true ){
+			alert(num);
+			alert("삭제되었습니다.");
+				$.ajax({
+				url : "deleteRe.do?" + num,
+				type : 'POST',
+				success : function(data){
+					$.ajax({
+						url : "selectRe.do?" + num2 ,
+						type : 'POST',
+						success : function(data){
+						$("#replyBox").text(data);
+						}
+					});
+				}
+				});
+			}
+		});   */
   		
         //목록버튼
         $("#boardBtn").click(function(){
@@ -74,17 +87,54 @@
         
         //수정버튼
         $("#updateBtn").click(function(){
+        	var retVal = confirm("게시글을 수정하시겠습니까?");
         	var num = ${dto.bNum}
-        	location.href = 'updatePage.do?bNum=' + num
+        	var sId = "<%= session.getAttribute("sessionId") %>"
+        	var writer = $("#contentWriter").text();
+        	
+        	if(retVal == true){
+        		alert(writer);
+        		if(sId == writer){
+        			$.ajax({
+        			  type : 'POST',
+  			    	  url : "updatePage.do",
+  			    	  data : {
+  			    		 "bNum" :  num
+  			    	  },
+  			    	  success : function(data){
+  			    		  location.href = "updatePage.do?bNum="+num;
+  			    	  }
+  			       });   
+        		}else {
+        			alert("접근할 수 없는 페이지 입니다.");
+        		}
+        	}
         });
-        //게시글 삭제버튼
+        
+      //게시글 삭제버튼
         $("#deleteBtn").click(function(){
         	var retVal = confirm("게시글을 삭제하시겠습니까?");
-        	   if( retVal == true ){
-	        	   swal("삭제되었습니다.");
-			       var num = ${dto.bNum}
-			       location.href = 'delete.do?bNum=' + num 
-        	   }
+        	var num = ${dto.bNum};
+        	var sId = "<%= session.getAttribute("sessionId") %>"
+        	var writer = $("#contentWriter").text();
+        	
+        	if( retVal == true ){
+        		if(sId == "admin1" || sId == writer){
+	        	   alert("삭제되었습니다.");
+			       $.ajax({
+			    	  type : 'POST',
+			    	  url : "delete.do",
+			    	  data : {
+			    		 "bNum" :  num
+			    	  },
+			    	  success : function(data){
+			    		  location.href = "board.do";
+			    	  }
+			       });   
+        		}else{
+        			alert("※ 게시글을 삭제하실 수 없습니다. ※");
+        		}
+        	}
         });
         
         //추천버튼
@@ -109,12 +159,12 @@
 										$("#goodPlace").text(data);
 									},
 									error : function(xhr, status) {
-										swal(xhr + " : " + status);
+										alert(xhr + " : " + status);
 									}
 								});
 							},
 							error : function(xhr, status) {
-								swal(xhr + " : " + status);
+								alert(xhr + " : " + status);
 							}
 						});
 					}
@@ -367,7 +417,7 @@
 			                    	</c:if>
 							<br>
 							</td>
-							<td align="center"><font size="5" color="gray"><b>${dto.writer}</b></font>
+							<td align="center"><font size="5" color="gray"><b id="contentWriter">${dto.writer}</b></font>
 								<img alt="Image placeholder" src="${sessionPhoto}" 
 								style="width:40px; border-radius: 40px;">
 								

@@ -94,13 +94,19 @@
 										var check = result
 										if(check.trim() != 'yes'){
 											// 아이디 비밀번호가 안맞을 경우
-											swal("로그인 계정을 다시 확인해주세요.")
+											
 											if(sessionStorage.getItem('loginCnt').length < 6){
 												sessionStorage.setItem('loginCnt', sessionStorage.getItem('loginCnt').concat('0'))
 											} else {
 												$("#reCaptcha").show()
 											}
-											location.reload(true);
+											
+											
+											swal("로그인 계정을 다시 확인해주세요.")
+											.then((value) => {
+												location.reload(true);
+											});
+											
 										}else{
 											// 아이디 비밀번호가 맞을 경우
 											// 리캡차가 동작하는 경우 절차를 거쳐야만 로그인

@@ -17,6 +17,18 @@ public class CouponController {
 	@Autowired
 	CouponDAO dao;
 
+	// 쿠폰 등록 페이지 넘김
+	@RequestMapping("cpMain.do")
+	public String mainPage() {
+		return "coupon/coupon_main";
+	}
+
+	// 쿠폰 등록 페이지 넘김
+	@RequestMapping("cpInsertPage.do")
+	public String insertPage() {
+		return "coupon/admin_coupon_choice";
+	}
+
 	// 쿠폰 등록
 	@RequestMapping("insertCp.do")
 	public String cpInsert(CouponDTO couponDTO) {
@@ -64,7 +76,7 @@ public class CouponController {
 	public String cpSelectAll(Model model) {
 		List<CouponDTO> list = dao.couponSelectAll();
 		model.addAttribute("list", list);
-		return "coupon/coupon";
+		return "coupon/couponList";
 	}
 
 	// 쿠폰 리스트 불러오기

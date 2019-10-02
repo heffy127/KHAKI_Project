@@ -21,26 +21,106 @@
 	<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
   	<script>
-  		
+	$(function(){
+  		$(".deleteCp").click(function(){
+  			var cId = $(this).children("input").val();
+  			var retVal = confirm("쿠폰을 삭제하시겠습니까?");
+  			if(retVal == true){
+	  			alert("쿠폰이 삭제되었습니다.");
+	  			location.href = "deleteCp.do";
+  			}
+  		});
+	})
   	</script>
 </head>
 <body>
-	<div class="table-responsive">
-		<table class="table align-items-center table-flush">
-  			<thead class="thead-light">
-  				<tr>
-			      <th class="bodyList" scope="col" width="10%">N   U   M</th>
-			      <th class="bodyList" scope="col" width="10"> C   I   D</th>
-			      <th class="bodyList" scope="col" width="30%">T I T L E</th>
-			      <th class="bodyList" scope="col" width="10%">O P T I O N</th>
-			      <th class="bodyList" scope="col" width="10%">D I S C O U N T</th>
-			      <th class="bodyList" scope="col" width="10%">발    급    일</th>
-			      <th class="bodyList" scope="col" width="15%">만    료    일</th>
-			      <th class="bodyList" scope="col" width="5%"></th>
-			    </tr>
-			    
-  			</thead>
-  		</table>
-  	</div>	
+	<div id="tabs-icons-text-6" role="tabpanel" aria-labelledby="tabs-icons-text-6-tab" >
+      <div style="width: 100%; float: left; border-right: 8px solid #f5f5f5; padding: 1%;">
+        <div id="cpPage" style="width:100%; text-align:center; margin-bottom: 10px; position: relative;">
+			
+			<div id="cp1" style="width: 100%; overflow: auto;">
+				<h1>이용 금액별</h1>
+				<c:forEach var="list" items="${list}">
+					<c:if test="${list.cpCondition eq '1'}">
+						<div id="cpFrame" style="width: 28%; height: 650px; float: left; margin: 0 2% 1% 2%; background-image: url('resources/assets/img/icons/coupon/coupon2.png'); background-size: 100% 600px;">
+							<label id="realCp1" style="word-wrap:break-word; margin-top:-6%; padding: 80% 5% 0 5%; width: 100%; color: white; font-size: 20px; font-weight: bold; text-align: center;">${list.cTitle1 }</label>
+							<label id="realCp2" style="word-wrap:break-word; margin-top:-3%; width: 100%; color: white; font-size: 20px; font-weight: bold; text-align: center;">${list.cTitle2 }</label>
+							<label id="realDiscount" style="word-wrap:break-word; margin-top:-5.5%; width: 100%; color: #ffcd4a; font-size: 40px; font-weight: bold; text-align: center;">
+								${list.discount}
+								<c:choose>
+									<c:when test="${list.cOption eq 'M'}">원</c:when>
+									<c:when test="${list.cOption eq 'P'}">%</c:when>
+								</c:choose>
+							</label>
+							
+							<label id="endTimeText" style="word-wrap:break-word; margin-top:-5%; width:100%; color: white; font-size: 25px; font-weight: bold; text-align: center;">
+								${list.endDate} 까지 ${list.cpCondition}
+							</label>
+							<div id="deleteCp" class="deleteCp" style="word-wrap:break-word; margin-left:28%; width: 150px; color: red; font-size: 30px; font-weight: bold; text-align: center; border: 1px solid red; cursor: pointer;">
+								<input type="hidden" value="${list.cId}" >
+								<div style="border: 1px solid red;">삭제</div>
+							</div>
+						</div>
+					</c:if>
+				</c:forEach>
+			</div>
+			<hr color="#E1E1E1">
+			<div id="cp2" style="width: 100%; overflow: auto;">
+				<h1>이용 시간별</h1>
+				<c:forEach var="list" items="${list}">
+					<c:if test="${list.cpCondition eq '2'}">
+						<div id="cpFrame" style="width: 28%; height: 650px; float: left; margin: 0 2% 1% 2%; background-image: url('resources/assets/img/icons/coupon/coupon2.png'); background-size: 100% 600px;">
+							<label id="realCp1" style="word-wrap:break-word; margin-top:-6%; padding: 80% 5% 0 5%; width: 100%; color: white; font-size: 20px; font-weight: bold; text-align: center;">${list.cTitle1 }</label>
+							<label id="realCp2" style="word-wrap:break-word; margin-top:-3%; width: 100%; color: white; font-size: 20px; font-weight: bold; text-align: center;">${list.cTitle2 }</label>
+							<label id="realDiscount" style="word-wrap:break-word; margin-top:-5.5%; width: 100%; color: #ffcd4a; font-size: 40px; font-weight: bold; text-align: center;">
+								${list.discount}
+								<c:choose>
+									<c:when test="${list.cOption eq 'M'}">원</c:when>
+									<c:when test="${list.cOption eq 'P'}">%</c:when>
+								</c:choose>
+							</label>
+							
+							<label id="endTimeText" style="word-wrap:break-word; margin-top:-5%; width:100%; color: white; font-size: 25px; font-weight: bold; text-align: center;">
+								${list.endDate} 까지 ${list.cpCondition}
+							</label>
+							<div id="deleteCp" class="deleteCp" style="word-wrap:break-word; margin-left:28%; width: 150px; color: red; font-size: 30px; font-weight: bold; text-align: center; border: 1px solid red; cursor: pointer;">
+								<input type="hidden" value="${list.cId}" >
+								<div style="border: 1px solid red;">삭제</div>
+							</div>
+						</div>
+					</c:if>
+				</c:forEach>
+			</div>
+			<hr color="#E1E1E1">
+			<div id="cp3" style="width: 100%; overflow: auto;">
+				<h1>이용 시간대별</h1>
+				<c:forEach var="list" items="${list}">
+					<c:if test="${list.cpCondition eq '3'}">
+						<div id="cpFrame" style="width: 28%; height: 650px; float: left; margin: 0 2% 1% 2%; background-image: url('resources/assets/img/icons/coupon/coupon2.png'); background-size: 100% 600px;">
+						<label id="realCp1" style="word-wrap:break-word; margin-top:-6%; padding: 80% 5% 0 5%; width: 100%; color: white; font-size: 20px; font-weight: bold; text-align: center;">${list.cTitle1 }</label>
+						<label id="realCp2" style="word-wrap:break-word; margin-top:-3%; width: 100%; color: white; font-size: 20px; font-weight: bold; text-align: center;">${list.cTitle2 }</label>
+						<label id="realDiscount" style="word-wrap:break-word; margin-top:-5.5%; width: 100%; color: #ffcd4a; font-size: 40px; font-weight: bold; text-align: center;">
+							${list.discount}
+							<c:choose>
+								<c:when test="${list.cOption eq 'M'}">원</c:when>
+								<c:when test="${list.cOption eq 'P'}">%</c:when>
+							</c:choose>
+						</label>
+						
+						<label id="endTimeText" style="word-wrap:break-word; margin-top:-5%; width:100%; color: white; font-size: 25px; font-weight: bold; text-align: center;">
+							${list.endDate} 까지 ${list.cpCondition}
+						</label>
+						<div id="deleteCp" class="deleteCp" style="word-wrap:break-word; margin-left:28%; width: 150px; color: red; font-size: 30px; font-weight: bold; text-align: center; border: 1px solid red; cursor: pointer;">
+							<input type="hidden" value="${list.cId}" >
+							<div style="border: 1px solid red;">삭제</div>
+						   </div>
+						</div>
+					</c:if>
+				</c:forEach>
+			</div>
+         </div>
+      </div>
+      
+   </div>
 </body>
 </html>
