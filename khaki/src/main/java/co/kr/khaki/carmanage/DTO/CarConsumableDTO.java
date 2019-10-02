@@ -1,4 +1,4 @@
-package co.kr.khaki.carmanage;
+package co.kr.khaki.carmanage.DTO;
 
 public class CarConsumableDTO {
 

@@ -1,4 +1,4 @@
-package co.kr.khaki.carmanage;
+package co.kr.khaki.carmanage.DAO;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -6,6 +6,8 @@ import java.util.Date;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import co.kr.khaki.carmanage.DTO.CarConsumableDTO;
 
 @Repository
 public class CarConsumableDAO {
