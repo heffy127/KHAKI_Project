@@ -14,6 +14,7 @@ import co.kr.khaki.car.CarDAO;
 import co.kr.khaki.car.NewCarDTO;
 import co.kr.khaki.common.AuthNumber;
 import co.kr.khaki.home.service.HomeServiceImpl;
+import co.kr.khaki.home.service.HomeServiceInter;
 import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.member.DTO.SocialDTO;
 import co.kr.khaki.notice.NoticeDAO;
@@ -23,7 +24,7 @@ import co.kr.khaki.notice.NoticeDTO;
 public class HomeController {
    
    @Autowired
-   HomeServiceImpl homeServiceInter;
+   HomeServiceInter homeServiceInter;
    
    @RequestMapping("home.do")
    public String home(Model model) {
