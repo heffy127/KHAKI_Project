@@ -44,11 +44,16 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <!-- 글쓰기 버튼 실행 -->
   <script type="text/javascript">
-  	$(function(){
-  		$("#writeButton").click(function(){
-  			location.href= 'insertPage.do';
-  		});
-  	});
+  $(function(){
+		$("#writeButton").click(function(){
+			var sId = "<%= session.getAttribute("sessionId")%>"
+			if(sId == "null"){
+				alert("회원만 접근할 수 있습니다.");
+			}else{
+	  			location.href= 'insertPage.do';
+			}
+		});
+	});
   </script>
 </head>
 
