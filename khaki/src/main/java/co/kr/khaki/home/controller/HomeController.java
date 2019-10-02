@@ -33,8 +33,8 @@ public class HomeController {
       model.addAttribute("noticeList", noticeList);
       // 자유게시판 추천순 5개
       List<BoardDTO> boardList = homeServiceInter.selectBoardFive();
+      System.out.println(boardList.size());
       model.addAttribute("boardList", boardList);
-      
       return "home/home";
    }
    
