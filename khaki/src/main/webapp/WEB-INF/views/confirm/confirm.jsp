@@ -72,7 +72,7 @@
   			// swal(couponVal[1]);
   			if(couponVal[3] == "1") {
   				var cpTitle = couponVal[4].split("원");
-  				cpTitle = parseInt(cpTitle[0]);
+  				cpTitle = cpTitle + '000';
   				if(cpTitle > one) {
   					swal("쿠폰 조건이 맞지 않습니다.\n다른 쿠폰을 선택 해주세요.")
   					$(".coupon_method option:eq(0)").prop("selected", true); //첫번째 option 선택
@@ -141,132 +141,14 @@
   				}
   			} else if(couponVal[3] == "2") {
   				var cpTitle = couponVal[4].split("시간");
-  				cpTitle = parseInt(cpTitle[0]);
+  				cpTitle = cpTitle[0];
   				
-  				var startTime = $("#confirm_startTime").text().split(" ");
-  				var startDay = startTime[0].split(".");
-  				startDay0 = parseInt(startDay[0]);
-  				startDay1 = parseInt(startDay[1]);
-  				startDay2 = parseInt(startDay[2]);
-  				
-  				startTime = startTime[1].split(":");
-  				startTime = parseInt(startTime[0]);
-  				
-  				var endTime = $("#confirm_endTime").text().split(" ");
-  				var endDay = endTime[0].split(".");
-  				endDay0 = parseInt(endDay[0]);
-  				endDay1 = parseInt(endDay[1]);
-  				endDay2 = parseInt(endDay[2]);
-  				
-  				endTime = endTime[1].split(":");
-  				endTime = parseInt(endTime[0]);
+  				var timeGap = $("#timeGap").val();
   				var timeCheck = "";
-  				if(startDay0 < endDay0) { // 출발 년도가 반납 년도보다 작을 경우 (예: 19년 < 20년) 가능한 경우는 19년 12월 31일 ~ 20년 1월 1일 같은 경우밖에 없음.
-  					if(startDay1 == 12 && startDay1 == 31 && endDay1 == 1 && endDay2 == 1) { // 출발 월이 반납 월보다 클 경우에 사용 가능한 경우는 12월 31일 출발 1월 1일 반납 밖에 없음.
-						var tt = 24 - startTime; // tt : 2
-						startTime = startTime - 24; // endTime : -2
-						startTime += tt; // startTime : 0
-						endTime += tt; // endTime : 06
-						if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 22시 - 6시 > 3)
-  							timeCheck = "Y";
-  						} else {
-  							timeCheck = "N";
-  						}
-					} else {
-						timeCheck = "N";
-					}
-  				} else { // 출발 년도가 반납 년도보다 같을 경우 (예: 19년 == 19년)
-  					if(startDay1 < endDay1) { // 출발 월이 반납 월보다 작을 경우 (예: 9월 < 10월) 
-  						if(startDay1 == 2) { // 출발 월이 2월일 경우
-  							if(startDay2 == 28 && endDay2 == 1) { // 출발날짜가 2월 28일 이면서 반납날짜가 3월 1일 일경우, 즉 달이 바뀌었는데 예약시간이 1일 미만일 경우
-  								var tt = 24 - startTime; // tt : 2
-  								startTime = startTime - 24; // endTime : -2
-  								startTime += tt; // startTime : 0
-  								endTime += tt; // endTime : 06
-  								if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 22시 - 6시 > 3)
-  	  								timeCheck = "Y";
-  	  							} else {
-  	  								timeCheck = "N";
-  	  							}
-  							} else { // 출발날짜 ~ 반납날짜까지 최소 24시간을 초과할경우
-  								timeCheck = "N";
-  							}
-  						} else if(startDay1 == 1 || startDay1 == 3 || startDay1 == 5 || startDay1 == 7 || startDay1 == 8 || startDay1 == 10 || startDay1 == 12) { // 출발 월의 마지막날이 31일 일 경우
-  							if(startDay2 == 31 && endDay2 == 1) { // 출발날짜가 31일 이면서 반납날짜가 1일 일경우, 즉 달이 바뀌었는데 예약시간이 1일 미만일 경우
-  								var tt = 24 - startTime; // tt : 2
-  								startTime = startTime - 24; // endTime : -2
-  								startTime += tt; // startTime : 0
-  								endTime += tt; // endTime : 06
-  								if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 22시 - 6시 > 3)
-  	  								timeCheck = "Y";
-  	  							} else {
-  	  								timeCheck = "N";
-  	  							}
-  							} else { // 출발날짜 ~ 반납날짜까지 최소 24시간을 초과할경우
-  								timeCheck = "N";
-  							}
-  						} else { // 출발 월의 마지막날이 30일 일 경우
-  							if(startDay2 == 30 && endDay2 == 1) { // 출발날짜가 308일 이면서 반납날짜가 1일 일경우, 즉 달이 바뀌었는데 예약시간이 1일 미만일 경우
-  								var tt = 24 - startTime; // tt : 2
-  								startTime = startTime - 24; // endTime : -2
-  								startTime += tt; // startTime : 0
-  								endTime += tt; // endTime : 06
-  								if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 22시 - 6시 > 3)
-  	  								timeCheck = "Y";
-  	  							} else {
-  	  								timeCheck = "N";
-  	  							}
-  							} else { // 출발날짜 ~ 반납날짜까지 최소 24시간을 초과할경우
-  								timeCheck = "N";
-  							}
-  						}
-  					} else if(startDay1 == endDay1) { // 출발 월과 반납 월이 같을 경우 (예: 9월 == 9월)
-  						if(startDay2 < endDay2) { // 출발 일이 반납 일보다 작을 경우(예: 26일 < 27일)
-  							if(endDay2 - startDay2 >= 2) { // 대여기간이 2일 이상일 경우(예: 28일 - 26일 >= 2) 쿠폰사용 가능
-  								
-  							} else if(endDay2 - startDay2 == 1) { // 대여기간이 1일 이하라서 시간 체크 필요 (예: 출발 27일 22시 반납 28일 04시.)
-  								var tt = 24 - startTime; // tt : 2
-  								startTime = startTime - 24; // endTime : -2
-  								startTime += tt; // startTime : 0
-  								endTime += tt; // endTime : 06
-  								if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 22시 - 6시 > 3)
-  	  								timeCheck = "Y";
-  	  							} else {
-  	  								timeCheck = "N";
-  	  							}
-  							} else { // 대여기간이 같은 날일 경우
-  								if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 22시 - 6시 > 3)
-  	  								timeCheck = "Y";
-  	  							} else {
-  	  								timeCheck = "N";
-  	  							}
-  							}
-  						} else if(startDay2 == endDay2) { // 출발 일과 반납 일이 같을 경우 (예: 26일 == 26일)
-  							if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 12시 - 20시 > 3)
-  								timeCheck = "Y";
-  							} else {
-  								timeCheck = "N";
-  							}
-  							
-  						} else { // 출발 일이 반납 일보다 클 경우(예:26일 > 25일) 최소 한달이상은 지났으니 쿠폰 사용 가능
-  							timeCheck = "Y";
-  						}
-  					} else { // 출발 월이 반납 월보다 클 경우 (예: 12월 > 1월)
-  						if(startDay1 == 12 && startDay1 == 31 && endDay1 == 1 && endDay2 == 1) { // 출발 월이 반납 월보다 클 경우에 사용 가능한 경우는 12월 31일 출발 1월 1일 반납 밖에 없음.
-  							var tt = 24 - startTime; // tt : 2
-							startTime = startTime - 24; // endTime : -2
-							startTime += tt; // startTime : 0
-							endTime += tt; // endTime : 06
-							if(endTime - startTime > cpTitle) { // 반납시간 - 출발시간이 쿠폰의 조건시간보다 클 경우(예: 22시 - 6시 > 3)
-	  							timeCheck = "Y";
-	  						} else {
-	  							timeCheck = "N";
-	  						}
-  						} else { // 출발월이 반납 월보다 큰데 하루차이가 아니라면 최소 2일 이상 차이나기 때문에 쿠폰 사용 가능
-  							timeCheck = "Y";
-  						}
-  					}
-  						
+  				if(cpTitle <= timeGap) {
+  					timeCheck = "Y";
+  				} else {
+  					timeCheck = "N";
   				}
   				
   				if(timeCheck == "N") {
@@ -875,6 +757,7 @@
           	  	<input type="hidden" id="kyul" value="0">
           	  	<input type="hidden" id="ku" value="0">
           	  	<input type="hidden" id="po" value="0">
+          	  	<input type="hidden" id="timeGap" value="${timeGap }">
           	  	<input type="hidden" id="first_amount" value="${payDTO.buy_amount }"> <!-- confirm페이지에서 처음들어온 금액 -->
           	  	<input type="hidden" id="buy_burum" value="${payDTO.buy_burum }"> <!-- 부름서비스 선택여부 y혹은 n이 들어옴 -->
           	  	<input type="hidden" id="couponSeq"> <!-- 선택한 쿠폰의 시퀀스 넘버(결제 완료 됐을때 쿠폰사용여부에 체크해주기 위함) -->
