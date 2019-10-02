@@ -24,15 +24,16 @@
       <typeAlias type="co.kr.khaki.handler.DTO.HandlerDTO" alias="hDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.handler.DTO.HandlerStatusDTO" alias="hsDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.handler.DTO.HandlerUseDTO" alias="huDTO"></typeAlias>
-      <typeAlias type="co.kr.khaki.pay.PayDTO" alias="pDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.reservation.DTO.PayDTO" alias="pDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.car.NewCarDTO" alias="newCarDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.car.CarDTO" alias="cDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.carmanage.CarConsumableDTO" alias="ccDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.coupon.CouponUseDTO" alias="cpuDTO"></typeAlias>
-      <typeAlias type="co.kr.khaki.refund.RefundDTO" alias="refundDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.refund.DTO.RefundDTO" alias="refundDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.key.ClaimDTO" alias="claimDTO"></typeAlias>
-      <typeAlias type="co.kr.khaki.usedCar.UsedCarDTO" alias="usedCarDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.usedCar.DTO.UsedCarDTO" alias="usedCarDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.zone.KhakiZoneDTO" alias="zoneDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.zone.KhakiZone_CarmanageDTO" alias="zone_carmanageDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.key.KeyDTO" alias="keyDTO"/>
 	  <typeAlias type="co.kr.khaki.coupon.CouponDTO" alias="cpDTO"/>
       

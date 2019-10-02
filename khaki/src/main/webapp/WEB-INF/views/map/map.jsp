@@ -647,7 +647,7 @@ function reservation() {
             var carImage = ww[1].trim();
             buy_amount = (timeFee*24*use_day)+(use_hour*timeFee)+(use_min*timeFee*(1/60));
             buy_amount = parseInt(buy_amount + (buy_amount*insFee));   
-            $('input[name=buy_amount]').val(buy_amount);
+            $('input[name=buy_amount]').val(timeFee);
             $('input[name=buy_carImage]').val(carImage);
             $('#confirm').submit();
          }

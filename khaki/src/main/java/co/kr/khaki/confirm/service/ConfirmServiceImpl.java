@@ -55,7 +55,8 @@ public class ConfirmServiceImpl implements ConfirmServiceInterface {
 		Calendar t2 = Calendar.getInstance();
 		t2.set(Integer.parseInt(end[0]), Integer.parseInt(end[1]), Integer.parseInt(end[2]), Integer.parseInt(end[3]), Integer.parseInt(end[4]));
 		
-		long timeGap = (((t2.getTimeInMillis() - t1.getTimeInMillis()) / 1000) / 60) / 60;
+		long timeGap = (((t2.getTimeInMillis() - t1.getTimeInMillis()) / 1000) / 60);
+		System.out.println("timeGap : " + timeGap);
 		
 		return timeGap;
 	}

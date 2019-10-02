@@ -24,30 +24,45 @@
 		<result property="zone_comment" column="zone_comment" />
 	</resultMap>
 
+	<!-- zone_num select rsMap 부분 -->
+	<resultMap type="zone_carmanageDTO" id="rsZone">
+		<result property="zone_num" column="zone_num" />
+		<result property="zone_name" column="zone_name" />
+	</resultMap>
+
 	<select id="zone_selectAll" resultMap="rsMap">
 		SELECT * FROM khakizone
 	</select>
 	
+	<!-- 전체 갯수 select -->
 	<select id="zone_cntAll" resultType="int">
 		SELECT count(*) from khakizone
 	</select>
+
+	<!-- khakizone zone_num 전체 select -->
+	<select id="zone_nums" resultMap="rsZone">
+		SELECT zone_num, zone_name from khakizone order by zone_num
+	</select>
+
 
 	<insert id="zone_insert" parameterType="zoneDTO">
 		INSERT INTO khakizone (zone_num, zone_name, zone_location_x,zone_location_y, zone_comment)
 		VALUES(khakizone_seq.nextval,#{zone_name},#{zone_location_x}, #{zone_location_y},#{zone_comment})
 	</insert>
 
-	<!-- <update id="updateSomething" parameterType="#modelname">
-		UPDATE tablename1
+	<update id="zone_update" parameterType="zoneDTO">
+		UPDATE khakizone
 		SET
-		columnname1=#{param1}
+		zone_name=#{zone_name}, zone_location_x=#{zone_location_x}, zone_location_y=#{zone_location_y}, zone_comment=#{zone_comment}
 		WHERE
-		columnname2 = #{param2}
+		zone_num = #{zone_num}
 	</update>
-
-	<delete id="deleteSomething" parameterType="int">
-		DELETE FROM tablename1 WHERE
-		columnname1 = #{param1}
-	</delete> -->
+	
+	
+	<delete id="zone_delete" parameterType="int">
+		DELETE FROM khakizone WHERE
+		zone_num = #{zone_num}
+	</delete> 
+	
 
 </mapper>
