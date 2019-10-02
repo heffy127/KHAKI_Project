@@ -45,6 +45,10 @@
   		// var po = parseInt(0);
   		// 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
   		// kyul = one - ku - po;
+  		var first = $("#first_amount").val();
+  		var gap = $("#timeGap").val();
+  		$("#first_amount").val(gap * (first / 60));
+  		$("#confirm_amount").text(gap * (first / 60));
   		$("#one").val($("#first_amount").val());
   		$("#kyul").val($("#first_amount").val());
   		var startTime = $("#confirm_startTime").text();
@@ -144,6 +148,7 @@
   				cpTitle = cpTitle[0];
   				
   				var timeGap = $("#timeGap").val();
+  				timeGap = timeGap / 60;
   				var timeCheck = "";
   				if(cpTitle <= timeGap) {
   					timeCheck = "Y";
