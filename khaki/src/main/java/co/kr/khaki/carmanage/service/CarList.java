@@ -1,4 +1,4 @@
-package co.kr.khaki.carmanage;
+package co.kr.khaki.carmanage.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
