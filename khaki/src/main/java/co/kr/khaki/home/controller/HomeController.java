@@ -17,8 +17,8 @@ import co.kr.khaki.home.service.HomeServiceImpl;
 import co.kr.khaki.home.service.HomeServiceInter;
 import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.member.DTO.SocialDTO;
-import co.kr.khaki.notice.NoticeDAO;
-import co.kr.khaki.notice.NoticeDTO;
+import co.kr.khaki.notice.DAO.NoticeDAO;
+import co.kr.khaki.notice.DTO.NoticeDTO;
 
 @Controller
 public class HomeController {

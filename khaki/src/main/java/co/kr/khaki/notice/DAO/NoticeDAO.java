@@ -1,4 +1,4 @@
-package co.kr.khaki.notice;
+package co.kr.khaki.notice.DAO;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,6 +7,8 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import co.kr.khaki.notice.DTO.NoticeDTO;
 
 @Repository
 public class NoticeDAO {

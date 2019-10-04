@@ -1,4 +1,4 @@
-<%@page import="co.kr.khaki.notice.NoticeDTO"%>
+<%@page import="co.kr.khaki.notice.DTO.NoticeDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!--

@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import co.kr.khaki.notice.pagination;
+import co.kr.khaki.common.pagination;
 import co.kr.khaki.zone.KhakiZoneCal;
 import co.kr.khaki.zone.KhakiZoneDAO;
 import co.kr.khaki.zone.KhakiZoneDTO;

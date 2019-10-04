@@ -12,7 +12,7 @@ import co.kr.khaki.carmanage.DAO.CarConsumableDAOInterface;
 import co.kr.khaki.carmanage.DAO.CarManageDAOInter;
 import co.kr.khaki.carmanage.DTO.CarConsumableDTO;
 import co.kr.khaki.carmanage.DTO.CarManageDTO;
-import co.kr.khaki.notice.pagination;
+import co.kr.khaki.common.pagination;
 import co.kr.khaki.usedCar.DAO.UsedCarDAOInterface;
 import co.kr.khaki.usedCar.DTO.UsedCarDTO;
 import co.kr.khaki.zone.KhakiZoneDAO;
