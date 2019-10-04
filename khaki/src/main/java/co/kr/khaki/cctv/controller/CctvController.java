@@ -1,4 +1,4 @@
-package co.kr.khaki.controller;
+package co.kr.khaki.cctv.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
