@@ -1,4 +1,4 @@
-<%@page import="co.kr.khaki.zone.KhakiZoneCal"%>
+<%@page import="co.kr.khaki.zone.service.KhakiZoneCal"%>
 <%@page import="java.util.List"%>
 <%@page import="co.kr.khaki.common.pagination"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"

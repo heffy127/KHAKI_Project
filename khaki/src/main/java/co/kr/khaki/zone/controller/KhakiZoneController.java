@@ -1,5 +1,6 @@
-package co.kr.khaki.controller;
+package co.kr.khaki.zone.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,33 +10,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import co.kr.khaki.common.pagination;
-import co.kr.khaki.zone.KhakiZoneCal;
-import co.kr.khaki.zone.KhakiZoneDAO;
-import co.kr.khaki.zone.KhakiZoneDTO;
+import co.kr.khaki.zone.DAO.KhakiZoneDAO;
+import co.kr.khaki.zone.DTO.KhakiZoneDTO;
+import co.kr.khaki.zone.service.KhakiZoneCal;
+import co.kr.khaki.zone.service.KhakiZoneServiceInterface;
 
 @Controller
 public class KhakiZoneController {
 
-	
 	@Autowired
-	KhakiZoneDAO zonedao;
+	KhakiZoneServiceInterface KhakiZoneServiceImpl;
 	
 	@RequestMapping("khakizone_main.do")
 	public String khakizone(Model model, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="5") int pageSize) {
-		//System.out.println("khakizone_main 소환!");
 		
-		System.out.println("curPage : "+curPage+"/ pageSize : "+pageSize);
+		ArrayList arr = KhakiZoneServiceImpl.khakizone(curPage, pageSize);
 		
-		// 페이지 네이션 부분
-		int total = zonedao.cntAll();
-		pagination pg = new pagination(total, curPage, pageSize);
-		
-		System.out.println("index 숫자 : " + pg.getStartIndex());
-		List<KhakiZoneDTO> select_list = zonedao.select_page(pg.getStartIndex());
-		
-		KhakiZoneCal zonecal = new KhakiZoneCal(select_list);
-		
-		System.out.println(zonecal);
+		pagination pg = (pagination) arr.get(0);
+		List<KhakiZoneDTO> select_list = (List<KhakiZoneDTO>) arr.get(1);
+		KhakiZoneCal zonecal = (KhakiZoneCal) arr.get(2);
 		
 		//model객체를 통한 view단에 전달하는 곳
 		model.addAttribute("pagination", pg);
@@ -47,19 +40,12 @@ public class KhakiZoneController {
 	
 	@RequestMapping("khakizone_insert.do")
 	public String khakizone_insert(Model model, KhakiZoneDTO khakiZoneDTO, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="5") int pageSize) {
-		System.out.println("khakizone_insert!");
-		zonedao.insert(khakiZoneDTO);
 		
-		// 페이지 네이션 부분
-		int total = zonedao.cntAll();
-		pagination pg = new pagination(total, curPage, pageSize);
+		ArrayList arr = KhakiZoneServiceImpl.khakizone_insert(khakiZoneDTO, curPage, pageSize);
 		
-		System.out.println("curRange : " + pg.getCurRange());
-		
-		System.out.println("index 숫자 : " + pg.getStartIndex());
-		List<KhakiZoneDTO> select_list = zonedao.select_page(pg.getStartIndex());
-		
-		KhakiZoneCal zonecal = new KhakiZoneCal(select_list);
+		pagination pg = (pagination) arr.get(0);
+		List<KhakiZoneDTO> select_list = (List<KhakiZoneDTO>) arr.get(1);
+		KhakiZoneCal zonecal = (KhakiZoneCal) arr.get(2);
 		
 		//model객체를 통한 view단에 전달하는 곳
 		model.addAttribute("pagination", pg);
@@ -71,18 +57,12 @@ public class KhakiZoneController {
 	
 	@RequestMapping("khakizone_update.do")
 	public String khakizone_update(Model model, KhakiZoneDTO khakiZoneDTO, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="5") int pageSize) {
-		System.out.println("khakizone_update!");
-		System.out.println(khakiZoneDTO);
-		zonedao.update(khakiZoneDTO);
 		
-		// 페이지 네이션 부분
-		int total = zonedao.cntAll();
-		pagination pg = new pagination(total, curPage, pageSize);
+		ArrayList arr = KhakiZoneServiceImpl.khakizone_update(khakiZoneDTO, curPage, pageSize);
 		
-		System.out.println("index 숫자 : " + pg.getStartIndex());
-		List<KhakiZoneDTO> select_list = zonedao.select_page(pg.getStartIndex());
-		
-		KhakiZoneCal zonecal = new KhakiZoneCal(select_list);
+		pagination pg = (pagination) arr.get(0);
+		List<KhakiZoneDTO> select_list = (List<KhakiZoneDTO>) arr.get(1);
+		KhakiZoneCal zonecal = (KhakiZoneCal) arr.get(2);
 		
 		//model객체를 통한 view단에 전달하는 곳
 		model.addAttribute("pagination", pg);
@@ -94,18 +74,12 @@ public class KhakiZoneController {
 
 	@RequestMapping("khakizone_delete.do")
 	public String khakizone_delete(Model model, int zone_num, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="5") int pageSize) {
-		System.out.println("khakizone delete!");
-		System.out.println(zone_num);
-		zonedao.delete(zone_num);
 		
-		// 페이지 네이션 부분
-		int total = zonedao.cntAll();
-		pagination pg = new pagination(total, curPage, pageSize);
-		
-		System.out.println("index 숫자 : " + pg.getStartIndex());
-		List<KhakiZoneDTO> select_list = zonedao.select_page(pg.getStartIndex());
-		
-		KhakiZoneCal zonecal = new KhakiZoneCal(select_list);
+		ArrayList arr = KhakiZoneServiceImpl.khakizone_delete(zone_num, curPage, pageSize);
+
+		pagination pg = (pagination) arr.get(0);
+		List<KhakiZoneDTO> select_list = (List<KhakiZoneDTO>) arr.get(1);
+		KhakiZoneCal zonecal = (KhakiZoneCal) arr.get(2);
 		
 		//model객체를 통한 view단에 전달하는 곳
 		model.addAttribute("pagination", pg);

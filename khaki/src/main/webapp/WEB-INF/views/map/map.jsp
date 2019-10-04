@@ -1,5 +1,5 @@
-<%@page import="co.kr.khaki.zone.KhakiZoneDTO"%>
-<%@page import="co.kr.khaki.zone.KhakiZoneDAO"%>
+<%@page import="co.kr.khaki.zone.DTO.KhakiZoneDTO"%>
+<%@page import="co.kr.khaki.zone.DAO.KhakiZoneDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>

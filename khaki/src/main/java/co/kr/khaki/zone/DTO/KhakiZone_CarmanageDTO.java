@@ -1,4 +1,4 @@
-package co.kr.khaki.zone;
+package co.kr.khaki.zone.DTO;
 
 public class KhakiZone_CarmanageDTO {
 

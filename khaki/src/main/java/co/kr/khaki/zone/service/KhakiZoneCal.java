@@ -1,6 +1,8 @@
-package co.kr.khaki.zone;
+package co.kr.khaki.zone.service;
 
 import java.util.List;
+
+import co.kr.khaki.zone.DTO.KhakiZoneDTO;
 
 /**
  * @author 민병호

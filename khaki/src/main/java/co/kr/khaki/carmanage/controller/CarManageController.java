@@ -14,7 +14,7 @@ import co.kr.khaki.carmanage.DTO.CarManageDTO;
 import co.kr.khaki.carmanage.service.CarList;
 import co.kr.khaki.carmanage.service.CarManageSeviceInterface;
 import co.kr.khaki.common.pagination;
-import co.kr.khaki.zone.KhakiZone_CarmanageDTO;
+import co.kr.khaki.zone.DTO.KhakiZone_CarmanageDTO;
 
 @Controller
 public class CarManageController {

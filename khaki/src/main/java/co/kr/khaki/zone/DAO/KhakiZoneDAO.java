@@ -1,10 +1,13 @@
-package co.kr.khaki.zone;
+package co.kr.khaki.zone.DAO;
 
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import co.kr.khaki.zone.DTO.KhakiZoneDTO;
+import co.kr.khaki.zone.DTO.KhakiZone_CarmanageDTO;
 
 @Repository
 public class KhakiZoneDAO {

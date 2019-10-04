@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import co.kr.khaki.car.CarDAO;
 import co.kr.khaki.car.CarDTO;
 import co.kr.khaki.member.DTO.LicenseDTO;
-import co.kr.khaki.zone.KhakiZoneDAO;
-import co.kr.khaki.zone.KhakiZoneDTO;
+import co.kr.khaki.zone.DAO.KhakiZoneDAO;
+import co.kr.khaki.zone.DTO.KhakiZoneDTO;
 
 @Controller
 public class MapController {

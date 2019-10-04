@@ -15,8 +15,8 @@ import co.kr.khaki.carmanage.DTO.CarManageDTO;
 import co.kr.khaki.common.pagination;
 import co.kr.khaki.usedCar.DAO.UsedCarDAOInterface;
 import co.kr.khaki.usedCar.DTO.UsedCarDTO;
-import co.kr.khaki.zone.KhakiZoneDAO;
-import co.kr.khaki.zone.KhakiZone_CarmanageDTO;
+import co.kr.khaki.zone.DAO.KhakiZoneDAO;
+import co.kr.khaki.zone.DTO.KhakiZone_CarmanageDTO;
 
 @Service
 public class CarManageServiceImpl implements CarManageSeviceInterface {
