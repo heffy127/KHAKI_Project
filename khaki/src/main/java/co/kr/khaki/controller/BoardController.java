@@ -2,6 +2,7 @@ package co.kr.khaki.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,7 +54,18 @@ public class BoardController {
 		model.addAttribute("list", list);
 		return "mypage/myBoard";
 	}
-
+	
+	// 내글 보기 글 삭제
+	@RequestMapping(value = "delete_myboard.do", method = RequestMethod.POST )
+	public String delete_myboard(BoardDTO boardDTO, Model model, HttpSession session) {
+		dao.delete(boardDTO);
+		
+		List<BoardDTO> list = dao.selectWriter((String)session.getAttribute("sessionId"));
+		model.addAttribute("list", list);
+		
+		return "mypage/myBoard";
+	}
+	
 	// 게시판 제목 클릭시 view page로 넘김
 	@RequestMapping("select.do")
 	public String select(BoardDTO boardDTO, Model model) {
