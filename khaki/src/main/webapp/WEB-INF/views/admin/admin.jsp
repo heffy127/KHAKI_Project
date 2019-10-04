@@ -139,20 +139,29 @@
             </div>
           </div>
         </form>
-<!-- 왼쪽 공통 메뉴 -->
+       <!-- 왼쪽 공통 메뉴 -->
         <ul class="navbar-nav">
           <li class="nav-item ">
-             <a class=" nav-link" href="home.do"> 
-                <i class="ni ni-tv-2 text-black"></i> Home
+          	<a class=" nav-link active" href="home.do"> 
+          		<i class="ni ni-shop text-black"></i> Home
             </a>
           </li>
           <li class="nav-item">
+          <% 
+          if (session.getAttribute("sessionId")==null){ %>
+            <a class="nav-link">
+              <i class="ni ni-square-pin text-orange"></i> Map&nbsp;&nbsp;(로그인 필요)
+            </a>
+          <%
+          } else {
+          %>
             <a class="nav-link" href="map.do">
               <i class="ni ni-square-pin text-orange"></i> Map
             </a>
+          <%}%>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="board.do">
+            <a class="nav-link a" href="board.do">
               <i class="ni ni-bullet-list-67 text-blue"></i> board
             </a>
           </li>
@@ -166,7 +175,23 @@
               <i class="ni ni-collection text-green"></i> Coupon
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link " id="handler_a" style="cursor: pointer;">
+              <i class="ni ni-user-run text-yellow"></i> Handler
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="cctv.do">
+              <i class="ni ni-tv-2 text-black"></i> CCTV
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="nanumCar.do">
+              <i class="ni ni-delivery-fast text-blue"></i> 나눔카
+            </a>
+          </li>
          </ul>
+       <!--  -->
         <!-- Divider -->
         <hr class="my-3"> <!-- 관리자 채팅 -->
        	<iframe src="counselingChatAdmin.do" height="400px;"></iframe>
