@@ -19,7 +19,7 @@
       <typeAlias type="co.kr.khaki.member.DTO.InsertPointDTO" alias="insertPointDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.survey.DTO.Car_surveyDTO" alias="car_surveyDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.survey.DTO.Car_surveyResultDTO" alias="car_surveyResultDTO"></typeAlias>
-      <typeAlias type="co.kr.khaki.notice.NoticeDTO" alias="nDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.notice.DTO.NoticeDTO" alias="nDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.carmanage.DTO.CarManageDTO" alias="cmDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.carmanage.DTO.CarConsumableDTO" alias="ccDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.handler.DTO.HandlerDTO" alias="hDTO"></typeAlias>
