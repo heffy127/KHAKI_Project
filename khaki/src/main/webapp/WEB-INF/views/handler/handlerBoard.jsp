@@ -767,23 +767,23 @@
 							<div class="cl_bo fl_left" id="location1" style="margin-right:20px; width: 100%;">
 								<select name="region_1_n" id="region_1_n" required class="form-control input-sm">
 									<option value="" selected>- 광역 지역 -</option>
-				  					<option value="서울" class="si_do">서울특별시</option>
-				  					<option value="부산" class="si_do">부산광역시</option>
-				  					<option value="대구" class="si_do">대구광역시</option>
-				  					<option value="인천" class="si_do">인천광역시</option>
-				  					<option value="광주" class="si_do">광주광역시</option>
-				  					<option value="대전" class="si_do">대전광역시</option>
-				  					<option value="울산" class="si_do">울산광역시</option>
-				  					<option value="세종특별자치시" class="si_do">세종시</option>
-				  					<option value="경기" class="si_do">경기도</option>
-				  					<option value="강원" class="si_do">강원도</option>
-				  					<option value="충북" class="si_do">충청북도</option>
-				  					<option value="충남" class="si_do">충청남도</option>
-				  					<option value="전북" class="si_do">전라북도</option>
-				  					<option value="전남" class="si_do">전라남도</option>
-				  					<option value="경북" class="si_do">경상북도</option>
-				  					<option value="경남" class="si_do">경상남도</option>
-				  					<option value="제주특별자치도" class="si_do">제주도</option>
+				  					<option value="서울" class="si_do">서울</option>
+				  					<option value="부산" class="si_do">부산</option>
+				  					<option value="대구" class="si_do">대구</option>
+				  					<option value="인천" class="si_do">인천</option>
+				  					<option value="광주" class="si_do">광주</option>
+				  					<option value="대전" class="si_do">대전</option>
+				  					<option value="울산" class="si_do">울산</option>
+				  					<option value="세종특별자치시" class="si_do">세종특별자치시</option>
+				  					<option value="경기" class="si_do">경기</option>
+				  					<option value="강원" class="si_do">강원</option>
+				  					<option value="충북" class="si_do">충북</option>
+				  					<option value="충남" class="si_do">충남</option>
+				  					<option value="전북" class="si_do">전북</option>
+				  					<option value="전남" class="si_do">전남</option>
+				  					<option value="경북" class="si_do">경북</option>
+				  					<option value="경남" class="si_do">경남</option>
+				  					<option value="제주특별자치도" class="si_do">제주특별자치도</option>
 				  				</select>
 							</div>
 							<div class="fl_left" id="location2">
