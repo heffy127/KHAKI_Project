@@ -11,16 +11,24 @@ import org.springframework.stereotype.Repository;
 import co.kr.khaki.carmanage.DTO.CarManageDTO;
 
 @Repository
-public class CarManageDAO {
+public class CarManageDAOImpl implements CarManageDAOInter {
 
 	@Autowired
 	SqlSessionTemplate my;
 	
+	/* (non-Javadoc)
+	 * @see co.kr.khaki.carmanage.DAO.CarManageDAOInter#check_car_num(java.lang.String)
+	 */
+	@Override
 	public String check_car_num(String car_num) {
 		System.out.println("car_num select");
 		return my.selectOne("cmDAO.check_car_num",car_num);
 	}
 	
+	/* (non-Javadoc)
+	 * @see co.kr.khaki.carmanage.DAO.CarManageDAOInter#search(java.lang.String, java.lang.String)
+	 */
+	@Override
 	public List<CarManageDTO> search(String search_list, String search_obj) {
 		
 		List<CarManageDTO> selectlist;
@@ -46,11 +54,19 @@ public class CarManageDAO {
 		return selectlist;
 	}
 
+	/* (non-Javadoc)
+	 * @see co.kr.khaki.carmanage.DAO.CarManageDAOInter#selectAll()
+	 */
+	@Override
 	public List<CarManageDTO> selectAll() {
 		System.out.println("carManageDAO selectAll!");
 		return my.selectList("cmDAO.selectAll");
 	}
 	
+	/* (non-Javadoc)
+	 * @see co.kr.khaki.carmanage.DAO.CarManageDAOInter#insert(co.kr.khaki.carmanage.DTO.CarManageDTO)
+	 */
+	@Override
 	public void insert(CarManageDTO carManageDTO) {
 		System.out.println("CarManageDAO Insert!");
 		
@@ -64,21 +80,37 @@ public class CarManageDAO {
 		my.insert("cmDAO.insert", carManageDTO);
 	}
 	
+	/* (non-Javadoc)
+	 * @see co.kr.khaki.carmanage.DAO.CarManageDAOInter#select(co.kr.khaki.carmanage.DTO.CarManageDTO)
+	 */
+	@Override
 	public CarManageDTO select(CarManageDTO carManageDTO) {
 		System.out.println("carManageDAO select!");
 		return my.selectOne("cmDAO.select", carManageDTO);
 	}
 
+	/* (non-Javadoc)
+	 * @see co.kr.khaki.carmanage.DAO.CarManageDAOInter#selectjunggo()
+	 */
+	@Override
 	public List<CarManageDTO> selectjunggo() {
 		System.out.println("carManageDAO select_Junggo");
 		return my.selectList("cmDAO.selectjunggo");
 	}
 	
+	/* (non-Javadoc)
+	 * @see co.kr.khaki.carmanage.DAO.CarManageDAOInter#selectold()
+	 */
+	@Override
 	public List<CarManageDTO> selectold() {
 		System.out.println("carManageDAO select_old");
 		return my.selectList("cmDAO.selectold");
 	}
 	
+	/* (non-Javadoc)
+	 * @see co.kr.khaki.carmanage.DAO.CarManageDAOInter#delete(java.lang.String)
+	 */
+	@Override
 	public void delete(String car_num) {
 		System.out.println("carManageDAO delete!");
 		my.delete("cmDAO.delete", car_num);
