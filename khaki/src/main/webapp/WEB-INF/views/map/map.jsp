@@ -686,14 +686,6 @@ $(document).ready(
 		);
 
 </script>
-<div class="d-flex align-items-center">
-   <img alt="" src="" width="10"> <span class="mr-2">100%</span>
-   <div>
-      <div class="progress">
-         <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-      </div>
-   </div>
-</div>
 </head>
 <body>
 
@@ -776,32 +768,51 @@ $(document).ready(
                </div>
             </div>
          </form>
-         <!-- 왼쪽 공통 메뉴 -->
-         <ul class="navbar-nav">
-            <li class="nav-item "><a class=" nav-link" href="home.do"> <i class="ni ni-tv-2 text-black"></i> Home
-            </a></li>
-            <li class="nav-item"><a class="nav-link active" href="map.do"> <i class="ni ni-square-pin text-orange"></i> Map
-            </a></li>
-            <li class="nav-item"><a class="nav-link" href="board.do"> <i class="ni ni-bullet-list-67 text-blue"></i> board
-            </a></li>
-            <li class="nav-item"><a class="nav-link " href="notice.do"> <i class="ni ni-air-baloon text-red"></i> Notice
-            </a></li>
-            <li class="nav-item"><a class="nav-link " href="coupon.do"> <i class="ni ni-collection text-green"></i> Coupon
-            </a></li>
+                <!-- 왼쪽 공통 메뉴 -->
+        <ul class="navbar-nav">
+          <li class="nav-item ">
+          	<a class=" nav-link" href="home.do"> 
+          		<i class="ni ni-shop text-black"></i> Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="map.do">
+              <i class="ni ni-square-pin text-orange"></i> Map
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link a" href="board.do">
+              <i class="ni ni-bullet-list-67 text-blue"></i> board
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="notice.do">
+              <i class="ni ni-air-baloon text-red"></i> Notice
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="coupon.do">
+              <i class="ni ni-collection text-green"></i> Coupon
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " id="handler_a" style="cursor: pointer;">
+              <i class="ni ni-user-run text-yellow"></i> Handler
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="cctv.do">
+              <i class="ni ni-tv-2 text-black"></i> CCTV
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="nanumCar.do">
+              <i class="ni ni-delivery-fast text-blue"></i> 나눔카
+            </a>
+          </li>
          </ul>
-         <!-- Divider -->
-         <hr class="my-3">
-         <!-- Heading -->
-         <h6 class="navbar-heading text-muted">Documentation</h6>
-         <!-- Navigation -->
-         <ul class="navbar-nav mb-md-3">
-            <li class="nav-item"><a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html"> <i class="ni ni-spaceship"></i> Getting started
-            </a></li>
-            <li class="nav-item"><a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html"> <i class="ni ni-palette"></i> Foundation
-            </a></li>
-            <li class="nav-item"><a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html"> <i class="ni ni-ui-04"></i> Components
-            </a></li>
-         </ul>
+       <!--  -->
+        
       </div>
    </div>
 </nav>
@@ -810,20 +821,9 @@ $(document).ready(
    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
          <!-- Brand -->
-         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Map</a>
-         <!-- Form -->
-         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-            <div class="form-group mb-0">
-               <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                     <span class="input-group-text"><i class="fas fa-search"></i></span>
-                  </div>
-                  <input class="form-control" placeholder="Search" type="text">
-               </div>
-            </div>
-         </form>
-         <!-- User -->
-         <ul class="navbar-nav align-items-center d-none d-md-flex">
+         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="map.do">Map</a>
+        <!-- 우측 상단 프로필 -->
+        <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
 				<c:choose>
 						<c:when test="${sessionName != null }">
@@ -849,29 +849,34 @@ $(document).ready(
                 <h6 class="text-overflow m-0">Welcome!</h6>
               </div>
               <a href="profile.do" class="dropdown-item">
-                <i class="ni ni-single-02"></i>
-                <span>My profile</span>
+                <i class="ni ni-circle-08"></i>
+                <span>회원정보 관리</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
-                <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
+              <a href="profile.do?tab=2" class="dropdown-item">
+                <i class="ni ni-time-alarm"></i>
+                <span>예약정보 관리</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
-                <i class="ni ni-calendar-grid-58"></i>
-                <span>Activity</span>
+              <a href="profile.do?tab=3" class="dropdown-item">
+                <i class="ni ni-user-run"></i>
+                <span>핸들러 관리</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
+              <a href="profile.do?tab=4" class="dropdown-item">
+                <i class="ni ni-book-bookmark"></i>
+                <span>나의 쿠폰북</span>
+              </a>
+              <a href="profile.do?tab=5" class="dropdown-item">
+                <i class="ni ni-align-center"></i>
+                <span>내가 쓴 글 확인</span>
               </a>
               <div class="dropdown-divider"></div>
               <a href="sessionLogout.do" class="dropdown-item">
-                <i class="ni ni-user-run"></i>
+                <i class="ni ni-button-power"></i>
                 <span>Logout</span>
               </a>
             </div>
           </li>
         </ul>
+        <!--  -->
       </div>
    </nav>
    <!-- End Navbar -->
