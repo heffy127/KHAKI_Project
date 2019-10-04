@@ -41,7 +41,6 @@
    $(document).ready(
          function() {
         	 
-        	 
         	$('#expBar').attr('style',"width: "+'${expPer}'+"%;") // 경험치 퍼센트 표시
         	
         	if('${tab}' == 1){
@@ -248,9 +247,12 @@
                   </a>
                        </c:when>
                  <c:when test="${sessionName == null }">
-               <div>
-                  <a href="login.do" style="color: white; font-weight: bold;">&nbsp;&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;</a>
-               </div>
+	               <script type="text/javascript">
+	               		swal('잘못된 접근입니다.')
+	               		.then((value) => {
+	               			location.href = "home.do"
+						});
+	               </script>
                  </c:when>
             </c:choose>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
