@@ -95,9 +95,13 @@
         	
         	var phone = $("#phoneTd"+i).text();
         	phone = phone.split("");
-        	
-        	
-        	
+        	$("#phoneTd"+i).text(phone[0] + phone[1] + phone[2] + "-" + phone[3] + phone[4] + phone[5] + phone[6] + "-" + phone[7] + phone[8] + phone[9] + phone[10]);
+        	var day = $("#visitDayTd"+i).text();
+        	day = day.split("");
+        	$("#visitDayTd"+i).text(day[0] + day[1] + day[2] + day[3] + "." + day[4] + day[5] + "." + day[6] + day[7]);
+        	var distance = $("#distanceTd"+i).text();
+        	distance = distance.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+        	$("#distanceTd"+i).text(distance + " km");
 	        
 		}
 		
@@ -165,8 +169,8 @@
 			   				<td>${usedCarDTO.location1 } ${usedCarDTO.location2 }</td>
 			   				<td id="carNumTd${status.index }">${usedCarDTO.carNum }</td>
 			   				<td id="phoneTd${status.index }">${usedCarDTO.phone }</td>
-			   				<td>${usedCarDTO.visitDay }</td>
-			   				<td>${usedCarDTO.distance }</td>
+			   				<td id="visitDayTd${status.index }">${usedCarDTO.visitDay }</td>
+			   				<td id="distanceTd${status.index }">${usedCarDTO.distance }</td>
 			   				<td id="processingStatus${status.index }">${usedCarDTO.processingStatus }</td>
 			   			</tr>
 			   			<tr class="admin_reservation_tbody" id="admin_reservation_tbodyy${status.index }" style="height: 40px;">
