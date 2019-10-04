@@ -10,11 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import co.kr.khaki.common.pagination;
 import co.kr.khaki.member.DAO.MemberDAOInter;
 import co.kr.khaki.member.DTO.InsertPointDTO;
 import co.kr.khaki.member.service.MemberServiceImpl;
 import co.kr.khaki.member.service.MemberServiceInter;
-import co.kr.khaki.notice.pagination;
 import co.kr.khaki.survey.DAO.SurveyDAOInter;
 import co.kr.khaki.survey.DTO.Car_surveyDTO;
 import co.kr.khaki.survey.DTO.Car_surveyResultDTO;

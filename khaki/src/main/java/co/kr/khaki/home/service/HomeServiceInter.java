@@ -4,7 +4,7 @@ import java.util.List;
 
 import co.kr.khaki.board.BoardDTO;
 import co.kr.khaki.car.NewCarDTO;
-import co.kr.khaki.notice.NoticeDTO;
+import co.kr.khaki.notice.DTO.NoticeDTO;
 
 public interface HomeServiceInter {
 

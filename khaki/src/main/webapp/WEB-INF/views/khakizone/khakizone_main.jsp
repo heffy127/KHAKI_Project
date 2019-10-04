@@ -1,6 +1,6 @@
 <%@page import="co.kr.khaki.zone.KhakiZoneCal"%>
 <%@page import="java.util.List"%>
-<%@page import="co.kr.khaki.notice.pagination"%>
+<%@page import="co.kr.khaki.common.pagination"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

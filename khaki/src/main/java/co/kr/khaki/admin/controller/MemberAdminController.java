@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import co.kr.khaki.admin.DTO.MemberAdminDTO;
 import co.kr.khaki.admin.service.MemberAdminServiceInter;
+import co.kr.khaki.common.pagination;
 import co.kr.khaki.member.DTO.LicenseDTO;
 import co.kr.khaki.member.DTO.MemberDTO;
 import co.kr.khaki.member.service.MemberServiceInter;
-import co.kr.khaki.notice.pagination;
 
 @Controller
 public class MemberAdminController {

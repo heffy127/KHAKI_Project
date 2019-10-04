@@ -1,4 +1,4 @@
-package co.kr.khaki.notice;
+package co.kr.khaki.common;
 
 public class pagination {
 

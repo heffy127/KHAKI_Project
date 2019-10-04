@@ -13,7 +13,7 @@ import co.kr.khaki.carmanage.DTO.CarConsumableDTO;
 import co.kr.khaki.carmanage.DTO.CarManageDTO;
 import co.kr.khaki.carmanage.service.CarList;
 import co.kr.khaki.carmanage.service.CarManageSeviceInterface;
-import co.kr.khaki.notice.pagination;
+import co.kr.khaki.common.pagination;
 import co.kr.khaki.zone.KhakiZone_CarmanageDTO;
 
 @Controller

@@ -36,7 +36,7 @@
   <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
   <!-- jquery -->
   <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
-
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
    $(document).ready(
          function() {
@@ -247,9 +247,12 @@
                   </a>
                        </c:when>
                  <c:when test="${sessionName == null }">
-               <div>
-                  <a href="login.do" style="color: white; font-weight: bold;">&nbsp;&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;</a>
-               </div>
+	               <script type="text/javascript">
+	               		swal('잘못된 접근입니다.')
+	               		.then((value) => {
+	               			location.href = "home.do"
+						});
+	               </script>
                  </c:when>
             </c:choose>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">

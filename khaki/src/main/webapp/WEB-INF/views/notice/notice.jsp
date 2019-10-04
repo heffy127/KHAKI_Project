@@ -1,5 +1,5 @@
-<%@page import="co.kr.khaki.notice.pagination"%>
-<%@page import="co.kr.khaki.notice.NoticeDTO"%>
+<%@page import="co.kr.khaki.common.pagination"%>
+<%@page import="co.kr.khaki.notice.DTO.NoticeDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -35,15 +35,10 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script type="text/javascript">
   	
-  	function fn_paging(curPage){
-  		location.href = "notice.do?curPage="+curPage;
+  	function fn_paging(pageSize, curPage){
+  		location.href = "notice.do?curPage="+curPage+"&pageSize="+pageSize;
   		//swal(curPage); //페이지 넘버 확인 aaaaaabb
   	};
-  	
-  	function change_pagesize(pageSize, curPage){
-  		swal(pageSize +" / "+ curPage);
-  		location.href = "notice.do?curPage="+curPage+"&pageSize="+pageSize;
-  	}
   	
   	// aaaaa
     $(function(){
@@ -366,20 +361,14 @@
 	                        <div class="dropdown-menu dropdown-menu-right" style="overflow-y: scroll;height: 150px;">
                         			<%-- <input type="dropdown-item carname" name="carname" value="${car }" readonly="readonly"> --%>
                         			<div class="dropdown-item">
-                        				<a href="#" onclick="change_pagesize(10,${pagination.curPage})">10개</a>
+                        				<a href="#" onclick="fn_paging(10,${pagination.curPage})">10개</a>
                         			</div>
                         			<div class="dropdown-item">
-                        				<a href="#" onclick="change_pagesize(20,'${pagination.curPage}')">20개</a>
+                        				<a href="#" onclick="fn_paging(20,'${pagination.curPage}')">20개</a>
                         			</div>
                         			<div class="dropdown-item">
-                        				<a href="#" onclick="change_pagesize(30,'${pagination.curPage}')">30개</a>
+                        				<a href="#" onclick="fn_paging(30,'${pagination.curPage}')">30개</a>
                         			</div>
-                        			
-                        			<%-- <a href="#" onClick="fn_paging('${pagination.nextPage }')"> 
-                        			<div class="dropdown-item pagesize">10개</div>
-                        			<div class="dropdown-item pagesize">20개</div>
-                        			<div class="dropdown-item pagesize">30개</div>--%>
-                        		<!-- dropdown 구성요소 재확인 및 notice.do로 넘어가게끔 만들고 curpage와 바꿀 pagesize를 가지고 넘어가게끔 구현 -->
 	                        </div>
                      	</div>	<!-- dropdown End -->
             		</div>
@@ -595,18 +584,20 @@
                 </tfoot>
               </table>
             </div>
+            
+            
             <div class="card-footer py-4" align="center">
             	<!-- 페이지 네이션 구현 -->
            		<nav aria-label="Page navigation example">
 				  <ul class="pagination pagination-lg justify-content-center">
 				 	<c:if test="${pagination.curRange ne 1 }">
 				 	  <li class="page-item">
-                        <a href="#" onClick="fn_paging(1)">[처음]</a> 
+                        <a href="#" onClick="fn_paging('${pagination.pageSize}',1)">[처음]</a> 
                       </li>
                     </c:if>
                     <c:if test="${pagination.curPage ne 1}">
                       <li class="page-item">
-                        <a class="page-link" href="#" onClick="fn_paging('${pagination.prevPage }')" aria-label="Previous">
+                        <a class="page-link" href="#" onClick="fn_paging('${pagination.pageSize}','${pagination.prevPage }')" aria-label="Previous">
                         	<i class="fa fa-angle-left"></i>
 					        <span class="sr-only">Previous</span>
 				        </a> 
@@ -617,19 +608,19 @@
                         <c:choose>
                             <c:when test="${pageNum eq pagination.curPage}">
                             	<li class="page-item active">
-                            		<a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }<span class="sr-only">(current)</span></a>
+                            		<a href="#" class="page-link" onClick="fn_paging('${pagination.pageSize}','${pageNum }')">${pageNum }<span class="sr-only">(current)</span></a>
                            		</li>
                             </c:when>
                             <c:otherwise>
                             	<li class="page-item">
-                            		<a class="page-link" href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+                            		<a class="page-link" href="#" onClick="fn_paging('${pagination.pageSize}','${pageNum }')">${pageNum }</a>
                            		</li>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
                     <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
                     	<li class="page-item">
-                       		<a class="page-link" href="#" onClick="fn_paging('${pagination.nextPage }')" aria-label="Next">
+                       		<a class="page-link" href="#" onClick="fn_paging('${pagination.pageSize}','${pagination.nextPage }')" aria-label="Next">
 						        <i class="fa fa-angle-right"></i>
 						        <span class="sr-only">Next</span>
 							</a> 
@@ -638,7 +629,7 @@
                     </c:if>
                     <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
                         <li class="page-item">
-					      <a class="page-link" href="#" onClick="fn_paging('${pagination.pageCnt }')" aria-label="Next">
+					      <a class="page-link" href="#" onClick="fn_paging('${pagination.pageSize}','${pagination.pageCnt }')" aria-label="Next">
 					        <i class="fa fa-angle-right"></i>
 					        <span class="sr-only">Next</span>
 					      </a>

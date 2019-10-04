@@ -31,7 +31,14 @@ public class MemberController {
 	@RequestMapping("profile.do")
 	public String member(MemberDTO memberDTO, MemberLevelDTO memberLevelDTO, 
 			Model model, HttpSession session, CalculateMemberLevel cal, @RequestParam(defaultValue="1") String tab) {
+		System.out.println("profile 가기");
+		
 		memberDTO = memberServiceInter.selectFromId((String)session.getAttribute("sessionId"));
+
+		if(memberDTO == null) {
+			return "register/register";
+		}
+		
 		model.addAttribute("memberDTO", memberDTO);
 
 		// Level 정보 가져오기

@@ -1,5 +1,5 @@
-<%@page import="co.kr.khaki.notice.pagination"%>
-<%@page import="co.kr.khaki.notice.NoticeDTO"%>
+<%@page import="co.kr.khaki.common.pagination"%>
+<%@page import="co.kr.khaki.notice.DTO.NoticeDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

@@ -65,7 +65,10 @@
             obj.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
             //폼 submit
             swal("게시글이 등록되었습니다.")
-	        $("#insertBoardFrm").submit();
+            .then((value) => {
+            	$("#insertBoardFrm").submit();
+			});
+	        
            
 
         });

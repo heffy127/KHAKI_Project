@@ -10,8 +10,8 @@ import co.kr.khaki.board.BoardDTO;
 import co.kr.khaki.car.CarDAO;
 import co.kr.khaki.car.CarDTO;
 import co.kr.khaki.car.NewCarDTO;
-import co.kr.khaki.notice.NoticeDAO;
-import co.kr.khaki.notice.NoticeDTO;
+import co.kr.khaki.notice.DAO.NoticeDAO;
+import co.kr.khaki.notice.DTO.NoticeDTO;
 
 @Service
 public class HomeServiceImpl implements HomeServiceInter {
