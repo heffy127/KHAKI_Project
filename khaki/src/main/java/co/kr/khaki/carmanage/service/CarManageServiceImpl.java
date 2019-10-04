@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import co.kr.khaki.carmanage.DAO.CarConsumableDAO;
-import co.kr.khaki.carmanage.DAO.CarManageDAO;
+import co.kr.khaki.carmanage.DAO.CarConsumableDAOInterface;
+import co.kr.khaki.carmanage.DAO.CarManageDAOInter;
 import co.kr.khaki.carmanage.DTO.CarConsumableDTO;
 import co.kr.khaki.carmanage.DTO.CarManageDTO;
 import co.kr.khaki.notice.pagination;
@@ -22,10 +22,10 @@ import co.kr.khaki.zone.KhakiZone_CarmanageDTO;
 public class CarManageServiceImpl implements CarManageSeviceInterface {
 
 	@Autowired
-	CarManageDAO cmdao;
+	CarManageDAOInter cmdao;
 	
 	@Autowired
-	CarConsumableDAO ccdao;
+	CarConsumableDAOInterface ccdao;
 	
 	@Autowired
 	UsedCarDAOInterface usedCarDAO;

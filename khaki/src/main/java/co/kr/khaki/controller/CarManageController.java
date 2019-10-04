@@ -24,10 +24,10 @@ import co.kr.khaki.zone.KhakiZone_CarmanageDTO;
 public class CarManageController {
 
 	@Autowired
-	CarManageDAO cmdao;
+	CarManageDAOImpl cmdao;
 	
 	@Autowired
-	CarConsumableDAO ccdao;
+	CarConsumableDAOImpl ccdao;
 	
 	@Autowired
 	UsedCarDAOInterface usedCarDAO;

@@ -10,11 +10,15 @@ import org.springframework.stereotype.Repository;
 import co.kr.khaki.carmanage.DTO.CarConsumableDTO;
 
 @Repository
-public class CarConsumableDAO {
+public class CarConsumableDAOImpl implements CarConsumableDAOInterface {
 
 	@Autowired
 	SqlSessionTemplate my;
 	
+	/* (non-Javadoc)
+	 * @see co.kr.khaki.carmanage.DAO.CarConsumableDAOInterface#insert(co.kr.khaki.carmanage.DTO.CarConsumableDTO)
+	 */
+	@Override
 	public void insert(CarConsumableDTO carConsumableDTO) {
 		System.out.println("CarConsumableDAO Insert!");
 		
@@ -38,6 +42,10 @@ public class CarConsumableDAO {
 		
 	}	// insert End
 	
+	/* (non-Javadoc)
+	 * @see co.kr.khaki.carmanage.DAO.CarConsumableDAOInterface#select(java.lang.String)
+	 */
+	@Override
 	public CarConsumableDTO select(String carnum1) {
 		System.out.println("carnum1 : " + carnum1);
 		System.out.println("ccDAO select!");
@@ -45,6 +53,10 @@ public class CarConsumableDAO {
 		return my.selectOne("ccDAO.select", carnum1);
 	}
 	
+	/* (non-Javadoc)
+	 * @see co.kr.khaki.carmanage.DAO.CarConsumableDAOInterface#updata(co.kr.khaki.carmanage.DTO.CarConsumableDTO)
+	 */
+	@Override
 	public void updata(CarConsumableDTO carConsumableDTO) {
 		System.out.println("CarConsumableDAO Updata!");
 		
