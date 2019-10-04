@@ -40,10 +40,6 @@
 <script type="text/javascript">
    $(document).ready(
          function() {
-        	 if($(sessionId) == "" || ($(sessionId) == null){
-        		 swal('잘못된 접근입니다.')
-        		 location.href = "home.do"
-        	 }
         	 
         	 
         	$('#expBar').attr('style',"width: "+'${expPer}'+"%;") // 경험치 퍼센트 표시
