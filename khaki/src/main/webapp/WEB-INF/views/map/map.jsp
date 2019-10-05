@@ -812,7 +812,7 @@ $(document).ready(
           </li>
          </ul>
        <!--  -->
-        
+       <hr>
       </div>
    </div>
 </nav>
