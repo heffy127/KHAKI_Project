@@ -153,39 +153,39 @@
           <% 
           if (session.getAttribute("sessionId")==null){ %>
             <a class="nav-link">
-              <i class="ni ni-square-pin text-orange"></i> Map&nbsp;&nbsp;(로그인 필요)
+              <i class="ni ni-square-pin text-orange"></i> 카셰어링&nbsp;&nbsp;(로그인 필요)
             </a>
           <%
           } else {
           %>
             <a class="nav-link" href="map.do">
-              <i class="ni ni-square-pin text-orange"></i> Map
+              <i class="ni ni-square-pin text-orange"></i> 카셰어링
             </a>
           <%}%>
           </li>
           <li class="nav-item">
             <a class="nav-link a" href="board.do">
-              <i class="ni ni-bullet-list-67 text-blue"></i> board
+              <i class="ni ni-bullet-list-67 text-blue"></i> 자유게시판
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="notice.do">
-              <i class="ni ni-air-baloon text-red"></i> Notice
+              <i class="ni ni-air-baloon text-red"></i> 공지사항
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="coupon.do">
-              <i class="ni ni-collection text-green"></i> Coupon
+              <i class="ni ni-collection text-green"></i> 쿠폰
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " id="handler_a" style="cursor: pointer;">
-              <i class="ni ni-user-run text-yellow"></i> Handler
+              <i class="ni ni-user-run text-yellow"></i> 핸들러
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="cctv.do">
-              <i class="ni ni-tv-2 text-black"></i> CCTV
+              <i class="ni ni-tv-2 text-black"></i> 교통상황 CCTV
             </a>
           </li>
           <li class="nav-item">

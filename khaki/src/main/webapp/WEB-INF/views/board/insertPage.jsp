@@ -76,6 +76,33 @@
     });
   	
   </script>
+  <script type="text/javascript">
+  	$(function() {
+  		// handler a태그 클릭시 sessionId의 핸들러 여부에 따라 호출 페이지가 달라짐.
+  		$("#handler_a").click(function(){ // 핸들러 버튼을 클릭했을때
+  			var id = '<%=(String)session.getAttribute("sessionId")%>'; // sessionId를 [id]라는 변수에 담아서
+  			$.ajax({ // ajax 실행
+			      url:"handlerIdCheck.do", // session id의 핸들러 여부를 파악하기 위해 handlerIdCheck.do 컨트롤러 호출
+			      data : {
+			    	  "id" : id // data는 위에서 변수로 저장한 sessionId
+			      },
+			      success:function(data){ // ajax가 성공했을 때
+			    	  if(data == "") { // handler/handlerIdCheck에 데이터가 없다면
+			    		  location.href="handler.do"; // 핸들러 신청할 수 있는 핸들러메인으로 이동
+			    	  } else if(data == "N") { // handler/handlerIdCheck에 데이터가 N일때
+			    		  location.href="handler.do"; // 핸들러 신청건들이 있는 핸들러 게시판으로 이동 
+			    	  } else { // handler/handlerIdCheck에 데이터가 N일때
+			    		  location.href="handlerBoard.do"; // 핸들러 신청건들이 있는 핸들러 게시판으로 이동 
+			    	  }
+			      },
+			      error : function(xhr, status) { // ajax가 실패했을 때
+		              swal(xhr + " : " + status); // 실패 내용 확인
+		          }
+			});
+  		})
+
+  	})
+  </script>
 </head>
 
 <body class="">
@@ -167,135 +194,118 @@
             </div>
           </div>
         </form>
-<!-- 왼쪽 공통 메뉴 -->
+                <!-- 왼쪽 공통 메뉴 -->
         <ul class="navbar-nav">
           <li class="nav-item ">
-             <a class=" nav-link" href="home.do"> 
-                <i class="ni ni-tv-2 text-black"></i> Home
+          	<a class=" nav-link" href="home.do"> 
+          		<i class="ni ni-shop text-black"></i> Home
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="map.do">
-              <i class="ni ni-square-pin text-orange"></i> Map
+              <i class="ni ni-square-pin text-orange"></i> 카셰어링
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="board.do">
-              <i class="ni ni-bullet-list-67 text-blue"></i> board
+            <a class="nav-link active" href="board.do">
+              <i class="ni ni-bullet-list-67 text-blue"></i> 자유게시판
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="notice.do">
-              <i class="ni ni-air-baloon text-red"></i> Notice
+              <i class="ni ni-air-baloon text-red"></i> 공지사항
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="coupon.do">
-              <i class="ni ni-collection text-green"></i> Coupon
+              <i class="ni ni-collection text-green"></i> 쿠폰
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " id="handler_a" style="cursor: pointer;">
+              <i class="ni ni-user-run text-yellow"></i> 핸들러
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="cctv.do">
+              <i class="ni ni-tv-2 text-black"></i> 교통상황 CCTV
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="nanumCar.do">
+              <i class="ni ni-delivery-fast text-blue"></i> 나눔카
             </a>
           </li>
          </ul>
-        <!-- Divider -->
-        <hr class="my-3">
-        <!-- Heading -->
-        <h6 class="navbar-heading text-muted">Documentation</h6>
-        <!-- Navigation -->
-        <ul class="navbar-nav mb-md-3">
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-              <i class="ni ni-spaceship"></i> Getting started
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
-              <i class="ni ni-palette"></i> Foundation
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-              <i class="ni ni-ui-04"></i> Components
-            </a>
-          </li>
-        </ul>
+       <!--  -->
+       <hr>
       </div>
-    </div>
-  </nav>
+   </div>
+</nav>
   <div class="main-content">
-    <!-- Navbar -->
-    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+  <!-- Navbar -->
+   <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
-        <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Board <i class="fas fa-pencil-alt"></i></a>
-        <c:if test="${sessionId == 'admin1' }">
-	        <div align="center">
-	        	<table>
-	        		<tr>
-	        			<td>
-	        				<button type="button" class="btn btn-success" id="userMode">사용자 모드</button>
-	        			</td>
-	        			<td>
-	        				&nbsp;&nbsp;&nbsp;&nbsp;
-	        			</td>
-	        			<td>
-	        				<button type="button" class="btn btn-warning" disabled="disabled" id="adminMode">관리자 모드</button>
-	        			</td>
-	        		</tr>
-	        	</table>
-			</div>
-		</c:if>
-          <!-- 우측 상단 프로필 -->
+         <!-- Brand -->
+         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="board.do">Board</a>
+        <!-- 우측 상단 프로필 -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
-            <c:choose>
-                  <c:when test="${sessionName != null }">
-                  <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                       <div class="media align-items-center">
-                         <span class="avatar avatar-sm rounded-circle">
-                           <img alt="Image placeholder" src="${sessionPhoto}" style="width: 40px; height: 40px;">
-                         </span>
-                         <div class="media-body ml-2 d-none d-lg-block">
-                           <span class="mb-0 text-sm  font-weight-bold">${sessionName} 님</span>
-                         </div>
-                       </div>
-                  </a>
-                       </c:when>
-                 <c:when test="${sessionName == null }">
-               <div>
-                  <a href="login.do" style="color: white; font-weight: bold;">&nbsp;&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;</a>
-               </div>
-                 </c:when>
-            </c:choose>
+				<c:choose>
+						<c:when test="${sessionName != null }">
+            		<a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			              <div class="media align-items-center">
+			                <span class="avatar avatar-sm rounded-circle">
+			                  <img alt="Image placeholder" src="${sessionPhoto}" style="width: 40px; height: 40px;">
+			                </span>
+			                <div class="media-body ml-2 d-none d-lg-block">
+			                  <span class="mb-0 text-sm  font-weight-bold">${sessionName} 님</span>
+			                </div>
+			              </div>
+		            </a>
+		             	 </c:when>
+	              <c:when test="${sessionName == null }">
+					<div>
+						<a href="login.do" style="color: white; font-weight: bold;">&nbsp;&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;</a>
+					</div>
+	              </c:when>
+				</c:choose>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
               </div>
               <a href="profile.do" class="dropdown-item">
-                <i class="ni ni-single-02"></i>
-                <span>My profile</span>
+                <i class="ni ni-circle-08"></i>
+                <span>회원정보 관리</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
-                <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
+              <a href="profile.do?tab=2" class="dropdown-item">
+                <i class="ni ni-time-alarm"></i>
+                <span>예약정보 관리</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
-                <i class="ni ni-calendar-grid-58"></i>
-                <span>Activity</span>
+              <a href="profile.do?tab=3" class="dropdown-item">
+                <i class="ni ni-user-run"></i>
+                <span>핸들러 관리</span>
               </a>
-              <a href="profile.jsp" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
+              <a href="profile.do?tab=4" class="dropdown-item">
+                <i class="ni ni-book-bookmark"></i>
+                <span>나의 쿠폰북</span>
+              </a>
+              <a href="profile.do?tab=5" class="dropdown-item">
+                <i class="ni ni-align-center"></i>
+                <span>내가 쓴 글 확인</span>
               </a>
               <div class="dropdown-divider"></div>
               <a href="sessionLogout.do" class="dropdown-item">
-                <i class="ni ni-user-run"></i>
+                <i class="ni ni-button-power"></i>
                 <span>Logout</span>
               </a>
             </div>
           </li>
         </ul>
+        <!--  -->
       </div>
-    </nav>
-    <!-- End Navbar -->
+   </nav>
+   <!-- End Navbar -->
     <!-- Header -->
     <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 400px; background-image: url(resources/assets/img/theme/admin-cover.png); background-size: cover; background-position: center top;">
       <!-- Mask -->
@@ -361,7 +371,19 @@
 	      </div>
 	   	</div>
 	  	</div>
-  
+    <!--   Core   -->
+<script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+<script src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!--   Optional JS   -->
+<!--   Argon JS   -->
+<script src="resources/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
+<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+   window.TrackJS && TrackJS.install({
+      token : "ee6fab19c5a04ac1a32a645abde4613a",
+      application : "argon-dashboard-free"
+   });
+</script>  
 </body>
 
 </html>

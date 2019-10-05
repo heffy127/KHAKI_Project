@@ -438,6 +438,33 @@
         
      })
   </script>
+  <script type="text/javascript">
+  	$(function() {
+  		// handler a태그 클릭시 sessionId의 핸들러 여부에 따라 호출 페이지가 달라짐.
+  		$("#handler_a").click(function(){ // 핸들러 버튼을 클릭했을때
+  			var id = '<%=(String)session.getAttribute("sessionId")%>'; // sessionId를 [id]라는 변수에 담아서
+  			$.ajax({ // ajax 실행
+			      url:"handlerIdCheck.do", // session id의 핸들러 여부를 파악하기 위해 handlerIdCheck.do 컨트롤러 호출
+			      data : {
+			    	  "id" : id // data는 위에서 변수로 저장한 sessionId
+			      },
+			      success:function(data){ // ajax가 성공했을 때
+			    	  if(data == "") { // handler/handlerIdCheck에 데이터가 없다면
+			    		  location.href="handler.do"; // 핸들러 신청할 수 있는 핸들러메인으로 이동
+			    	  } else if(data == "N") { // handler/handlerIdCheck에 데이터가 N일때
+			    		  location.href="handler.do"; // 핸들러 신청건들이 있는 핸들러 게시판으로 이동 
+			    	  } else { // handler/handlerIdCheck에 데이터가 N일때
+			    		  location.href="handlerBoard.do"; // 핸들러 신청건들이 있는 핸들러 게시판으로 이동 
+			    	  }
+			      },
+			      error : function(xhr, status) { // ajax가 실패했을 때
+		              swal(xhr + " : " + status); // 실패 내용 확인
+		          }
+			});
+  		})
+
+  	})
+  </script>
 </head>
 
 <body class="">
@@ -538,32 +565,32 @@
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="map.do">
-              <i class="ni ni-square-pin text-orange"></i> Map
+              <i class="ni ni-square-pin text-orange"></i> 카셰어링
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link a" href="board.do">
-              <i class="ni ni-bullet-list-67 text-blue"></i> board
+              <i class="ni ni-bullet-list-67 text-blue"></i> 자유게시판
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="notice.do">
-              <i class="ni ni-air-baloon text-red"></i> Notice
+              <i class="ni ni-air-baloon text-red"></i> 공지사항
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="coupon.do">
-              <i class="ni ni-collection text-green"></i> Coupon
+              <i class="ni ni-collection text-green"></i> 쿠폰
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " id="handler_a" style="cursor: pointer;">
-              <i class="ni ni-user-run text-yellow"></i> Handler
+              <i class="ni ni-user-run text-yellow"></i> 핸들러
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="cctv.do">
-              <i class="ni ni-tv-2 text-black"></i> CCTV
+              <i class="ni ni-tv-2 text-black"></i> 교통상황 CCTV
             </a>
           </li>
           <li class="nav-item">
