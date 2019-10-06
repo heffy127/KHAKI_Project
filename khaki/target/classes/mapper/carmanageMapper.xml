@@ -76,8 +76,6 @@
 	<select id="selectAll" resultMap="rsMap">
 		SELECT * FROM car_board order by reg_date desc
 	</select>
-	<!-- selectAll부분 수정 필요(등록된 것 역순으로 나오게끔) -->
-	
 
 	<insert id="insert" parameterType="cmDTO">
 		INSERT INTO car_board (car_name, car_num, driven, fuel_type, fuel_gage, zone_num, fee_hour, fee_km, car_image, brand, car_size, reg_date)
