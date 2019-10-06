@@ -55,8 +55,6 @@
             
             var title = $("#title").val();
             var content = $("#ir1").val();
-            alert(title);
-            alert(content);
             if(title == "" || content == "<p>&nbsp;</p>"){
             	if(title == ""){
                 	alert("글 제목을 입력해주세요!")
