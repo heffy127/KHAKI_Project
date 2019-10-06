@@ -47,7 +47,7 @@ public class CarManageServiceImpl implements CarManageSeviceInterface {
 	 * @see co.kr.khaki.carmanage.service.CarManageSeviceInterface#carmanageDelete(java.lang.String, org.springframework.ui.Model, int, int)
 	 */
 	@Override
-	public ArrayList carmanageDelete(String car_num, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="10") int pageSize){
+	public ArrayList carmanageDelete(String car_num, int curPage, int pageSize){
 		// 페이지수 조절하는 것 연결하려면 curPage, pageSize를 가지고 다닐 수 있도록
 		
 		System.out.println("carmanage Controller Delete!");
@@ -112,7 +112,7 @@ public class CarManageServiceImpl implements CarManageSeviceInterface {
 	 * @see co.kr.khaki.carmanage.service.CarManageSeviceInterface#carmanage(org.springframework.ui.Model, int, int, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public ArrayList carmanage(@RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="10") int pageSize,
+	public ArrayList carmanage(int curPage, int pageSize,
 			@RequestParam(defaultValue="검색어없음") String search_list, @RequestParam(defaultValue="검색어없음") String search_obj){
 
 		ArrayList arr = new ArrayList();
@@ -155,7 +155,7 @@ public class CarManageServiceImpl implements CarManageSeviceInterface {
 	 */
 	@Override
 	public ArrayList carmanageInsertDB(CarManageDTO carManageDTO, CarConsumableDTO carConsumableDTO, 
-			@RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="10") int pageSize){
+			int curPage, int pageSize){
 		
 		ArrayList arr = new ArrayList();
 		

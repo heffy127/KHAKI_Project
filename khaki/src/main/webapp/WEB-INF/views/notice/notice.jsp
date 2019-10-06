@@ -368,10 +368,10 @@
             		</div>
             		<div class="col-md-6" align="center">
             			<button type="button" class="btn btn-success btn_notice" disabled="disabled">공지감추기</button>
-						<label class="custom-toggle check_notice1"> <input id="check_notice" type="checkbox">
+						<label class="custom-toggle check_notice1" > <input id="check_notice" type="checkbox">
 							<span class="custom-toggle-slider rounded-circle"></span>
 						</label>
-						<button type="button" class="btn btn-info btn_event" disabled="disabled">이 벤 트 감추기</button>
+						<button type="button" class="btn btn-info btn_event" disabled="disabled">이벤트 감추기</button>
 						<label class="custom-toggle check_event1"> <input id="check_event" type="checkbox">
 							<span class="custom-toggle-slider rounded-circle"></span>
 						</label>
