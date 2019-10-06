@@ -32,8 +32,8 @@
       <typeAlias type="co.kr.khaki.refund.DTO.RefundDTO" alias="refundDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.key.ClaimDTO" alias="claimDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.usedCar.DTO.UsedCarDTO" alias="usedCarDTO"></typeAlias>
-      <typeAlias type="co.kr.khaki.zone.KhakiZoneDTO" alias="zoneDTO"></typeAlias>
-      <typeAlias type="co.kr.khaki.zone.KhakiZone_CarmanageDTO" alias="zone_carmanageDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.zone.DTO.KhakiZoneDTO" alias="zoneDTO"></typeAlias>
+      <typeAlias type="co.kr.khaki.zone.DTO.KhakiZone_CarmanageDTO" alias="zone_carmanageDTO"></typeAlias>
       <typeAlias type="co.kr.khaki.key.KeyDTO" alias="keyDTO"/>
 	  <typeAlias type="co.kr.khaki.coupon.CouponDTO" alias="cpDTO"/>
       

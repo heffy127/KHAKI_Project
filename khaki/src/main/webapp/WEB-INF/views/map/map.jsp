@@ -695,16 +695,36 @@ $(document).ready(
 		        success : function(data) {
 		        	if(data.trim()=="?"){
 			        	$('#reserveSelectBox').attr("disabled","disabled")
+			        	$('#reserveSelectBox').css("width","100%")
 			        	$('#reserveSelectBox').text("면허승인 후 예약가능합니다.")
 			        	$('#resetBox').remove();
 		        	} else if (data.trim()=="x"){
 				        $('#reserveSelectBox').attr("disabled","disabled")
+				        $('#reserveSelectBox').css("width","100%")
 			        	$('#reserveSelectBox').text("면허승인 후 예약가능합니다.")
 			        	$('#resetBox').remove();
 		        	} else if (data.trim()==""){
 				        $('#reserveSelectBox').attr("disabled","disabled")
+				        $('#reserveSelectBox').css("width","100%")
 			        	$('#reserveSelectBox').text("면허승인 후 예약가능합니다.")
 			        	$('#resetBox').remove();
+		        	} else {
+		        		$.ajax({
+		        			url : "reservation_endTime_check.do",
+		        			data : {
+		        				'id' : sessionId
+		        			},
+		        			success : function(data) {
+		        				if(data == "Y") {
+		        					
+		        				} else {
+		        					$('#reserveSelectBox').attr("disabled","disabled")
+		        					$('#reserveSelectBox').css("width","100%")
+		    			        	$('#reserveSelectBox').text("예약 된 차량이 존재합니다.")
+		    			        	$('#resetBox').remove();
+		        				}
+		        			}
+		        		})
 		        	} 
 		        }
 		     })
