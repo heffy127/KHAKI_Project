@@ -52,9 +52,23 @@
             //id가 smarteditor인 textarea에 에디터에서 대입
             obj.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
             //폼 submit
-            $("#insertform").submit();
+            
+            var title = $("#title").val();
+            var content = $("#ir1").val();
+            alert(title);
+            alert(content);
+            if(title == "" || content == "<p>&nbsp;</p>"){
+            	if(title == ""){
+                	alert("글 제목을 입력해주세요!")
+                }
+                if(content == "<p>&nbsp;</p>"){
+                	alert("글 내용을 입력해주세요!")
+                }
+            }else{
+            	$("#insertform").submit();
+            }
         });
-    });
+    });	//JQuery End
   </script>
   <script type="text/javascript">
   	$(function() {
@@ -360,7 +374,7 @@
             		<div class="row">	<!-- row는 한 행을 구분 짓는 것 -->
 					    <div class="col-md-6">
 					      <div class="form-group">
-					        <input type="text" class="form-control" name="title" placeholder="제목">
+					        <input type="text" class="form-control" id="title" name="title" placeholder="제목">
 					      </div>
 					    </div>
 				  	</div>

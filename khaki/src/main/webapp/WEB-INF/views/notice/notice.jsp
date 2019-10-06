@@ -64,8 +64,6 @@
     	
   		// id를 비교하여 
   		var id = '${sessionId}';
-  		//swal(id);
-    	//swal(typeof id);
   		if(id.substr(0,5) == 'admin'){
 	  		$("#btn_write").attr('disabled',false);	//false면 버튼을 활성화, ture면 비활성화
   		}
