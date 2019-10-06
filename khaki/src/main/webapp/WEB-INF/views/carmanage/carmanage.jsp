@@ -113,7 +113,6 @@
           	<div class="row" align="center">
 				<div class="col-md-4" style="height: 50px; line-height: 50px;">
 	       			<button id="insert" class="btn btn-outline-info">등록</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	       			<button id="delete" class="btn btn-outline-danger">선택삭제</button>	<!-- 구현하지말까ㅠㅠ -->
 				</div>          
 				<!-- aaa -->
 				<div class="col-md-4" style="height: 40px; line-height: 40px;">
@@ -146,10 +145,10 @@
                        				<a href="#" onclick="fn_paging('${pagination.curPage}',10)">10개</a>
                        			</div>
                        			<div class="dropdown-item">
-                       				<a href="#" onclick="change_pagesize('${pagination.curPage}',20)">20개</a>
+                       				<a href="#" onclick="fn_paging('${pagination.curPage}',20)">20개</a>
                        			</div>
                        			<div class="dropdown-item">
-                       				<a href="#" onclick="change_pagesize('${pagination.curPage}',30)">30개</a>
+                       				<a href="#" onclick="fn_paging('${pagination.curPage}',30)">30개</a>
                        			</div>
                         </div>
                     	</div>	<!-- dropdown End -->
@@ -335,19 +334,19 @@
                        <c:choose>
                            <c:when test="${pageNum eq pagination.curPage}">
                           	 	<li class="page-item active">
-                           			<a href="#" class="page-link" onClick="fn_paging('${pageNum }','${pageSize }')">${pageNum }<span class="sr-only">(current)</span></a>
+                           			<a href="#" class="page-link" onClick="fn_paging('${pageNum }','${pagination.pageSize }')">${pageNum }<span class="sr-only">(current)</span></a>
                           		</li>
                            </c:when>
                            <c:otherwise>
                            		<li class="page-item">
-                           			<a class="page-link" href="#" onClick="fn_paging('${pageNum }','${pageSize }')">${pageNum }</a>
+                           			<a class="page-link" href="#" onClick="fn_paging('${pageNum }','${pagination.pageSize }')">${pageNum }</a>
                           		</li>
                            </c:otherwise>
                        </c:choose>
                    </c:forEach>
                    <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
                    	<li class="page-item">
-                      		<a class="page-link" href="#" onClick="fn_paging('${pagination.nextPage }','${pageSize }')" aria-label="Next">
+                      		<a class="page-link" href="#" onClick="fn_paging('${pagination.nextPage }','${pagination.pageSize }')" aria-label="Next">
 					        <i class="fa fa-angle-right"></i>
 					        <span class="sr-only">Next</span>
 						</a> 
@@ -355,7 +354,7 @@
                    </c:if>
                    <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
                        <li class="page-item">
-				      <a class="page-link" href="#" onClick="fn_paging('${pagination.pageCnt }','${pageSize }')" aria-label="Next">
+				      <a class="page-link" href="#" onClick="fn_paging('${pagination.pageCnt }','${pagination.pageSize }')" aria-label="Next">
 				        <i class="fa fa-angle-right"></i>
 				        <span class="sr-only">Next</span>
 				      </a>
