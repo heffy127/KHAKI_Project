@@ -601,7 +601,6 @@
 		                		<input type="hidden" name="pageSize" value="<%= pg.getPageSize()%>">
 		                		<button type="submit" id="btn_write" class="btn btn-outline-info" disabled="disabled">글쓰기</button>
 		                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		                		<input type="button" class="btn btn-outline-info" onclick="history.back(-1);" value="뒤로가기">
 		                		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 			</form>
                 		</td>
