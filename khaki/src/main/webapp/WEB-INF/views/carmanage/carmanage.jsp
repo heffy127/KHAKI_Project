@@ -14,17 +14,10 @@
  	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript">
 	
-		function fn_paging(curPage){
-	  		location.href = "carmanage.do?curPage="+curPage;
-	  		//swal(curPage); 
-	  		//페이지 넘버 확인
-	  	};
-	
-	  	function change_pagesize(pageSize, curPage){
-	  		//swal(pageSize +" / "+ curPage);
+		function fn_paging(curPage, pageSize){
 	  		location.href = "carmanage.do?curPage="+curPage+"&pageSize="+pageSize;
-	  	}
-	  	
+	  		//swal(curPage); 
+	  	};
 	  	
 		$(function(){
 			
@@ -150,13 +143,13 @@
                         <div class="dropdown-menu dropdown-menu-right" style="overflow-y: scroll;height: 150px;">
                        			<%-- <input type="dropdown-item carname" name="carname" value="${car }" readonly="readonly"> --%>
                        			<div class="dropdown-item">
-                       				<a href="#" onclick="change_pagesize(10,${pagination.curPage})">10개</a>
+                       				<a href="#" onclick="fn_paging('${pagination.curPage}',10)">10개</a>
                        			</div>
                        			<div class="dropdown-item">
-                       				<a href="#" onclick="change_pagesize(20,'${pagination.curPage}')">20개</a>
+                       				<a href="#" onclick="change_pagesize('${pagination.curPage}',20)">20개</a>
                        			</div>
                        			<div class="dropdown-item">
-                       				<a href="#" onclick="change_pagesize(30,'${pagination.curPage}')">30개</a>
+                       				<a href="#" onclick="change_pagesize('${pagination.curPage}',30)">30개</a>
                        			</div>
                         </div>
                     	</div>	<!-- dropdown End -->
@@ -341,20 +334,20 @@
                    <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
                        <c:choose>
                            <c:when test="${pageNum eq pagination.curPage}">
-                           	<li class="page-item active">
-                           		<a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }<span class="sr-only">(current)</span></a>
+                          	 	<li class="page-item active">
+                           			<a href="#" class="page-link" onClick="fn_paging('${pageNum }','${pageSize }')">${pageNum }<span class="sr-only">(current)</span></a>
                           		</li>
                            </c:when>
                            <c:otherwise>
-                           	<li class="page-item">
-                           		<a class="page-link" href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+                           		<li class="page-item">
+                           			<a class="page-link" href="#" onClick="fn_paging('${pageNum }','${pageSize }')">${pageNum }</a>
                           		</li>
                            </c:otherwise>
                        </c:choose>
                    </c:forEach>
                    <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
                    	<li class="page-item">
-                      		<a class="page-link" href="#" onClick="fn_paging('${pagination.nextPage }')" aria-label="Next">
+                      		<a class="page-link" href="#" onClick="fn_paging('${pagination.nextPage }','${pageSize }')" aria-label="Next">
 					        <i class="fa fa-angle-right"></i>
 					        <span class="sr-only">Next</span>
 						</a> 
@@ -362,7 +355,7 @@
                    </c:if>
                    <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
                        <li class="page-item">
-				      <a class="page-link" href="#" onClick="fn_paging('${pagination.pageCnt }')" aria-label="Next">
+				      <a class="page-link" href="#" onClick="fn_paging('${pagination.pageCnt }','${pageSize }')" aria-label="Next">
 				        <i class="fa fa-angle-right"></i>
 				        <span class="sr-only">Next</span>
 				      </a>
