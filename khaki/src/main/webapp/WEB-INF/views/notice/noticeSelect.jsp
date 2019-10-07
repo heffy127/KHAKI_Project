@@ -296,16 +296,26 @@
     	int curPage = Integer.parseInt(request.getParameter("curPage"));
     	int pageSize = Integer.parseInt(request.getParameter("pageSize"));
     %>
-    
 	<script type="text/javascript">
 	
 	  	$(function(){
+	  		var checkId = $("#writer").val();	//글 작성자 id값
+  			var sId = '${sessionId}';		//현재 접속한 id값
+	  		
 	  		$("#deletebtn").click(function(){
-	  			location.href = "noticeDelete.do?notice_num="+<%= ndto.getNotice_num()%>+"&curPage="+<%= curPage%>+"&pageSize="+<%= pageSize%>;
+	  			if(checkId == sId){
+		  			location.href = "noticeDelete.do?notice_num="+<%= ndto.getNotice_num()%>+"&curPage="+<%= curPage%>+"&pageSize="+<%= pageSize%>;
+	  			}else{
+	  				alert("관리자만 삭제할 수 있습니다")
+	  			}
 	  		});	//delete button click end
 	  		
 	  		$("#updatebtn").click(function(){
-	  			location.href = "noticeUpdate1.do?notice_num="+<%= ndto.getNotice_num()%>+"&curPage="+<%= curPage%>+"&pageSize="+<%= pageSize%>;
+	  			if(checkId == sId){
+		  			location.href = "noticeUpdate1.do?notice_num="+<%= ndto.getNotice_num()%>+"&curPage="+<%= curPage%>+"&pageSize="+<%= pageSize%>;
+	  			}else{
+	  				alert("관리자만 수정할 수 있습니다")
+	  			}
 	  		});	//update button click end
 	  		
 	  	});	//Jquery End
@@ -384,7 +394,7 @@
 					    <div class="col-md-9">
 					      <div class="form-group">
 					      <!-- 일단은 session에서 id 받아오는 것 대신 test 아이디 넣음 -->
-					        <input style="font-size: 20px;" type="text" class="form-control" value="<%=ndto.getWriter() %>" readonly="readonly" name="writer">
+					        <input style="font-size: 20px;" type="text" class="form-control" value="<%=ndto.getWriter() %>" readonly="readonly" id="writer" name="writer">
 					      </div>
 					    </div>
 				  	</div>
