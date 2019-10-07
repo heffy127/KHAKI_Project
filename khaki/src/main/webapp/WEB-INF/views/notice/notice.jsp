@@ -434,7 +434,7 @@
 		                    </td>
 		                    <!-- 내용이 나오도록(내용 누르면 공지사항 상세페이지로 가도록 or 카드 열리는 형식으로 표시 되도록) -->
 		                    <td class="grayback" style="font-size: 30px;">
-		                      <a href="noticeSelect.do?notice_num=${notice_dto.notice_num }">${notice_dto.title }</a>
+		                      <a href="noticeSelect.do?notice_num=${notice_dto.notice_num }&curPage=<%= pg.getCurPage()%>&pageSize=<%= pg.getPageSize()%>">${notice_dto.title }</a>
 		                    </td>
 		                    <!-- 조회수 -->
 		                    <td class="grayback" style="font-size: 30px;">
@@ -466,7 +466,7 @@
 			                    </td>
 			                    <!-- 내용이 나오도록(내용 누르면 공지사항 상세페이지로 가도록 or 카드 열리는 형식으로 표시 되도록) -->
 			                    <td class="grayback" style="font-size: 30px;">
-			                      <a href="noticeSelect.do?notice_num=${notice_dto.notice_num }">${notice_dto.title }</a>
+			                      <a href="noticeSelect.do?notice_num=${notice_dto.notice_num }&curPage=<%= pg.getCurPage()%>&pageSize=<%= pg.getPageSize()%>">${notice_dto.title }</a>
 			                    </td>
 			                    <!-- 조회수 -->
 			                    <td class="grayback" style="font-size: 30px;">
@@ -502,7 +502,7 @@
 		                    </td>
 		                    <!-- 내용이 나오도록(내용 누르면 공지사항 상세페이지로 가도록 or 카드 열리는 형식으로 표시 되도록) -->
 		                    <td class="grayback" style="font-size: 30px;">
-		                      <a href="noticeSelect.do?notice_num=${event_dto.notice_num }">${event_dto.title }</a>
+		                      <a href="noticeSelect.do?notice_num=${event_dto.notice_num }&curPage=<%= pg.getCurPage()%>&pageSize=<%= pg.getPageSize()%>">${event_dto.title }</a>
 		                    </td>
 		                    <!-- 조회수 -->
 		                    <td class="grayback" style="font-size: 30px;">
@@ -534,7 +534,7 @@
 			                    </td>
 			                    <!-- 내용이 나오도록(내용 누르면 공지사항 상세페이지로 가도록 or 카드 열리는 형식으로 표시 되도록) -->
 			                    <td style="font-size: 30px;">
-			                      <a href="noticeSelect.do?notice_num=${event_dto.notice_num }">${event_dto.title }</a>
+			                      <a href="noticeSelect.do?notice_num=${event_dto.notice_num }&curPage=<%= pg.getCurPage()%>&pageSize=<%= pg.getPageSize()%>">${event_dto.title }</a>
 			                    </td>
 			                    <!-- 조회수 -->
 			                    <td style="font-size: 30px;">
