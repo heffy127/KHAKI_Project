@@ -1,6 +1,7 @@
 <%@page import="co.kr.khaki.notice.DTO.NoticeDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--
 
 =========================================================
@@ -163,211 +164,132 @@
           </div>
         </form>
         <!-- Navigation -->
-       <!-- 왼쪽 공통 메뉴 -->
+      <!-- 왼쪽 공통 메뉴 -->
         <ul class="navbar-nav">
           <li class="nav-item ">
           	<a class=" nav-link" href="home.do"> 
-          		<i class="ni ni-tv-2 text-black"></i> Home
+          		<i class="ni ni-shop text-black"></i> Home
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="map.do">
-              <i class="ni ni-square-pin text-orange"></i> Map
+           <li class="nav-item">
+          <% 
+          if (session.getAttribute("sessionId")==null){ %>
+            <a class="nav-link">
+              <i class="ni ni-square-pin text-orange"></i> 카셰어링&nbsp;&nbsp;(로그인 필요)
             </a>
+          <%
+          } else {
+          %>
+            <a class="nav-link" href="map.do">
+              <i class="ni ni-square-pin text-orange"></i> 카셰어링
+            </a>
+          <%}%>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="board.do">
-              <i class="ni ni-bullet-list-67 text-blue"></i> board
+              <i class="ni ni-bullet-list-67 text-blue"></i> 자유게시판
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="notice.do">
-              <i class="ni ni-air-baloon text-red"></i> Notice
+              <i class="ni ni-air-baloon text-red"></i> 공지사항
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="coupon.do">
-              <i class="ni ni-collection text-green"></i> Coupon
+              <i class="ni ni-collection text-green"></i> 쿠폰
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " id="handler_a" style="cursor: pointer;">
+              <i class="ni ni-user-run text-yellow"></i> 핸들러
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="cctv.do">
+              <i class="ni ni-tv-2 text-black"></i> 교통상황 CCTV
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="nanumCar.do">
+              <i class="ni ni-delivery-fast text-blue"></i> 나눔카
             </a>
           </li>
          </ul>
-        <!-- Divider -->
-        <hr class="my-3">
-        <!-- Heading -->
-        <h6 class="navbar-heading text-muted">Documentation</h6>
-        <!-- Navigation -->
-        <ul class="navbar-nav mb-md-3">
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-              <i class="ni ni-spaceship"></i> Getting started
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
-              <i class="ni ni-palette"></i> Foundation
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-              <i class="ni ni-ui-04"></i> Components
-            </a>
-          </li>
-        </ul>
+       <!--  -->
+       <hr>
       </div>
-    </div>
-  </nav>
+   </div>
+</nav>
   <div class="main-content">
-    <!-- Navbar -->
-    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+  <!-- Navbar -->
+   <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
-        <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html">Notice</a>
-        <!-- Form -->
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-          <div class="form-group mb-0">
-            <div class="input-group input-group-alternative">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
-              </div>
-              <input class="form-control" placeholder="Search" type="text">
-            </div>
-          </div>
-        </form>
-        <!-- User -->
+         <!-- Brand -->
+         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="notice.do">Notice</a>
+        <!-- 우측 상단 프로필 -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
-            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <div class="media align-items-center">
-                <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="resources/assets/img/theme/team-4-800x800.jpg">
-                </span>
-                <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
-                </div>
-              </div>
-            </a>
+				<c:choose>
+						<c:when test="${sessionName != null }">
+            		<a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			              <div class="media align-items-center">
+			                <span class="avatar avatar-sm rounded-circle">
+			                  <img alt="Image placeholder" src="${sessionPhoto}" style="width: 40px; height: 40px;">
+			                </span>
+			                <div class="media-body ml-2 d-none d-lg-block">
+			                  <span class="mb-0 text-sm  font-weight-bold">${sessionName} 님</span>
+			                </div>
+			              </div>
+		            </a>
+		             	 </c:when>
+	              <c:when test="${sessionName == null }">
+					<div>
+						<a href="login.do" style="color: white; font-weight: bold;">&nbsp;&nbsp;&nbsp;로그인&nbsp;&nbsp;&nbsp;</a>
+					</div>
+	              </c:when>
+				</c:choose>
             <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
               </div>
               <a href="profile.do" class="dropdown-item">
-                <i class="ni ni-single-02"></i>
-                <span>My profile</span>
+                <i class="ni ni-circle-08"></i>
+                <span>회원정보 관리</span>
               </a>
-              <a href="profile.do" class="dropdown-item">
-                <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
+              <a href="profile.do?tab=2" class="dropdown-item">
+                <i class="ni ni-time-alarm"></i>
+                <span>예약정보 관리</span>
               </a>
-              <a href="profile.do" class="dropdown-item">
-                <i class="ni ni-calendar-grid-58"></i>
-                <span>Activity</span>
+              <a href="profile.do?tab=3" class="dropdown-item">
+                <i class="ni ni-user-run"></i>
+                <span>핸들러 관리</span>
               </a>
-              <a href="profile.do" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
+              <a href="profile.do?tab=4" class="dropdown-item">
+                <i class="ni ni-book-bookmark"></i>
+                <span>나의 쿠폰북</span>
+              </a>
+              <a href="profile.do?tab=5" class="dropdown-item">
+                <i class="ni ni-align-center"></i>
+                <span>내가 쓴 글 확인</span>
               </a>
               <div class="dropdown-divider"></div>
-              <a href="#!" class="dropdown-item">
-                <i class="ni ni-user-run"></i>
+              <a href="sessionLogout.do" class="dropdown-item">
+                <i class="ni ni-button-power"></i>
                 <span>Logout</span>
               </a>
             </div>
           </li>
         </ul>
+        <!--  -->
       </div>
-    </nav>
-    <!-- End Navbar -->
+   </nav>
+   <!-- End Navbar -->
     <!-- Header -->
-    <div class="header bg-gradient-success pb-8 pt-5 pt-md-8">
+    <div class="header bg-gradient-default pb-7 pt-5 pt-md-8">
       <div class="container-fluid">
         <div class="header-body">
-          <!-- Card stats -->
-          <div class="row">
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
-                      <span class="h2 font-weight-bold mb-0">350,897</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                        <i class="fas fa-chart-bar"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                      <span class="h2 font-weight-bold mb-0">2,356</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="fas fa-chart-pie"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last week</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                      <span class="h2 font-weight-bold mb-0">924</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                        <i class="fas fa-users"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                    <span class="text-nowrap">Since yesterday</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                      <span class="h2 font-weight-bold mb-0">49,65%</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
     </div>

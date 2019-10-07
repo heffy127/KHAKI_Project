@@ -181,10 +181,19 @@
           		<i class="ni ni-shop text-black"></i> Home
             </a>
           </li>
-          <li class="nav-item">
+ 		 <li class="nav-item">
+          <% 
+          if (session.getAttribute("sessionId")==null){ %>
+            <a class="nav-link">
+              <i class="ni ni-square-pin text-orange"></i> 카셰어링&nbsp;&nbsp;(로그인 필요)
+            </a>
+          <%
+          } else {
+          %>
             <a class="nav-link" href="map.do">
               <i class="ni ni-square-pin text-orange"></i> 카셰어링
             </a>
+          <%}%>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="board.do">
