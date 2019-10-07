@@ -100,8 +100,22 @@
         
         // 차량반납
         $("#returnCar").click(function(){
+           var sessionId = $("#sessionId").val();
            var retVal = confirm("차량을 반납 하시겠습니까?");
+           alert(sessionId);
            if(retVal == true) {
+        	   $.ajax({
+        		   // couponconfirm.do에 ajax로 연결
+        		   url:"reservation_endTime_insert.do",
+        		   data : {
+        			   "sessionId" : sessionId
+        		   },
+        		   success:function(data){
+                   },
+                   error : function(xhr, status) {
+                       swal(xhr + " : " + status);
+                   }
+              });
               swal("이용해주셔서 감사합니다.");
               $("#unlockImg").hide();
               $("#claim").hide();
@@ -127,6 +141,7 @@
       <div style="width: 50%; float: left; border-right: 8px solid #f5f5f5; padding: 1%;">
          <div id="name" style="width:100%; text-align:right; margin-bottom: 10px;">
             <h2><b style="color: #336633;">${sessionName}</b>님 안녕하세요.</h2>
+            <input type="hidden" id="sessionId" value="${sessionId }">
          </div>
          <div id="key-top" style="text-align: center;">
             <button id="unlockCar" style="width: 45%; height: 120px; margin-right: 25px; font-size: 25px;" type="button" class="btn btn-secondary btn-lg">

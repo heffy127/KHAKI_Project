@@ -114,6 +114,14 @@
       BY buy_num DESC
    </select>
    
+   <update id="update" parameterType="pDTO">
+		UPDATE RESERVATION
+		SET
+		buy_real_endTime=#{buy_real_endTime}, buy_driveDistance=#{buy_driveDistance}, buy_real_returnLocation=#{buy_real_returnLocation}, buy_addAmount=#{buy_addAmount}
+		WHERE
+		buy_impUid = #{buy_impUid}
+	</update>
+   
    
 
 </mapper>

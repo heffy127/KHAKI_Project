@@ -31,5 +31,7 @@ public interface ReservationServiceInterface {
 	ArrayList checkReservation(String id);
 	
 	String reservation_endTime_check(String id);
+	
+	String reservation_endTime_insert(String id);
 
 }

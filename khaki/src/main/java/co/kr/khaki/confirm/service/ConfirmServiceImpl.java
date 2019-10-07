@@ -48,7 +48,8 @@ public class ConfirmServiceImpl implements ConfirmServiceInterface {
 		end[3] = endTime[6] + endTime[7];
 		end[4] = endTime[8] + endTime[9];
 		
-		System.out.println(start[0] + " " + start[1] + " " + start[2] + " " + start[3] + " " + start[4]);
+		System.out.println("start time Check @@@ : " + start[0] + " " + start[1] + " " + start[2] + " " + start[3] + " " + start[4]);
+		System.out.println("end time Check @@@ : " + end[0] + " " + end[1] + " " + end[2] + " " + end[3] + " " + end[4]);
 		
 		Calendar t1 = Calendar.getInstance();
 		t1.set(Integer.parseInt(start[0]), Integer.parseInt(start[1]), Integer.parseInt(start[2]), Integer.parseInt(start[3]), Integer.parseInt(start[4]));

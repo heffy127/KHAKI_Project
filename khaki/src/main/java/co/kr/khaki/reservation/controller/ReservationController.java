@@ -78,24 +78,31 @@ public class ReservationController {
 
 	@RequestMapping("checkReservation.do")
 	public String checkReservation(String id, Model model) {
-		
+
 		ArrayList returnList = reservationServiceImpl.checkReservation(id);
 
 		model.addAttribute("plist", returnList.get(0));
 		model.addAttribute("carImage", returnList.get(1));
 		return "checkReservation/checkReservation";
 	}
-	
+
 	@RequestMapping("reservation_endTime_check.do")
 	public String reservation_endTime_check(String id, Model model) {
 		System.out.println("페이지에서 넘긴 id : " + id);
 		String check = reservationServiceImpl.reservation_endTime_check(id);
-		if(!check.equals("Y")) {
+		if (!check.equals("Y")) {
 			check = "N";
 		}
 		System.out.println("check : " + check);
 		model.addAttribute("check", check);
-		
+
+		return "checkReservation/reservation_endTime_check";
+	}
+
+	@RequestMapping("reservation_endTime_insert.do")
+	public String reservation_endTime_insert(String id, Model model) {
+		System.out.println("컨트롤러");
+		String check = reservationServiceImpl.reservation_endTime_insert(id);
 		return "checkReservation/reservation_endTime_check";
 	}
 

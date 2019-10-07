@@ -1,6 +1,8 @@
 package co.kr.khaki.reservation.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import co.kr.khaki.car.CarDAO;
 import co.kr.khaki.car.CarDTO;
 import co.kr.khaki.common.CalculateMemberLevel;
+import co.kr.khaki.confirm.service.ConfirmServiceInterface;
 import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
 import co.kr.khaki.handler.DAO.HandlerDAO;
@@ -42,6 +45,9 @@ public class ReservationServiceImpl implements ReservationServiceInterface {
 
 	@Autowired
 	CarDAO cdao;
+	
+	@Autowired
+	ConfirmServiceInterface confirmServiceImpl;
 
 	String cnt;
 
@@ -163,9 +169,45 @@ public class ReservationServiceImpl implements ReservationServiceInterface {
 			for (PayDTO payDTO : pdto) {
 				System.out.println("realEndTime : " + payDTO.getBuy_real_endTime());
 				if(String.valueOf(payDTO.getBuy_real_endTime()).equals("null")) {
-					returnText = "N";
+					return returnText = "N";
 				} else {
 					returnText = "Y";
+				}
+			}
+		}
+		
+		return returnText;
+	}
+	
+	public String reservation_endTime_insert(String id) {
+		List<PayDTO> pdto = pdao.selectId(id);
+		String returnText = "";
+		PayDTO insertDto = new PayDTO();
+		if(pdto.size() == 0) {
+			System.out.println("dto NULL 확인");
+		} else {
+			for (PayDTO payDTO : pdto) {
+				System.out.println("realEndTime : " + payDTO.getBuy_real_endTime());
+				if(String.valueOf(payDTO.getBuy_real_endTime()).equals("null")) {
+					// select 해온 예약 내용 중 아직 반납이 안되어있는 예약건의 DTO를 저장
+					insertDto = payDTO;
+					
+					// 반납시간을 dto에 저장(원래는 현재 시각으로 해야 하지만 테스트일때는 실제 반납시간보다 테스트 시간이 더 빠르기 때문에)
+					insertDto.setBuy_real_endTime(payDTO.getBuy_endTime());
+					
+					// confirm 서비스에 있는 시간차이 계산하는 메소드로 시간차이 구하기
+					// 주행거리는 시간당 40km로 임시 설정. 실제로는 GPS로 차량 주행거리를 구해서 나온 값을 입력
+					long gap = confirmServiceImpl.timeGap(payDTO.getBuy_startTime(), payDTO.getBuy_endTime());
+					System.out.println("timeGap : " + gap);
+					gap = gap / 60;
+					insertDto.setBuy_driveDistance(Integer.toString(((int)gap * 40)));
+					
+					insertDto.setBuy_real_returnLocation(payDTO.getBuy_returnLocation());
+					CarDTO cdto = cdao.carNumSearch(insertDto.getBuy_carNum());
+					insertDto.setBuy_addAmount(Integer.toString((int)gap * cdto.getFee_hour()));
+					pdao.update(insertDto);
+					
+				} else {
 				}
 			}
 		}
