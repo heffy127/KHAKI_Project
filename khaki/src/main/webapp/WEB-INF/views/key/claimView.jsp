@@ -54,7 +54,8 @@
   		$('#claim_answer').empty();
 		$('#claim_num').text(num);
 		$('#claim_answer').append(content);
-		$('#claim_answer').append("처리내용 : <input class='form-control' id='claim_result' name='claim_result' value="+result+">");
+		$('#claim_answer').append("처리내용 : <input class='form-control' id='claim_result' name='claim_result' value="+result+" readonly>");
+		$('#modal-claim').modal('show');
 	}
   </script>
 </head>
