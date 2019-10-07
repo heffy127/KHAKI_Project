@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import co.kr.khaki.car.CarDAO;
+import co.kr.khaki.car.CarDTO;
 import co.kr.khaki.coupon.CouponUseDTO;
 import co.kr.khaki.handler.DAO.HandlerDAO;
 import co.kr.khaki.handler.DAO.HandlerUseDAO;
@@ -37,6 +39,9 @@ public class HandlerServiceImpl implements HandlerServiceInterface {
 
 	@Autowired
 	LicenseDAOInter licenseDAO;
+	
+	@Autowired
+	CarDAO cardao;
 
 	@Override
 	public List<HandlerDTO> handlerBoard() {
@@ -225,10 +230,17 @@ public class HandlerServiceImpl implements HandlerServiceInterface {
 	}
 
 	@Override
-	@RequestMapping("handlerDelete.do")
 	public void handlerDelete(HandlerDTO handlerDTO) {
 		System.out.println(handlerDTO.getHb_num() + " 번호!!!");
 		hdao.delete(handlerDTO);
+	}
+	
+	@Override
+	public CarDTO carNumSelect(String carNum) {
+		System.out.println("Service carNum : " + carNum);
+		CarDTO carDTO = cardao.carNumSearch(carNum);
+
+		return carDTO;
 	}
 
 }

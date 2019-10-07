@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import co.kr.khaki.car.CarDTO;
 import co.kr.khaki.handler.DTO.HandlerDTO;
 import co.kr.khaki.handler.DTO.HandlerUseDTO;
 import co.kr.khaki.handler.service.HandlerServiceInterface;
@@ -90,6 +91,15 @@ public class HandlerController {
 		handlerServiceImpl.handlerDelete(handlerDTO);
 
 		return "handler/handlerDelete";
+	}
+	
+	@RequestMapping("carNumSelect.do")
+	public String carNumSelect(String carNum, Model model) {
+		System.out.println("carNum : " + carNum);
+		CarDTO carDTO = handlerServiceImpl.carNumSelect(carNum);
+		System.out.println("get carImage : " + carDTO.getCar_image());
+		model.addAttribute("carDTO", carDTO);
+		return "handler/carNumSelect";
 	}
 
 }

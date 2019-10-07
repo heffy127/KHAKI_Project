@@ -44,6 +44,7 @@ public class CarDAO {
       }
       
       public CarDTO carNumSearch(String car_num) {
+    	 System.out.println("dao car_num : " + car_num);
          CarDTO cdto = my.selectOne("carDAO.carNumSearch", car_num);
          return cdto;
       }

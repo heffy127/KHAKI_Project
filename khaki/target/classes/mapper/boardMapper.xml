@@ -28,7 +28,7 @@
 	
 	<!-- 메인페이지 추천 내림차순 5개 select -->
 	<select id="selectFive" resultMap="rsMap">
-		SELECT * FROM board where 5 >= rownum and category = 'free' ORDER BY hit DESC
+		SELECT * FROM board where 5 >= rownum and category = 'free' and hit >= 3 ORDER BY hit DESC
 	</select>
 	
 	<!-- 내가 쓴글 select -->
