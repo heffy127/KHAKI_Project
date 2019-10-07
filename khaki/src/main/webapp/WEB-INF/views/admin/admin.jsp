@@ -210,7 +210,7 @@
          </ul>
        <!--  -->
         <!-- Divider -->
-        <hr> <!-- 관리자 채팅 -->
+        <hr style="margin-top: 5px; margin-bottom: 10px;"> <!-- 관리자 채팅 -->
        	<iframe src="counselingChatAdmin.do" height="400px;"></iframe>
       </div>
     </div>
