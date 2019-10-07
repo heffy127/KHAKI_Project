@@ -385,7 +385,7 @@
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
-                <div class="col">
+                <div class="col-xl-3" data-toggle="tooltip" data-placement="right" title="추천수 3개 이상">
                   <h3 class="mb-0">자유게시판 추천글</h3>
                 </div>
                 <div class="col text-right">
@@ -488,7 +488,15 @@
                    	</c:choose>
                    	<c:set var="rank" value="${rank + 1 }"></c:set>
                   </c:forEach>
-
+				  <c:if test="${rank < 6}">
+				  	<c:forEach var="i" begin="${rank}" end="5" step="1">
+				  		<tr>
+	                		<td height="60px;" colspan="5" style="text-align: center;">
+	                			<font size="3"><b>추천글이 없습니다.</b></font>
+	                		</td>
+               			</tr>	
+				  	</c:forEach>
+				  </c:if>
                 </tbody>
               </table>
             </div>

@@ -132,18 +132,18 @@
                 </div>
                 <div>
                    <div class="otherDiv" align="center">
-                      <span class="badge badge-primary"><font size="3">주행거리</font></span>&nbsp;&nbsp;&nbsp;<font size="3"><b>${list[1].driven }km</b></font>
+                      <span class="badge badge-primary"><font size="4">주행거리</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[1].driven }km</b></font>
                    </div>
                    <div class="otherDiv" align="center">
-                      <span class="badge badge-primary"><font size="3">연료</font></span>&nbsp;&nbsp;&nbsp;<font size="3"><b>${list[1].fuel_type }</b></font> 
+                      <span class="badge badge-primary"><font size="4">연료</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[1].fuel_type }</b></font> 
                    </div>
                 </div>
                 <div style="margin-top: 40px;">
                    <div class="otherDiv" align="center">
-                      <span class="badge badge-warning"><font size="4">시간당 요금(1h)</font></span>&nbsp;&nbsp;&nbsp;<font size="3"><b>${list[1].fee_hour }원</b></font>
+                      <span class="badge badge-warning"><font size="4">시간당 요금(1h)</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[1].fee_hour }원</b></font>
                    </div>
                    <div class="otherDiv" align="center">
-                      <span class="badge badge-warning"><font size="4">거리당 요금(1km)</font></span>&nbsp;&nbsp;&nbsp;<font size="3"><b>${list[1].fee_km }원</b></font> 
+                      <span class="badge badge-warning"><font size="4">거리당 요금(1km)</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[1].fee_km }원</b></font> 
                    </div>
                 </div>
                 
