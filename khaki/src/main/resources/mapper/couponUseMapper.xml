@@ -16,6 +16,12 @@
 		WHERE cp_id = #{cp_id} and cp_using = 'N'
 	</select>
 	
+	<select id="selectCount" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM couponUse
+		WHERE cp_id = #{cp_id} and cp_using = 'N'
+	</select>
+	
 	<resultMap type="cpuDTO" id="rsMap">
 		<result property="num" column="num" />
 		<result property="cp_id" column="cp_id" />

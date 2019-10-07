@@ -34,7 +34,7 @@ public interface MemberServiceInter {
 	int countMyWrite(String writer);
 
 	// 나의 예약 count
-	int countMyReservation(String id);
+	int countMyCoupon(String id);
 
 	// 해당 정보가 존재하는 id가 있는지 검색
 	String check(MemberDTO memberDTO);

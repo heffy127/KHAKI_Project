@@ -362,8 +362,8 @@
                          <span class="description">내가 쓴 글</span>
                        </div>
                        <div class="infoDiv" style="margin: 0px 0px 0px 8px;">
-                         <span class="heading">${countReservation }</span>
-                         <span class="description">현재 예약</span>
+                         <span class="heading">${countCoupon }</span>
+                         <span class="description">보유 쿠폰</span>
                        </div>
                        <!-- 이미지 파일 선택창 숨김 -->
                           <form name="photoF" id="photoF" action="photoUpload.do?id=${memberDTO.id}" enctype="multipart/form-data" method="post">

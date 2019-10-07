@@ -17,6 +17,7 @@ import co.kr.khaki.common.Mail_findId;
 import co.kr.khaki.common.Mail_findPw;
 import co.kr.khaki.common.Mail_mypageAuth;
 import co.kr.khaki.common.TempPw;
+import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.member.DAO.LicenseDAOInter;
 import co.kr.khaki.member.DAO.MemberDAOInter;
 import co.kr.khaki.member.DAO.MemberLevelDAOInter;
@@ -42,6 +43,8 @@ public class MemberServiceImpl implements MemberServiceInter {
    BoardDAO boardDAO;
    @Autowired
    PayDAOInterface payDAO;
+   @Autowired
+   CouponUseDAO couponUseDAO;
    
    // ID로 회원 검색
    /* (non-Javadoc)
@@ -127,9 +130,9 @@ public int countMyWrite(String writer) {
  * @see co.kr.khaki.member.service.MemberService#countMyReservation(java.lang.String)
  */
 @Override
-public int countMyReservation(String id) {
+public int countMyCoupon(String id) {
 	   
-	   return payDAO.countReservation(id);
+	   return couponUseDAO.selectCount(id);
    }
    
    // 해당 정보가 존재하는 id가 있는지 검색

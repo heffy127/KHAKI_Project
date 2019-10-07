@@ -24,6 +24,11 @@ public class CouponUseDAO {
 		return my.selectList("cpuDAO.select2", cp_id);
 	}
 	
+	public int selectCount(String cp_id) {
+		System.out.println("CouponUseDTO selectCount!");
+		return my.selectOne("cpuDAO.selectCount", cp_id);
+	}
+	
 	public void delete(CouponUseDTO cpuDTO) {
 		System.out.println("CouponUseDTO delete!");
 		my.delete("cpuDAO.delete", cpuDTO);

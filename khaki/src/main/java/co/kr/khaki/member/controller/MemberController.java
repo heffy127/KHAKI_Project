@@ -49,7 +49,7 @@ public class MemberController {
 		model.addAttribute("expPer", arr[1]); // 레벨업까지의 퍼센트
 		//
 		model.addAttribute("countWrite", memberServiceInter.countMyWrite(memberDTO.getId())); // 내가 쓴 글 count
-		model.addAttribute("countReservation", memberServiceInter.countMyReservation(memberDTO.getId())); // 내 현재 예약 count
+		model.addAttribute("countCoupon", memberServiceInter.countMyCoupon(memberDTO.getId())); // 내 보유 쿠폰 count
 		
 		model.addAttribute("tab", tab); // 마이페이지 탭 선택
 		return "member/profile";
@@ -380,7 +380,7 @@ public class MemberController {
 		model.addAttribute("expPer", arr[1]); // 레벨업까지의 퍼센트
 		//
 		model.addAttribute("countWrite", memberServiceInter.countMyWrite(memberDTO.getId())); // 내가 쓴 글 count
-		model.addAttribute("countReservation", memberServiceInter.countMyReservation(memberDTO.getId())); // 내 현재 예약 count
+		model.addAttribute("countCoupon", memberServiceInter.countMyCoupon(memberDTO.getId())); // 내 보유 쿠폰 count
 		
 		return "member/profile"; // ajax용
 	}
