@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import co.kr.khaki.coupon.CouponDAO;
+import co.kr.khaki.coupon.CouponDTO;
 import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
 
@@ -20,12 +23,21 @@ public class CouponUseController {
 	@Autowired
 	CouponUseDAO cpuDAO;
 	
-	@RequestMapping("coupon.do")
-	public String board() {
-
-		return "coupon/coupon";
-	}
-
+	@Autowired
+	CouponDAO cpDAO;
+	
+	
+	 @RequestMapping("couponUseInsert.do") 
+	 public String my_coupon_in(CouponUseDTO cpuDTO, Model model) { 
+		 cpuDAO.insert(cpuDTO);
+		 
+		 List<CouponDTO> list = cpDAO.couponSelectAll();
+		 model.addAttribute(list);
+		 
+		 return "coupon/coupon"; 
+	 }
+	
+	
 	@RequestMapping("couponUseAll.do")
 	public String couponUseAll() {
 

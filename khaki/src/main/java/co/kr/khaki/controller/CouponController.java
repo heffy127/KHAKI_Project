@@ -1,3 +1,4 @@
+
 package co.kr.khaki.controller;
 
 import java.util.List;
@@ -16,6 +17,16 @@ public class CouponController {
 
 	@Autowired
 	CouponDAO dao;
+
+	// 메인 사이드메뉴 coupon page
+	@RequestMapping("coupon.do")
+	public String couponMain(Model model) {
+		
+		List<CouponDTO> list = dao.couponSelectAll();
+		model.addAttribute("list", list);
+		
+		return "coupon/coupon";
+	}
 
 	// 쿠폰 등록 페이지 넘김
 	@RequestMapping("cpMain.do")
@@ -61,7 +72,7 @@ public class CouponController {
 		List<CouponDTO> list = dao.couponSelectAll();
 		model.addAttribute("list", list);
 
-		return "coupon/coupon";
+		return "coupon/couponList";
 	}
 
 	// 쿠폰 검색

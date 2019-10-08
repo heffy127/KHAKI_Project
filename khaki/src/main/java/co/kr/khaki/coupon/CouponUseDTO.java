@@ -11,8 +11,9 @@ public class CouponUseDTO {
 	private String cp_type; // 쿠폰종류(퍼센트 할인, 금액할인 구분. P일경우 퍼센트 M일 경우 금액할인)
 	private int cp_num; // 할인정도
 	private String cp_end; // 쿠폰 유효기간 마감날짜(해당 DTO 호출할 때 유효기간 마감날짜가 이미 지났을 경우 해당 쿠폰 삭제)
-	private String cp_using;
-	private String cp_condition;
+	private String cp_using; // 쿠폰 사용여부
+	private String cp_condition; // 쿠폰 종류
+	private String cp_name; // 쿠폰 id
 	
 	public int getNum() {
 		return num;
@@ -61,6 +62,12 @@ public class CouponUseDTO {
 	}
 	public void setCp_condition(String cp_condition) {
 		this.cp_condition = cp_condition;
+	}
+	public String getCp_name() {
+		return cp_name;
+	}
+	public void setCp_name(String cp_name) {
+		this.cp_name = cp_name;
 	}
 	
 	

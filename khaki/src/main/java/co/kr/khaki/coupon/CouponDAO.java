@@ -1,6 +1,5 @@
 package co.kr.khaki.coupon;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -21,12 +20,8 @@ public class CouponDAO {
 
 	// 쿠폰 삭제
 	public void couponDelete(CouponDTO couponDTO) {
-		SimpleDateFormat cur = new SimpleDateFormat("yyyy/mm/dd");
-		System.out.println(cur);
-		String end = couponDTO.getEndDate().substring(0, 8);
-		/*
-		 * if(cur == end) { myBatis.delete("cpDAO.cpDelete", couponDTO); }
-		 */
+		System.out.println("cpDAO delete success ~");
+		myBatis.delete("cpDAO.cpDelete", couponDTO);
 	}
 
 	// 쿠폰 검색

@@ -20,20 +20,15 @@
    <link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
    <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-   <script>
-   	$(function(){
-   		
-   	})
-   </script>
+   
 </head>
 <body>
    <div id="tabs-icons-text-6" role="tabpanel" aria-labelledby="tabs-icons-text-6-tab" >
    <jsp:useBean id="now" class="java.util.Date"/>
       <div style="width: 100%; text-align: center; border-right: 8px solid #f5f5f5; padding: 1%;">
       	<label style="font-size: 70px;">쿠폰 조건 선택</label><br><br><br><br><br><br>
-      	<button type="button" class="btn btn-outline-default" style="width: 20%; font-size: 30px; margin: 0 5% 0 5%;" onclick="location.href='admin_coupon1.do'">~이상 결제시</button>
-      	<button type="button" class="btn btn-outline-default" style="width: 20%; font-size: 30px; margin: 0 5% 0 5%;" onclick="location.href='admin_coupon2.do'">~시간 이용시</button>
-      	<button type="button" class="btn btn-outline-default" style="width: 20%; font-size: 30px; margin: 0 5% 0 5%;" onclick="location.href='admin_coupon3.do'">~시에 예약시</button>
+      	<button type="button" class="btn btn-outline-default" style="width: 20%; font-size: 30px; margin: 0 5% 0 5%;" onclick="location.href='selectAllCp.do'">쿠폰 리스트</button>
+      	<button type="button" class="btn btn-outline-default" style="width: 20%; font-size: 30px; margin: 0 5% 0 5%;" onclick="location.href='admin_coupon.do'">쿠폰 등록하기</button>
       </div>
       
    </div>

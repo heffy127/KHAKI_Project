@@ -177,9 +177,6 @@
                <div id="endTimeText" style="word-wrap:break-word; position: absolute; top: 62%; left: 54%; width: 90px; color: white; font-size: 25px; font-weight: bold; text-align: center;">
                		까지
                </div>
-               <div id="download" style="word-wrap:break-word; position: absolute; top: 70%; left: 33%; width: 235px; color: white; font-size: 33px; font-weight: bold; text-align: center; border: 1px solid white; cursor: pointer;">
-               		<div style="border: 1px solid white;">다운로드</div>
-               </div>
             </div>
          </div>
       </div>

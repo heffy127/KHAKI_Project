@@ -17,10 +17,10 @@
 	</select>
 	
 	<select id="selectCount" parameterType="String" resultType="int">
-		SELECT count(*)
-		FROM couponUse
-		WHERE cp_id = #{cp_id} and cp_using = 'N'
-	</select>
+      SELECT count(*)
+      FROM couponUse
+      WHERE cp_id = #{cp_id} and cp_using = 'N'
+  	</select>
 	
 	<resultMap type="cpuDTO" id="rsMap">
 		<result property="num" column="num" />
@@ -34,7 +34,7 @@
 	
 	<delete id="delete" parameterType="cpuDTO">
 		DELETE FROM couponUse WHERE
-		cp_end = #{cp_end}
+		cp_end = #{cp_end}e
 	</delete>
 	
 	<delete id="update" parameterType="cpuDTO">
@@ -44,6 +44,12 @@
 	<delete id="updateN" parameterType="cpuDTO">
 		UPDATE couponUse SET cp_using = 'N' WHERE num = #{num}
 	</delete>
+	
+	<!-- 쿠폰 다운로드시 사용자 쿠폰북에 저장 -->
+	<insert id="insertCp" parameterType="cpuDTO">
+		INSERT INTO couponUse(num,cp_id,cp_title,cp_type,cp_num,cp_end,cp_using,cp_condition,cp_name) 
+		VALUES(couponUse_seq.NEXTVAL,#{cp_id, jdbcType=VARCHAR},#{cp_title, jdbcType=VARCHAR},#{cp_type,jdbcType=VARCHAR},#{cp_num,jdbcType=VARCHAR},#{cp_end,jdbcType=VARCHAR},#{cp_using,jdbcType=VARCHAR},#{cp_condition,jdbcType=VARCHAR},#{cp_name,jdbcType=VARCHAR})
+	</insert>
 
 </mapper>
 
