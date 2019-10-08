@@ -367,7 +367,7 @@
                   				</c:choose>
 							</td>
 							<td>
-								<a href="noticeSelect.do?notice_num=${noticeDTO.notice_num }">${noticeDTO.title }</a>
+								<a href="noticeSelect.do?notice_num=${noticeDTO.notice_num }&curPage=1&pageSize=10">${noticeDTO.title }</a>
 							</td>
 							<td>
 								${fn:substring(noticeDTO.write_date,2,16)}
