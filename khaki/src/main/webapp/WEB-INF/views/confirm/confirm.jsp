@@ -76,8 +76,8 @@
            // swal(couponVal[1]);
            if(couponVal[3] == "1") {
               var cpTitle = couponVal[4].split("원");
-              cpTitle = cpTitle + '000';
-              if(cpTitle > one) {
+              cpTitle2 = cpTitle[0];
+              if(parseInt(cpTitle2) > parseInt(one)) {
                  swal("쿠폰 조건이 맞지 않습니다.\n다른 쿠폰을 선택 해주세요.")
                  $(".coupon_method option:eq(0)").prop("selected", true); //첫번째 option 선택
                  ku = parseInt(0);
