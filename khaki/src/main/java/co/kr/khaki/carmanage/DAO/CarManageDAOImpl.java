@@ -115,13 +115,17 @@ public class CarManageDAOImpl implements CarManageDAOInter {
 		System.out.println("carManageDAO delete!");
 		my.delete("cmDAO.delete", car_num);
 	}
-	
-	// 하위 코드 미작성 상태
-	/*public void update(NoticeDTO noticeDTO) {
-		System.out.println("NoticeDAO Update!");
-		my.update("nDAO.update", noticeDTO);
+
+	@Override
+	public List<CarManageDTO> select_zone_num(int zone_num) {
+		System.out.println("carManageDAO select_zone_num!");
+		return my.selectList("cmDAO.select_zone_num", zone_num);
 	}
-	
-	*/
+
+	@Override
+	public void update(CarManageDTO carManageDTO) {
+		System.out.println("CarManageDAO update!");
+		my.update("cmDAO.update", carManageDTO);
+	}
 	
 }

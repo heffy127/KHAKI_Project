@@ -318,7 +318,10 @@
 			  <ul class="pagination pagination-lg justify-content-center">
 			 	<c:if test="${pagination.curRange ne 1 }">
 			 	  <li class="page-item">
-                       <a href="#" onClick="fn_paging(1)">[처음]</a> 
+                       <a class="page-link" href="#" onClick="fn_paging(1)" aria-label="Previous">
+							<i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i>
+							<span class="sr-only">Previous</span>
+						</a> 
                      </li>
                    </c:if>
                    <c:if test="${pagination.curPage ne 1}">
@@ -355,7 +358,7 @@
                    <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
                        <li class="page-item">
 				      <a class="page-link" href="#" onClick="fn_paging('${pagination.pageCnt }','${pagination.pageSize }')" aria-label="Next">
-				        <i class="fa fa-angle-right"></i>
+				        <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
 				        <span class="sr-only">Next</span>
 				      </a>
 				    </li>

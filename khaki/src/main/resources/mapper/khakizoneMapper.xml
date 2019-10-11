@@ -31,7 +31,7 @@
 	</resultMap>
 
 	<select id="zone_selectAll" resultMap="rsMap">
-		SELECT * FROM khakizone order by zone_num
+		SELECT * FROM khakizone order by zone_num desc
 	</select>
 	
 	<!-- 전체 갯수 select -->

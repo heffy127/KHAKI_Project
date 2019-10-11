@@ -11,7 +11,7 @@ public interface KhakiZoneServiceInterface {
 	/* (non-Javadoc)
 	 * @see co.kr.khaki.zone.service.KhakiZoneServiceInterface#khakizone(int, int)
 	 */
-	ArrayList khakizone(int curPage, int pageSize);
+	ArrayList khakizone(int curPage, int pageSize, String msg);
 
 	/* (non-Javadoc)
 	 * @see co.kr.khaki.zone.service.KhakiZoneServiceInterface#khakizone_insert(co.kr.khaki.zone.DTO.KhakiZoneDTO, int, int)
