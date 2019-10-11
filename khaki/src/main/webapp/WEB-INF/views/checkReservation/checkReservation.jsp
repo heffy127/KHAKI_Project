@@ -149,8 +149,10 @@
 		  			    	  "buy_impUid" : $(this).val()
 		  			      },
 		  			      success:function(data){
-		  			    	  swal("환불신청이 완료 되었습니다.\n영업일 기준 3일 이내 처리 될 예정입니다.");
-		  			    	  location.href="checkReservation.do?id="+sessionUId;
+		  			    	  swal("환불신청이 완료 되었습니다.\n영업일 기준 3일 이내 처리 될 예정입니다.")
+                              .then((value) => {
+                            	  location.href="checkReservation.do?id="+sessionUId;
+                              });
 		  			      },
 		  			      error : function(xhr, status) {
 		  		              swal(xhr + " : " + status);

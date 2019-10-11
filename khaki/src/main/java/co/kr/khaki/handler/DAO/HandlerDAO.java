@@ -29,16 +29,16 @@ public class HandlerDAO {
 		my.delete("hDAO.delete", HandlerDTO);
 	}
 	
-	public List<HandlerDTO> select(HandlerDTO HandlerDTO) {
+	public List<HandlerDTO> select(String startLocation) {
 		System.out.println("HanlderDAO select!");
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@ " + HandlerDTO.getStartLocation());
-		return my.selectList("hDAO.select", HandlerDTO);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@ " + startLocation);
+		return my.selectList("hDAO.select", startLocation);
 	}
 	
-	public List<HandlerDTO> select2(HandlerDTO HandlerDTO) {
+	public List<HandlerDTO> select2(String returnLocation) {
 		System.out.println("HanlderDAO select!");
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@ " + HandlerDTO.getReturnLocation());
-		return my.selectList("hDAO.select2", HandlerDTO);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@ " + returnLocation);
+		return my.selectList("hDAO.select2", returnLocation);
 	}
 	
 	public List<HandlerDTO> selectAll() {
