@@ -1,6 +1,5 @@
 package co.kr.khaki.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;

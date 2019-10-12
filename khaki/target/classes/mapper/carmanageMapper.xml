@@ -46,18 +46,6 @@
 		WHERE car_num = #{car_num}
 	</select>
 	
-	<select id="selectjunggo" resultMap="rsMap">
-		SELECT
-		*
-		FROM car_board
-		WHERE driven>=100000 and 250000>driven
-	</select>
-	
-	<select id="selectold" resultMap="rsMap">
-		SELECT * FROM car_board
-		WHERE driven>=250000
-	</select>
-	
 	<resultMap type="cmDTO" id="rsMap">
 		<result property="car_name" column="car_name" />
 		<result property="car_num" column="car_num" />
@@ -72,6 +60,10 @@
 		<result property="car_size" column="car_size" />
 		<result property="reg_date" column="reg_date" />
 	</resultMap>
+	
+	<select id="select_zone_num" parameterType="int" resultMap="rsMap">
+		SELECT * FROM car_board where zone_num = #{zone_num}
+	</select>
 
 	<select id="selectAll" resultMap="rsMap">
 		SELECT * FROM car_board order by reg_date desc
@@ -87,14 +79,13 @@
 		car_num = #{car_num}
 	</delete>
 	
-	<!-- <update id="updateSomething" parameterType="#modelname">
-		UPDATE tablename1
+	<update id="update" parameterType="cmDTO">
+		UPDATE car_board
 		SET
-		columnname1=#{param1}
+		car_name=#{car_name}, car_num=#{car_num}, driven=#{driven}, fuel_type=#{fuel_type}, fuel_gage=#{fuel_gage}, zone_num=#{zone_num}, 
+		fee_hour=#{fee_hour}, fee_km=#{fee_km}, car_image=#{car_image}, brand=#{brand}, car_size=#{car_size}, reg_date=#{reg_date}
 		WHERE
-		columnname2 = #{param2}
+		car_num = #{car_num}
 	</update>
-
-	 -->
 
 </mapper>

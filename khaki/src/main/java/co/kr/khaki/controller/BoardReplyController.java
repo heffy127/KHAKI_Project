@@ -32,24 +32,26 @@ public class BoardReplyController {
 		model.addAttribute("dto", dto);
 		// 댓글 가져오기
 		List<BoardReplyDTO> listRe = daoRe.select(boardReplyDTO);
-		System.out.println(listRe.size() + "aaaaa");
 		model.addAttribute("listRe", listRe);
 		System.out.println("댓글 추가 controller Reply");
 		return "board/viewPage";
 	}
 
-	/*
-	 * // 댓글삭제
-	 * 
-	 * @RequestMapping(value = "deleteRe.do", method = RequestMethod.POST ) public
-	 * String replyDelete(BoardReplyDTO boardReplyDTO, Model model) {
-	 * daoRe.delete(boardReplyDTO); // 게시글 가져오기 BoardDTO boardDTO = new BoardDTO();
-	 * boardDTO.setbNum(boardReplyDTO.getbNum()); BoardDTO dto =
-	 * dao.select(boardDTO); model.addAttribute("dto", dto); // 댓글 가져오기
-	 * List<BoardReplyDTO> listRe = daoRe.select(boardReplyDTO);
-	 * System.out.println(listRe.size() + "fffffff"); model.addAttribute("listRe",
-	 * listRe); System.out.println("댓글 추가 controller Reply"); return
-	 * "board/viewPage"; }
-	 */
+	// 댓글삭제
+
+	@RequestMapping(value = "deleteRe.do", method = RequestMethod.POST)
+	public String replyDelete(BoardReplyDTO boardReplyDTO, Model model) {
+		daoRe.delete(boardReplyDTO); 
+		// 게시글 가져오기 
+		BoardDTO boardDTO = new BoardDTO();
+		boardDTO.setbNum(boardReplyDTO.getbNum());
+		BoardDTO dto = dao.select(boardDTO);
+		model.addAttribute("dto", dto); 
+		// 댓글 가져오기
+		List<BoardReplyDTO> listRe = daoRe.select(boardReplyDTO);
+		model.addAttribute("listRe", listRe);
+		System.out.println("댓글 삭제 controller Reply");
+		return "board/viewPage";
+	}
 
 }

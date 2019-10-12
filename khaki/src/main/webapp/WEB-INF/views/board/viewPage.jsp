@@ -145,30 +145,32 @@
 					});
 				}
 			});
-		});
-  	
-	  	// 댓글 삭제버튼
-		$("#reDelBtn").click(function(){
-			var retVal = confirm("댓글을 삭제하시겠습니까?");
-			var num2 = ${dto.bNum};
-			var num = <%= request.getAttribute("reNum")%>;
-			if( retVal == true ){
-			alert("삭제되었습니다.");
-				$.ajax({
-				url : "deleteRe.do?" + num,
-				type : 'POST',
-				success : function(data){
+        
+		  	// 댓글 삭제버튼
+			$("#reDelBtn").click(function(){
+				var retVal = confirm("댓글을 삭제하시겠습니까?");
+				var num = ${dto.bNum};
+				var num2 = $("#reNum").val();
+				var writer = $("#reId").text();
+				
+				if( retVal == true ){
+					alert("댓글이 삭제되었습니다.");
 					$.ajax({
-						url : "selectRe.do?" + num2 ,
 						type : 'POST',
+						url : "deleteRe.do",
+						data : {
+							"reNum" : num2
+						},
 						success : function(data){
-						$("#replyBox").text(data);
+							location.href = "select.do?bNum=" + num;
 						}
-					});
+					})
+					
 				}
-				});
-			}
-		});
+			});
+		
+  	}); // script end
+  	
 	</script>
   <script type="text/javascript">
   	$(function() {
@@ -489,11 +491,11 @@
 						<hr>
 						<div id="replybox">
 							<c:forEach var="reDTO" items="${listRe}">
-								<b>${reDTO.writer}</b>&nbsp;
+								<b id="reId">${reDTO.writer}</b>&nbsp;
 								<img alt="Image placeholder" src="${sessionPhoto}"
 									style="width:25px; border-radius: 40px;"><br>
 								${reDTO.content}&nbsp; <div style="float: right;">${fn:substring(reDTO.write_date,0,14)}
-								
+								<input type="hidden" id="reNum" value="${reDTO.reNum}">
 								<!-- 댓글 작성자만 삭제버튼 활성화 -->
 								<c:if test="${reDTO.writer eq sessionId}">
 									<button type="submit" id="reDelBtn" class="btn btn-danger btn-sm">삭제</button>
