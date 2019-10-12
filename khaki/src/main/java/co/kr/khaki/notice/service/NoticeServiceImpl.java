@@ -17,9 +17,6 @@ public class NoticeServiceImpl implements NoticeServiceInterface {
 	NoticeDAO ndao;
 	
 	/* (non-Javadoc)
-	 * @see co.kr.khaki.notice.service.NoticeServiceInterface#board(org.springframework.ui.Model, int, int)
-	 */
-	/* (non-Javadoc)
 	 * @see co.kr.khaki.notice.service.NoticeServiceInterface#board(int, int)
 	 */
 	@Override
@@ -35,7 +32,6 @@ public class NoticeServiceImpl implements NoticeServiceInterface {
 		
 		// 이벤트 글 select
 		List<NoticeDTO> notice_list_event = ndao.select_event();
-
 		// 총 게시글 수
 		int listCnt = notice_list.size();
 		

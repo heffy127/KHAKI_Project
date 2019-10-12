@@ -140,6 +140,13 @@ public class RefundServiceImpl implements RefundServiceInterface {
 		memberDAO.updatePoint(insertPointDTO); // 고객이 사용한 포인트만큼 다시 환불
 		CouponUseDTO cpuDTO = new CouponUseDTO();
 		System.out.println(refundDTO.getCouponNum() + "ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ@@");
+		PayDTO payDTO = new PayDTO();
+		payDTO.setBuy_impUid(impUid);
+		payDTO.setBuy_real_endTime("환불");
+		payDTO.setBuy_driveDistance("환불");
+		payDTO.setBuy_real_returnLocation("환불");
+		payDTO.setBuy_addAmount("0");
+		pdao.update(payDTO);
 		if (refundDTO.getCouponNum() == null) {
 
 		} else {

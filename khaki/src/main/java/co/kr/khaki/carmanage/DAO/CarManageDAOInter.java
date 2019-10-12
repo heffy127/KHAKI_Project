@@ -22,4 +22,8 @@ public interface CarManageDAOInter {
 
 	void delete(String car_num);
 
+	List<CarManageDTO> select_zone_num(int zone_num);
+	
+	void update(CarManageDTO carManageDTO);
+	
 }

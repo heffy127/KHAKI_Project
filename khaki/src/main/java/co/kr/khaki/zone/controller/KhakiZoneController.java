@@ -22,9 +22,10 @@ public class KhakiZoneController {
 	KhakiZoneServiceInterface KhakiZoneServiceImpl;
 	
 	@RequestMapping("khakizone_main.do")
-	public String khakizone(Model model, @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="5") int pageSize) {
+	public String khakizone(Model model, @RequestParam(defaultValue="1") int curPage, 
+			@RequestParam(defaultValue="5") int pageSize, @RequestParam(defaultValue="기본") String msg) {
 		
-		ArrayList arr = KhakiZoneServiceImpl.khakizone(curPage, pageSize);
+		ArrayList arr = KhakiZoneServiceImpl.khakizone(curPage, pageSize, msg);
 		
 		pagination pg = (pagination) arr.get(0);
 		List<KhakiZoneDTO> select_list = (List<KhakiZoneDTO>) arr.get(1);

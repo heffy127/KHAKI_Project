@@ -278,7 +278,6 @@
 		$("#location1").hide();
 		$("#location2").hide();
 		
-		var location_choice = ""; // 출발지점을 선택했는지 도착지점을 선택했는지 구분하기 위함
 		// 지역선택 modal에서 출발지점 선택시
 		$(".start_lo").click(function(){
 			$(".s_r_lo").css("height", "50px");
@@ -288,7 +287,7 @@
 			$("#region_2_n option:eq(0)").prop("selected", true); // 클릭하면 첫번째 값으로 초기화
 			$("#location1").show();
 			$("#location2").show();
-			location_choice = "1";
+			$("#location_choice").val("1");
 		})
 		// 지역선택 modal에서 도착지점 선택시
 		$(".return_lo").click(function(){
@@ -299,73 +298,23 @@
 			$("#region_2_n option:eq(0)").prop("selected", true); // 클릭하면 첫번째 값으로 초기화
 			$("#location1").show();
 			$("#location2").show();
-			location_choice = "2";
+			$("#location_choice").val("2");
 		})
 		
 		$("#handlerDetailSearch1").click(function(){
+			location_choice = $("#location_choice").val();
 			switch(location_choice){
 				case "1" :
 					var startLocation = $("#region_1_n option:selected").val();
 					var d2 = $("#region_2_n option:selected").val();
 					startLocation += " " + d2;
-					var queryData = "";
-					$.ajax({
-					      url:"handlerJquery.do",
-					      success:function(data){
-					    	  $(".hb_query_content").append(data);
-					      },
-					      error : function(xhr, status) {
-				              swal(xhr + " : " + status);
-				          }
-					});
-					
-					$.ajax({
-					      url:"handlerDetailSearch.do",
-					      data : {
-					    	  startLocation : startLocation
-					      },
-					      
-					      success:function(data){
-					    	  $(".hb_table_content").children().remove();
-					    	  $(".handler_detail").children().remove();
-					    	  $(".hb_table_content").append(data);
-					      },
-					      error : function(xhr, status) {
-				              swal(xhr + " : " + status);
-				          }
-					});
+					location.href="handlerDetailSearch.do?startLocation="+startLocation;
 					break;
 				case "2" :
 					var returnLocation = $("#region_1_n option:selected").val();
 					var d2 = $("#region_2_n option:selected").val();
 					returnLocation += " " + d2;
-					
-					var queryData = "";
-					$.ajax({
-					      url:"handlerJquery.do",
-					      success:function(data){
-					    	  $(".hb_query_content").append(data);
-					      },
-					      error : function(xhr, status) {
-				              swal(xhr + " : " + status);
-				          }
-					});
-					
-					$.ajax({
-					      url:"handlerDetailSearch2.do",
-					      data : {
-					    	  returnLocation : returnLocation
-					      },
-					      
-					      success:function(data){
-					    	  $(".hb_table_content").children().remove();
-					    	  $(".handler_detail").children().remove();
-					    	  $(".hb_table_content").append(data);
-					      },
-					      error : function(xhr, status) {
-				                swal(xhr + " : " + status);
-				          }
-					});
+					location.href="handlerDetailSearch.do?startLocation="+returnLocation;
 					break;
 			}
 		})
@@ -475,6 +424,7 @@
   </script>
 </head>
 <body class="">
+<div class="hb_query_content"></div>
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
       <!-- Toggler -->
@@ -701,8 +651,12 @@
           	</div>
           	
           	 <!-- Button trigger modal -->
-			<button type="button" class="btn btn-primary" id="btndddd" data-toggle="modal" data-target="#exampleModal" style="width: 20%; margin-top: 3%; margin-bottom: 3%;">
+			<button type="button" class="btn btn-primary" id="btndddd" data-toggle="modal" data-target="#exampleModal" style="width: 20%; margin-top: 3%;">
 			  지역선택
+			</button>
+			
+			<button type="button" class="btn btn-primary" onclick="location.href='handlerBoard.do'" style="width: 20%; margin-top: 1%; margin-bottom: 3%;">
+			  전체보기
 			</button>
 			
 			<!-- 지역선택 Modal -->
@@ -761,7 +715,7 @@
 			    </div>
 			  </div>
 			</div>
-			<div class="hb_query_content"></div>
+			
           	<div class="hb_table">
           		<table class="hb_table_head">
 	          		<tr class="hb_table_head_tr">
@@ -848,7 +802,7 @@
       
       
       
-      
+      <input type="hidden" id="location_choice">
       
       <!-- Footer -->
       <!-- Footer -->

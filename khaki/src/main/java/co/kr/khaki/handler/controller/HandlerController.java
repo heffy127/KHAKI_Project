@@ -37,17 +37,17 @@ public class HandlerController {
 	}
 
 	@RequestMapping("handlerDetailSearch.do")
-	public String handlerDetailSearch(HandlerDTO hdto, Model model) {
-		List<HandlerDTO> handler = handlerServiceImpl.handlerDetailSearch(hdto);
+	public String handlerDetailSearch(String startLocation, Model model) {
+		List<HandlerDTO> handler = handlerServiceImpl.handlerDetailSearch(startLocation);
 		model.addAttribute("hlist", handler);
-		return "handler/handlerDetailSearch";
+		return "handler/handlerBoard";
 	}
 
 	@RequestMapping("handlerDetailSearch2.do")
-	public String handlerDetailSearch2(HandlerDTO hdto, Model model) {
-		List<HandlerDTO> handler = handlerServiceImpl.handlerDetailSearch2(hdto);
-		model.addAttribute("hlist2", handler);
-		return "handler/handlerDetailSearch2";
+	public String handlerDetailSearch2(String returnLocation, Model model) {
+		List<HandlerDTO> handler = handlerServiceImpl.handlerDetailSearch2(returnLocation);
+		model.addAttribute("hlist", handler);
+		return "handler/handlerBoard";
 	}
 
 	@RequestMapping("handlerIdCheck.do")

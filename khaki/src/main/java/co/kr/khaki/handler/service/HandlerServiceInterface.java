@@ -13,9 +13,9 @@ public interface HandlerServiceInterface {
 
 	List<HandlerDTO> handlerBoard();
 
-	List<HandlerDTO> handlerDetailSearch(HandlerDTO hdto);
+	List<HandlerDTO> handlerDetailSearch(String startLocation);
 
-	List<HandlerDTO> handlerDetailSearch2(HandlerDTO hdto);
+	List<HandlerDTO> handlerDetailSearch2(String returnLocation);
 
 	MemberDTO handlerIdCheck(MemberDTO memberDTO);
 

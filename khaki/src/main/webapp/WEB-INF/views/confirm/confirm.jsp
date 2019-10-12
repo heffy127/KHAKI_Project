@@ -76,8 +76,8 @@
            // swal(couponVal[1]);
            if(couponVal[3] == "1") {
               var cpTitle = couponVal[4].split("원");
-              cpTitle = cpTitle + '000';
-              if(cpTitle > one) {
+              cpTitle2 = cpTitle[0];
+              if(parseInt(cpTitle2) > parseInt(one)) {
                  swal("쿠폰 조건이 맞지 않습니다.\n다른 쿠폰을 선택 해주세요.")
                  $(".coupon_method option:eq(0)").prop("selected", true); //첫번째 option 선택
                  ku = parseInt(0);
@@ -835,8 +835,6 @@
                   <input type="hidden" id="memberPoint" value="${memberDTO.point }">
                   <script>
             $("#check_module").click(function () {
-               swal($("#po").val() + "포인트");
-               swal($("#ku").val() + "쿠폰");
                var sessionId = '<%=(String)session.getAttribute("sessionId")%>';
                var coupon_v = $('select[name=coupon_method]').val();
                var coupon_t = $('#cp_method option:checked').text();
@@ -854,7 +852,6 @@
                $("#buy_totalAmount").val($("#confirm_amount").text()); 
                $("#buy_usePoint").val($("#po").val());
                $("#buy_useCoupon").val($("#ku").val());
-               swal($("#buy_amount").val());
                $("#buy_coupon").val(coupon_sp[0]);
                $("#buy_discount").val(coupon_v);
                // 결제 필수파라미터 부분
@@ -938,16 +935,15 @@
                            url:"burumService.do",
                            data : params,
                            success:function(data){
-                              swal("부름성공");
-                              swal("부름 서비스 신청이 완료 되었습니다.\n요청하신 주소로 차량이 이동 될 예정입니다.");
+                              swal("부름 서비스 신청이 완료 되었습니다.\n요청하신 주소로 차량이 이동 될 예정입니다.")
+                              .then((value) => {
+                              });
                            },
                            error : function(xhr, status) {
                               swal(xhr + " : " + status);
                            }
                         });
                      } else {
-                        swal("부름 신청안함");
-
                      }
                                           
                                           
@@ -960,14 +956,12 @@
                               "point" : $("#pointUseInput").val()
                            },
                            success:function(){
-                              swal("포인트성공");
                            },
                            error : function(xhr, status) {
                               swal(xhr + " : " + status);
                            }
                         });
                      } else {
-                        swal("포인트 적용안함");
 
                      }
 
@@ -979,14 +973,12 @@
                               "num" : $("#couponSeq").val()
                            },
                            success:function(){
-                              swal("쿠폰사용처리성공")
                            },
                            error : function(xhr, status) {
                               swal(xhr + " : " + status);
                            }
                         });
                      } else {
-                        swal("쿠폰 사용안함");
 
                      }
 
@@ -996,9 +988,11 @@
                            url:"payResult.do",
                            data : params,
                            success:function(data){
-                              swal("결제성공");
-                              swal("결제가 완료 되었습니다.\n예약페이지로 이동합니다.");
-                              location.href="map.do";
+                              swal("결제가 완료 되었습니다.\n예약페이지로 이동합니다.")
+                              .then((value) => {
+                            	  location.href="map.do";
+                              });
+                              
                            },
                            error : function(xhr, status) {
                               swal(xhr + " : " + status);

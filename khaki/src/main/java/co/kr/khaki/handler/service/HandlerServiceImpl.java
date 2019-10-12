@@ -121,15 +121,15 @@ public class HandlerServiceImpl implements HandlerServiceInterface {
 	}
 
 	@Override
-	public List<HandlerDTO> handlerDetailSearch(HandlerDTO hdto) {
-		List<HandlerDTO> handler = hdao.select(hdto);
+	public List<HandlerDTO> handlerDetailSearch(String startLocation) {
+		List<HandlerDTO> handler = hdao.select(startLocation);
 		System.out.println("Controller Select");
 		return handler;
 	}
 
 	@Override
-	public List<HandlerDTO> handlerDetailSearch2(HandlerDTO hdto) {
-		List<HandlerDTO> handler = hdao.select2(hdto);
+	public List<HandlerDTO> handlerDetailSearch2(String returnLocation) {
+		List<HandlerDTO> handler = hdao.select2(returnLocation);
 		System.out.println("Controller Select2");
 		return handler;
 	}

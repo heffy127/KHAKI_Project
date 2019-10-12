@@ -22,6 +22,55 @@ public class CarManageController {
 	@Autowired
 	CarManageSeviceInterface CarManageServiceImpl;
 	
+	@RequestMapping("carmanageUpdate.do")
+	public String carmanageUpdate(CarManageDTO carManageDTO, Model model) {
+		
+		ArrayList arr = CarManageServiceImpl.carmanageInsert();
+		
+		CarList carList = (CarList) arr.get(0);
+		List<KhakiZone_CarmanageDTO> zonelist = (List<KhakiZone_CarmanageDTO>) arr.get(1);
+		
+		System.out.println("carmanageUpdate : "+carManageDTO);
+		
+		// model로 객체 전송
+		model.addAttribute("cars", carList.getCars());
+		model.addAttribute("carlist", carList.getCarsList());
+		model.addAttribute("brands",carList.getBrands());
+		model.addAttribute("zonelist", zonelist);
+		model.addAttribute("cmDTO",carManageDTO);
+		
+		return "carmanage/carmanageUpdate";
+	}
+	
+	@RequestMapping("carmanageUpdateDB.do")
+	public String carmanageUpdateDB(CarManageDTO carManageDTO, 
+			@RequestParam(defaultValue="1") int curPage, Model model, @RequestParam(defaultValue="10") int pageSize){
+		
+		ArrayList arr = CarManageServiceImpl.carmanageUpdateDB(carManageDTO, curPage, pageSize);
+		
+		List<CarManageDTO> cmlist = (List<CarManageDTO>) arr.get(0);
+		
+		int listCnt = (int) arr.get(1);
+		pagination pg = (pagination) arr.get(2);
+		
+		//CarList 객체 생성
+		//CarList carList = (CarList) arr.get(3);
+		
+		model.addAttribute("cmlist", cmlist);		
+		model.addAttribute("listCnt", listCnt);
+		model.addAttribute("pagination", pg);
+		//model.addAttribute("carList", carList.getCars());
+		
+		return "carmanage/carmanage";
+	}
+	
+	@RequestMapping("zone_numCheck.do")
+	public String zone_numCheck(int zone_num, Model model) {
+		List<CarManageDTO> cmlist = CarManageServiceImpl.carmanageSelectZonenum(zone_num);
+		model.addAttribute("cmlist", cmlist);
+		return "carmanage/zone_numCheck";
+	}
+	
 	@RequestMapping("car_numCheck.do")
 	public String car_numCheck(String car_num, Model model) {
 		
@@ -135,12 +184,12 @@ public class CarManageController {
 		pagination pg = (pagination) arr.get(2);
 		
 		//CarList 객체 생성
-		CarList carList = (CarList) arr.get(3);
+		//CarList carList = (CarList) arr.get(3);
 		
 		model.addAttribute("cmlist", cmlist);		
 		model.addAttribute("listCnt", listCnt);
 		model.addAttribute("pagination", pg);
-		model.addAttribute("carList", carList.getCars());
+		//model.addAttribute("carList", carList.getCars());
 		
 		return "carmanage/carmanage";
 	}

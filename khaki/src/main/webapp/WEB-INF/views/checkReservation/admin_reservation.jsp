@@ -150,8 +150,11 @@
 	 	  	 			   },
 	 	  	 			   // async: false, // for문 안에서 ajax 작동 순서를 정상적으로 돌아가게 해줌
 	 	  	 			   success:function(data){
-	 	  	 				   swal("환불처리가 완료되었습니다.");
-	 	  	 				   location.reload();
+                               swal("환불처리가 완료되었습니다.")
+                               .then((value) => {
+                            	   location.reload();
+                               });
+                               
 	 	  	 			   },
 	 	  	 			   error : function(xhr, status) {
 	 	  	 			          swal(xhr + " : " + status);
