@@ -426,7 +426,7 @@
       </div>
     </div>
     
-    <!-- 게시글 작성  --> 
+    <!-- 게시글 보기  --> 
     <div class="container-fluid mt--7">
 	      <div class="row">
 	        <div class="col">
@@ -444,7 +444,7 @@
 							<br>
 							</td>
 							<td align="center"><font size="5" color="gray"><b id="contentWriter">${dto.writer}</b></font>
-								<img alt="Image placeholder" src="${sessionPhoto}" 
+								<img alt="Image placeholder" src="${memPhoto}" 
 								style="width:40px; border-radius: 40px;">
 								
 							<br>
@@ -491,9 +491,7 @@
 						<hr>
 						<div id="replybox">
 							<c:forEach var="reDTO" items="${listRe}">
-								<b id="reId">${reDTO.writer}</b>&nbsp;
-								<img alt="Image placeholder" src="${sessionPhoto}"
-									style="width:25px; border-radius: 40px;"><br>
+								<b id="reId">${reDTO.writer}</b><br>
 								${reDTO.content}&nbsp; <div style="float: right;">${fn:substring(reDTO.write_date,0,14)}
 								<input type="hidden" id="reNum" value="${reDTO.reNum}">
 								<!-- 댓글 작성자만 삭제버튼 활성화 -->

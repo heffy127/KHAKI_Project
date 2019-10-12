@@ -16,6 +16,8 @@ import co.kr.khaki.board.BoardDTO;
 import co.kr.khaki.board.BoardReplyDAO;
 import co.kr.khaki.board.BoardReplyDTO;
 import co.kr.khaki.common.pagination;
+import co.kr.khaki.member.DAO.MemberDAOImpl;
+import co.kr.khaki.member.DTO.MemberDTO;
 
 @Controller
 public class BoardController {
@@ -25,6 +27,9 @@ public class BoardController {
 
 	@Autowired
 	BoardReplyDAO daoRe;
+	
+	@Autowired
+	MemberDAOImpl memImpl;
 
 	// 게시글 작성 페이지 넘김
 	@RequestMapping("insertPage.do")
@@ -99,8 +104,14 @@ public class BoardController {
 
 		// 내용 select
 		BoardDTO dto = dao.select(boardDTO);
+		// 게시글 작성자 프로필 사진 호출
+		String memPhoto = memImpl.selectPhoto(dto.getWriter());
+		
+		System.out.println(dto.getWriter());
+		System.out.println(memPhoto);
+		
 		model.addAttribute("dto", dto);
-		System.out.println(dto.getbNum());
+		model.addAttribute("memPhoto", memPhoto);
 		System.out.println("view페이지 호출 완료");
 
 		// 댓글 불러오기

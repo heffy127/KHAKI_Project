@@ -12,6 +12,7 @@ import co.kr.khaki.board.BoardDAO;
 import co.kr.khaki.board.BoardDTO;
 import co.kr.khaki.board.BoardReplyDAO;
 import co.kr.khaki.board.BoardReplyDTO;
+import co.kr.khaki.member.DAO.MemberDAOImpl;
 
 @Controller
 public class BoardReplyController {
@@ -20,6 +21,9 @@ public class BoardReplyController {
 	BoardReplyDAO daoRe;
 	@Autowired
 	BoardDAO dao;
+	@Autowired
+	MemberDAOImpl memImpl;
+
 
 	// 댓글 작성
 	@RequestMapping("insertRe.do")
@@ -28,9 +32,15 @@ public class BoardReplyController {
 		// 게시글 가져오기
 		BoardDTO boardDTO = new BoardDTO();
 		boardDTO.setbNum(boardReplyDTO.getbNum());
+		// 내용 select
 		BoardDTO dto = dao.select(boardDTO);
+		// 작성자 프로필 사진
+		String memPhoto = memImpl.selectPhoto(dto.getWriter());
+		
 		model.addAttribute("dto", dto);
+		model.addAttribute("memPhoto", memPhoto);
 		// 댓글 가져오기
+		boardReplyDTO.setbNum(boardDTO.getbNum());
 		List<BoardReplyDTO> listRe = daoRe.select(boardReplyDTO);
 		model.addAttribute("listRe", listRe);
 		System.out.println("댓글 추가 controller Reply");
