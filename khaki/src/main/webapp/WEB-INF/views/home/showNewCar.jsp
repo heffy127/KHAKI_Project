@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,6 +24,7 @@
 	float: left; 
 	width: 33%; 
 	font-weight: bold;
+	height: 50px;
 }
 
 .otherDiv
@@ -84,17 +86,18 @@
                 
                 <div>
                    <div class="topDiv" align="left" >
-                  ${list[0].zone_name }                   
+                  	 ${fn:split(list[0].zone_name ,' ')[0]}&nbsp;${fn:split(list[0].zone_name ,' ')[1]}<br>
+                  	 ${fn:split(list[0].zone_name ,' ')[2]}                    
                    </div>
-                   <div class="topDiv" align="center">
-                      ${list[0].car_name }        
+                   <div class="topDiv" align="center" style="font-size: 31px;">
+                     ${fn:toUpperCase(list[0].car_name)}       
                    </div>
-                   <div class="topDiv" align="right">
+                   <div class="topDiv" align="right" style="font-size: 17px;">
                       ${fn:split(list[0].reg_date,' ')[0]}
                    </div>
                 </div>
-                <div align="center">
-                   <img src=${list[0].car_image} width="328px" height="242px"/> 
+                <div style="text-align: center;">
+                   <img src=${list[0].car_image} width="300px" height="220px"/> 
                 </div>
                 <div>
                    <div class="otherDiv" align="center">
@@ -104,7 +107,7 @@
                       <span class="badge badge-primary"><font size="4">연료</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[0].fuel_type }</b></font> 
                    </div>
                 </div>
-                <div style="margin-top: 40px;">
+                <div style="margin-top: 34px;">
                    <div class="otherDiv" align="center">
                       <span class="badge badge-warning"><font size="4">시간당 요금(1h)</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[0].fee_hour }원</b></font>
                    </div>
@@ -118,17 +121,18 @@
 				
                 <div>
                    <div class="topDiv" align="left" >
-                  ${list[1].zone_name }                   
+                  	  ${fn:split(list[1].zone_name ,' ')[0]}&nbsp;${fn:split(list[1].zone_name ,' ')[1]}<br>
+                  	 ${fn:split(list[1].zone_name ,' ')[2]}                           
                    </div>
-                   <div class="topDiv" align="center">
-                      ${list[1].car_name }        
+                   <div class="topDiv" align="center" style="font-size: 31px;">
+					${fn:toUpperCase(list[1].car_name)}    
                    </div>
-                   <div class="topDiv" align="right">
+                   <div class="topDiv" align="right" style="font-size: 17px;">
                       ${fn:split(list[1].reg_date,' ')[0]}
                    </div>
                 </div>
-                <div align="center">
-                   <img src=${list[1].car_image} width="328px" height="242px"/> 
+                <div style="text-align: center;">
+                   <img src=${list[1].car_image} width="300px" height="220px"/> 
                 </div>
                 <div>
                    <div class="otherDiv" align="center">
@@ -138,7 +142,7 @@
                       <span class="badge badge-primary"><font size="4">연료</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[1].fuel_type }</b></font> 
                    </div>
                 </div>
-                <div style="margin-top: 40px;">
+                <div style="margin-top: 34px;">
                    <div class="otherDiv" align="center">
                       <span class="badge badge-warning"><font size="4">시간당 요금(1h)</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[1].fee_hour }원</b></font>
                    </div>
@@ -152,17 +156,18 @@
 				
                 <div>
                    <div class="topDiv" align="left" >
-                  ${list[2].zone_name }                   
+                  	${fn:split(list[2].zone_name ,' ')[0]}&nbsp;${fn:split(list[2].zone_name ,' ')[1]}<br>
+                  	 ${fn:split(list[2].zone_name ,' ')[2]}                     
                    </div>
-                   <div class="topDiv" align="center">
-                      ${list[2].car_name }        
+                   <div class="topDiv" align="center" style="font-size: 31px;">
+                      ${fn:toUpperCase(list[2].car_name)}    
                    </div>
-                   <div class="topDiv" align="right">
+                   <div class="topDiv" align="right" style="font-size: 17px;">
                       ${fn:split(list[2].reg_date,' ')[0]}
                    </div>
                 </div>
-                <div align="center">
-                   <img src=${list[2].car_image} width="328px" height="242px"/> 
+                <div style="text-align: center;">
+                   <img src=${list[2].car_image} width="300px" height="220px"/> 
                 </div>
                 <div>
                    <div class="otherDiv" align="center">
@@ -172,7 +177,7 @@
                       <span class="badge badge-primary"><font size="4">연료</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[2].fuel_type }</b></font> 
                    </div>
                 </div>
-                <div style="margin-top: 40px;">
+                <div style="margin-top: 34px;">
                    <div class="otherDiv" align="center">
                       <span class="badge badge-warning"><font size="4">시간당 요금(1h)</font></span>&nbsp;&nbsp;&nbsp;<font size="4"><b>${list[2].fee_hour }원</b></font>
                    </div>
