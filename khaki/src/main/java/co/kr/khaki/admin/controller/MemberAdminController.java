@@ -56,7 +56,7 @@ public class MemberAdminController {
    // 관리자 페이지 검색
    @RequestMapping("admin_search.do")
    public String admin_search(String searchSelect, String search,
-         @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="3") int pageSize, Model model) {   
+         @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="6") int pageSize, Model model) {   
      int listCnt = 0;
       if(searchSelect.equals("id")) { // id 검색
         List<MemberAdminDTO> memberAdminList = memberAdminServiceInter.selectFromId(search);
@@ -87,7 +87,7 @@ public class MemberAdminController {
    // 관리자 운전면허 정렬
    @RequestMapping("admin_licenseSort.do")
    public String admin_licenseSort(String permission,  Model model,
-         @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="3") int pageSize) {
+         @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="6") int pageSize) {
      
      int listCnt = 0;
       List<MemberAdminDTO> memberAdminList = memberAdminServiceInter.selectLicense(permission);
@@ -99,6 +99,7 @@ public class MemberAdminController {
      pagination pg = new pagination(listCnt, curPage, pageSize);
      // for문으로 출력해오는 것을 수로 어떻게 처리하는 것에 따라 다름
       
+     model.addAttribute("memberAdminList",memberAdminList);
      model.addAttribute("listCnt", listCnt);
      model.addAttribute("pagination",pg);
      /**/
@@ -109,7 +110,7 @@ public class MemberAdminController {
    // 관리자 푸시 정렬
    @RequestMapping("admin_selectPushSort.do")
    public String admin_selectPushSort(String push, Model model,
-         @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="3") int pageSize) {
+         @RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="6") int pageSize) {
       int listCnt = 0;
       List<MemberAdminDTO> memberAdminList = memberAdminServiceInter.selectPush(push);
       
@@ -120,6 +121,7 @@ public class MemberAdminController {
      pagination pg = new pagination(listCnt, curPage, pageSize);
      // for문으로 출력해오는 것을 수로 어떻게 처리하는 것에 따라 다름
       
+     model.addAttribute("memberAdminList",memberAdminList);
      model.addAttribute("listCnt", listCnt);
      model.addAttribute("pagination",pg);
      /**/

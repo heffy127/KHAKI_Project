@@ -86,7 +86,7 @@
 	  function send(){
 		  // 내용없이 전송할 때
 		  if($("#messageinput").val().trim() == ''){
-			  swal("전송할 내용을 입력해주세요.")
+			  alert("전송할 내용을 입력해주세요.")
 			  $("#messageinput").focus()
 			  return false
 		  }
