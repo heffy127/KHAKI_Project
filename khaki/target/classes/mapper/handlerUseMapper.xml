@@ -6,8 +6,7 @@
 
 	<insert id="insert" parameterType="huDTO">
 		INSERT INTO HANDLERUSE
-		VALUES(#{h_id},#{h_carNum},#{h_carModel},#{h_startLocation},#{h_returnLocation},#{h_complete},#{h_point},#{h_using})   <!-- 
-			oracle DB의 순서와 일치 시켜주어야한다! -->
+		VALUES(#{h_id},#{h_carNum},#{h_carModel},#{h_startLocation},#{h_returnLocation},#{h_complete},#{h_point},#{h_using})
 	</insert>
 
 	<select id="select" parameterType="String" resultMap="rsMap">

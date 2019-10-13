@@ -55,26 +55,19 @@
 	    
 	    for (var i = 0; i < index; i++) {
 	    	var confirm_endTime = $("#confirm_endTime"+i).text();
-	    	confirm_endTime *= 1;
-	    	if(String(now).substring(2,4) == String(confirm_endTime).substring(2,4)) { // 현재 월과 결제한 월이 같을 경우 (ex. 현재=9월 결제=9월)
-	    		if((now - confirm_endTime) > 4) {
-		    	    // $("#refund_btn"+i).attr("disabled", "disabled");
-		    	    $("#refund_btn"+i).css("opacity", "0.5");
-		    	    $("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
-			    }
-	    	} else if (Number(String(now).substring(2,4)) == 1) { // 현재 월이 1월일 경우
-	    		if(Number(String(now).substring(4,6)) > 4) { // 5일 이전 결제건은 환불 불가
-	    			// $("#refund_btn"+i).attr("disabled", "disabled");
-		    	    $("#refund_btn"+i).css("opacity", "0.5");
-		    	    $("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
-	    		}
-	    	} else if (Number(String(now).substring(2,4)) > Number(String(confirm_endTime).substring(2,4))) { // 현재 월이 결제한 월보다 클 경우(ex. 현재=10월 결제=9월)
-	    		if(Number(String(now).substring(4,6)) > 3) { // 5일 이전 결제건은 환불 불가
-	    			// $("#refund_btn"+i).attr("disabled", "disabled");
-		    	    $("#refund_btn"+i).css("opacity", "0.5");
-		    	    $("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
-	    		}
-        	}
+	    	var endArr = String(confirm_endTime).split(""); 
+	    	var endTime = endArr[0] + endArr[1] + endArr[2] + endArr[3] + endArr[4] + endArr[5];
+	    	
+	    	if((now - endTime) > 4) {
+		    	$("#refund_btn"+i).css("opacity", "0.5");
+		    	$("#refund_btn"+i).text("환불 불가 - 고객센터에 문의 하세요.");
+			}
+	    	
+	    	var money = $("#confirm_amount"+i).text();
+	    	var addMoney = $("#confirm_addAmount"+i).text();
+	    	
+	    	$("#confirm_totalAmount"+i).text(parseInt(money)+parseInt(addMoney));
+	    	
 	    }
 	    	
 	    for (var i = 0; i < index; i++) {

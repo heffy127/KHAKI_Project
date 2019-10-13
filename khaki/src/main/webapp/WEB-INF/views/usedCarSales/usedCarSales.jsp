@@ -276,8 +276,10 @@
 			if(result == true) {
 				if(name != "" && location_select != "지역" && carNum != "" && phone != "" && visitDay != "" && distance != "") {
 					if(c == "undefined" || l != "지역" || p == "undefined" || v == "undefined" || d == "undefined") {
-						swal("상담 신청이 완료 되었습니다.\n담당자 배정 후 연락드릴 예정입니다.");
-						$("#usedCarSales").submit();						
+						swal("상담 신청이 완료 되었습니다.\n담당자 배정 후 연락드릴 예정입니다.")
+                        .then((value) => {
+                        	$("#usedCarSales").submit();	
+                        });
 					} else {
 						swal("입력 정보를 다시 확인해주세요.")
 					}
