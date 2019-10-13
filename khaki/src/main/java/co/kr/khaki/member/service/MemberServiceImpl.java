@@ -399,11 +399,13 @@ public void updatePoint(String id, int point) {
  * @see co.kr.khaki.member.service.MemberService#updatePointReco(java.lang.String, java.lang.String, int)
  */
 @Override
-public void updatePointReco(String reco, String id, int point) {
+public void updatePointReco(String reco, String id, int recoPoint, int point) {
       if(reco != null && !(reco.trim().equals(""))) {
          InsertPointDTO insertPointDTO = new InsertPointDTO();
          insertPointDTO.setId(id);
          insertPointDTO.setPoint(point);
+         insertPointDTO.setId(reco);
+         insertPointDTO.setPoint(recoPoint);
          memberDAO.updatePoint(insertPointDTO);
       }
    }

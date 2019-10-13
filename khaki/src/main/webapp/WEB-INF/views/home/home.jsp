@@ -327,7 +327,7 @@
       <div class="row mt-5">
 		
 		<!-- 최신 공지사항 5개 -->
-        <div class="col-xl-4">
+        <div class="col-xl-5">
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
@@ -381,7 +381,7 @@
           </div>
         </div>
         <!-- 자유게시판 추천글 5개 -->
-        <div class="col-xl-8 mb-5 mb-xl-0">
+        <div class="col-xl-7 mb-5 mb-xl-0">
           <div class="card shadow">
             <div class="card-header border-0">
               <div class="row align-items-center">
