@@ -1,5 +1,9 @@
 package co.kr.khaki.carmanage.DTO;
 
+/**
+ * @author 민병호
+ *
+ */
 public class CarManageDTO {
 
 	private String car_name; // 차종 > 소나타,아반떼..
@@ -88,5 +92,12 @@ public class CarManageDTO {
 		this.car_size = car_size;
 	}
 	
+	@Override
+	public String toString() {
+		return "CarManageDTO [car_name=" + car_name + ", car_num=" + car_num + ", driven=" + driven + ", fuel_type="
+				+ fuel_type + ", fuel_gage=" + fuel_gage + ", zone_num=" + zone_num + ", fee_hour=" + fee_hour
+				+ ", fee_km=" + fee_km + ", car_image=" + car_image + ", brand=" + brand + ", car_size=" + car_size
+				+ ", reg_date=" + reg_date + "]";
+	}
 	
 }

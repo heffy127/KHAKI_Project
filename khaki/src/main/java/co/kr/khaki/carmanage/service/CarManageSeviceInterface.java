@@ -1,6 +1,7 @@
 package co.kr.khaki.carmanage.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import co.kr.khaki.carmanage.DTO.CarConsumableDTO;
 import co.kr.khaki.carmanage.DTO.CarManageDTO;
@@ -23,5 +24,9 @@ public interface CarManageSeviceInterface {
 
 	ArrayList carmanageInsertDB(CarManageDTO carManageDTO, CarConsumableDTO carConsumableDTO, int curPage,
 			int pageSize);
+	
+	List<CarManageDTO> carmanageSelectZonenum(int zone_num);
 
+	ArrayList carmanageUpdateDB(CarManageDTO carManageDTO,int curPage, int pageSize);
+	
 }

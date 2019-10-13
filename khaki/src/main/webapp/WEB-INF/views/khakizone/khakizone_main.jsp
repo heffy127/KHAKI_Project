@@ -28,6 +28,15 @@
 	  		//페이지 넘버 확인
 	  	};
 		
+	  	function search_all(msg){
+	  		alert(msg)
+	  		location.href = "khakizone_main.do?msg="+msg;
+	  	}
+	  	
+	  	function search_default(){
+	  		location.href = "khakizone_main.do";
+	  	}
+	  	
 	</script>
 
 </head>
@@ -40,6 +49,17 @@
 		<div class="col-md-6" id="map">map 이용 표현</div>
 		
 		<div class="col-md-6">
+			<div class="row">
+				<div class="col">
+					<div class="row">
+						<div class="col-md-10" align="center">
+							<button type="button" onclick="search_default()" class="btn btn-primary">기본검색</button>&emsp;&emsp;
+							<button type="button" onclick="search_all('전체')" class="btn btn-success">전체검색</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br><br>
 			<form id="zone_form" action="khakizone_insert.do">
 				<div class="row">
 					<div class="col">
@@ -48,15 +68,17 @@
 								<input type="text" id="zone_name" name="zone_name" placeholder="카키존 이름">
 								<input type="hidden" id="zone_num" name="zone_num" placeholder="카키존 넘버" value="1">
 							</div>
-							<div class="col-md-9">카키존 위치 : <input name="zone_location_x" id="location_x" type="text" placeholder="경도"> / <input name="zone_location_y" id="location_y" type="text" placeholder="위도"></div>
-						</div>
-						<div class="row">
-							<div class="col-md-10">
-								<textarea id="zone_comment" name="zone_comment" rows="7" cols="90" placeholder="내용을 입력해주세요"></textarea>
+							<div class="col-md-9">
+								카키존 위치 : <input name="zone_location_x" id="location_x" type="text" placeholder="경도"> / <input name="zone_location_y" id="location_y" type="text" placeholder="위도">
 							</div>
 						</div>
 						<div class="row">
-							<div class="col">
+							<div class="col-md-11">
+								<textarea id="zone_comment" name="zone_comment" rows="7" cols="95" placeholder="내용을 입력해주세요" style="width: 100%;"></textarea>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col" id="zone_btn_upitem">
 								<input type="submit" id="zone_form_submit" value="카키존 등록" style="display: none;">
 								<button type="button" id="zone_btn_delete" style="display: none;">카키존 삭제</button>
 							</div>
@@ -64,110 +86,126 @@
 					</div>	<!-- col end -->
 				</div>	<!-- row end -->
 			</form>
-			<br><br>
-			
+			<br>
+				<b>표시된 KhakiZone : ${select_list.size()}개</b>
+			<br>
 			<!-- table -->
 			<div class="row">
-				<div class="table-responsive">
-				    <div>
-				    <table class="table align-items-center table-dark">
-				        <thead class="thead-dark">
-				            <tr>
-				                <th scope="col">
-				                   	 카키존 넘버
-				                </th>
-				                
-				                <th scope="col">
-				                 	   카키존 이름
-				                </th>
-				                
-				                <th scope="col">
-			                    	카키존 경도	
-				                </th>
-				                
-				                <th scope="col">
-				                	카키존 위도
-				                </th>
-				                
-				                <th scope="col">
-				                 	   카키존 세부설명
-				                </th>
-				            </tr>
-				        </thead>
-				        <!-- aaabbcc  list - tbody / list_menu(index) - tr / list_menu_zone_num - th -->
-				        <tbody class="list">
-				            <c:forEach var="seldto" items="${select_list}" varStatus="status">
-					            <tr id="list_menu${status.index}" class="list_menu">
-					                <th scope="row" id="list_menu_zone_num${status.index}" class="list_menu_zone_num">
-					                	${seldto.zone_num }
+				<div class="col-md-12">
+					<div class="table-responsive-sm" style="overflow: auto; height: 320px;">
+					    <!-- <div> -->
+					    <table class="table align-items-center table-dark">
+					        <thead class="thead-dark">
+					            <tr>
+					                <th scope="col">
+					                   	 카키존 넘버
 					                </th>
-					                <td id="list_menu_zone_name" class="">
-					                	${seldto.zone_name }
-					                </td>
-					                <td id="list_menu_zone_location_x" class="">
-					                	${seldto.zone_location_x }
-					                </td>
-					                <td id="list_menu_zone_location_y">
-					                	${seldto.zone_location_y }
-					                </td>
-					                <td id="list_menu_zone_comment" class="">
-					                	${seldto.zone_comment }
-					                </td>
+					                
+					                <th scope="col">
+					                 	   카키존 이름
+					                </th>
+					                
+					                <th scope="col">
+				                    	카키존 경도	
+					                </th>
+					                
+					                <th scope="col">
+					                	카키존 위도
+					                </th>
+					                
+					                <th scope="col">
+					                 	   카키존 세부설명
+					                </th>
 					            </tr>
-				            </c:forEach>
-				        </tbody>
-				    </table>
-				</div>
-			  </div>	<!-- table-responsive end -->
+					        </thead>
+					        <!-- aaabbcc  list - tbody / list_menu(index) - tr / list_menu_zone_num - th -->
+					        <tbody class="list">
+					            <c:forEach var="seldto" items="${select_list}" varStatus="status">
+						            <tr id="list_menu${status.index}" class="list_menu">
+						                <th scope="row" id="list_menu_zone_num${status.index}" class="list_menu_zone_num">
+						                	${seldto.zone_num }
+						                </th>
+						                <td id="list_menu_zone_name" class="">
+						                	${seldto.zone_name }
+						                </td>
+						                <td id="list_menu_zone_location_x" class="">
+						                	${seldto.zone_location_x }
+						                </td>
+						                <td id="list_menu_zone_location_y">
+						                	${seldto.zone_location_y }
+						                </td>
+						                <td id="list_menu_zone_comment" class="">
+						                	${seldto.zone_comment }
+						                </td>
+						            </tr>
+					            </c:forEach>
+					        </tbody>
+					    </table>
+					<!-- </div> -->
+				  </div>	<!-- table-responsive end -->
+			  </div>	<!-- table col-md-12 end -->
 			</div>	<!-- table row end -->
+			
 			<div class="row">
 				<div class="col" align="center">
 					<nav aria-label="Page navigation example">
 					  <ul class="pagination pagination-lg justify-content-center">
-					 	<c:if test="${pagination.curRange ne 1 }">
-					 	  <li class="page-item">
-		                       <a href="#" onClick="fn_paging(1)">[처음]</a> 
-		                     </li>
-		                   </c:if>
-		                   <c:if test="${pagination.curPage ne 1}">
-		                     <li class="page-item">
-		                       <a class="page-link" href="#" onClick="fn_paging('${pagination.prevPage }')" aria-label="Previous">
-		                       	<i class="fa fa-angle-left"></i>
-						        <span class="sr-only">Previous</span>
-					        </a> 
-				          </li>
-		                   </c:if>
-		                   <!-- 페이지 숫자 표시 부분 -->
-		                   <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
-		                       <c:choose>
-		                           <c:when test="${pageNum eq pagination.curPage}">
-		                           	<li class="page-item active">
-		                           		<a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }<span class="sr-only">(current)</span></a>
-	                          		</li>
-		                           </c:when>
-		                           <c:otherwise>
-		                           	<li class="page-item">
-		                           		<a class="page-link" href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
-	                          		</li>
-		                           </c:otherwise>
-		                       </c:choose>
-		                   </c:forEach>
-		                   <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
-		                   	<li class="page-item">
-		                      		<a class="page-link" href="#" onClick="fn_paging('${pagination.nextPage }')" aria-label="Next">
-							        <i class="fa fa-angle-right"></i>
-							        <span class="sr-only">Next</span>
-								</a> 
-							</li>
-		                   </c:if>
-		                   <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
-		                       <li class="page-item">
-						      <a class="page-link" href="#" onClick="fn_paging('${pagination.pageCnt }')" aria-label="Next">
-						        <i class="fa fa-angle-right"></i>
-						        <span class="sr-only">Next</span>
-						      </a>
-						    </li>
-		                	   </c:if>
+						  <c:choose>
+							  <c:when test="${pagination eq null}">
+							  	<li class="page-item active">
+	                          		<a href="#" class="page-link" onClick="fn_paging(1)">1<span class="sr-only">(current)</span></a>
+	                      		</li>
+							  </c:when>
+							  <c:otherwise>
+							 	<c:if test="${pagination.curRange ne 1 }">
+							 	  <li class="page-item">
+				                       <a class="page-link" href="#" onClick="fn_paging(1)">
+				                       	<i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i>
+								        <span class="sr-only">Previous</span>
+				                       </a> 
+				                     </li>
+				                   </c:if>
+				                   <c:if test="${pagination.curPage ne 1}">
+				                     <li class="page-item">
+				                       <a class="page-link" href="#" onClick="fn_paging('${pagination.prevPage }')" aria-label="Previous">
+				                       	<i class="fa fa-angle-left"></i>
+								        <span class="sr-only">Previous</span>
+							        </a> 
+						          </li>
+				                   </c:if>
+				                   <!-- 페이지 숫자 표시 부분 -->
+				                   <c:forEach var="pageNum" begin="${pagination.startPage }" end="${pagination.endPage }">
+				                       <c:choose>
+				                           <c:when test="${pageNum eq pagination.curPage}">
+				                           	<li class="page-item active">
+				                           		<a href="#" class="page-link" onClick="fn_paging('${pageNum }')">${pageNum }<span class="sr-only">(current)</span></a>
+			                          		</li>
+				                           </c:when>
+				                           <c:otherwise>
+				                           	<li class="page-item">
+				                           		<a class="page-link" href="#" onClick="fn_paging('${pageNum }')">${pageNum }</a>
+			                          		</li>
+				                           </c:otherwise>
+				                       </c:choose>
+				                   </c:forEach>
+				                   <c:if test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
+				                   	<li class="page-item">
+				                      		<a class="page-link" href="#" onClick="fn_paging('${pagination.nextPage }')" aria-label="Next">
+									        <i class="fa fa-angle-right"></i>
+									        <span class="sr-only">Next</span>
+										</a> 
+									</li>
+				                   </c:if>
+				                   <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
+				                       <li class="page-item">
+								      <a class="page-link" href="#" onClick="fn_paging('${pagination.pageCnt }')" aria-label="Next">
+								        <i class="fa fa-angle-right"></i><i class="fa fa-angle-right"></i>
+								        <span class="sr-only">Next</span>
+								      </a>
+								    </li>
+		                	   	   </c:if>
+							  </c:otherwise>
+						  </c:choose>
 	                	</ul>
 					</nav>
 				</div>
@@ -176,6 +214,7 @@
 	</div>
 	
 <script>
+	//마커 이미지 및 사이즈 조절 변수-------------------------
 	var MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
 	MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
 	OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
@@ -199,7 +238,7 @@
 	// 100m : 4, 250m : 5, 500m : 6, 1000 : 7, 2000 : 8, 
 	// 4000 : 9, 8000 : 10, 16000 : 11, 32000 : 12, 64000 : 13(전도 다 보이는 것)
 	
-	
+	// khakizone_cal service를 통해서 select해온 값들의 중심좌표를 결정한다(최대, 최소값의 차로)
 	var center_x = '${cal.center_x }';
 	var center_y = '${cal.center_y }';	
 	var between_max = '${cal.between_max}';
@@ -237,7 +276,7 @@
 	// select 해온 값을 배열에 넣고 마커에 추가하는 작업
 	// marksers 배열에 select해온 값을 넣어야함
 	var markers=[], selectedMarker = null;
-	var listdata = [];
+	var listdata = [];	//아직 사용하지 않은 배열
 	
 	// select_list의 좌표값을 foreach문을 통해 지도에 마커 표시 및 markers배열에 push
 	<c:forEach var="seldto" items="${select_list}" varStatus="status">
@@ -271,7 +310,7 @@
 	    var marker = new kakao.maps.Marker({
 	    	map: map,
 	        position: position,
-	        image: normalImage
+	        image: normalImage	//기본 이미지로 마커를 생성함
 	    });
 		
 		// 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
@@ -303,17 +342,19 @@
 	    		// 새로운 카키존 등록 시 찍은 마커를 없앰
 	    		first_marker.setMap(null);
 	    	
-	    		//zone_name, location_x, location_y, zone_comment(input쪽에 id)	aaaabbb
+	    		//zone_name, location_x, location_y, zone_comment(input쪽에 id)
 	    		$("#zone_name").val(zone_name);
 	    		$("#zone_comment").text(zone_comment);
 	    		$("#location_x").val(x);
 	    		$("#location_y").val(y);
 	    		$("#zone_num").val(zone_num);
 	    		
+	    		//표시된 list에 클릭된 마커를 주황색으로 표시해줌
 	    		swal($("#list_menu1").children("#list_menu_zone_num1").text().trim().toString())
 	    		var list_zone_num = null;
 	    		for (var i = 0; i < '${select_list.size()}'; i++) {	// 5를 유동적으로 쓸 수 있는 방법 : (list의 사이즈를 활용하자)
 	    			list_zone_num = $("#list_menu"+i).children("#list_menu_zone_num"+i).text().trim().toString();
+		    		//마커 등록시 저장된 zone_num과 list에 뿌려진 zone_num을 비교하여 같으면 주황색으로 바꿔주는 로직
 					if(zone_num == list_zone_num){
 						swal("성공!");
 						$("#list_menu"+i).css("background-color","#ff5e00");
@@ -323,16 +364,14 @@
 					}
 				
 	    		// 클릭 시 존 버튼 수정할 수 있는 버튼 표출
-	    		$("#zone_form").attr("action","khakizone_update.do");
+	    		$("#zone_form").attr("action","khakizone_update.do");	//form의 action주소를 변경해줌
 	    		$("#zone_form_submit").val("카키존 수정");
 	    		$("#zone_form_submit").css("display","");	// 버튼 보이도록 표출
 	    		
 	    		// 클릭 시 존 삭제 버튼 표출
-	    		//<button type="button" id="zone_btn_delete" style="display: none;">카키존 삭제</button>
+	    		//<button type="button" id="zone_btn_delete" style="display: none;">카키존 삭제</button> zone_btn_upitem(삭제 버튼 상위의 col class div)
 	    		$("#zone_btn_delete").css("display","");	// 버튼 보이도록 표출
-	    		$("#zone_btn_delete").click(function(){
-	    			location.href="khakizone_delete.do?zone_num="+zone_num;
-	    		});
+	    		
 	    		
 		        // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
 		        // 마커의 이미지를 클릭 이미지로 변경합니다
@@ -351,7 +390,7 @@
 	    	});
 		
 	    // 마커가 지도 위에 표시되도록 설정합니다
-	    marker.setMap(map);
+	    //marker.setMap(map); 밑에서 한번더 추가하게 됨
 	    // 생성된 마커를 배열에 추가합니다
 	    markers.push(marker);
 	}
@@ -376,8 +415,8 @@
 	// 지역별로 구분할 수 있게 
 	// 사각형 만들어주는 함수
 	function addRectangleBounds(x, y){
-		var sw = new kakao.maps.LatLng(x-0.00200, y-0.0020), // 사각형 영역의 남서쪽 좌표
-	    ne = new kakao.maps.LatLng(x+0.00200, y+0.00200); // 사각형 영역의 북동쪽 좌표
+		var sw = new kakao.maps.LatLng(x-0.00050, y-0.00050), // 사각형 영역의 남서쪽 좌표
+	    ne = new kakao.maps.LatLng(x+0.00050, y+0.00050); // 사각형 영역의 북동쪽 좌표
 	    
 		// 사각형을 구성하는 영역정보를 생성합니다
 		// 사각형을 생성할 때 영역정보는 LatLngBounds 객체로 넘겨줘야 합니다
@@ -418,7 +457,7 @@
 	// 지도에 마커를 표시합니다
 	first_marker.setMap(map);
 	
-	// 지도를 클릭했을때 클릭한 위치에 마커를 추가하도록 지도에 클릭이벤트를 등록합니다
+	// 지도를 클릭했을때 클릭한 위치에 마커를 추가하도록 지도에 클릭이벤트를 등록합니다(새로운 카키존 지점을 추가 시 활용)
 	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
 		// 클릭한 위치에 마커를 표시합니다 
 		// mouseEvent.latLng는 지도 좌표를 가지고 온다.
@@ -473,17 +512,14 @@
 			//swal("zone_num : "+zone_num);
 			//swal("select_list.size : "+${select_list.size()});
 			
-			for (var i = 0; i < ${select_list.size()}; i++) {	// 5를 유동적으로 쓸 수 있는 방법(list의 사이즈를 활용하자)
+			for (var i = 0; i < ${select_list.size()}; i++) {	//5를 유동적으로 쓸 수 있는 방법(list의 사이즈를 활용하자)
     			list_zone_num = $("#list_menu"+i).children("#list_menu_zone_num"+i).text().trim().toString();
     			//swal("list_zone_num : "+list_zone_num);
 			
 				if(z_num == list_zone_num){
 				swal("성공!");
-				//$("#list_menu"+i).children("#list_menu_zone_num"+i).text(zone_num+"<-- 선택 " );
-				//$("#list_menu"+i).children("#list_menu_zone_num"+i).append('<img alt="" src="resources/assets/img/etc/star.jpg" style="widows: 30px;height: 30px;">');
 				$("#list_menu"+i).css("background-color","#ff5e00");
 				}else{
-				//$("#list_menu"+i).children("#list_menu_zone_num"+i).text(list_zone_num.split("<")[0]);
 				$("#list_menu"+i).css("background-color","");
 				}
 			}
@@ -533,11 +569,29 @@
     		// 클릭 시 존 삭제 버튼 표출
     		//<button type="button" id="zone_btn_delete" style="display: none;">카키존 삭제</button>
     		$("#zone_btn_delete").css("display","");	// 버튼 보이도록 표출
-    		$("#zone_btn_delete").click(function(){
-    			location.href="khakizone_delete.do?zone_num="+z_num;
-    		});
-    		
 		})	//list_menu class click
+		
+		
+		
+		$("#zone_btn_delete").click(function(){
+			var li_zone_num = $("#zone_num").val();
+			$.ajax({
+			    url: "zone_numCheck.do",
+			    //type: "",
+			    //cache: ,
+			    //dataType: "",
+			    data: {
+			    	"zone_num":li_zone_num
+			    	},
+			    success: function(result){	//select 해올 데이터가 있으면 success 동작
+			    	$("#zone_comment").text(result+"\n\n상기 차량(들)을 다른 카키존으로 이관시킨 후에 삭제해주세요!");
+			    },
+			    error: function (){	// select해올 것이 없으면 error 동작
+			    	location.href="khakizone_delete.do?zone_num="+li_zone_num;
+			    }
+			  });
+		});
+		
 	})	//JQuery end
 	
 	

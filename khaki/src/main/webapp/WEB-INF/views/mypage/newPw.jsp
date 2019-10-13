@@ -89,13 +89,19 @@
 						function() {
 							if($('#pw_span').text() != '사용 가능한 비밀번호입니다.'){
 								swal('비밀번호 입력 정보를 다시 확인해주세요.')
-								$('#pw').focus()
+								.then((value) => {
+									$('#pw').focus()
+									});
+								
 								return false
 							}
 
 							if($('#pwChk_span').text() != '비밀번호와 일치합니다.'){
 								swal('비밀번호 확인 입력 정보를 다시 확인해주세요.')
-								$('#pwChk').focus()
+								.then((value) => {
+									$('#pwChk').focus()
+									});
+								
 								return false
 							}
 							
@@ -106,7 +112,9 @@
 								type: 'POST',
 								success: function(result){
 									swal("비밀번호 변경이 완료되었습니다.")
-									window.parent.closeModal_normal('changed')
+										.then((value) => {
+											window.parent.closeModal_normal('changed')
+									});
 								}
 							})
 						})

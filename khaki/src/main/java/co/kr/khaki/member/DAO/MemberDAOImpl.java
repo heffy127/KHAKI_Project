@@ -97,6 +97,14 @@ public String phoneIdNameCheck(MemberDTO memberDTO) {
       return result;
    }
    
+@Override
+	public String selectPhoto(String memPhoto) {
+		String photo = my.selectOne("memberDAO.selectPhoto", memPhoto);
+		System.out.println("selectPhoto 완료");
+		return photo;
+	}
+
+
    /* (non-Javadoc)
  * @see co.kr.khaki.member.DAO.MemberDAO#insertMember(co.kr.khaki.member.DTO.MemberDTO)
  */

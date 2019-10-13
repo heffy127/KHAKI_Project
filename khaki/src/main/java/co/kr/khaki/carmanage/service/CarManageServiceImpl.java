@@ -185,5 +185,31 @@ public class CarManageServiceImpl implements CarManageSeviceInterface {
 		
 		return arr;
 	}
+
+	@Override
+	public List<CarManageDTO> carmanageSelectZonenum(int zone_num) {
+		List<CarManageDTO> cmlist = cmdao.select_zone_num(zone_num);
+		return cmlist;
+	}
+
+	@Override
+	public ArrayList carmanageUpdateDB(CarManageDTO carManageDTO, int curPage, int pageSize) {
+		
+		ArrayList arr = new ArrayList();
+		
+		// 차량 정보 업데이트
+		cmdao.update(carManageDTO);
+		
+		List<CarManageDTO> cmlist = cmdao.selectAll();
+		
+		int listCnt = cmlist.size();
+		pagination pg = new pagination(listCnt, curPage, pageSize);
+		
+		arr.add(cmlist);
+		arr.add(listCnt);
+		arr.add(pg);
+		
+		return arr;
+	}
 	
 }

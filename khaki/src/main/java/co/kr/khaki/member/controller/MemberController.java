@@ -201,7 +201,7 @@ public class MemberController {
 	// 비밀번호 찾기 위한 문자 보내기
 	@RequestMapping("findPw_phone_go.do")
 	public String findPw_phone_go(MemberDTO memberDTO,  TempPw tp, HashingPw hp, Model model) {
-		memberServiceInter.sendSms_findPw(memberDTO);
+		memberDTO = memberServiceInter.sendSms_findPw(memberDTO);
 			
 		model.addAttribute("memberDTO", memberDTO);
 		return "sms/smsFindPw"; 

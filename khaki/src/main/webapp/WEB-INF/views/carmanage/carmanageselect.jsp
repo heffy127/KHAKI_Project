@@ -32,6 +32,11 @@
 				location.href = "carmanageDelete.do?car_num="+td_car_num;
 			});	// delete end
 			
+			// 차량 수정
+			$("#update").click(function(){
+				$("#updateform").submit();	//update
+			});	// update end
+			
 		});	//Jquery End
 	</script>
 
@@ -157,8 +162,7 @@
 						        </div>	<!-- modal content End -->
 						    </div>	
 						</div>	<!-- modal fade End -->
-          			
-          			<!-- <button id="update">수정</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+          			<button id="update" class="btn btn-outline-info">수정</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           			<button id="delete" class="btn btn-outline-danger">삭제</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           			<button id="cancel" class="btn btn-outline-warning" onclick="history.back(-1);">뒤로</button>
 	          	</div>
@@ -166,6 +170,21 @@
           </div>
         </div>
       </div>
+      	<!-- update form -->
+		<form action="carmanageUpdate.do" method="post" id="updateform">
+			<input type="hidden" name="car_name" value="${cmdto.car_name}">
+			<input type="hidden" name="car_num" value="${cmdto.car_num}">
+			<input type="hidden" name="driven" value="${cmdto.driven}">
+			<input type="hidden" name="fuel_type" value="${cmdto.fuel_type}">
+			<input type="hidden" name="fuel_gage" value="${cmdto.fuel_gage}">
+			<input type="hidden" name="zone_num" value="${cmdto.zone_num}">
+			<input type="hidden" name="fee_hour" value="${cmdto.fee_hour}">
+			<input type="hidden" name="fee_km" value="${cmdto.fee_km}">
+			<input type="hidden" name="car_image" value="${cmdto.car_image}">
+			<input type="hidden" name="brand" value="${cmdto.brand}">
+			<input type="hidden" name="car_size" value="${cmdto.car_size}">
+			<input type="hidden" name="reg_date" value="${cmdto.reg_date}">
+		</form>
   <!--   Core   -->
   <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

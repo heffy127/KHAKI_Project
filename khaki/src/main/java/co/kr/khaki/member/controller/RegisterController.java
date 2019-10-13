@@ -119,7 +119,7 @@ public class RegisterController {
 
       // 가입시 100point 지급
       memberServiceInter.updatePoint(memberDTO.getId(), 100); // 포인트 업데이트
-      memberServiceInter.updatePointReco(reco, memberDTO.getId(), 100); // 추천인 포인트 업데이트
+      memberServiceInter.updatePointReco(reco, memberDTO.getId(), 20, 100); // 추천인 포인트 업데이트
       memberServiceInter.insertLevel(memberDTO.getId()); // 회원 레벨 생성
       if(go.trim().equals("home")) {
          return "home/index";

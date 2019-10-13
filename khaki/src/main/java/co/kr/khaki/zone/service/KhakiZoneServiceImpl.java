@@ -25,20 +25,34 @@ public class KhakiZoneServiceImpl implements KhakiZoneServiceInterface {
 	 * @see co.kr.khaki.zone.service.KhakiZoneServiceInterface#khakizone(int, int)
 	 */
 	@Override
-	public ArrayList khakizone(int curPage, int pageSize) {
-		// 페이지 네이션 부분
-		int total = zonedao.cntAll();
-		pagination pg = new pagination(total, curPage, pageSize);
-		
-		List<KhakiZoneDTO> select_list = zonedao.select_page(pg.getStartIndex());
-		
-		KhakiZoneCal zonecal = new KhakiZoneCal(select_list);
+	public ArrayList khakizone(int curPage, int pageSize, String msg) {
 		
 		ArrayList arr = new ArrayList();
+		
+		List<KhakiZoneDTO> select_list = null;
+		KhakiZoneCal zonecal = null;
+		pagination pg = null;
+		
+		if("전체".equals(msg)) {
+			select_list = zonedao.selectAll();	//전체 검색
+			zonecal = new KhakiZoneCal(select_list);
+			
+		}else {	// msg가 전체 외에는 모두 기본이 되도록 구현(추가로 구현이 필요하면 늘리는 것으로)
+			// 페이지 네이션 부분
+			int total = zonedao.cntAll();
+			pg = new pagination(total, curPage, pageSize);
+			select_list = zonedao.select_page(pg.getStartIndex());
+			zonecal = new KhakiZoneCal(select_list);
+		}
+		
+		System.out.println("select_list : "+select_list);
+		System.out.println("pg : "+ pg);
+		System.out.println("zonecal : "+zonecal);
 		
 		arr.add(pg);
 		arr.add(select_list);
 		arr.add(zonecal);
+		
 		
 		return arr;
 	}

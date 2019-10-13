@@ -64,7 +64,7 @@ public interface MemberServiceInter {
 	void sendEmail_findPw(MemberDTO memberDTO);
 
 	// 회원 휴대폰 번호로 임시 비밀번호 전송 전 DB에 저장
-	void sendSms_findPw(MemberDTO memberDTO);
+	MemberDTO sendSms_findPw(MemberDTO memberDTO);
 
 	// DB에 저장된 레벨, 경험치 정보를 통해 프로필에 출력시킬 수 있도록 퍼센트화
 	int[] showStat(MemberLevelDTO memberLevelDTO);
@@ -106,7 +106,7 @@ public interface MemberServiceInter {
 	void updatePoint(String id, int point);
 
 	// 추천인 포인트 변경
-	void updatePointReco(String reco, String id, int point);
+	void updatePointReco(String reco, String id, int recoPoint, int point);
 
 	// 회원 정보 삭제
 	void deleteMember(String id);

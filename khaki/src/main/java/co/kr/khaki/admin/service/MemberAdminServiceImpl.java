@@ -51,7 +51,7 @@ public List<MemberAdminDTO> selectFromId(String id){
 @Override
 public List<MemberAdminDTO> selectFromName(String name){
       
-      return memberAdminDAO.selectId(name);
+      return memberAdminDAO.selectName(name);
    }
    
    // 관리자 운전면허 승인

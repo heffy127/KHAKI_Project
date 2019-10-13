@@ -56,30 +56,6 @@
   			$("#insertReFrm").submit();
   		});
   		
-  	/* // 댓글 삭제버튼
-		$("#reDelBtn").click(function(){
-			var retVal = confirm("댓글을 삭제하시겠습니까?");
-			var num = 
-			var num2 = ${dto.bNum};
-			if( retVal == true ){
-			alert(num);
-			alert("삭제되었습니다.");
-				$.ajax({
-				url : "deleteRe.do?" + num,
-				type : 'POST',
-				success : function(data){
-					$.ajax({
-						url : "selectRe.do?" + num2 ,
-						type : 'POST',
-						success : function(data){
-						$("#replyBox").text(data);
-						}
-					});
-				}
-				});
-			}
-		});   */
-  		
         //목록버튼
         $("#boardBtn").click(function(){
             location.href = 'board.do';
@@ -139,38 +115,63 @@
         
         //추천버튼
         
-			$("#goodBtn").click(function() {
-					var retVal = confirm("게시글을 추천하시겠습니까?");
-					var num = ${dto.bNum};
-					var hit = ${dto.hit};
-					if (retVal == true) {
-						$.ajax({
-							url : "updateHit.do",
-							data : {
-								"bNum" : num
-							},
-							success : function(data) {
-								$.ajax({
-									url : "updateHitSelect.do",
-									data : {
-										"bNum" : num
-									},
-									success : function(data) {
-										$("#goodPlace").text(data);
-									},
-									error : function(xhr, status) {
-										alert(xhr + " : " + status);
-									}
-								});
-							},
-							error : function(xhr, status) {
-								alert(xhr + " : " + status);
-							}
-						});
-					}
-				});
+		$("#goodBtn").click(function() {
+				var retVal = confirm("게시글을 추천하시겠습니까?");
+				var num = ${dto.bNum};
+				var hit = ${dto.hit};
+				if (retVal == true) {
+					$.ajax({
+						url : "updateHit.do",
+						data : {
+							"bNum" : num
+						},
+						success : function(data) {
+							$.ajax({
+								url : "updateHitSelect.do",
+								data : {
+									"bNum" : num
+								},
+								success : function(data) {
+									$("#goodPlace").text(data);
+								},
+								error : function(xhr, status) {
+									alert(xhr + " : " + status);
+								}
+							});
+						},
+						error : function(xhr, status) {
+							alert(xhr + " : " + status);
+						}
+					});
+				}
 			});
-		</script>
+        
+		  	// 댓글 삭제버튼
+			$("#reDelBtn").click(function(){
+				var retVal = confirm("댓글을 삭제하시겠습니까?");
+				var num = ${dto.bNum};
+				var num2 = $("#reNum").val();
+				var writer = $("#reId").text();
+				
+				if( retVal == true ){
+					alert("댓글이 삭제되었습니다.");
+					$.ajax({
+						type : 'POST',
+						url : "deleteRe.do",
+						data : {
+							"reNum" : num2
+						},
+						success : function(data){
+							location.href = "select.do?bNum=" + num;
+						}
+					})
+					
+				}
+			});
+		
+  	}); // script end
+  	
+	</script>
   <script type="text/javascript">
   	$(function() {
   		// handler a태그 클릭시 sessionId의 핸들러 여부에 따라 호출 페이지가 달라짐.
@@ -425,7 +426,7 @@
       </div>
     </div>
     
-    <!-- 게시글 작성  --> 
+    <!-- 게시글 보기  --> 
     <div class="container-fluid mt--7">
 	      <div class="row">
 	        <div class="col">
@@ -443,7 +444,7 @@
 							<br>
 							</td>
 							<td align="center"><font size="5" color="gray"><b id="contentWriter">${dto.writer}</b></font>
-								<img alt="Image placeholder" src="${sessionPhoto}" 
+								<img alt="Image placeholder" src="${memPhoto}" 
 								style="width:40px; border-radius: 40px;">
 								
 							<br>
@@ -490,11 +491,9 @@
 						<hr>
 						<div id="replybox">
 							<c:forEach var="reDTO" items="${listRe}">
-								<b>${reDTO.writer}</b>&nbsp;
-								<img alt="Image placeholder" src="${sessionPhoto}"
-									style="width:25px; border-radius: 40px;"><br>
+								<b id="reId">${reDTO.writer}</b><br>
 								${reDTO.content}&nbsp; <div style="float: right;">${fn:substring(reDTO.write_date,0,14)}
-								
+								<input type="hidden" id="reNum" value="${reDTO.reNum}">
 								<!-- 댓글 작성자만 삭제버튼 활성화 -->
 								<c:if test="${reDTO.writer eq sessionId}">
 									<button type="submit" id="reDelBtn" class="btn btn-danger btn-sm">삭제</button>
@@ -503,35 +502,7 @@
 								</div><br>
 								<hr>
 							</c:forEach>
-							<nav aria-label="...">
-							  <ul class="pagination justify-content-center">
-							<c:if test="${pagination.curPage ne 1}">
-							   <li class="page-item">
-							     <a class="page-link" href="#" tabindex="-1" onClick="fn_paging('${Boardpagination.prevPage }')">
-							       <i class="fa fa-angle-left"></i>
-							       <span class="sr-only">Previous</span>
-							     </a>
-							   </li>
-							</c:if>
-							<c:if test="${Boardpagination.curRange ne 1 }">
-								<li class="page-item"><a class="page-link" href="#" onClick="fn_paging(1)">1<span class="sr-only">(current)</span></a></li>
-							</c:if>
-							<c:forEach var="pageNum" begin="${Boardpagination.startPage }" end="${Boardpagination.endPage }">
-								<c:choose>
-								<c:when test="${pageNum eq Boardpagination.curPage}">
-									<li class="page-item active" value="${Boardpagination.startPage + 1}">
-								</c:when>
-								</c:choose>
-							</c:forEach>
-								
-							    <li class="page-item">
-							      <a class="page-link" href="#">
-							        <i class="fa fa-angle-right"></i>
-							        <span class="sr-only">Next</span>
-							      </a>
-							    </li>
-							  </ul>
-							</nav>
+							
 							
 							<div id="reWrite">
 								<form action="insertRe.do" method="POST" id="insertReFrm">
