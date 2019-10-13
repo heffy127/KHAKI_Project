@@ -247,14 +247,15 @@ public void sendEmail_findPw(MemberDTO memberDTO) {
  * @see co.kr.khaki.member.service.MemberService#sendSms_findPw(co.kr.khaki.member.DTO.MemberDTO)
  */
 @Override
-public void sendSms_findPw(MemberDTO memberDTO) {
-	   TempPw tp = new TempPw(); // 임시비밀번호 생성 객체
-	   HashingPw hp = new HashingPw(); // 비밀번호 해시화 객체
+public MemberDTO sendSms_findPw(MemberDTO memberDTO) {
+	    TempPw tp = new TempPw(); // 임시비밀번호 생성 객체
+	    HashingPw hp = new HashingPw(); // 비밀번호 해시화 객체
 		memberDTO = memberDAO.selectPhone(memberDTO);
 		memberDTO.setPw(tp.setTempPw()); // 임시 비밀번호 생성
 		String temp = memberDTO.getPw(); // 임시 비밀번호 변수에 저장
 		memberDAO.updatePw(hp.hash(memberDTO)); // 암호화 시켜서 DB에 저장 후
 		memberDTO.setPw(temp); // 암호화 되기 전 비밀번호를 다시 DTO에 넣어 문자 발송
+		return memberDTO;
    }
    
    // DB에 저장된 레벨, 경험치 정보를 통해 프로필에 출력시킬 수 있도록 퍼센트화

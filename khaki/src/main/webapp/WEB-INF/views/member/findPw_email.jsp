@@ -58,13 +58,17 @@ $(document).ready(
 								type: "POST",
 								success: function(result2){
 									swal("등록된 이메일로 임시 비밀번호가 발송되었습니다.")
-									window.parent.closeModal()
+									.then((value) => {
+										window.parent.closeModal()
+									});
 								}
 							})
 							
 						}else{
 							swal("등록된 이메일이 없습니다.")
-							location.reload(true);
+							.then((value) => {
+								location.reload(true);
+									});
 						}
 					}
 				})
