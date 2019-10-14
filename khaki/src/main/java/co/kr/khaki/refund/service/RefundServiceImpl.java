@@ -144,7 +144,7 @@ public class RefundServiceImpl implements RefundServiceInterface {
 		if (refundDTO.getCouponNum() == null) {
 
 		} else {
-			System.out.println(refundDTO2.getCouponNum()+"adafadfsdfsdaf");
+			System.out.println(refundDTO2.getCouponNum()+"확인");
 			cpuDTO.setNum(Integer.parseInt(refundDTO2.getCouponNum()));
 			cpuDAO.update(cpuDTO); // 고객이 사용한 쿠폰또한 다시 원상복구(유효기간이 이미 지난 쿠폰의 경우 어차피 사용은 못함)
 		}

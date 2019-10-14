@@ -67,7 +67,7 @@
 			 		  $("#refund_btn_td"+i).append("<button type='button' class='btn btn-outline-danger' id='refund_btn"+i+"''>환불완료</button>");
 			  		  $("#admin_reservation_rfImg"+i).append("<img src='https://image.flaticon.com/icons/svg/1828/1828748.svg' style='width: 13%; float: left;'>");
 			 	  } else if(data == "N") {
-			  		  $("#refund_btn_td"+i).append("<button type='button' class='btn btn-outline-default' id='refund_btn"+i+"' title='아임포트 관리자에서 환불승인 된 주문건에 한해 클릭하세요.'>환불처리</button>");
+			  		  $("#refund_btn_td"+i).append("<button type='button' class='btn btn-outline-default' id='refund_btn"+i+"' title='아임포트 관리자에서 환불승인 된 주문만 클릭하세요.'>환불처리</button>");
 			  		  $("#admin_reservation_rfImg"+i).append("<img src='https://image.flaticon.com/icons/svg/1828/1828748.svg' style='width: 13%; float: left;'>");
 			 	  } else {
 			 	  }
