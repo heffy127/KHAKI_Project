@@ -409,15 +409,15 @@
 	        // You can use the locally-scoped $ in here as an alias to jQuery.
 	   		// 출처: https://yubylab.tistory.com/entry/다른-라이브러리로부터-jQuery-보호하기 [Yuby's Lab.]
 	    var key = '1566268087863';
-		var url = 'http://openapi.its.go.kr:8081/api/NCCTVInfo?key='+key+'&ReqType=2&MinX=125.900000&MaxX=129.500000&MinY=33.100000 &MaxY=39.100000&type=ex&CctvType=1';
+		var url = 'http://openapi.its.go.kr:8081/api/NCCTVInfo?key='+
+				key+'&ReqType=2&MinX=125.900000&MaxX=129.500000&MinY=33.100000 &MaxY=39.100000&type=ex&CctvType=1';
 	    
 	    // 데이터를 가져오기 위해 jQuery를 사용합니다
 	    // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
 	    $.get(url, function(result) {
-	        // 데이터에서 좌표 값을 가지고 마커를 표시합니다
-	        // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
 	        var json = $.xml2json(result);
 	        console.log(json.data);
+	        
 	        var markers = $(json.data).map(function(i, data) {
 	            var marker = new kakao.maps.Marker({
 	                position : new kakao.maps.LatLng(data.coordy, data.coordx),
@@ -445,7 +445,7 @@
 	        	 // 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저를 만듭니다
 			    // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
 			    (function(marker, infowindow) {
-			        // 마커에 mouseover 이벤트를 등록하고 마우스 오버 시 인포윈도우를 표시합니다 
+			        // 마커에 mouseclick 이벤트를 등록하고 마우스 클릿 시 인포윈도우를 표시합니다 
 			        kakao.maps.event.addListener(marker, 'click', function() {
 			            infowindow.open(map, marker);
 			        });

@@ -213,29 +213,19 @@
 				swal("나를 눌렀군요?");
 				var data11 = $(this).next(".btn_value").val();
 				var index_data = $(".btn_change").index(this);	// 교체 버튼 눌리면 index를 가져옴
+				// 해당 time값이 들어있는 input태그의 index를 맞추기 위해서 +12하여 값을 넣어줌 
 				var index_time = index_data+12;
 				swal(data11+"/"+index_data + "/" + index_time);
 				
 				var span_index_data = $(".pctest1_"+(index_data+1)).children("span").text();
 				var change_num1 = span_index_data.split("/")[1].split("|")[0];
 				var change_num2 = span_index_data.split(":")[1].split("/")[0];
-				/* 
-					
-				swal(typeof change_num1);	//typeof 함수는 변수의 타입을 알려줌, 현재 string
-				swal("***"+change_num1+"***");
-				swal(typeof parseInt(change_num1.trim()));
-					parseInt 메소드 사용시 trim 여부는 상관없는듯?
-				swal("trim : " + parseInt(change_num1.trim()));
-				swal("no tirm : " + parseInt(change_num1)); 
-				*/
 				
 				// 바뀔 값들만 셋팅해주는 식으로 구현
 				// 바뀔 값들 셋팅
 				// value값을 변경해주어 DB에 바뀔 값만 변경해서 넘어가도록
 				$("input:eq("+index_data+")").val(parseInt(change_num1.trim()));
 				
-				
-				// 해당 time값이 들어있는 input태그의 index를 맞추기 위해서 +11하여 값을 넣어줌 
 				$("input:eq("+index_time+")").val(today2);
 				var form_data = $("#form").serialize();	//form data를 serialize()로 전체 받아옴
 				$.ajax({

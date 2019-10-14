@@ -4,44 +4,30 @@ public class pagination {
 
     /** 한 페이지당 게시글 수 **/
     private int pageSize = 10;
-    
     /** 한 블럭(range)당 페이지 수 **/
     private int rangeSize = 5;
-    
     /** 현재 페이지 **/
     private int curPage = 1;
-    
     /** 현재 블럭(range) **/
     private int curRange = 1;
-    
     /** 총 게시글 수 **/
     private int listCnt;
-    
     /** 총 페이지 수 **/
     private int pageCnt;
-    
     /** 총 블럭(range) 수 **/
     private int rangeCnt;
-    
     /** 시작 페이지 **/
     private int startPage = 1;
-    
     /** 끝 페이지 **/
     private int endPage = 1;
-    
     /** 시작 index **/
     private int startIndex = 0;
-
     /** 끝 index **/
     private int endIndex;
-    
     /** 이전 페이지 **/
     private int prevPage;
-    
     /** 다음 페이지 **/
     private int nextPage;
-
-    
     
     public pagination(){	//기본 생성자
     	
@@ -149,10 +135,6 @@ public class pagination {
 		return curRange;
 	}
 
-	/*public void setCurRange(int curRange) {
-		this.curRange = curRange;
-	}*/
-
 	public int getListCnt() {
 		return listCnt;
 	}
@@ -165,17 +147,9 @@ public class pagination {
 		return pageCnt;
 	}
 
-	/*public void setPageCnt(int pageCnt) {
-		this.pageCnt = pageCnt;
-	}*/
-
 	public int getRangeCnt() {
 		return rangeCnt;
 	}
-
-	/*public void setRangeCnt(int rangeCnt) {
-		this.rangeCnt = rangeCnt;
-	}*/
 
 	public int getStartPage() {
 		return startPage;
@@ -197,10 +171,6 @@ public class pagination {
 		return startIndex;
 	}
 
-	/*public void setStartIndex(int startIndex) {
-		this.startIndex = startIndex;
-	}*/
-
 	public int getPrevPage() {
 		return prevPage;
 	}
@@ -216,13 +186,4 @@ public class pagination {
 	public void setNextPage(int nextPage) {
 		this.nextPage = nextPage;
 	}
-
-	@Override
-	public String toString() {
-		return "pagination [pageSize=" + pageSize + ", rangeSize=" + rangeSize + ", curPage=" + curPage + ", curRange="
-				+ curRange + ", listCnt=" + listCnt + ", pageCnt=" + pageCnt + ", rangeCnt=" + rangeCnt + ", startPage="
-				+ startPage + ", endPage=" + endPage + ", startIndex=" + startIndex + ", endIndex=" + endIndex
-				+ ", prevPage=" + prevPage + ", nextPage=" + nextPage + "]";
-	}
-    
 }

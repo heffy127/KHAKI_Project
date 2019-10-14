@@ -37,14 +37,11 @@
   	
   	function fn_paging(pageSize, curPage){
   		location.href = "notice.do?curPage="+curPage+"&pageSize="+pageSize;
-  		//swal(curPage); //페이지 넘버 확인 aaaaaabb
   	};
   	
-  	// aaaaa
     $(function(){
     	$(".check_notice1").click(function(){
 	  		var check_notice = $("#check_notice").prop("checked");	//prop는 속성값을 의미 체크안되어 있으면 false를 반환, 되어있으면 true를 반환
-	    	//swal(check_notice);
 	  		if(check_notice == true){
 	    		$("tbody").children("#board_notice").hide();
 	    	}else{
@@ -54,13 +51,12 @@
   		
   		$(".check_event1").click(function(){
 	  		var check_notice = $("#check_event").prop("checked");	//prop는 속성값을 의미 체크안되어 있으면 false를 반환, 되어있으면 true를 반환
-	    	//swal(check_notice);
 	  		if(check_notice == true){
 	    		$("tbody").children("#board_event").hide();
 	    	}else{
 	    		$("tbody").children("#board_event").show();
 	    	}
-  		})	//	광고 감추기/보이기 기능 END checkbox label을 누르면 동작하도록
+  		})	//	이벤트 감추기/보이기 기능 END checkbox label을 누르면 동작하도록
     	
   		// id를 비교하여 
   		var id = '${sessionId}';
@@ -350,8 +346,6 @@
     		- 답글 기능(다음 카페 참조하여 답글을 달면 내용에서 조금 밀려서 표시 되도록, 즉 구분되도록!)
     		- 댓글 기능
     		- 포토업로더, editor 기능 구현
-    		- 
-    
      -->
     <% 
     	List<NoticeDTO> list = (List<NoticeDTO>)request.getAttribute("nlist");
@@ -361,7 +355,6 @@
     	
     
     %>
-    <!-- aaaabbcccddeeffee -->
     <!-- white 테마 사용 -->
     <div class="container-fluid mt--7">
       <!-- Table -->
@@ -391,7 +384,6 @@
 	                        </a>
 	                        <!--  dropdown-menu-arrow -->
 	                        <div class="dropdown-menu dropdown-menu-right" style="overflow-y: scroll;height: 150px;">
-                        			<%-- <input type="dropdown-item carname" name="carname" value="${car }" readonly="readonly"> --%>
                         			<div class="dropdown-item">
                         				<a href="#" onclick="fn_paging(10,${pagination.curPage})">10개</a>
                         			</div>
@@ -418,13 +410,10 @@
                     <th scope="col" style="font-size: 20px;">작성일시</th>
                   </tr>
                 </thead>
-                <!-- 전체적인 정렬이 필요(css확인 후 강제 인라인 먹일 수 있는 방법 모색) or 그냥... 넣어보자 ㅋㅋㅋㅋ aaabbbcccdddeeeeefffff -->
                 <%
                 	pagination pg = (pagination)request.getAttribute("pagination");
          	   	%>
-         	   	<!-- aaabbccc -->
                 <tbody>
-                <!-- 공지사항 위로 올리기 -->
                 <c:if test="${noticelist.size() > 1}">
                 	<c:forEach var="notice_dto" items="${noticelist}" begin="0" end="1">
 	                	<tr id="board_notice" style="font-family: 'Nanum Pen Script', cursive;" align="center">
@@ -659,7 +648,6 @@
 						        <span class="sr-only">Next</span>
 							</a> 
 						</li>
-						
                     </c:if>
                     <c:if test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
                         <li class="page-item">

@@ -86,7 +86,7 @@
 				var c_fee_km = isEmpty($("#fee_km").val());
 				var c_fee_hour = isEmpty($("#fee_hour").val());
 				
-				/*
+				
 				console.log("car_num : "+c_car_num);
 				console.log("total_distance : "+c_total_distance);
 				console.log("car_name : "+c_carname);
@@ -95,7 +95,7 @@
 				console.log("car_size : "+c_car_size);
 				console.log("fee_km : "+c_fee_km);
 				console.log("fee_hour : "+c_fee_hour); 
-				*/
+				
  				
  				// 차량 등록시 소모품들 교체는 다 된 것으로 하고 수치를 넣도록 구현
  				// jquery에서 text()는 그 안의 text값을 가져오는것, val()은 value값을 가져오는 것(구분 잘하기)
@@ -138,7 +138,6 @@
 				swal(data1);
 				$("#brand_dropDown").text(data1);	// 제조사선택 화면에 선택된 값을 나오게끔
 				$("#brand").val(data1);
-				
 				$(".min-menu2").children().remove();	// dorpdown-menu2번째를 초기화하고
 				
 				var jsontest = '/khaki/resources/assets/json/test1.json';
@@ -148,13 +147,12 @@
 					$.each(data, function(I,item){	// I는 JSON안의 인덱스,item은 각 객체들을 가져오는 것으로 생각
 						if(data1 == item.made){	//제조사가 일치하면
 							//swal(I + ":" + item.name + " / "+ item.fuel)	//여기까지 완료
-							$(".min-menu2").append('<div class=\"dropdown-min-menu2\"><div class=\"dropdown-item carname\">'+item.name+'/'+item.size+'/'+item.fuel+'</div></div>');
+							$(".min-menu2").append('<div class=\"dropdown-min-menu2\"><div class=\"dropdown-item carname\">'
+									+item.name+'/'+item.size+'/'+item.fuel+'</div></div>');
 							// append되는 대상을 잘 생각하고, remove는 대상을 지우는 것으로 children을 지워야 그 대상이 아닌 하위가 지워지는 것!
 						}
 					});	//each End
 				});	//JOSN load
-				
-				
 			});	// 브랜드 dropdown End
 			
 			// 차량명 드롭다운에서 요소 가져오기
