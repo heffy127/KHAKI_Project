@@ -1,6 +1,5 @@
 package co.kr.khaki.refund.controller;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,19 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import co.kr.khaki.admin.DTO.MemberAdminDTO;
-import co.kr.khaki.common.CalculateMemberLevel;
-import co.kr.khaki.coupon.CouponUseDAO;
-import co.kr.khaki.coupon.CouponUseDTO;
-import co.kr.khaki.member.DAO.MemberDAOInter;
-import co.kr.khaki.member.DAO.MemberLevelDAOInter;
-import co.kr.khaki.member.DTO.InsertPointDTO;
-import co.kr.khaki.member.DTO.MemberDTO;
-import co.kr.khaki.member.DTO.MemberLevelDTO;
-import co.kr.khaki.refund.DAO.RefundDAOImpl;
 import co.kr.khaki.refund.DTO.RefundDTO;
 import co.kr.khaki.refund.service.RefundServiceInterface;
-import co.kr.khaki.reservation.DAO.PayDAOInterface;
 import co.kr.khaki.reservation.DTO.PayDTO;
 
 @Controller
@@ -32,6 +20,7 @@ public class RefundController {
 	@RequestMapping("admin_reservation.do")
 	public String admin_reservation(Model model) {
 		List<PayDTO> pdto = refundServiceImpl.admin_reservation();
+		
 		model.addAttribute("pdto", pdto);
 		model.addAttribute("searchMethod", "buy_impUid");
 		model.addAttribute("searchInputText", "");

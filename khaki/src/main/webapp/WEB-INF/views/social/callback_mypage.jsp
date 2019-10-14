@@ -11,7 +11,7 @@
 <script type="text/javascript">
   var naver_id_login = new naver_id_login("FeRQ2NAEFDfGZe9uWQc8", "http://localhost:9999/khaki/callback_login.do");
   // 접근 토큰 값 출력
- /*  swal(naver_id_login.oauthParams.access_token); */
+ /*  alert(naver_id_login.oauthParams.access_token); */
   // 네이버 사용자 프로필 조회
   naver_id_login.get_naver_userprofile("naverSignInCallback()");
   // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
@@ -28,7 +28,7 @@
 		success: function(result){
 			var check = result.trim() // already가 아닌경우 sessionId값을 가져옴
 			if(check == 'already'){ // 해당 네이버 계정으로 다른 아이디 소셜 계정 연결
-				swal("이미 다른 KHAKI 계정에서 사용중입니다.")
+				alert("이미 다른 KHAKI 계정에서 사용중입니다.")
 				opener.parent.location.reload();
 				window.close()
 				
@@ -42,7 +42,7 @@
 							"social_type" : "naver"
 							},
 					success: function(result){
-						swal("네이버 소셜 연동이 완료되었습니다.")
+						alert("네이버 소셜 연동이 완료되었습니다.")
 						opener.parent.location.reload();
 						window.close()
 					}

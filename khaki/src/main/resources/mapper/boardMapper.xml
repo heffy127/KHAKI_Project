@@ -36,6 +36,7 @@
 		SELECT * FROM board where writer = #{writer} ORDER BY bNum DESC 
 	</select>
 	
+	
 	<!-- 내가 쓴글 count -->
 	<select id="countWrite" parameterType="String" resultType="int">
 		SELECT count(*) FROM board where writer = #{writer}

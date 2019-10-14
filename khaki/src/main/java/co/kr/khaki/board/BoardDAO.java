@@ -59,4 +59,6 @@ public class BoardDAO {
 		return myBatis.selectOne("bDAO.countWrite",writer);
 	}
 	
+	
+	
 }

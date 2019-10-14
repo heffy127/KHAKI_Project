@@ -134,7 +134,7 @@
 	          			</td>
           				<td id="admin_reservation_search"><input type="text" style="width: 90%;" id="admin_reservation_input" placeholder="search.."></td>
           				<td id="admin_reservation_search_btn"><button type="button" class="btn btn-outline-secondary" style="color: white;" id="admin_reservation_search_button">SEARCH</button></td>
-          				<td id="admin_reservation_refund"><button type="button" class="btn btn-danger" id="UntreatedBtn">미처리건 확인하기</button></td>
+          				<td id="admin_reservation_refund"><button type="button" class="btn btn-danger" id="UntreatedBtn">전체 보기</button></td>
           			</tr>
           		</table>
           		

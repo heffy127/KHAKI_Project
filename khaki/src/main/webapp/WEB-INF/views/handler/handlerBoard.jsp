@@ -314,7 +314,7 @@
 					var returnLocation = $("#region_1_n option:selected").val();
 					var d2 = $("#region_2_n option:selected").val();
 					returnLocation += " " + d2;
-					location.href="handlerDetailSearch.do?startLocation="+returnLocation;
+					location.href="handlerDetailSearch2.do?returnLocation="+returnLocation;
 					break;
 			}
 		})
@@ -380,8 +380,10 @@
 					      url:"handlerDelete.do",
 					      data : handlerDeleteFrm,
 					      success:function(data){
-					    	  swal("핸들러 신청이 완료 되었습니다");
-					    	  location.href="handlerBoard.do";
+					    	  swal("핸들러 신청이 완료 되었습니다")
+                              .then((value) => {
+                            	  location.href="handlerBoard.do";
+                              });
 					      },
 					      error : function(xhr, status) {
 				                swal(xhr + " : " + status);

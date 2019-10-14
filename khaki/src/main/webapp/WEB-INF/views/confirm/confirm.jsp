@@ -109,17 +109,17 @@
                       
                    } else if(couponVal[0] == "M") { // 쿠폰타입이 금액할인이라면
                       ku = parseInt(couponVal[1]);
-                    kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+                      kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
                       $("#ku").val(ku);
-                    $("#kyul").val(kyul);
-                    if(kyul < 0) { // 결제할 금액이 0원 아래로 내려갈경우 -금액이 아닌 0원으로 대체
-                       kyul = 0;
-                    }
-                    // 최초 결제금액을 할인 적용한 금액으로 변경
-                    $("#confirm_amount").text(kyul);
+                      $("#kyul").val(kyul);
+                      if(kyul < 0) { // 결제할 금액이 0원 아래로 내려갈경우 -금액이 아닌 0원으로 대체
+                         kyul = 0;
+                      }
+                      // 최초 결제금액을 할인 적용한 금액으로 변경
+                      $("#confirm_amount").text(kyul);
                       // (할인적용)이라는 문구가 만들어져 있다면 우선 삭제한 후 다시 append
-                    $("#discount_label").remove();
-                    $("#discount_label2").remove();
+                      $("#discount_label").remove();
+                      $("#discount_label2").remove();
                       // 할인이 적용되었다고 알리기 위해 라벨 추가
                     $("#amount_div2").append("<label id=\"discount_label2\" style='font-size: 15px; margin-left: 2%;'>최초금액 : " + one + "원 </label> <label id=\"discount_label\" style=\"font-size: 15px; color: red;\">(할인적용)</label>");
                       // 할인 적용된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
@@ -160,17 +160,17 @@
                  swal("쿠폰 조건이 맞지 않습니다.\n다른 쿠폰을 선택 해주세요.")
                  $(".coupon_method option:eq(0)").prop("selected", true); //첫번째 option 선택
                  ku = parseInt(0);
-               kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+                 kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
                  $("#ku").val(ku);
-               $("#kyul").val(kyul);
+                 $("#kyul").val(kyul);
                     
                  $("#discount_label").remove();
                  $("#discount_label2").remove();
                  // 최초 결제금액을 할인 적용한 금액으로 변경
                  $("#confirm_amount").text(kyul);
-                   // 할인 적용 안된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
-                   result = parseInt(kyul * 0.03);
-                   $("#confirm_point").text(result);
+                 // 할인 적용 안된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+                 result = parseInt(kyul * 0.03);
+                 $("#confirm_point").text(result);
                  
               } else if(timeCheck == "Y") {
                  if(couponVal[0] == "basic") {
@@ -259,17 +259,17 @@
               } else {
                  if(couponVal[0] == "basic") {
                       ku = parseInt(0);
-                    kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
+                      kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
                       $("#ku").val(ku);
-                    $("#kyul").val(kyul);
+                      $("#kyul").val(kyul);
                       
                       $("#discount_label").remove();
                       $("#discount_label2").remove();
                       // 최초 결제금액을 할인 적용한 금액으로 변경
                       $("#confirm_amount").text(kyul);
-                        // 할인 적용 안된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
-                        result = parseInt(kyul * 0.03);
-                        $("#confirm_point").text(result);
+                      // 할인 적용 안된 금액에 0.03을 곱하여 해당 금액을 포인트로 적립시킴
+                      result = parseInt(kyul * 0.03);
+                      $("#confirm_point").text(result);
                       
                    } else if(couponVal[0] == "M") { // 쿠폰타입이 금액할인이라면
                       ku = parseInt(couponVal[1]);
@@ -361,16 +361,16 @@
                 ku = parseInt(0);
                 $("#ku").val(ku);
                 kyul = one - ku - po; // 결제할금액 = 원래금액 - 쿠폰할인금액 - 포인트할인금액
-            $("#kyul").val(kyul);
+                $("#kyul").val(kyul);
                 $("#confirm_amount").text(kyul);
                 result = parseInt(kyul * 0.03);
-              $("#confirm_point").text(result);
-              // 빨간색(할인적용)을 div를 삭제
-              $("#discount_label").remove();
-              $("#discount_label2").remove();
-              // 쿠폰select를 담고있는 div 안보이게 hide
-              $("#select_couponMethod").hide();
-              $("#couponSeq").val("");
+                $("#confirm_point").text(result);
+                // 빨간색(할인적용)을 div를 삭제
+                $("#discount_label").remove();
+                $("#discount_label2").remove();
+                // 쿠폰select를 담고있는 div 안보이게 hide
+                $("#select_couponMethod").hide();
+                $("#couponSeq").val("");
            }
         })
         

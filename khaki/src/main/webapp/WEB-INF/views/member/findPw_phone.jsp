@@ -53,7 +53,9 @@ $(document).ready(
 							
 						}else{
 							swal("등록된 전화번호가 없습니다.")
-							location.reload(true);
+							.then((value) => {
+								location.reload(true);
+							});
 						}
 					}
 				})

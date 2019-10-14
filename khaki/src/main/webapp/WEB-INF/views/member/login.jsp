@@ -446,7 +446,10 @@
 					
 				}else{
 					swal("카카오 소셜 로그인 가입정보가 없습니다.\n회원가입 페이지로 이동합니다.")
+					.then((value) => {
 					location.href = "register.do"
+					});
+					
 				}
 			}
 	})

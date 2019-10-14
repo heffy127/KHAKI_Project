@@ -4,20 +4,14 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import co.kr.khaki.admin.DTO.MemberAdminDTO;
-import co.kr.khaki.common.CalculateMemberLevel;
 import co.kr.khaki.coupon.CouponUseDAO;
 import co.kr.khaki.coupon.CouponUseDTO;
 import co.kr.khaki.member.DAO.MemberDAOInter;
 import co.kr.khaki.member.DAO.MemberLevelDAOInter;
 import co.kr.khaki.member.DTO.InsertPointDTO;
 import co.kr.khaki.member.DTO.MemberDTO;
-import co.kr.khaki.member.DTO.MemberLevelDTO;
 import co.kr.khaki.refund.DAO.RefundDAOInterface;
 import co.kr.khaki.refund.DTO.RefundDTO;
 import co.kr.khaki.reservation.DAO.PayDAOInterface;
@@ -150,7 +144,7 @@ public class RefundServiceImpl implements RefundServiceInterface {
 		if (refundDTO.getCouponNum() == null) {
 
 		} else {
-			System.out.println(refundDTO2.getCouponNum()+"adafadfsdfsdaf");
+			System.out.println(refundDTO2.getCouponNum()+"확인");
 			cpuDTO.setNum(Integer.parseInt(refundDTO2.getCouponNum()));
 			cpuDAO.update(cpuDTO); // 고객이 사용한 쿠폰또한 다시 원상복구(유효기간이 이미 지난 쿠폰의 경우 어차피 사용은 못함)
 		}
@@ -179,5 +173,5 @@ public class RefundServiceImpl implements RefundServiceInterface {
 		return null;
 
 	}
-
+	
 }

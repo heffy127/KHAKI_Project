@@ -47,4 +47,6 @@ public interface MemberDAOInter {
 
 	void deleteMember(String id);
 
+	String selectPhoto(String memPhoto);  // 다솔 추가 - board 사용자 사진
+
 }

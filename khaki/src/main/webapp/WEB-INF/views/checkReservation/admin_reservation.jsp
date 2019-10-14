@@ -67,7 +67,7 @@
 			 		  $("#refund_btn_td"+i).append("<button type='button' class='btn btn-outline-danger' id='refund_btn"+i+"''>환불완료</button>");
 			  		  $("#admin_reservation_rfImg"+i).append("<img src='https://image.flaticon.com/icons/svg/1828/1828748.svg' style='width: 13%; float: left;'>");
 			 	  } else if(data == "N") {
-			  		  $("#refund_btn_td"+i).append("<button type='button' class='btn btn-outline-default' id='refund_btn"+i+"' title='아임포트 관리자에서 환불승인 된 주문건에 한해 클릭하세요.'>환불처리</button>");
+			  		  $("#refund_btn_td"+i).append("<button type='button' class='btn btn-outline-default' id='refund_btn"+i+"' title='아임포트 관리자에서 환불승인 된 주문만 클릭하세요.'>환불처리</button>");
 			  		  $("#admin_reservation_rfImg"+i).append("<img src='https://image.flaticon.com/icons/svg/1828/1828748.svg' style='width: 13%; float: left;'>");
 			 	  } else {
 			 	  }
@@ -105,8 +105,13 @@
 	 		
 	 		var st = $("#startTime"+i).text().split("");
 	 		$("#startTime"+i).text(st[0]+st[1]+"."+st[2]+st[3]+"."+st[4]+st[5]+" "+st[6]+st[7]+":"+st[8]+st[9]);
-	 		var et = $("#endTime"+i).text().split("");
-	 		$("#endTime"+i).text(et[0]+et[1]+"."+et[2]+et[3]+"."+et[4]+et[5]+" "+et[6]+et[7]+":"+et[8]+et[9]);
+	 		var endTime = $("#endTime"+i).text();
+	 		if(endTime != "환불") {
+	 			var et = $("#endTime"+i).text().split("");
+		 		$("#endTime"+i).text(et[0]+et[1]+"."+et[2]+et[3]+"."+et[4]+et[5]+" "+et[6]+et[7]+":"+et[8]+et[9]);	 			
+	 		} else {
+	 		}
+	 		
 	 		var cp = $("#admin_reservation_coupon"+i).text();
 	 		if(cp == "- 쿠폰 선택 -") {
 	 			$("#admin_reservation_coupon"+i).text("-");
@@ -359,6 +364,7 @@
           		</div>
           	</div>
           </div>
+          
   <!--   Core   -->
   <script src="resources/assets/js/plugins/jquery/dist/jquery.min.js"></script>
   <script src="resources/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

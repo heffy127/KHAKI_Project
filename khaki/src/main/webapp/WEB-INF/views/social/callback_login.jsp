@@ -11,7 +11,7 @@
 <script type="text/javascript">
   var naver_id_login = new naver_id_login("FeRQ2NAEFDfGZe9uWQc8", "http://localhost:9999/khaki/callback_login.do");
   // 접근 토큰 값 출력
- /*  swal(naver_id_login.oauthParams.access_token); */
+ /*  alert(naver_id_login.oauthParams.access_token); */
   // 네이버 사용자 프로필 조회
   naver_id_login.get_naver_userprofile("naverSignInCallback()");
   // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
@@ -32,7 +32,7 @@
 				window.close()
 				
 			}else{
-				swal("네이버 소셜 로그인 가입정보가 없습니다.\n회원가입 페이지로 이동합니다.")
+				alert("네이버 소셜 로그인 가입정보가 없습니다.\n회원가입 페이지로 이동합니다.")
 				opener.parent.location.replace("register.do");
 				window.close()
 			}

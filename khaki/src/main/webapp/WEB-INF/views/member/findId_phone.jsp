@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link href="resources/assets/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
-<link href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
-<link href="resources/assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+<link href="resources/assets/js/plugins/nucleo/css/nucleo.css"
+	rel="stylesheet" />
+<link
+	href="resources/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css"
+	rel="stylesheet" />
+<link href="resources/assets/css/argon-dashboard.css?v=1.1.0"
+	rel="stylesheet" />
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://unpkg.com/sweetswal/dist/sweetswal.min.js"></script>
 <script type="text/javascript">
 $(document).ready(
@@ -48,7 +53,9 @@ $(document).ready(
 							
 						}else{
 							swal("등록된 전화번호가 없습니다.")
-							location.reload(true);
+							.then((value) => {
+								location.reload(true);
+							});
 						}
 					}
 				})
@@ -61,37 +68,31 @@ $(document).ready(
 <body>
 	<form action="findId_phone_go.do" name="findId_phone" id="findId_phone">
 		<div align="center">
-		<br>
-			<h4>회원가입 시 등록하신 정보를 입력해주세요.</h4><h4>문자로 아이디 정보를 보내드립니다.</h4>
-			<hr style="margin-top : 5px;">
-				<input type="text" class="form-control"
-					placeholder="이름" id="name" name="name" style="margin: 15px; width: 340px;">
+			<br>
+			<h4>회원가입 시 등록하신 정보를 입력해주세요.</h4>
+			<h4>문자로 아이디 정보를 보내드립니다.</h4>
+			<hr style="margin-top: 5px;">
+			<input type="text" class="form-control" placeholder="이름" id="name"
+				name="name" style="margin: 15px; width: 340px;">
 			<table>
 				<tr>
-					<td>
-						<input type="text" class="form-control" 
-						id="phone1" name="phone1" maxlength="3" placeholder="전화번호" style="width: 105px;">
-					</td>
-					<td>
-						-
-					</td>
-					<td>
-						<input type="text" class="form-control" 
-						id="phone2" name="phone2" maxlength="4" style="width: 105px;">
-					</td>
-					<td>
-						-
-					</td>
-					<td>
-						<input type="text" class="form-control" 
-						id="phone3" name="phone3" maxlength="4" style="width: 105px;">
-					</td>
+					<td><input type="text" class="form-control" id="phone1"
+						name="phone1" maxlength="3" placeholder="전화번호"
+						style="width: 105px;"></td>
+					<td>-</td>
+					<td><input type="text" class="form-control" id="phone2"
+						name="phone2" maxlength="4" style="width: 105px;"></td>
+					<td>-</td>
+					<td><input type="text" class="form-control" id="phone3"
+						name="phone3" maxlength="4" style="width: 105px;"></td>
 				</tr>
-			
+
 			</table>
-			<div class="g-recaptcha" data-sitekey="6LejpLQUAAAAAD75JKoObErN4BsK2U4QzBg7L9Fs" style="margin-top: 25px;"></div>
-			<button type="button" class="btn btn-success"
-				id="forPhoneBtn" style="height: 40px; margin-top: 25px;">문자발송</button>
+			<div class="g-recaptcha"
+				data-sitekey="6LejpLQUAAAAAD75JKoObErN4BsK2U4QzBg7L9Fs"
+				style="margin-top: 25px;"></div>
+			<button type="button" class="btn btn-success" id="forPhoneBtn"
+				style="height: 40px; margin-top: 25px;">문자발송</button>
 		</div>
 	</form>
 </body>

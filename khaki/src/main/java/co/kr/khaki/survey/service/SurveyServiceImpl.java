@@ -45,7 +45,7 @@ public class SurveyServiceImpl implements SurveyServiceInter {
     @Override
 	public Car_surveyResultDTO selectSurveyQ2() {
     	 
-    	 return surveyDAO.selectQ1();
+    	 return surveyDAO.selectQ2();
      }
      
      // 설문지 3번 문항 추출
@@ -55,7 +55,7 @@ public class SurveyServiceImpl implements SurveyServiceInter {
     @Override
 	public Car_surveyResultDTO selectSurveyQ3() {
     	 
-    	 return surveyDAO.selectQ1();
+    	 return surveyDAO.selectQ3();
      }
      
      // 설문지 4번 문항 추출
@@ -65,7 +65,7 @@ public class SurveyServiceImpl implements SurveyServiceInter {
     @Override
 	public Car_surveyResultDTO selectSurveyQ4() {
     	 
-    	 return surveyDAO.selectQ1();
+    	 return surveyDAO.selectQ4();
      }
      
      // 설문지 5번 문항 추출
@@ -75,7 +75,7 @@ public class SurveyServiceImpl implements SurveyServiceInter {
     @Override
 	public Car_surveyResultDTO selectSurveyQ5() {
     	 
-    	 return surveyDAO.selectQ1();
+    	 return surveyDAO.selectQ5();
      }
      
      // 설문지 추가의견 목록 추출

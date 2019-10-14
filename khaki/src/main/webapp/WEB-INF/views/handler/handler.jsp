@@ -42,8 +42,10 @@
   		$("#handler_btn").click(function(){ // handler_btn(핸들러 신청하기) 버튼 클릭 시
   			var id = '<%=(String)session.getAttribute("sessionId")%>';  // sessionId를 [id]라는 변수에 담아서
   			if(id == "null") {
-  				swal("로그인이 필요한 서비스 입니다.\n 로그인 후 이용 해주세요.");
-  				location.href="login.do";
+  				swal("로그인이 필요한 서비스 입니다.\n 로그인 후 이용 해주세요.")
+                .then((value) => {
+                	location.href="login.do";
+                });
   			} else {
   				$.ajax({ // ajax 실행
   	  		      url:"handlerUseCountCheck.do", // session id의 useCount(이용횟수)를 확인하기 위해 handlerUseCountCheck.do를 실행
