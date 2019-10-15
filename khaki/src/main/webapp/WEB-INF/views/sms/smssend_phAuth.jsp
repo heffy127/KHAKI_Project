@@ -165,50 +165,6 @@
         wr.write(data);
         wr.flush();
 
-        // 결과값 얻기
-        BufferedReader rd = new BufferedReader(new InputStreamReader(socket.getInputStream(),charsetType));
-        String line;
-        String alert = "";
-        ArrayList tmpArr = new ArrayList();
-        while ((line = rd.readLine()) != null) {
-            tmpArr.add(line);
-        }
-        wr.close();
-        rd.close();
-
-        String tmpMsg = (String)tmpArr.get(tmpArr.size()-1);
-        String[] rMsg = tmpMsg.split(",");
-        String Result= rMsg[0]; //발송결과
-        String Count= ""; //잔여건수
-        if(rMsg.length>1) {Count= rMsg[1]; }
-
-                        //발송결과 알림
-        if(Result.equals("success")) {
-            alert = "성공적으로 발송하였습니다.";
-            alert += " 잔여건수는 "+ Count+"건 입니다.";
-        }
-        else if(Result.equals("reserved")) {
-            alert = "성공적으로 예약되었습니다";
-            alert += " 잔여건수는 "+ Count+"건 입니다.";
-        }
-        else if(Result.equals("3205")) {
-            alert = "잘못된 번호형식입니다.";
-        }
-        else {
-            alert = "[Error]"+Result;
-        }
-
-        out.println(nointeractive);
-
-        if(nointeractive.equals("1") && !(Result.equals("Test Success!")) && !(Result.equals("success")) && !(Result.equals("reserved")) ) {
-            out.println("<script>alert('" + alert + "')</script>");
-        }
-        else if(!(nointeractive.equals("1"))) {
-            out.println("<script>alert('" + alert + "')</script>");
-        }
-
-
-        out.println("<script>location.href='"+returnurl+"';</script>");
     }
 	
     

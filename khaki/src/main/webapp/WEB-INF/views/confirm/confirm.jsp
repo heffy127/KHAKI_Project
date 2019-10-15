@@ -935,9 +935,6 @@
                            url:"burumService.do",
                            data : params,
                            success:function(data){
-                              swal("부름 서비스 신청이 완료 되었습니다.\n요청하신 주소로 차량이 이동 될 예정입니다.")
-                              .then((value) => {
-                              });
                            },
                            error : function(xhr, status) {
                               swal(xhr + " : " + status);
@@ -948,7 +945,6 @@
                                           
                                           
                      if($("#po").val() != "0") {
-                        swal($("#pointUseInput").val());
                         $.ajax({
                            url:"pointUseInput.do",
                            data : {

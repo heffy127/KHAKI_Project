@@ -156,7 +156,7 @@
         <input type="text" name="returnurl" maxlength="64" value=""> -->
         
 
-        <input type="hidden" name="testflag" maxlength="1" value="Y"> <!-- 테스트는 Y -->
+        <input type="hidden" name="testflag" maxlength="1" value=""> <!-- 테스트는 Y -->
         <!-- 예) 테스트시: Y -->
         
         <!-- <br />nointeractive
