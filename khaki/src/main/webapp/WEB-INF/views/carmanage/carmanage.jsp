@@ -26,7 +26,7 @@
 				// 페이지 이동 식으로
 				//swal("검색!!")
 				var search_obj_check = $("#search_obj").val()
-				swal("과연 : " + search_obj_check)
+				//swal("과연 : " + search_obj_check)
 				// onsubmit="return false;"
 				if(search_obj_check==''){
 					$("#search_form").attr('onsubmit','return false;');	//submit 기능 하지 않도록 제어

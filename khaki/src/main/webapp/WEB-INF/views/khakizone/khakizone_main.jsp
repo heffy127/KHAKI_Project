@@ -538,8 +538,6 @@
 		 	var z_x = parseFloat(z_location_x);
 		 	//선택된 div의 위도값
 		 	var z_y = parseFloat(z_location_y);
-		 	//swal(typeof z_x);
-		 	//swal(typeof z_y);
 		 	
 		 	// markers배열에 담긴 marker들을 가져와 좌표값을 비교해서 선택된 마커면 기본이미지로 돌리고, 현재 선택된 마커를 selectedMarker로 설정
 		 	for (var i = 0; i < markers.length; i++) {
@@ -577,14 +575,15 @@
 			var li_zone_num = $("#zone_num").val();
 			$.ajax({
 			    url: "zone_numCheck.do",
-			    //type: "",
-			    //cache: ,
-			    //dataType: "",
 			    data: {
 			    	"zone_num":li_zone_num
 			    	},
 			    success: function(result){	//select 해올 데이터가 있으면 success 동작
-			    	$("#zone_comment").text(result+"\n\n상기 차량(들)을 다른 카키존으로 이관시킨 후에 삭제해주세요!");
+			    	if(result == "" || result==null){
+			    		location.href="khakizone_delete.do?zone_num="+li_zone_num;
+			    	}else{
+				    	$("#zone_comment").text(result+"\n\n상기 차량(들)을 다른 카키존으로 이관시킨 후에 삭제해주세요!");
+			    	}
 			    },
 			    error: function (){	// select해올 것이 없으면 error 동작
 			    	location.href="khakizone_delete.do?zone_num="+li_zone_num;

@@ -17,15 +17,6 @@ public class CarList {
 	// 경형 = 준중형, 소형 = 소형, 준중형 = semi-중형, 중형 = 중형, 소형SUV = 준중형_SUV, SUV = SUV
 	
 	private String[] brands = {"현대", "르노삼성", "기아", "쉐보레", "쌍용"};
-
-	/*
-	 * 해쉬맵을 사용하고자 했으나 기각;;
-	 * private Map<String, Integer> fee_kms = new HashMap<String, Integer>() {{
-		put("소형",150);
-		put("준중형",160);
-		put("중형",170);
-		put("SUV",180);
-	}};*/
 	
 	// 제조사/차량명/사이즈/연료 순으로 정리
 	private String[] carsList = {

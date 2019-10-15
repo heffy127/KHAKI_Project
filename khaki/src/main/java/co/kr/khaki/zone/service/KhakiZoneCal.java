@@ -48,24 +48,17 @@ public class KhakiZoneCal {
 				if(max_x < arr_x[i]) {
 					max_x = arr_x[i];
 				}
-				
 				if(min_x > arr_x[i]) {
 					min_x = arr_x[i];
 				}
-				
 				// 편의상 반복횟수가 같기 때문에 활용
 				if(max_y < arr_y[i]) {
 					max_y = arr_y[i];
 				}
-				
 				if(min_y > arr_y[i]) {
 					min_y = arr_y[i];
 				}
 			}
-			
-			//System.out.println("x좌표 합 : "+sum_x+", y좌표 합 : "+sum_y);
-			//System.out.println("x max : "+max_x+", x min : "+min_x + ", y max : "+max_y+", y min ; "+min_y);
-			
 			float between_x = max_x - min_x;
 			float between_y = max_y - min_y;
 			
