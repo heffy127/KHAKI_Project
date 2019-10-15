@@ -155,8 +155,6 @@ selectZoneNum = "";
 </script>
 <!-- ajax  -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- 주소 api -->
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <!-- Favicon -->
 <link href="resources/assets/img/brand/favicon.png" rel="icon" type="image/png">
 <!-- Fonts -->
@@ -169,6 +167,7 @@ selectZoneNum = "";
 <!-- 지도 api -->
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1148d6f91cf7fd9a3c17408122e52f57&libraries=services"></script>
 <!-- 주소 api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
    function sample5_execDaumPostcode() {
       new daum.Postcode({
@@ -203,7 +202,8 @@ selectZoneNum = "";
 <script type="text/javascript">
 function loadView(x,y) {
 	$('#loadViewDIV').empty();
-	$('#loadViewDIV').append("<iframe src='loadView.do?x="+ y + "&y="+ x +"' style='width: 100%; height: 430px;'></iframe>");
+	$('#loadViewDIV').append("<iframe src='loadView.do?x="+ y + "&y="+ x 
+			+"' style='width: 100%; height: 430px;'></iframe>");
 }
 </script>
   <script type="text/javascript">
@@ -421,9 +421,9 @@ function loadView(x,y) {
          url : "search1.do",
          data : {'buy_carModel' : buy_carModel},
          error : function(error) {
-            alert("오류발생" + error);
+            alert("입력한 차종의 차량들 가져오는 AJAX 오류발생" + error);
          },
-         success : function(data) { //data : 30허1111,3★30허1111,3★
+         success : function(data) {
         	if(data.trim()==""){
         		alert("조건에 만족하는 회사가 없습니다. 시간이나 차종을 다시 선택하세요.")
         	}
@@ -437,8 +437,8 @@ function loadView(x,y) {
                /* 반납시간으로 비교한 값 */
                /* 두 값 비교하여 예약가능여부 도출 */
                // DB에서 가져온 자료들 temp1
-               temp1[0]=temp1[0].trim(); // 30호1111
-               temp1[1]=temp1[1].trim(); // 3
+               temp1[0]=temp1[0].trim(); 
+               temp1[1]=temp1[1].trim(); 
                $.ajax({ //-----------------------------------------------------
                   type:"POST",
                   url : "search2.do",
@@ -448,7 +448,7 @@ function loadView(x,y) {
                      'buy_carNum':temp1[0]
                   },
                   error : function(error) {
-                     alert("오류발생" + error);
+                     alert("조건으로 검색된 존 넘버 가져오는 AJAX 오류발생" + error);
                   },
                   success : function(data) { // 조건에 만족하는 차량정보들을 나열한 문자 : data
                      ee = ee+1;
@@ -510,13 +510,13 @@ function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모�
    $("#carList").empty(); //기존에 있던 내용 지움
    $("#markerAddr").empty(); //기존에 있던 내용 지움
    $("#markerAddr").append(
-		   '<h2 class="badge badge-pill badge-primary">'+zone_addr[i-1]+'</h2>'
+		   '<h2 class="badge badge-pill badge-primary">'+zone_addr[i]+'</h2>'
 			 );
    $.ajax({
       type : "POST",
       url : "carListInfo.do",
       data : {
-         'zoneNum' : i
+         'zoneNum' : i+1
       },
       error : function(error) {
          alert("오류발생" + error);
@@ -546,18 +546,20 @@ function carListInfo(i) { //마컴를 클릭하면 해당 존 차량들을 모�
         				 );
 	         if(xxxx.indexOf(x2[3])==(-1)){
 	        	 
-	        	 $("#carList").append( // 마커클릭 후 오른쪽에 추가되는 내용들
+	          $("#carList").append( // 마커클릭 후 오른쪽에 추가되는 내용들
 	     	            '<tr><td width="30%"><img alt="" src="'+x2[2]+'" width="80%"></td>'
 	     	            +'<td width="30%"><strong>'+x2[0]+'</strong></td>'
 	     	            +'<td width="30%">'+x2[4]+" / "+x2[1]+'% </td>'
-	     	            +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-danger" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'" disabled>'+x2[6]+'</button></td></tr>'
+	     	            +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-danger"'
+	     	            +' onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'" disabled>'+x2[6]+'</button></td></tr>'
 	     	         );	 
 	         } else {
 				$("#carList").append( // 마커클릭 후 오른쪽에 추가되는 내용들
 	        	          '<tr><td width="30%"><img alt="" src="'+x2[2]+'" width="80%"></td>'
 	        	          +'<td width="30%"><strong>'+x2[0]+'</strong></td>'
 	        	          +'<td width="30%">'+x2[4]+" / "+x2[1]+'% </td>'
-	        	          +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-info" onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'">'+x2[6]+'</button></td></tr>'
+	        	          +'<td width="30%"><button id="res_start" type="button" class="btn btn-outline-info"'
+	        	          +' onclick="inputCheck()" data-toggle="modal" data-target="#reservation" value="'+x3+'">'+x2[6]+'</button></td></tr>'
 	        	      );	 
 	         }
          }
@@ -1183,30 +1185,12 @@ $(document).ready(
                                           <table>
                                              <tr>
                                                 <td style="width: 30%">
-                                                   <img alt="" src="resources/assets/img/car/spark.png" width="100%">
-                                                </td>
-                                                <td>
-                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_1('SPARK')">SPARK</button>
-                                                </td>
-                                             </tr>
-                                             <tr>
-                                                <td style="width: 30%">
-                                                   <img alt="" src="resources/assets/img/car/morning.png" width="100%">
-                                                </td>
-                                                <td>
-                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_1('MORNING')">MORNING</button>
-                                                </td>
-                                             </tr>
-                                             <tr>
-                                                <td style="width: 30%">
                                                    <img alt="" src="resources/assets/img/car/ray.png" width="100%">
                                                 </td>
                                                 <td>
                                                    <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_1('ray')">RAY</button>
                                                 </td>
                                              </tr>
-                                             
-                                             
                                           </table>
                                        </div>
                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1232,31 +1216,15 @@ $(document).ready(
                                                    <img alt="" src="resources/assets/img/car/k3.png" width="100%">
                                                 </td>
                                                 <td>
-                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('K3')">K3</button>
+                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('k3')">K3</button>
                                                 </td>
                                              </tr>
                                              <tr>
                                                 <td style="width: 30%">
-                                                   <img alt="" src="resources/assets/img/car/i30.png" width="100%">
+                                                   <img alt="" src="resources/assets/img/car/pride.png" width="100%">
                                                 </td>
                                                 <td>
-                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('I30')">I30</button>
-                                                </td>
-                                             </tr>
-                                             <tr>
-                                                <td style="width: 30%">
-                                                   <img alt="" src="resources/assets/img/car/clio.png" width="100%">
-                                                </td>
-                                                <td>
-                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('CLIO')">CLIO</button>
-                                                </td>
-                                             </tr>
-                                             <tr>
-                                                <td style="width: 30%">
-                                                   <img alt="" src="resources/assets/img/car/ioniq.png" width="100%">
-                                                </td>
-                                                <td>
-                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('IONIQ')">IONIQ</button>
+                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('pride')">PRIDE</button>
                                                 </td>
                                              </tr>
                                              <tr>
@@ -1264,7 +1232,7 @@ $(document).ready(
                                                    <img alt="" src="resources/assets/img/car/avante.png" width="100%">
                                                 </td>
                                                 <td>
-                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('AVANTE')">AVANTE</button>
+                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('avante')">AVANTE</button>
                                                 </td>
                                              </tr>
                                              <tr>
@@ -1304,7 +1272,7 @@ $(document).ready(
                                                    <img alt="" src="resources/assets/img/car/stinger.png" width="100%">
                                                 </td>
                                                 <td>
-                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('STINGER')">STINGER</button>
+                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('stinger')">STINGER</button>
                                                 </td>
                                              </tr>
                                              <tr>
@@ -1321,22 +1289,6 @@ $(document).ready(
                                                 </td>
                                                 <td>
                                                    <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('k7')">K7</button>
-                                                </td>
-                                             </tr>
-                                             <tr>
-                                                <td style="width: 30%">
-                                                   <img alt="" src="resources/assets/img/car/pride.png" width="100%">
-                                                </td>
-                                                <td>
-                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('pride')">PRIDE</button>
-                                                </td>
-                                             </tr>
-                                             <tr>
-                                                <td style="width: 30%">
-                                                   <img alt="" src="resources/assets/img/car/soranto.png" width="100%">
-                                                </td>
-                                                <td>
-                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('soranto')">SORANTO</button>
                                                 </td>
                                              </tr>
                                              <tr>
@@ -1360,7 +1312,7 @@ $(document).ready(
                                                    <img alt="" src="resources/assets/img/car/sm6.png" width="100%">
                                                 </td>
                                                 <td>
-                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('SM6')">SM6</button>
+                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('sm6')">SM6</button>
                                                 </td>
                                              </tr>
                                              
@@ -1386,26 +1338,34 @@ $(document).ready(
                                           <table>
                                              <tr>
                                                 <td style="width: 30%">
-                                                   <img alt="" src="resources/assets/img/car/kona.png" width="100%">
+                                                   <img alt="" src="resources/assets/img/car/soranto.png" width="100%">
                                                 </td>
                                                 <td>
-                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('KONA')">KONA</button>
+                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_2('soranto')">SORANTO</button>
                                                 </td>
                                              </tr>
                                              <tr>
                                                 <td style="width: 30%">
-                                                   <img alt="" src="resources/assets/img/car/stonic.png" width="100%">
+                                                   <img alt="" src="resources/assets/img/car/tivoli.png" width="100%">
                                                 </td>
                                                 <td>
-                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('STONIC')">STONIC</button>
+                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('tivoli')">TIVOLI</button>
+                                                </td>
+                                             </tr>
+                                               <tr>
+                                                <td style="width: 30%">
+                                                   <img alt="" src="resources/assets/img/car/tivoli_air.png" width="100%">
+                                                </td>
+                                                <td>
+                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('tivoli_air')">TIVOLI_air</button>
                                                 </td>
                                              </tr>
                                              <tr>
                                                 <td style="width: 30%">
-                                                   <img alt="" src="resources/assets/img/car/palisade.png" width="100%">
+                                                   <img alt="" src="resources/assets/img/car/tucson.png" width="100%">
                                                 </td>
                                                 <td>
-                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('PALISADE')">PALISADE</button>
+                                                   <button type="button" class="btn btn-outline-default" data-toggle="modal" data-target="#reservation3" onclick="modalClose2_3('tucson')">TUCSON</button>
                                                 </td>
                                              </tr>
                                              <tr>
@@ -1589,8 +1549,8 @@ $(document).ready(
                         <div style="width: 100%">
                         <!-- 마커를 클릭했을 때 주소가 들어갈 장소 -->
                         <div id = "markerAddr"></div>
-                           <div style="width: 100%;">
-                              <table class="table align-items-center table-flush" style="width: 100%;">
+                           <div style="width: 100%; ">
+                              <table class="table align-items-center table-flush" style="width: 100%; height: 40px;">
                                  <thead class="thead-light">
                                     <tr>
                                        <td>차종</td>
@@ -1601,8 +1561,8 @@ $(document).ready(
                                  </thead>
                               </table>
                               <!------------------------------------------------------------->
-                              <div style="width: 106%; height: 100%;">
-                              <div class="alert alert-secondary" role="alert"><table id="carList">
+                              <div style="width: 106%; height: 270px; overflow: scroll;">
+                              <div class="alert alert-secondary" role="alert" style="height:100%;"><table id="carList" style="height: 100%; ">
                               </table></div>
                               <!---------------------------------------------------------------------------->
                               </div>
@@ -1659,7 +1619,7 @@ $(document).ready(
                 	System.out.println(loc_name);
                 	%>
                 	zone_addr.push("<%=loc_name%>");
-                	<%                	}                	%>
+                	<%     }    %>
                 $.ajax({
                 	url : "khakizone_map.do",
                 	success : function(result) {
@@ -1680,7 +1640,8 @@ $(document).ready(
 	                
                     	var mapContainer = document.getElementById('map'); // 지도를 표시할 div
                         var mapOption = {
-                           center : new kakao.maps.LatLng(sessionStorage.getItem('preLoc_x'),sessionStorage.getItem('preLoc_y')), // 지도의 중심좌표 > 회원정보에 입력된 주소를 좌표로 변환하여 입력됨
+                           center : new kakao.maps.LatLng(sessionStorage.getItem('preLoc_x'),sessionStorage.getItem('preLoc_y')),
+                           // 지도의 중심좌표 > 현재 접속된 IP 주소로 현재위치를 좌표로 변환하여 입력됨
                            level : 5
                         // 지도의 확대 레벨 
                         };
@@ -1777,7 +1738,7 @@ $(document).ready(
                                        markers[1] = markers[1].toFixed(5);
 
                                        if (markers[0] == selected[0] && markers[1] == selected[1]) { // 선택된 좌표와 입력되어있던 좌표가 같을 경우
-                                          selectNum = selectZoneNum[i]+1; // 선택된것 중 순번 > 절대순번을 찾아서 보냄
+                                          selectNum = selectZoneNum[i]; // 선택된것 중 순번 > 절대순번을 찾아서 보냄
                                           $('#zoneNumber').val(selectNum);
                                           carListInfo(selectNum); // 마커 번호와 함께 전송, 함수실행
                                     	  loadView(markers[0],markers[1]);

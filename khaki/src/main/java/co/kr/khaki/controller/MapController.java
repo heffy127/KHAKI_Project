@@ -31,10 +31,8 @@ public class MapController {
 	return "map/map";
 	}
 
-	@RequestMapping("mapReset.do")
+	@RequestMapping("mapReset.do") // 시간, 차종 입력 후 가능한 차량 추려지게해줌
 	public String mapReset(Model model, String selectZoneNum, String startTime, String endTime, String carNums) {
-		System.out.println("MAP컨트롤러에서의 zones 값 : " + selectZoneNum);
-		// 받아온 String 값을 세션에 넣어야 함
 		List<KhakiZoneDTO> list = kdao.selectAll();
 		model.addAttribute("selectZoneNum1", selectZoneNum);
 		model.addAttribute("selectCarNum", carNums);
@@ -59,10 +57,8 @@ public class MapController {
 
 	@RequestMapping("carListInfo.do") // 마커를 클릭했을 때 오른쪽 창에 차량목록표시
 	public String carListInfo(Model model, Integer zoneNum) {
-		System.out.println("1 컨트롤러 : " + zoneNum);
 		List<CarDTO> list = cdao.carListInfo(zoneNum);
 		model.addAttribute("carList", list);
-		System.out.println("4 컨트롤러 : " + list.size());
 		return "map/carListInfo";
 	}
 
